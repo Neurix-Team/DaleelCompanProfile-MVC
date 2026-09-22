@@ -1,0 +1,92 @@
+@{
+    ViewData["Title"] = "Partners";
+}
+
+<section class="relative py-32 overflow-hidden transition-colors duration-300">
+    <!-- Ambient Background Glows -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] rounded-[100%] bg-[#00B2EC]/10 blur-[100px] dark:bg-[#00B2EC]/5"></div>
+    </div>
+
+    <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8">
+
+        <!-- Page Header -->
+        <div class="text-center max-w-3xl mx-auto mb-20" data-animate="fade-up">
+             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#00B2EC]/10 via-[#10B981]/10 to-[#fdc70c]/10 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-300 font-['Inter'] text-xs font-semibold tracking-wide mb-6">
+                <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">handshake</span>
+                    @SharedLocalizer["PartnersGlobalNetwork"] 
+            </div>
+            <h1 class="font-['Poppins'] text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 dark:text-white leading-tight mb-6">
+                @SharedLocalizer["PartnersHeading"]
+            </h1>
+            <p class="font-['Inter'] text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
+                @SharedLocalizer["PartnersDesc"]
+            </p>
+        </div>
+
+        <!-- Partners Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-24 relative">
+            <!-- Ambient Grid Glow -->
+            <div class="absolute inset-0 bg-gradient-to-r from-[#00B2EC]/10 via-transparent to-[#10B981]/10 rounded-3xl blur-3xl pointer-events-none"></div>
+
+            <div class="group relative bg-white/40 dark:bg-[#0A192F]/40 backdrop-blur-xl border border-white/20 dark:border-white/5 flex flex-col items-center justify-center p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,178,236,0.3)] hover:border-[#00B2EC]/30 cursor-default overflow-hidden" data-animate="fade-up" data-delay="1">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#00B2EC]/0 to-[#00B2EC]/0 group-hover:from-[#00B2EC]/10 group-hover:to-transparent transition-all duration-500"></div>
+                <span class="material-symbols-outlined text-4xl text-slate-400 group-hover:text-[#00B2EC] transition-colors duration-500 mb-3 transform group-hover:scale-110 group-hover:rotate-3" style="font-variation-settings: 'FILL' 1;">database</span>
+                <h3 class="font-['Poppins'] text-lg sm:text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#00B2EC] transition-colors duration-500">AlphaData</h3>
+            </div>
+            
+            <div class="group relative bg-white/40 dark:bg-[#0A192F]/40 backdrop-blur-xl border border-white/20 dark:border-white/5 flex flex-col items-center justify-center p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.3)] hover:border-[#10B981]/30 cursor-default overflow-hidden" data-animate="fade-up" data-delay="2">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#10B981]/0 to-[#10B981]/0 group-hover:from-[#10B981]/10 group-hover:to-transparent transition-all duration-500"></div>
+                <span class="material-symbols-outlined text-4xl text-slate-400 group-hover:text-[#10B981] transition-colors duration-500 mb-3 transform group-hover:scale-110 group-hover:-rotate-3" style="font-variation-settings: 'FILL' 1;">store</span>
+                <h3 class="font-['Poppins'] text-lg sm:text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#10B981] transition-colors duration-500">TradeCorp</h3>
+            </div>
+            
+            <div class="group relative bg-white/40 dark:bg-[#0A192F]/40 backdrop-blur-xl border border-white/20 dark:border-white/5 flex flex-col items-center justify-center p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(249,160,27,0.3)] hover:border-[#F9A01B]/30 cursor-default overflow-hidden" data-animate="fade-up" data-delay="3">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#F9A01B]/0 to-[#F9A01B]/0 group-hover:from-[#F9A01B]/10 group-hover:to-transparent transition-all duration-500"></div>
+                <span class="material-symbols-outlined text-4xl text-slate-400 group-hover:text-[#F9A01B] transition-colors duration-500 mb-3 transform group-hover:scale-110 group-hover:rotate-3" style="font-variation-settings: 'FILL' 1;">public</span>
+                <h3 class="font-['Poppins'] text-lg sm:text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#F9A01B] transition-colors duration-500">GeoAnalytics</h3>
+            </div>
+            
+            <div class="group relative bg-white/40 dark:bg-[#0A192F]/40 backdrop-blur-xl border border-white/20 dark:border-white/5 flex flex-col items-center justify-center p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,178,236,0.3)] hover:border-[#00B2EC]/30 cursor-default overflow-hidden" data-animate="fade-up" data-delay="4">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#00B2EC]/0 to-[#00B2EC]/0 group-hover:from-[#00B2EC]/10 group-hover:to-transparent transition-all duration-500"></div>
+                <span class="material-symbols-outlined text-4xl text-slate-400 group-hover:text-[#00B2EC] transition-colors duration-500 mb-3 transform group-hover:scale-110 group-hover:-rotate-3" style="font-variation-settings: 'FILL' 1;">cloud_done</span>
+                <h3 class="font-['Poppins'] text-lg sm:text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#00B2EC] transition-colors duration-500">SecureCloud</h3>
+            </div>
+            
+            <div class="group relative bg-white/40 dark:bg-[#0A192F]/40 backdrop-blur-xl border border-white/20 dark:border-white/5 flex flex-col items-center justify-center p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.3)] hover:border-[#10B981]/30 cursor-default overflow-hidden" data-animate="fade-up" data-delay="5">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#10B981]/0 to-[#10B981]/0 group-hover:from-[#10B981]/10 group-hover:to-transparent transition-all duration-500"></div>
+                <span class="material-symbols-outlined text-4xl text-slate-400 group-hover:text-[#10B981] transition-colors duration-500 mb-3 transform group-hover:scale-110 group-hover:rotate-3" style="font-variation-settings: 'FILL' 1;">psychology</span>
+                <h3 class="font-['Poppins'] text-lg sm:text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#10B981] transition-colors duration-500">NexusAI</h3>
+            </div>
+            
+            <div class="group relative bg-white/40 dark:bg-[#0A192F]/40 backdrop-blur-xl border border-white/20 dark:border-white/5 flex flex-col items-center justify-center p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(249,160,27,0.3)] hover:border-[#F9A01B]/30 cursor-default overflow-hidden" data-animate="fade-up" data-delay="6">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#F9A01B]/0 to-[#F9A01B]/0 group-hover:from-[#F9A01B]/10 group-hover:to-transparent transition-all duration-500"></div>
+                <span class="material-symbols-outlined text-4xl text-slate-400 group-hover:text-[#F9A01B] transition-colors duration-500 mb-3 transform group-hover:scale-110 group-hover:-rotate-3" style="font-variation-settings: 'FILL' 1;">hub</span>
+                <h3 class="font-['Poppins'] text-lg sm:text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#F9A01B] transition-colors duration-500">GlobalLink</h3>
+            </div>
+            
+            <div class="group relative bg-white/40 dark:bg-[#0A192F]/40 backdrop-blur-xl border border-white/20 dark:border-white/5 flex flex-col items-center justify-center p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(0,178,236,0.3)] hover:border-[#00B2EC]/30 cursor-default overflow-hidden" data-animate="fade-up" data-delay="7">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#00B2EC]/0 to-[#00B2EC]/0 group-hover:from-[#00B2EC]/10 group-hover:to-transparent transition-all duration-500"></div>
+                <span class="material-symbols-outlined text-4xl text-slate-400 group-hover:text-[#00B2EC] transition-colors duration-500 mb-3 transform group-hover:scale-110 group-hover:rotate-3" style="font-variation-settings: 'FILL' 1;">insights</span>
+                <h3 class="font-['Poppins'] text-lg sm:text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#00B2EC] transition-colors duration-500">VertexData</h3>
+            </div>
+            
+            <div class="group relative bg-white/40 dark:bg-[#0A192F]/40 backdrop-blur-xl border border-white/20 dark:border-white/5 flex flex-col items-center justify-center p-8 rounded-3xl transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_40px_-15px_rgba(16,185,129,0.3)] hover:border-[#10B981]/30 cursor-default overflow-hidden" data-animate="fade-up" data-delay="8">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#10B981]/0 to-[#10B981]/0 group-hover:from-[#10B981]/10 group-hover:to-transparent transition-all duration-500"></div>
+                <span class="material-symbols-outlined text-4xl text-slate-400 group-hover:text-[#10B981] transition-colors duration-500 mb-3 transform group-hover:scale-110 group-hover:-rotate-3" style="font-variation-settings: 'FILL' 1;">stream</span>
+                <h3 class="font-['Poppins'] text-lg sm:text-xl font-bold text-slate-900 dark:text-white group-hover:text-[#10B981] transition-colors duration-500">Omicron</h3>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="text-center" data-animate="fade-up" data-delay="9">
+            <p class="font-['Inter'] text-slate-500 dark:text-slate-400 text-sm mb-6">@SharedLocalizer["PartnersEcosystemCTA"]</p>
+            <a asp-controller="Home" asp-action="PartnerRegistration"
+                class="inline-flex items-center gap-2 bg-[#00B2EC] text-white px-8 py-4 rounded-xl font-['Inter'] font-semibold text-base shadow-lg shadow-[#00B2EC]/20 hover:shadow-xl hover:shadow-[#00B2EC]/30 active:scale-95 transition-all duration-300">
+                @SharedLocalizer["BecomePartner"]
+                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+            </a>
+        </div>
+
+    </div>
+</section>

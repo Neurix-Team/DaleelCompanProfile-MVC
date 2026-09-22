@@ -1,0 +1,199 @@
+@model Daleel.DAL.Entities.Deal
+@using Daleel.DAL.Entities
+@{
+    Layout = "_CrmLayout";
+    ViewData["Title"] = Model.Name;
+    var confirmText = System.Text.Encodings.Web.JavaScriptEncoder.Default.Encode(
+        $"Delete {Model.Name}? This cannot be undone.");
+    var isOverdue = !Model.IsClosed && Model.ExpectedCloseDate.HasValue
+        && Model.ExpectedCloseDate.Value.Date < DateTime.UtcNow.Date;
+}
+
+<div class="max-w-4xl">
+
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <a asp-action="Index" class="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors">
+            <span class="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_back</span>
+            @SharedLocalizer["CrmBackToDeals"]
+        </a>
+
+        <div class="flex items-center gap-2">
+            <a asp-action="Edit" asp-route-id="@Model.Id"
+               class="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">edit</span>
+                @SharedLocalizer["CrmEdit"]
+            </a>
+            <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="inline"
+                  onsubmit="return confirm('@Html.Raw(confirmText)');">
+                @Html.AntiForgeryToken()
+                <button type="submit"
+                        class="inline-flex items-center gap-2 rounded-lg border border-red-200 dark:border-red-500/25 text-red-600 dark:text-red-400 text-sm px-4 py-2.5 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                    @SharedLocalizer["CrmDelete"]
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6 sm:p-8 mb-6">
+
+        <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
+            <div class="min-w-0">
+                <h2 class="font-poppins font-semibold text-xl text-brand-navy dark:text-white break-words">@Model.Name</h2>
+                <p class="mt-2 font-poppins font-semibold text-2xl text-[#00B2EC]">
+                    @Model.Value.ToString("N2") <span class="text-base text-slate-400">@Model.Currency</span>
+                </p>
+            </div>
+            <partial name="_DealStageBadge" model="Model.Stage" />
+        </div>
+
+        <!-- Stage progress -->
+        <div class="mb-8">
+            <div class="flex items-center gap-1.5">
+                @{
+                    var openStages = new[] { DealStage.New, DealStage.Qualified, DealStage.Proposal, DealStage.Negotiation };
+                    var currentIndex = Array.IndexOf(openStages, Model.Stage);
+                }
+                @if (Model.Stage == DealStage.Won)
+                {
+                    <div class="h-1.5 flex-1 rounded-full bg-emerald-500"></div>
+                }
+                else if (Model.Stage == DealStage.Lost)
+                {
+                    <div class="h-1.5 flex-1 rounded-full bg-red-400"></div>
+                }
+                else
+                {
+                    @foreach (var s in openStages)
+                    {
+                        var reached = Array.IndexOf(openStages, s) <= currentIndex;
+                        <div class="h-1.5 flex-1 rounded-full @(reached ? "bg-[#00B2EC]" : "bg-slate-200 dark:bg-white/10")"
+                             title="@s"></div>
+                    }
+                }
+            </div>
+            <p class="mt-2 text-xs text-slate-400">
+                @if (Model.IsClosed)
+                {
+                    <text>@SharedLocalizer["CrmClosedAsStage"] @SharedLocalizer[$"CrmDealStage_{Model.Stage}"]</text>
+                }
+                else
+                {
+                    <text>@SharedLocalizer["CrmStageProgress"] @(currentIndex + 1) / @openStages.Length — @SharedLocalizer[$"CrmDealStage_{Model.Stage}"]</text>
+                }
+            </p>
+        </div>
+
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5 text-sm">
+            <div>
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmCompanyName"]</dt>
+                <dd class="mt-1 text-slate-700 dark:text-slate-200">
+                    @if (Model.Company is null)
+                    {
+                        <span class="text-slate-400">@SharedLocalizer["CrmNotLinkedToCompany"]</span>
+                    }
+                    else
+                    {
+                        <a asp-controller="CrmCompany" asp-action="Details" asp-route-id="@Model.Company.Id"
+                           class="inline-flex items-center gap-1.5 hover:text-[#00B2EC] transition-colors">
+                            <span class="material-symbols-outlined text-[18px]">apartment</span>
+                            @Model.Company.Name
+                        </a>
+                    }
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmPrimaryContact"]</dt>
+                <dd class="mt-1 text-slate-700 dark:text-slate-200">
+                    @if (Model.PrimaryContact is null)
+                    {
+                        <span class="text-slate-400">—</span>
+                    }
+                    else
+                    {
+                        <a asp-controller="CrmContact" asp-action="Details" asp-route-id="@Model.PrimaryContact.Id"
+                           class="inline-flex items-center gap-1.5 hover:text-[#00B2EC] transition-colors">
+                            <span class="material-symbols-outlined text-[18px]">person</span>
+                            @Model.PrimaryContact.FullName
+                        </a>
+                    }
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmExpectedCloseDate"]</dt>
+                <dd class="mt-1 @(isOverdue ? "text-red-600 dark:text-red-400 font-medium" : "text-slate-700 dark:text-slate-200")">
+                    @if (Model.ExpectedCloseDate.HasValue)
+                    {
+                        @Model.ExpectedCloseDate.Value.ToString("dd MMM yyyy")
+                        @if (isOverdue)
+                        {
+                            <span class="ms-2 text-xs">@SharedLocalizer["CrmOverdue"]</span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="text-slate-400">—</span>
+                    }
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmAssignedTo"]</dt>
+                <dd class="mt-1 text-slate-700 dark:text-slate-200">
+                    @if (Model.AssignedTo is null)
+                    {
+                        <span class="text-slate-400">@SharedLocalizer["CrmUnassigned"]</span>
+                    }
+                    else
+                    {
+                        @Model.AssignedTo.FullName
+                    }
+                </dd>
+            </div>
+        </dl>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Description))
+        {
+            <div class="mt-6 pt-6 border-t border-slate-200 dark:border-white/10">
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmDescription"]</dt>
+                <dd class="mt-2 text-sm text-slate-700 dark:text-slate-200 whitespace-pre-line">@Model.Description</dd>
+            </div>
+        }
+
+        <div class="mt-6 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-wrap gap-x-8 gap-y-2 text-xs text-slate-400 dark:text-slate-500">
+            <span>@SharedLocalizer["CrmCreated"] @Model.CreatedAt.ToString("dd MMM yyyy, HH:mm") UTC</span>
+            <span>@SharedLocalizer["CrmUpdated"] @Model.UpdatedAt.ToString("dd MMM yyyy, HH:mm") UTC</span>
+        </div>
+    </div>
+
+    <!-- Quick stage change -->
+    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6">
+        <h3 class="font-poppins font-semibold text-base text-brand-navy dark:text-white mb-4">@SharedLocalizer["CrmMoveToStage"]</h3>
+        <div class="flex flex-wrap gap-2">
+            @foreach (var s in Enum.GetValues<DealStage>())
+            {
+                if (s == Model.Stage)
+                {
+                    continue;
+                }
+                <form asp-action="Move" asp-route-id="@Model.Id" method="post" class="inline">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="stage" value="@s" />
+                    <input type="hidden" name="returnUrl" value="@Url.Action("Details", new { id = Model.Id })" />
+                    <button type="submit"
+                            class="rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/5 hover:border-[#00B2EC] transition-colors">
+                        @SharedLocalizer[$"CrmDealStage_{s}"]
+                    </button>
+                </form>
+            }
+        </div>
+    </div>
+
+    <div class="mt-6 space-y-6">
+        @await Component.InvokeAsync("RecordTasks", new { entityType = CrmEntityType.Deal, entityId = Model.Id })
+        @await Component.InvokeAsync("RecordActivity", new { entityType = CrmEntityType.Deal, entityId = Model.Id })
+    </div>
+</div>
+

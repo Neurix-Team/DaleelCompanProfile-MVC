@@ -1,0 +1,512 @@
+@using System.Globalization
+@using Daleel.BAL.Services.Interfaces
+@using Daleel.DAL.Entities
+@inject IBrandProfileService BrandService
+@inject INavigationService NavigationService
+@{
+    var isRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+    var langCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    var dir = isRtl ? "rtl" : "ltr";
+
+    var brandSlug = Context.Request.Query["brand"].ToString();
+    if (string.IsNullOrWhiteSpace(brandSlug)) brandSlug = "daleel";
+    var activeBrand = await BrandService.GetBySlugAsync(brandSlug.Trim().ToLowerInvariant()) 
+                      ?? await BrandService.GetBySlugAsync("daleel");
+
+    var headerNavLinks = await NavigationService.GetActiveHeaderLinksAsync();
+    var footerNavGrouped = await NavigationService.GetActiveFooterLinksGroupedAsync();
+    var footerPlatformLinks = footerNavGrouped.TryGetValue(FooterSection.Platform, out var pl) ? pl : Array.Empty<Daleel.BAL.Models.NavigationLinkDto>();
+    var footerCompanyLinks = footerNavGrouped.TryGetValue(FooterSection.Company, out var cl) ? cl : Array.Empty<Daleel.BAL.Models.NavigationLinkDto>();
+    var footerStayInformedLinks = footerNavGrouped.TryGetValue(FooterSection.StayInformed, out var sil) ? sil : Array.Empty<Daleel.BAL.Models.NavigationLinkDto>();
+
+    var brandName = isRtl 
+        ? (!string.IsNullOrWhiteSpace(activeBrand?.NameAr) ? activeBrand.NameAr : "دليل")
+        : (!string.IsNullOrWhiteSpace(activeBrand?.NameEn) ? activeBrand.NameEn : "Daleel");
+
+    var defaultDesc = isRtl
+        ? (activeBrand?.MetaDescriptionAr ?? "دليل - المنظومة الرقمية الرائدة لذكاء الأعمال وإدارة المؤسسات وحلول الذكاء الاصطناعي في المملكة العربية السعودية.")
+        : (activeBrand?.MetaDescriptionEn ?? "Daleel - Next-generation Enterprise Intelligence & AI Platform tailored for high-growth Saudi businesses.");
+
+    var defaultKeywords = isRtl
+        ? $"{brandName}, ذكاء اصطناعي, منصات مؤسسية, إدارة علاقات العملاء, التحول الرقمي, رؤية 2030, السعودية"
+        : $"{brandName}, Enterprise AI, Saudi Tech, CRM, Digital Transformation, Business OS, Saudi Vision 2030";
+
+    var brandMetaTitle = isRtl
+        ? (activeBrand?.MetaTitleAr ?? (activeBrand != null ? $"{activeBrand.NameAr} - {activeBrand.TaglineAr}" : null))
+        : (activeBrand?.MetaTitleEn ?? (activeBrand != null ? $"{activeBrand.NameEn} - {activeBrand.TaglineEn}" : null));
+
+    var metaDescription = ViewData["MetaDescription"]?.ToString() ?? defaultDesc;
+    var metaKeywords = ViewData["MetaKeywords"]?.ToString() ?? defaultKeywords;
+    var canonicalUrl = ViewData["CanonicalUrl"]?.ToString() ?? $"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}";
+    var ogTitle = ViewData["OgTitle"]?.ToString() ?? ViewData["Title"]?.ToString() ?? brandMetaTitle ?? brandName;
+    var ogDescription = ViewData["OgDescription"]?.ToString() ?? metaDescription;
+    var ogImage = ViewData["OgImage"]?.ToString();
+    if (string.IsNullOrWhiteSpace(ogImage))
+    {
+        ogImage = !string.IsNullOrWhiteSpace(activeBrand?.LogoPath) 
+            ? (activeBrand.LogoPath.StartsWith("http") ? activeBrand.LogoPath : $"{Context.Request.Scheme}://{Context.Request.Host}{activeBrand.LogoPath}")
+            : $"{Context.Request.Scheme}://{Context.Request.Host}/assets/Logo/Daleel.png";
+    }
+    else if (ogImage.StartsWith("/"))
+    {
+        ogImage = $"{Context.Request.Scheme}://{Context.Request.Host}{ogImage}";
+    }
+    var ogType = ViewData["OgType"]?.ToString() ?? "website";
+    var faviconHref = !string.IsNullOrWhiteSpace(activeBrand?.FaviconPath) ? activeBrand.FaviconPath : Url.Content("~/favicon.svg");
+    var logoLight = !string.IsNullOrWhiteSpace(activeBrand?.LogoPath) ? activeBrand.LogoPath : Url.Content("~/assets/Logo/Daleel.png");
+    var logoDark = !string.IsNullOrWhiteSpace(activeBrand?.LogoDarkPath) ? activeBrand.LogoDarkPath : logoLight;
+}
+<!DOCTYPE html>
+<html lang="@langCode" dir="@dir" class="scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@(ViewData["Title"] ?? brandMetaTitle ?? brandName) - @brandName</title>
+    <link rel="icon" type="image/svg+xml" href="@faviconHref" />
+    <link rel="shortcut icon" href="@faviconHref" />
+
+    <!-- Primary Meta Tags -->
+    <meta name="title" content="@ogTitle - @brandName" />
+    <meta name="description" content="@metaDescription" />
+    <meta name="keywords" content="@metaKeywords" />
+    <link rel="canonical" href="@canonicalUrl" />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="@ogType" />
+    <meta property="og:url" content="@canonicalUrl" />
+    <meta property="og:title" content="@ogTitle - @brandName" />
+    <meta property="og:description" content="@ogDescription" />
+    <meta property="og:image" content="@ogImage" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="@canonicalUrl" />
+    <meta name="twitter:title" content="@ogTitle - @brandName" />
+    <meta name="twitter:description" content="@ogDescription" />
+    <meta name="twitter:image" content="@ogImage" />
+
+    @if (!string.IsNullOrWhiteSpace(activeBrand?.GoogleAnalyticsId))
+    {
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=@activeBrand.GoogleAnalyticsId"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '@activeBrand.GoogleAnalyticsId');
+        </script>
+    }
+
+    @if (activeBrand != null && (!string.IsNullOrWhiteSpace(activeBrand.PrimaryColor) || !string.IsNullOrWhiteSpace(activeBrand.SecondaryColor) || !string.IsNullOrWhiteSpace(activeBrand.AccentColor)))
+    {
+        <style>
+            :root {
+                @if (!string.IsNullOrWhiteSpace(activeBrand.PrimaryColor)) { <text>--brand-primary: @activeBrand.PrimaryColor; --daleel-sky: @activeBrand.PrimaryColor;</text> }
+                @if (!string.IsNullOrWhiteSpace(activeBrand.SecondaryColor)) { <text>--brand-secondary: @activeBrand.SecondaryColor; --daleel-green: @activeBrand.SecondaryColor;</text> }
+                @if (!string.IsNullOrWhiteSpace(activeBrand.AccentColor)) { <text>--brand-accent: @activeBrand.AccentColor; --daleel-orange: @activeBrand.AccentColor;</text> }
+            }
+        </style>
+    }
+    <script type="importmap"></script>
+
+    <!-- Preconnect for faster external resource loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Theme & Local Tailwind CSS -->
+    <script src="~/js/theme.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Cairo:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Daleel.styles.css" asp-append-version="true" />
+</head>
+<body class="bg-white dark:bg-[#0A192F] font-body-md text-slate-900 dark:text-white transition-colors duration-300">
+    <header
+        class="bg-white/80 dark:bg-[#0A192F]/80 backdrop-blur-md border-b border-slate-200/50 dark:border-white/10 fixed w-full top-0 z-50 shadow-[0px_10px_30px_rgba(29,49,102,0.08)] dark:shadow-[0px_10px_30px_rgba(0,0,0,0.4)] transition-all duration-300"
+        id="main-header">
+        <div class="max-w-[1440px] mx-auto px-6 sm:px-8 h-20 flex items-center justify-between">
+            <a asp-controller="Home" asp-action="Index" class="shrink-0 flex items-center gap-2">
+                <img src="@logoLight" id="header-logo"
+                    width="180" height="54"
+                    class="h-9 sm:h-[54px] w-auto transition-all duration-300 brightness-100 invert-0 dark:hidden"
+                    alt="@brandName" />
+                <img src="@logoDark" id="header-logo-dark"
+                    width="180" height="54"
+                    class="h-9 sm:h-[54px] w-auto transition-all duration-300 hidden dark:block"
+                    alt="@brandName" />
+            </a>
+            <!-- Desktop Nav -->
+            @{
+                var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+                var currentPath = Context.Request.Path.Value?.TrimEnd('/') ?? "";
+
+                bool IsLinkActive(string url)
+                {
+                    if (string.IsNullOrWhiteSpace(url)) return false;
+                    var u = url.Trim();
+                    if (u == "/" || u.Equals("/Home", StringComparison.OrdinalIgnoreCase) || u.Equals("/Home/Index", StringComparison.OrdinalIgnoreCase))
+                    {
+                        return currentPath == "" || currentPath == "/" || currentAction.Equals("Index", StringComparison.OrdinalIgnoreCase);
+                    }
+                    var segments = u.TrimStart('/').Split('/', '?');
+                    var actionName = segments.Length > 1 ? segments[1] : segments[0];
+                    return currentAction.Equals(actionName, StringComparison.OrdinalIgnoreCase) ||
+                           currentPath.Equals(u, StringComparison.OrdinalIgnoreCase) ||
+                           currentPath.StartsWith(u + "/", StringComparison.OrdinalIgnoreCase);
+                }
+
+                string GetNavClass(bool active) => active 
+                    ? "text-[#00B2EC] dark:text-[#F9A01B] py-1 border-b-2 border-[#00B2EC] dark:border-[#F9A01B] font-bold transition-colors" 
+                    : "text-slate-900 dark:text-white hover:text-[#00B2EC] dark:hover:text-[#F9A01B] transition-colors py-1 border-b-2 border-transparent hover:border-[#00B2EC] dark:hover:border-[#F9A01B]";
+                    
+                string GetMobileNavClass(bool active) => active
+                    ? "text-[#00B2EC] dark:text-[#F9A01B] bg-slate-50 dark:bg-slate-800/50 font-bold px-4 py-3 rounded-lg transition-colors"
+                    : "text-brand-navy dark:text-white hover:text-[#00B2EC] dark:hover:text-[#F9A01B] hover:bg-slate-50 dark:hover:bg-slate-800/50 px-4 py-3 rounded-lg transition-colors";
+            }
+            <nav class="hidden lg:flex items-center gap-6 font-['Inter'] font-medium text-[13px] tracking-tight">
+                @foreach (var link in headerNavLinks)
+                {
+                    var isAct = IsLinkActive(link.Url);
+                    var isPlat = link.Url.Contains("platform", StringComparison.OrdinalIgnoreCase);
+                    <a class="@GetNavClass(isAct)"
+                       id="@(isPlat ? "platform" : null)"
+                       href="@link.Url"
+                       target="@(link.OpenInNewTab ? "_blank" : null)"
+                       rel="@(link.OpenInNewTab ? "noopener noreferrer" : null)">
+                        @(isRtl ? link.LabelAr : link.LabelEn)
+                    </a>
+                }
+            </nav>
+
+            <!-- Right Actions -->
+            <div class="flex items-center gap-3">
+                <!-- Theme Toggle -->
+                <button id="theme-toggle" onclick="toggleTheme()"
+                    class="text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 transition-all hover:border-[#00B2EC] dark:hover:border-[#00B2EC] flex items-center justify-center">
+                    <span id="theme-icon" class="material-symbols-outlined text-[20px]">dark_mode</span>
+                </button>
+
+                <!-- RTL/LTR Toggle -->
+                @{
+                    var currentPathAndQuery = Context.Request.Path + Context.Request.QueryString;
+                    var switchCulture = isRtl ? "en" : "ar";
+                    var switchRoute = isRtl ? "/en" : "/ar";
+                    var switchLanguageText = isRtl ? "English" : "عربي";
+                    var switchUrl = $"{switchRoute}?returnUrl={Uri.EscapeDataString(currentPathAndQuery)}";
+                }
+                <a href="@switchUrl" id="lang-switch-btn"
+                    class="text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-semibold tracking-wide transition-all hover:border-[#00B2EC] dark:hover:border-[#00B2EC]">
+                    @switchLanguageText
+                </a>
+
+                <!-- CTA -->
+               <a asp-controller="Home" asp-action="Index" asp-fragment="vision" 
+   class="hidden sm:block bg-[#00B2EC] text-white px-5 py-2.5 rounded-lg font-['Inter'] font-semibold text-sm shadow-sm active:scale-95 duration-150 transition-all hover:shadow-lg hover:shadow-[#00B2EC]/20 text-center">
+    @SharedLocalizer["GetStarted"]
+</a>
+                <!-- Mobile Menu Toggle -->
+                <button id="mobile-menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')"
+                    class="lg:hidden p-2 text-brand-navy dark:text-white hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors">
+                    <span class="material-symbols-outlined text-[28px]">menu</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Dropdown -->
+        <div id="mobile-nav"
+            class="hidden lg:hidden bg-white dark:bg-[#0A192F] border-t border-slate-100 dark:border-slate-800 shadow-lg">
+            <nav class="max-w-[1440px] mx-auto px-6 py-4 flex flex-col gap-1 font-['Inter'] font-medium text-sm">
+                @foreach (var link in headerNavLinks)
+                {
+                    var isAct = IsLinkActive(link.Url);
+                    <a class="@GetMobileNavClass(isAct)"
+                       href="@link.Url"
+                       target="@(link.OpenInNewTab ? "_blank" : null)"
+                       rel="@(link.OpenInNewTab ? "noopener noreferrer" : null)">
+                        @(isRtl ? link.LabelAr : link.LabelEn)
+                    </a>
+                }
+            </nav>
+        </div>
+    </header>
+    <main role="main" class="pb-3 w-full">
+        @RenderBody()
+    </main>
+
+    <footer class="relative bg-white dark:bg-[#0A192F] overflow-hidden transition-colors duration-300">
+        <div class="w-full h-px bg-gradient-to-r from-transparent via-[#00B2EC]/30 to-transparent"></div>
+
+        <div class="max-w-[1440px] mx-auto px-6 sm:px-8 pt-16 sm:pt-20 pb-8">
+            <div class="grid grid-cols-2 md:grid-cols-12 gap-10 sm:gap-12 mb-16 text-start">
+                <div class="col-span-2 md:col-span-4" data-animate="fade-up" data-delay="1">
+                    <div class="font-['Poppins'] text-xl font-bold text-brand-navy dark:text-white mb-4">
+                        <img src="@logoLight"
+                            width="150" height="45"
+                            class="w-[150px] h-auto transition-all duration-300 dark:hidden"
+                            alt="@brandName">
+                        <img src="@logoDark"
+                            width="150" height="45"
+                            class="w-[150px] h-auto transition-all duration-300 hidden dark:block"
+                            alt="@brandName">
+                    </div>
+                    <p class="font-['Inter'] text-sm leading-relaxed text-brand-navy/60 dark:text-white/60 max-w-xs mb-4">
+                        @(isRtl ? (activeBrand?.DescriptionAr ?? SharedLocalizer["FooterDescription"].Value) : (activeBrand?.DescriptionEn ?? SharedLocalizer["FooterDescription"].Value))
+                    </p>
+                    <div class="font-['Inter'] text-xs text-brand-navy/60 dark:text-white/60 space-y-2 mb-6 text-start">
+                        @if (!string.IsNullOrWhiteSpace(activeBrand?.Address))
+                        {
+                            <div class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-[16px] text-[#00B2EC] shrink-0 mt-0.5">location_on</span>
+                                <div>
+                                    <span>@activeBrand.Address</span>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="flex items-start gap-2">
+                                <span class="material-symbols-outlined text-[16px] text-[#00B2EC] shrink-0 mt-0.5">location_on</span>
+                                <div>
+                                    <strong class="text-brand-navy/80 dark:text-white/80">@(isRtl ? "مكتب الولايات المتحدة:" : "USA Office:")</strong><br />
+                                    <span>@(isRtl ? "262 طريق تشابمان، جناح 240، نيوارك، مقاطعة نيو كاسل، ديلاوير، الولايات المتحدة" : "262 Chapman Rd, Ste 240, Newark, New Castle County, Delaware, USA")</span>
+                                </div>
+                            </div>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(activeBrand?.Phone))
+                        {
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[16px] text-[#00B2EC] shrink-0">call</span>
+                                <a href="tel:@activeBrand.Phone" class="hover:underline">@activeBrand.Phone</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[16px] text-[#00B2EC] shrink-0">call</span>
+                                <span>+1 (302) 602 4695</span>
+                            </div>
+                        }
+                    </div>
+                    <div class="flex flex-wrap gap-2.5">
+                        <a href="mailto:@(!string.IsNullOrWhiteSpace(activeBrand?.Email) ? activeBrand.Email : "info@aidaleel.com")"
+                            class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-[#00B2EC] hover:border-[#00B2EC]/30 hover:bg-[#00B2EC]/5 dark:hover:text-[#00B2EC] transition-all duration-300" title="Email Us">
+                            <span class="material-symbols-outlined text-[17px]">mail</span>
+                        </a>
+                        @if (!string.IsNullOrWhiteSpace(activeBrand?.LinkedInUrl))
+                        {
+                            <a href="@activeBrand.LinkedInUrl" target="_blank" rel="noopener noreferrer"
+                                class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-[#00B2EC] hover:border-[#00B2EC]/30 hover:bg-[#00B2EC]/5 dark:hover:text-[#00B2EC] transition-all duration-300" title="LinkedIn">
+                                <span class="font-bold text-xs">in</span>
+                            </a>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(activeBrand?.TwitterUrl))
+                        {
+                            <a href="@activeBrand.TwitterUrl" target="_blank" rel="noopener noreferrer"
+                                class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-[#00B2EC] hover:border-[#00B2EC]/30 hover:bg-[#00B2EC]/5 dark:hover:text-[#00B2EC] transition-all duration-300" title="Twitter / X">
+                                <span class="font-bold text-xs">𝕏</span>
+                            </a>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(activeBrand?.FacebookUrl))
+                        {
+                            <a href="@activeBrand.FacebookUrl" target="_blank" rel="noopener noreferrer"
+                                class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-[#00B2EC] hover:border-[#00B2EC]/30 hover:bg-[#00B2EC]/5 dark:hover:text-[#00B2EC] transition-all duration-300" title="Facebook">
+                                <span class="font-bold text-xs">f</span>
+                            </a>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(activeBrand?.InstagramUrl))
+                        {
+                            <a href="@activeBrand.InstagramUrl" target="_blank" rel="noopener noreferrer"
+                                class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-[#00B2EC] hover:border-[#00B2EC]/30 hover:bg-[#00B2EC]/5 dark:hover:text-[#00B2EC] transition-all duration-300" title="Instagram">
+                                <span class="material-symbols-outlined text-[17px]">photo_camera</span>
+                            </a>
+                        }
+                    </div>
+                </div>
+
+                <div class="md:col-span-2" data-animate="fade-up" data-delay="2">
+                    <h4
+                        class="font-['Inter'] text-xs font-semibold text-brand-navy/70 dark:text-white/80 uppercase tracking-widest mb-6">
+                        @SharedLocalizer["Platform"]</h4>
+                    @if (footerPlatformLinks.Count > 0)
+                    {
+                        <ul class="space-y-3 font-['Inter'] text-sm">
+                            @foreach (var link in footerPlatformLinks)
+                            {
+                                <li>
+                                    <a href="@link.Url"
+                                       target="@(link.OpenInNewTab ? "_blank" : null)"
+                                       rel="@(link.OpenInNewTab ? "noopener noreferrer" : null)"
+                                       class="text-brand-navy/60 dark:text-white/50 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors duration-200">
+                                        @(isRtl ? link.LabelAr : link.LabelEn)
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p class="font-['Inter'] text-xs text-brand-navy/40 dark:text-white/30 italic">
+                            @(isRtl ? "منصات وحلول جديدة قريباً" : "New platforms coming soon")
+                        </p>
+                    }
+                </div>
+
+                <div class="md:col-span-2" data-animate="fade-up" data-delay="3">
+                    <h4
+                        class="font-['Inter'] text-xs font-semibold text-brand-navy/70 dark:text-white/80 uppercase tracking-widest mb-6">
+                        @SharedLocalizer["Company"]</h4>
+                    <ul class="space-y-3 font-['Inter'] text-sm">
+                        @foreach (var link in footerCompanyLinks)
+                        {
+                            <li>
+                                <a href="@link.Url"
+                                   target="@(link.OpenInNewTab ? "_blank" : null)"
+                                   rel="@(link.OpenInNewTab ? "noopener noreferrer" : null)"
+                                   class="text-brand-navy/60 dark:text-white/50 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors duration-200">
+                                    @(isRtl ? link.LabelAr : link.LabelEn)
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+
+                <div class="col-span-2 md:col-span-4" data-animate="fade-up" data-delay="4">
+                    <h4
+                        class="font-['Inter'] text-xs font-semibold text-brand-navy/70 dark:text-white/80 uppercase tracking-widest mb-6">
+                        @SharedLocalizer["StayInformed"]</h4>
+                    <p class="font-['Inter'] text-sm text-brand-navy/60 dark:text-white/60 mb-4">@SharedLocalizer["StayInformedDescription"]</p>
+                    @if (footerStayInformedLinks.Count > 0)
+                    {
+                        <ul class="space-y-2 mb-4 font-['Inter'] text-sm">
+                            @foreach (var link in footerStayInformedLinks)
+                            {
+                                <li>
+                                    <a href="@link.Url"
+                                       target="@(link.OpenInNewTab ? "_blank" : null)"
+                                       rel="@(link.OpenInNewTab ? "noopener noreferrer" : null)"
+                                       class="text-brand-navy/60 dark:text-white/50 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors duration-200">
+                                        @(isRtl ? link.LabelAr : link.LabelEn)
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    <div id="newsletter-success" class="hidden mb-4 p-3 rounded-xl bg-[#10B981]/10 border border-[#10B981]/20 text-[#10B981] flex items-center gap-2 text-xs">
+                        <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                        <p class="font-['Inter'] font-medium">Subscribed successfully!</p>
+                    </div>
+                    <form id="newsletter-form" class="flex gap-2">
+                        <input id="newsletter-email" type="email" required placeholder="@SharedLocalizer["EnterYourEmail"]"
+                            class="flex-1 bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-brand-navy dark:text-white placeholder:text-brand-navy/50 dark:placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00B2EC]/40 focus:border-[#00B2EC]/40 font-['Inter'] transition-all" />
+                        <button id="newsletter-button" type="submit"
+                            class="bg-[#00B2EC] text-white px-5 py-3 rounded-xl font-['Inter'] font-semibold text-sm hover:shadow-lg hover:shadow-[#00B2EC]/20 active:scale-95 transition-all duration-200 shrink-0">
+                            @SharedLocalizer["Subscribe"]
+                        </button>
+                    </form>
+                    <p id="newsletter-email-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Please enter a valid email address (e.g., name@domain.com).</p>
+                    <p class="font-['Inter'] text-[11px] text-brand-navy/40 dark:text-white/30 mt-3">@SharedLocalizer["NoSpam"]</p>
+                </div>
+
+            </div>
+
+            <div class="w-full h-px bg-brand-navy/5 dark:bg-white/10 mb-8"></div>
+
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <p class="font-['Inter'] text-xs text-brand-navy/50 dark:text-white/40">
+                    @(isRtl ? $"© {DateTime.Now.Year} دليل. جميع الحقوق محفوظة." : $"© {DateTime.Now.Year} Daleel. All rights reserved.")
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        const langSwitchBtn = document.getElementById('lang-switch-btn');
+        if (langSwitchBtn) {
+            langSwitchBtn.addEventListener('click', function() {
+                sessionStorage.setItem('langSwitchScrollPosition', window.scrollY);
+            });
+        }
+
+        window.addEventListener('load', function() {
+            var scrollPosition = sessionStorage.getItem('langSwitchScrollPosition');
+            if (scrollPosition !== null) {
+                // Disable smooth scrolling temporarily to jump instantly to the saved position
+                document.documentElement.style.scrollBehavior = 'auto';
+                window.scrollTo(0, parseInt(scrollPosition, 10));
+                
+                // Restore smooth scrolling if defined in CSS class
+                setTimeout(function() {
+                    document.documentElement.style.scrollBehavior = '';
+                }, 50);
+                
+                sessionStorage.removeItem('langSwitchScrollPosition');
+            }
+        });
+
+        const newsletterEmail = document.getElementById('newsletter-email');
+        const newsletterEmailError = document.getElementById('newsletter-email-error');
+        
+        if (newsletterEmail) {
+            newsletterEmail.addEventListener('input', function() {
+                const val = this.value.trim();
+                const emailRegex = /^[a-zA-Z0-9.]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+                const localPart = val.split('@@')[0] || '';
+                const invalid = !emailRegex.test(val)
+                             || localPart.startsWith('.')
+                             || localPart.endsWith('.')
+                             || localPart.includes('..');
+                if (val && invalid) {
+                    newsletterEmailError.classList.remove('hidden');
+                } else {
+                    newsletterEmailError.classList.add('hidden');
+                }
+            });
+        }
+
+        document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const val = newsletterEmail.value.trim();
+            const emailRegex = /^[a-zA-Z0-9.]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const localPart = val.split('@@')[0] || '';
+            const invalid = !emailRegex.test(val)
+                         || localPart.startsWith('.')
+                         || localPart.endsWith('.')
+                         || localPart.includes('..');
+            if (invalid) {
+                newsletterEmailError.classList.remove('hidden');
+                return;
+            }
+            newsletterEmailError.classList.add('hidden');
+
+            const button = document.getElementById('newsletter-button');
+            const successMsg = document.getElementById('newsletter-success');
+            
+            // Change button color to green
+            button.classList.remove('bg-[#00B2EC]', 'hover:shadow-[#00B2EC]/20');
+            button.classList.add('bg-[#10B981]', 'hover:shadow-[#10B981]/20');
+            
+            // Show success message
+            successMsg.classList.remove('hidden');
+            
+            // Reset form
+            this.reset();
+            
+            // Revert after 5 seconds
+            setTimeout(() => {
+                successMsg.classList.add('hidden');
+                button.classList.add('bg-[#00B2EC]', 'hover:shadow-[#00B2EC]/20');
+                button.classList.remove('bg-[#10B981]', 'hover:shadow-[#10B981]/20');
+            }, 5000);
+        });
+    </script>
+    @await Html.PartialAsync("_DalilyAIChatWidget")
+    <script src="~/js/dalily-ai-chat.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

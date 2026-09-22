@@ -1,0 +1,80 @@
+@model Daleel.Models.DealFormViewModel
+@using Daleel.DAL.Entities
+@{
+    var inputClass = "w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition";
+    var labelClass = "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2";
+    var errorClass = "mt-1.5 block text-xs text-red-600 dark:text-red-400";
+}
+
+<div asp-validation-summary="ModelOnly"
+     class="mb-6 rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/25 px-4 py-3 text-sm text-red-700 dark:text-red-400 [&_ul]:list-none [&_ul]:m-0 [&_ul]:p-0">
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+    <div class="sm:col-span-2">
+        <label asp-for="Name" class="@labelClass"></label>
+        <input asp-for="Name" class="@inputClass" placeholder="Acme — annual logistics contract" autofocus />
+        <span asp-validation-for="Name" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="CompanyId" class="@labelClass"></label>
+        <select asp-for="CompanyId" asp-items="Model.CompanyOptions" class="@inputClass">
+            <option value="">— @SharedLocalizer["CrmNoCompany"] —</option>
+        </select>
+        <span asp-validation-for="CompanyId" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="PrimaryContactId" class="@labelClass"></label>
+        <select asp-for="PrimaryContactId" asp-items="Model.ContactOptions" class="@inputClass">
+            <option value="">— @SharedLocalizer["CrmNoContact"] —</option>
+        </select>
+        <span asp-validation-for="PrimaryContactId" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="Value" class="@labelClass"></label>
+        <input asp-for="Value" type="number" step="0.01" min="0" class="@inputClass" placeholder="0.00" />
+        <span asp-validation-for="Value" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="Currency" class="@labelClass"></label>
+        <select asp-for="Currency" asp-items="Model.CurrencyOptions" class="@inputClass"></select>
+        <span asp-validation-for="Currency" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="Stage" class="@labelClass"></label>
+        <select asp-for="Stage" class="@inputClass">
+            @foreach (var s in Enum.GetValues<DealStage>())
+            {
+                <option value="@s" selected="@(Model.Stage == s)">@SharedLocalizer[$"CrmDealStage_{s}"]</option>
+            }
+        </select>
+        <span asp-validation-for="Stage" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="ExpectedCloseDate" class="@labelClass"></label>
+        <input asp-for="ExpectedCloseDate" type="date" class="@inputClass" />
+        <span asp-validation-for="ExpectedCloseDate" class="@errorClass"></span>
+    </div>
+
+    <div class="sm:col-span-2">
+        <label asp-for="AssignedToId" class="@labelClass"></label>
+        <select asp-for="AssignedToId" asp-items="Model.AssignedToOptions" class="@inputClass">
+            <option value="">— @SharedLocalizer["CrmUnassigned"] —</option>
+        </select>
+        <span asp-validation-for="AssignedToId" class="@errorClass"></span>
+    </div>
+
+    <div class="sm:col-span-2">
+        <label asp-for="Description" class="@labelClass"></label>
+        <textarea asp-for="Description" rows="5" class="@inputClass" placeholder="@SharedLocalizer["CrmNotesPlaceholder"]"></textarea>
+        <span asp-validation-for="Description" class="@errorClass"></span>
+    </div>
+</div>
+

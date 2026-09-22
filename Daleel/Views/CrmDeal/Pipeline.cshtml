@@ -1,0 +1,273 @@
+@model Daleel.BAL.Models.PipelineBoard
+@using Daleel.DAL.Entities
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    Layout = "_CrmLayout";
+    ViewData["Title"] = SharedLocalizer["CrmPipeline"].Value;
+    var assignedToId = ViewData["AssignedToId"] as string;
+    var userOptions = ViewData["AssignedToOptions"] as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+    var currencyLabel = Model.IsMixedCurrency ? "" : " " + (Model.Currency ?? "");
+
+    string ColumnAccent(DealStage stage) => stage switch
+    {
+        DealStage.New => "bg-slate-400",
+        DealStage.Qualified => "bg-sky-500",
+        DealStage.Proposal => "bg-indigo-500",
+        DealStage.Negotiation => "bg-amber-500",
+        DealStage.Won => "bg-emerald-500",
+        DealStage.Lost => "bg-red-400",
+        _ => "bg-slate-400"
+    };
+}
+
+<div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+    <div>
+        <p class="text-sm text-slate-500 dark:text-slate-400">
+            @Model.TotalCount @(Model.TotalCount == 1 ? SharedLocalizer["CrmEntityType_Deal"].Value : SharedLocalizer["CrmDeals"].Value) ·
+            <span class="font-medium text-slate-700 dark:text-slate-200">
+                @Model.OpenValue.ToString("N2")@currencyLabel
+            </span>
+            @SharedLocalizer["CrmOpenPipelineValue"]
+        </p>
+        @if (Model.IsMixedCurrency)
+        {
+            <p class="mt-1 text-xs text-amber-600 dark:text-amber-400 flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px]">info</span>
+                @SharedLocalizer["CrmMixedCurrencyWarning"]
+            </p>
+        }
+    </div>
+
+    <div class="flex items-center gap-2">
+        <form asp-action="Pipeline" method="get" class="flex items-center gap-2">
+            <select name="assignedToId" onchange="this.form.submit()"
+                    class="rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-3 py-2.5 text-sm focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition">
+                <option value="">@SharedLocalizer["CrmAllOwners"]</option>
+                @foreach (var u in userOptions)
+                {
+                    <option value="@u.Value" selected="@(assignedToId == u.Value)">@u.Text</option>
+                }
+            </select>
+            <noscript>
+                <button type="submit" class="rounded-lg border border-slate-300 dark:border-white/15 px-3 py-2.5 text-sm">@SharedLocalizer["CrmFilter"]</button>
+            </noscript>
+        </form>
+
+        <a asp-action="Index"
+           class="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+            <span class="material-symbols-outlined text-[20px]">list</span>
+            @SharedLocalizer["CrmListView"]
+        </a>
+        <a asp-action="Create"
+           class="inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+            <span class="material-symbols-outlined text-[20px]">add</span>
+            @SharedLocalizer["CrmNewDeal"]
+        </a>
+    </div>
+</div>
+
+<p class="mb-4 text-xs text-slate-400 dark:text-slate-500 flex items-center gap-1.5">
+    <span class="material-symbols-outlined text-[16px]">drag_indicator</span>
+    @SharedLocalizer["CrmDragCardHint"]
+</p>
+
+<div id="pipeline-error"
+     class="hidden mb-4 rounded-lg border border-red-200 dark:border-red-500/25 bg-red-50 dark:bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-400"
+     role="alert"></div>
+
+@* Token for the drag-and-drop POSTs; sent as a normal form field so it validates
+   through the standard antiforgery path. *@
+<form id="pipeline-antiforgery" class="hidden">@Html.AntiForgeryToken()</form>
+
+<div class="overflow-x-auto pb-4">
+    <div class="flex gap-4 min-w-max" id="pipeline-board">
+        @foreach (var column in Model.Columns)
+        {
+            <section class="w-72 shrink-0 bg-slate-50 dark:bg-white/5 rounded-xl border border-slate-200 dark:border-white/10 flex flex-col"
+                     data-stage="@column.Stage">
+
+                <header class="p-4 border-b border-slate-200 dark:border-white/10">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2 h-2 rounded-full @ColumnAccent(column.Stage)"></span>
+                        <h3 class="font-poppins font-semibold text-sm text-brand-navy dark:text-white">@SharedLocalizer[$"CrmDealStage_{column.Stage}"]</h3>
+                        <span class="ms-auto text-xs font-medium text-slate-500 dark:text-slate-400" data-role="count">@column.Count</span>
+                    </div>
+                    <p class="mt-1.5 text-xs text-slate-500 dark:text-slate-400">
+                        <span data-role="total">@column.TotalValue.ToString("N2")</span>@currencyLabel
+                    </p>
+                </header>
+
+                <div class="flex-1 p-3 space-y-3 min-h-[8rem] transition-colors" data-role="dropzone">
+                    @foreach (var card in column.Cards)
+                    {
+                        var overdue = column.Stage is not DealStage.Won and not DealStage.Lost
+                            && card.ExpectedCloseDate.HasValue
+                            && card.ExpectedCloseDate.Value.Date < DateTime.UtcNow.Date;
+
+                        <article draggable="true"
+                                 data-deal-id="@card.Id"
+                                 data-value="@card.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
+                                 class="group bg-white dark:bg-[#0F2542] rounded-lg border border-slate-200 dark:border-white/10 p-3 cursor-grab active:cursor-grabbing hover:border-[#00B2EC] hover:shadow-sm transition-all">
+                            <a asp-action="Details" asp-route-id="@card.Id"
+                               class="block font-medium text-sm text-brand-navy dark:text-white hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors break-words">
+                                @card.Name
+                            </a>
+
+                            @if (!string.IsNullOrWhiteSpace(card.CompanyName))
+                            {
+                                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px]">apartment</span>
+                                    <span class="truncate">@card.CompanyName</span>
+                                </p>
+                            }
+
+                            <p class="mt-2 font-semibold text-sm text-slate-700 dark:text-slate-200">
+                                @card.Value.ToString("N2") <span class="text-xs font-normal text-slate-400">@card.Currency</span>
+                            </p>
+
+                            <div class="mt-2 flex items-center justify-between gap-2 text-xs">
+                                @if (card.ExpectedCloseDate.HasValue)
+                                {
+                                    <span class="@(overdue ? "text-red-600 dark:text-red-400 font-medium" : "text-slate-400")">
+                                        @card.ExpectedCloseDate.Value.ToString("dd MMM")
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="text-slate-300 dark:text-slate-600">—</span>
+                                }
+
+                                @if (!string.IsNullOrWhiteSpace(card.AssignedToName))
+                                {
+                                    <span class="text-slate-400 truncate max-w-[8rem]" title="@card.AssignedToName">@card.AssignedToName</span>
+                                }
+                            </div>
+                        </article>
+                    }
+
+                    <p class="text-xs text-slate-400 dark:text-slate-600 text-center py-6 @(column.Cards.Any() ? "hidden" : "")"
+                       data-role="empty">
+                        @SharedLocalizer["CrmNoDealsYet"]
+                    </p>
+                </div>
+            </section>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            var board = document.getElementById('pipeline-board');
+            if (!board) return;
+
+            var errorBox = document.getElementById('pipeline-error');
+            var tokenInput = document.querySelector('#pipeline-antiforgery input[name="__RequestVerificationToken"]');
+            var dragged = null;
+
+            function showError(message) {
+                errorBox.textContent = message;
+                errorBox.classList.remove('hidden');
+            }
+
+            function clearError() {
+                errorBox.classList.add('hidden');
+            }
+
+            // Recompute each column's count and total from the cards actually in it,
+            // so the roll-ups stay right after a move without reloading the page.
+            function refreshTotals() {
+                board.querySelectorAll('[data-stage]').forEach(function (column) {
+                    var cards = column.querySelectorAll('[data-deal-id]');
+                    var total = 0;
+                    cards.forEach(function (card) {
+                        total += parseFloat(card.getAttribute('data-value')) || 0;
+                    });
+
+                    column.querySelector('[data-role="count"]').textContent = cards.length;
+                    column.querySelector('[data-role="total"]').textContent =
+                        total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+                    var empty = column.querySelector('[data-role="empty"]');
+                    if (empty) empty.classList.toggle('hidden', cards.length > 0);
+                });
+            }
+
+            board.addEventListener('dragstart', function (e) {
+                var card = e.target.closest('[data-deal-id]');
+                if (!card) return;
+                dragged = card;
+                card.classList.add('opacity-40');
+                e.dataTransfer.effectAllowed = 'move';
+                // Firefox requires data to be set for the drag to start at all.
+                e.dataTransfer.setData('text/plain', card.getAttribute('data-deal-id'));
+            });
+
+            board.addEventListener('dragend', function () {
+                if (dragged) dragged.classList.remove('opacity-40');
+                dragged = null;
+                board.querySelectorAll('[data-role="dropzone"]').forEach(function (z) {
+                    z.classList.remove('bg-[#00B2EC]/5');
+                });
+            });
+
+            board.addEventListener('dragover', function (e) {
+                var zone = e.target.closest('[data-role="dropzone"]');
+                if (!zone || !dragged) return;
+                e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
+                zone.classList.add('bg-[#00B2EC]/5');
+            });
+
+            board.addEventListener('dragleave', function (e) {
+                var zone = e.target.closest('[data-role="dropzone"]');
+                if (zone && !zone.contains(e.relatedTarget)) {
+                    zone.classList.remove('bg-[#00B2EC]/5');
+                }
+            });
+
+            board.addEventListener('drop', function (e) {
+                var zone = e.target.closest('[data-role="dropzone"]');
+                if (!zone || !dragged) return;
+                e.preventDefault();
+                zone.classList.remove('bg-[#00B2EC]/5');
+
+                var card = dragged;
+                var column = zone.closest('[data-stage]');
+                var newStage = column.getAttribute('data-stage');
+                var oldZone = card.parentElement;
+
+                if (oldZone === zone) return;
+
+                clearError();
+
+                // Move optimistically, then roll back if the server rejects it.
+                zone.insertBefore(card, zone.querySelector('[data-role="empty"]'));
+                refreshTotals();
+
+                var body = new URLSearchParams();
+                body.append('stage', newStage);
+                body.append('__RequestVerificationToken', tokenInput ? tokenInput.value : '');
+
+                fetch('/crm/deals/' + card.getAttribute('data-deal-id') + '/move', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    body: body.toString(),
+                    credentials: 'same-origin'
+                })
+                .then(function (res) {
+                    if (!res.ok) throw new Error('Request failed with status ' + res.status);
+                })
+                .catch(function () {
+                    oldZone.insertBefore(card, oldZone.querySelector('[data-role="empty"]'));
+                    refreshTotals();
+                    showError('That deal could not be moved. Please refresh the page and try again.');
+                });
+            });
+        })();
+    </script>
+}
+

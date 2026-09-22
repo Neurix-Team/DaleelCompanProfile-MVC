@@ -1,0 +1,502 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* ── Color Scheme for Dark Mode (Native Controls, Dropdowns & Popups) ── */
+html.dark {
+  color-scheme: dark;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+}
+
+/* ── Dark Mode Form Dropdowns (Select & Option) ── */
+.dark select,
+html.dark select {
+  color-scheme: dark;
+  background-color: #0B1728;
+  color: #F8FAFC;
+}
+
+.dark select option,
+html.dark select option,
+.dark select optgroup,
+html.dark select optgroup {
+  background-color: #0B1728 !important;
+  color: #F8FAFC !important;
+}
+
+.dark select:focus,
+html.dark select:focus {
+  background-color: #0B1728;
+  color: #FFFFFF;
+}
+
+/* ── Dark Mode Native Date/Time Pickers & Dialogs ── */
+.dark input[type="date"],
+.dark input[type="time"],
+.dark input[type="datetime-local"],
+html.dark input[type="date"],
+html.dark input[type="time"],
+html.dark input[type="datetime-local"] {
+  color-scheme: dark;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.form-floating>.form-control-plaintext::placeholder,
+.form-floating>.form-control::placeholder {
+  color: var(--bs-secondary-color);
+  text-align: end;
+}
+
+.form-floating>.form-control-plaintext:focus::placeholder,
+.form-floating>.form-control:focus::placeholder {
+  text-align: start;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* ── Brand Gradient Badge ── */
+.brand-gradient {
+  background: linear-gradient(135deg, #10B981 0%, #F9A01B 100%);
+}
+
+/* ── AI Border Accent (RTL-aware) ── */
+.ai-border {
+  border-inline-start: 2px solid;
+  border-image: linear-gradient(to bottom, #10B981, #F9A01B) 1;
+}
+
+.light .ai-border {
+  background-color: rgba(249, 160, 27, 0.02);
+}
+
+.dark .ai-border {
+  background-color: rgba(0, 178, 236, 0.03);
+}
+
+/* ── Soft Elevation (Light) ── */
+.soft-elevation {
+  box-shadow: 0px 10px 30px rgba(29, 49, 102, 0.04);
+}
+
+.dark .soft-elevation {
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+/* ── Pulsing Status Dot ── */
+@keyframes status-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(0, 178, 236, 0.5);
+  }
+
+  50% {
+    opacity: 0.8;
+    box-shadow: 0 0 0 6px rgba(0, 178, 236, 0);
+  }
+}
+
+.status-pulse {
+  animation: status-pulse 2s ease-in-out infinite;
+}
+
+/* ── Magnetic Hover Scale ── */
+.magnetic-hover {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.magnetic-hover:hover {
+  transform: scale(1.04);
+}
+
+.magnetic-hover:active {
+  transform: scale(0.97);
+}
+
+/* ── Smooth Glass Shimmer (optional ambient) ── */
+@keyframes glass-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* ── Gradient border glow for trust badge in dark mode ── */
+.dark .trust-glow {
+  box-shadow: 0 0 12px rgba(239, 65, 35, 0.2), 0 0 24px rgba(249, 160, 27, 0.1);
+}
+
+/* ── Text Gradient (Scrollytelling Hero) ── */
+.text-gradient {
+  background: linear-gradient(135deg, #00B2EC 0%, #F9A01B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-red {
+  background: linear-gradient(135deg, #10B981 0%, #F9A01B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Glass Card (Scrollytelling Icon Box) ── */
+/* Dark mode: classic frosted glass on navy */
+.glass-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Light mode: subtle slate tint so the card reads on white */
+:where(html:not(.dark)) .glass-card {
+  background: rgba(29, 49, 102, 0.04);
+  border: 1px solid rgba(29, 49, 102, 0.10);
+  box-shadow: 0 4px 16px rgba(29, 49, 102, 0.08);
+}
+
+/* ── RTL Font Override ── */
+[dir="rtl"] body,
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] p,
+[dir="rtl"] span:not(.material-symbols-outlined),
+[dir="rtl"] a,
+[dir="rtl"] button,
+[dir="rtl"] input,
+[dir="rtl"] label {
+  font-family: 'Cairo', 'Inter', sans-serif;
+}
+
+/* ── RTL Material Icons Fix (prevent icon mirroring) ── */
+[dir="rtl"] .material-symbols-outlined {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CRM & CMS NAVIGATION & SIDEBAR THEME STYLES (Light & Dark)
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Light Mode Sidebar & Header ── */
+#crm-sidebar, #cms-sidebar {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border-color: #E2E8F0 !important;
+}
+
+header.crm-header, header.cms-header, #crm-header, #cms-header {
+  background-color: rgba(255, 255, 255, 0.90) !important;
+  border-color: #E2E8F0 !important;
+}
+
+/* ── Dark Mode Sidebar & Header ── */
+html.dark #crm-sidebar,
+html.dark #cms-sidebar,
+.dark #crm-sidebar,
+.dark #cms-sidebar {
+  background-color: #0F2542 !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+html.dark header.crm-header,
+html.dark header.cms-header,
+html.dark #crm-header,
+html.dark #cms-header,
+.dark header.crm-header,
+.dark header.cms-header,
+.dark #crm-header,
+.dark #cms-header {
+  background-color: rgba(15, 37, 66, 0.92) !important;
+  border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* ── Navigation Links Base ── */
+.crm-nav-link, .cms-nav-link {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+  padding: 0.65rem 0.875rem !important;
+  border-radius: 0.75rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: #475569 !important;
+  text-decoration: none !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  border: 1px solid transparent !important;
+}
+
+.crm-nav-link:hover, .cms-nav-link:hover {
+  background-color: #F1F5F9 !important;
+  color: #00B2EC !important;
+}
+
+.crm-nav-link.active, .cms-nav-link.active {
+  background: linear-gradient(135deg, rgba(0, 178, 236, 0.12) 0%, rgba(16, 185, 129, 0.08) 100%) !important;
+  border-color: rgba(0, 178, 236, 0.30) !important;
+  color: #0088BA !important;
+  font-weight: 600 !important;
+}
+
+.crm-nav-link.active .material-symbols-outlined,
+.cms-nav-link.active .material-symbols-outlined {
+  color: #00B2EC !important;
+}
+
+/* ── Dark Mode Nav Links ── */
+html.dark .crm-nav-link,
+html.dark .cms-nav-link,
+.dark .crm-nav-link,
+.dark .cms-nav-link {
+  color: #94A3B8 !important;
+}
+
+html.dark .crm-nav-link:hover,
+html.dark .cms-nav-link:hover,
+.dark .crm-nav-link:hover,
+.dark .cms-nav-link:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: #FFFFFF !important;
+}
+
+html.dark .crm-nav-link.active,
+html.dark .cms-nav-link.active,
+.dark .crm-nav-link.active,
+.dark .cms-nav-link.active {
+  background: linear-gradient(135deg, rgba(0, 178, 236, 0.22) 0%, rgba(16, 185, 129, 0.15) 100%) !important;
+  border-color: rgba(0, 178, 236, 0.40) !important;
+  color: #00B2EC !important;
+  font-weight: 600 !important;
+  box-shadow: 0 0 16px rgba(0, 178, 236, 0.12) !important;
+}
+
+/* ── Sidebar Section Headers ── */
+.crm-section-header, .cms-section-header {
+  padding: 0 0.75rem 0.5rem !important;
+  font-size: 0.6875rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #94A3B8 !important;
+}
+
+html.dark .crm-section-header,
+html.dark .cms-section-header,
+.dark .crm-section-header,
+.dark .cms-section-header {
+  color: #64748B !important;
+}
+
+/* ── Top Header Control Buttons ── */
+.crm-ctrl-btn, .cms-ctrl-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 0.75rem !important;
+  border: 1px solid #E2E8F0 !important;
+  color: #475569 !important;
+  background-color: transparent !important;
+  transition: all 0.2s ease !important;
+  text-decoration: none !important;
+}
+
+.crm-ctrl-btn:hover, .cms-ctrl-btn:hover {
+  background-color: #F1F5F9 !important;
+  color: #00B2EC !important;
+  border-color: rgba(0, 178, 236, 0.3) !important;
+}
+
+html.dark .crm-ctrl-btn,
+html.dark .cms-ctrl-btn,
+.dark .crm-ctrl-btn,
+.dark .cms-ctrl-btn {
+  border-color: rgba(255, 255, 255, 0.10) !important;
+  color: #CBD5E1 !important;
+}
+
+html.dark .crm-ctrl-btn:hover,
+html.dark .cms-ctrl-btn:hover,
+.dark .crm-ctrl-btn:hover,
+.dark .cms-ctrl-btn:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  color: #FFFFFF !important;
+  border-color: rgba(0, 178, 236, 0.4) !important;
+}
+
+
+/* ═══════════════════════════════════════════
+   SCROLL-REVEAL ANIMATION SYSTEM
+   Elements start hidden, then animate in when
+   the .is-visible class is added by the
+   Intersection Observer in index.html.
+   ═══════════════════════════════════════════ */
+
+/* Base: all animated elements start ready but visually hidden.
+   Using transform + opacity with contain to avoid CLS. */
+[data-animate] {
+  opacity: 0;
+  will-change: opacity, transform;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  contain: layout style;
+}
+
+/* Visible state (triggered by Observer) */
+[data-animate].is-visible {
+  opacity: 1;
+  transform: none !important;
+}
+
+/* ── Animation Types ── */
+[data-animate="fade-up"] {
+  transform: translateY(40px);
+}
+
+[data-animate="fade-in"] {
+  transform: none;
+}
+
+[data-animate="slide-start"] {
+  transform: translateX(-50px);
+}
+
+[dir="rtl"] [data-animate="slide-start"] {
+  transform: translateX(50px);
+}
+
+[data-animate="slide-end"] {
+  transform: translateX(50px);
+}
+
+[dir="rtl"] [data-animate="slide-end"] {
+  transform: translateX(-50px);
+}
+
+[data-animate="scale-in"] {
+  transform: scale(0.85);
+}
+
+[data-animate="zoom-rotate"] {
+  transform: scale(0.8) rotate(-3deg);
+}
+
+/* ── Stagger Delays ── */
+[data-delay="1"] {
+  transition-delay: 0.1s;
+}
+
+[data-delay="2"] {
+  transition-delay: 0.2s;
+}
+
+[data-delay="3"] {
+  transition-delay: 0.3s;
+}
+
+[data-delay="4"] {
+  transition-delay: 0.4s;
+}
+
+[data-delay="5"] {
+  transition-delay: 0.5s;
+}
+
+[data-delay="6"] {
+  transition-delay: 0.6s;
+}
+
+[data-delay="7"] {
+  transition-delay: 0.7s;
+}
+
+[data-delay="8"] {
+  transition-delay: 0.8s;
+}
+
+/* ── Dark mode transition: only apply to specific properties,
+   NOT globally to avoid massive CLS and performance issues ── */
+.transition-colors {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #334155;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00B2EC;
+}
+
+/* Static decorative replacement when WebGL is unsupported, blocked, or lost. */
+.webgl-fallback #scrolly-canvas,
+.webgl-fallback #interactive-core-canvas {
+  display: none !important;
+}
+
+.webgl-fallback-surface::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 28% 32%, rgba(0, 178, 236, 0.14), transparent 38%),
+    radial-gradient(circle at 72% 68%, rgba(16, 185, 129, 0.10), transparent 36%);
+}
+
+.dark .webgl-fallback-surface::before {
+  background:
+    radial-gradient(circle at 28% 32%, rgba(0, 178, 236, 0.20), transparent 38%),
+    radial-gradient(circle at 72% 68%, rgba(249, 160, 27, 0.10), transparent 36%);
+}

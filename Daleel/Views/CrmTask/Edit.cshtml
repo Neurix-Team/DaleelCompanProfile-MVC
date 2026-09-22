@@ -1,0 +1,44 @@
+@model Daleel.Models.TaskFormViewModel
+@{
+    Layout = "_CrmLayout";
+    ViewData["Title"] = SharedLocalizer["CrmEditTask"].Value;
+    var taskTitle = ViewData["TaskTitle"] as string;
+}
+
+<div class="max-w-3xl">
+    <a asp-action="Index" class="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors mb-5">
+        <span class="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_back</span>
+        @SharedLocalizer["CrmBackToTasks"]
+    </a>
+
+    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6 sm:p-8">
+        @if (!string.IsNullOrWhiteSpace(taskTitle))
+        {
+            <p class="mb-6 text-sm text-slate-500 dark:text-slate-400">
+                @SharedLocalizer["CrmEditingTask"] <span class="font-medium text-slate-700 dark:text-slate-200">@taskTitle</span>
+            </p>
+        }
+
+        <form asp-action="Edit" method="post" novalidate>
+            @Html.AntiForgeryToken()
+
+            @await Html.PartialAsync("_Form", Model)
+
+            <div class="mt-8 flex items-center gap-3">
+                <button type="submit"
+                        class="rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-5 py-2.5 transition-colors">
+                    @SharedLocalizer["CrmSaveChanges"]
+                </button>
+                <a asp-action="Index"
+                   class="rounded-lg border border-slate-300 dark:border-white/15 text-sm px-5 py-2.5 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                    @SharedLocalizer["CrmCancel"]
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

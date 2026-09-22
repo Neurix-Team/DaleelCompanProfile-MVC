@@ -1,0 +1,25 @@
+@model Daleel.Models.ArticleFormViewModel
+@{
+    Layout = "_CmsLayout";
+    ViewData["Title"] = SharedLocalizer["CmsNewArticle"].Value;
+}
+
+<div class="max-w-4xl mx-auto space-y-6">
+    <div class="flex items-center gap-3">
+        <a asp-controller="CmsArticle" asp-action="Index"
+           class="p-2 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 text-slate-500 transition-colors">
+            <span class="material-symbols-outlined text-[20px] rtl:rotate-180">arrow_back</span>
+        </a>
+        <div>
+            <h2 class="font-poppins text-2xl font-bold text-brand-navy dark:text-white">@SharedLocalizer["CmsCreateNewArticle"]</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsCreateArticleDesc"]</p>
+        </div>
+    </div>
+
+    <div class="bg-white dark:bg-[#0B1728] rounded-2xl border border-slate-200/80 dark:border-white/10 p-6 sm:p-8 shadow-sm">
+        <form method="post" asp-controller="CmsArticle" asp-action="Create" enctype="multipart/form-data">
+            @Html.AntiForgeryToken()
+            @await Html.PartialAsync("_ArticleForm", Model)
+        </form>
+    </div>
+</div>

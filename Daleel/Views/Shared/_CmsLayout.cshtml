@@ -1,0 +1,317 @@
+@using System.Globalization
+@{
+    var isRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+    var langCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    var dir = isRtl ? "rtl" : "ltr";
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var displayName = User.Identity?.Name ?? string.Empty;
+    var roleLabelKey = UserRoleDisplay.GetResourceKey(User);
+    var avatarInitial = string.IsNullOrWhiteSpace(displayName)
+        ? "A"
+        : displayName.Trim().Substring(0, 1).ToUpperInvariant();
+
+    // Language toggle: hand the current panel URL back to LanguageController so the
+    // admin lands on the same screen after the culture cookie is rewritten.
+    var langReturnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
+    var switchCulture = isRtl ? "en" : "ar";
+    var switchLabel = isRtl ? "English" : "عربي";
+
+    string NavClass(string controller) => currentController == controller
+        ? "cms-nav-link active"
+        : "cms-nav-link";
+}
+<!DOCTYPE html>
+<html lang="@langCode" dir="@dir" class="scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Daleel CMS</title>
+    <link rel="icon" type="image/svg+xml" href="~/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Theme & Local Tailwind CSS -->
+    <script src="~/js/theme.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    
+    @* Quill is only needed by the article editor. Avoid a render-blocking CDN
+       request on the dashboard and every other CMS screen. *@
+    @if (string.Equals(currentController, "CmsArticle", StringComparison.OrdinalIgnoreCase))
+    {
+        <link rel="preconnect" href="https://cdn.quilljs.com" crossorigin />
+        <link href="https://cdn.quilljs.com/1.3.7/quill.snow.css" rel="stylesheet" />
+    }
+
+    <style>
+        /* Off-canvas on mobile: hide toward the inline-start edge for the current dir. */
+        #cms-sidebar { transform: translateX(-100%); }
+        [dir="rtl"] #cms-sidebar { transform: translateX(100%); }
+
+        /* Each "visible" rule below must out-specify the [dir="rtl"] rule above.
+           A bare #cms-sidebar is (1,0,0) and loses to (1,1,0) — and media queries add
+           no specificity — so in RTL the sidebar would stay parked off-screen. */
+        #cms-sidebar.cms-sidebar-open,
+        [dir="rtl"] #cms-sidebar.cms-sidebar-open { transform: translateX(0); }
+
+        @@media (min-width: 1024px) {
+            #cms-sidebar,
+            [dir="rtl"] #cms-sidebar { transform: translateX(0); }
+        }
+        .ql-toolbar.ql-snow {
+            border-top-left-radius: 0.75rem;
+            border-top-right-radius: 0.75rem;
+            border-color: #cbd5e1;
+            background: rgba(248, 250, 252, 0.8);
+        }
+        .dark .ql-toolbar.ql-snow {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(15, 37, 66, 0.8);
+        }
+        .dark .ql-snow .ql-stroke { stroke: #cbd5e1; }
+        .dark .ql-snow .ql-fill { fill: #cbd5e1; }
+        .dark .ql-snow .ql-picker { color: #cbd5e1; }
+        .ql-container.ql-snow {
+            border-bottom-left-radius: 0.75rem;
+            border-bottom-right-radius: 0.75rem;
+            border-color: #cbd5e1;
+            min-height: 250px;
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+        }
+        .dark .ql-container.ql-snow {
+            border-color: rgba(255, 255, 255, 0.15);
+            color: #e2e8f0;
+            background: rgba(15, 37, 66, 0.4);
+        }
+    </style>
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body class="font-inter bg-slate-50 dark:bg-[#070E1A] text-slate-900 dark:text-white transition-colors duration-300 antialiased">
+
+    <div class="min-h-screen flex">
+
+        <!-- Sidebar -->
+        <aside id="cms-sidebar"
+               class="fixed inset-y-0 start-0 border-e z-40 w-64 backdrop-blur-xl flex flex-col transition-transform duration-300 shadow-xl lg:shadow-none">
+
+            <!-- Logo Section -->
+            <div class="h-20 flex items-center px-6 border-b border-slate-200 dark:border-white/10 shrink-0">
+                <a asp-controller="CmsDashboard" asp-action="Index" class="flex items-center gap-3">
+                    <img src="~/assets/Logo/Daleel.png" alt="Daleel"
+                         class="h-8 w-auto dark:brightness-0 dark:invert" />
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-[#00B2EC]/10 text-[#00B2EC] border border-[#00B2EC]/20">
+                        CMS
+                    </span>
+                </a>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex-1 overflow-y-auto px-3 py-5 space-y-1 text-sm">
+                <div class="cms-section-header">
+                    @SharedLocalizer["CmsContentManagement"]
+                </div>
+
+                <a class="@NavClass("CmsDashboard")" asp-controller="CmsDashboard" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">dashboard</span>
+                    <span>@SharedLocalizer["CmsDashboard"]</span>
+                </a>
+
+                <a class="@NavClass("CmsBrand")" asp-controller="CmsBrand" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">domain</span>
+                    <span>@SharedLocalizer["CmsCompaniesBrands"]</span>
+                </a>
+
+                <a class="@NavClass("CmsArticle")" asp-controller="CmsArticle" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">article</span>
+                    <span>@SharedLocalizer["CmsArticlesBlog"]</span>
+                </a>
+
+                <a class="@NavClass("CmsPage")" asp-controller="CmsPage" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">web</span>
+                    <span>@SharedLocalizer["CmsPageSections"]</span>
+                </a>
+
+                <a class="@NavClass("CmsNavigation")" asp-controller="CmsNavigation" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">menu_book</span>
+                    <span>@SharedLocalizer["CmsNavigation"]</span>
+                </a>
+
+                <a class="@NavClass("CmsMedia")" asp-controller="CmsMedia" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">perm_media</span>
+                    <span>@SharedLocalizer["CmsMediaLibrary"]</span>
+                </a>
+
+                <div class="pt-5 cms-section-header">
+                    @SharedLocalizer["CmsBrandModules"]
+                </div>
+
+                <a class="@NavClass("CmsService")" asp-controller="CmsService" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">design_services</span>
+                    <span>@SharedLocalizer["CmsServices"]</span>
+                </a>
+
+                <a class="@NavClass("CmsProject")" asp-controller="CmsProject" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">folder_open</span>
+                    <span>@SharedLocalizer["CmsProjects"]</span>
+                </a>
+
+                <a class="@NavClass("TeamMember")" asp-controller="TeamMember" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">groups</span>
+                    <span>@SharedLocalizer["CmsTeam"]</span>
+                </a>
+
+                <a class="@NavClass("Testimonial")" asp-controller="Testimonial" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">rate_review</span>
+                    <span>@SharedLocalizer["CmsTestimonials"]</span>
+                </a>
+
+                <div class="pt-5 cms-section-header">
+                    @SharedLocalizer["CmsAdministration"]
+                </div>
+
+                <a class="@NavClass("CmsUser")" asp-controller="CmsUser" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">manage_accounts</span>
+                    <span>@SharedLocalizer["CmsUsersAccess"]</span>
+                </a>
+
+                <div class="pt-5 cms-section-header">
+                    @SharedLocalizer["CmsQuickSwitch"]
+                </div>
+
+                <a class="cms-nav-link"
+                   asp-controller="CrmDashboard" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px] text-amber-500">hub</span>
+                    <span>@SharedLocalizer["CmsCrmPipeline"]</span>
+                </a>
+
+                <a class="cms-nav-link"
+                   asp-controller="Home" asp-action="Blog" target="_blank">
+                    <span class="material-symbols-outlined text-[20px] text-emerald-500">visibility</span>
+                    <span>@SharedLocalizer["CmsViewPublicBlog"]</span>
+                </a>
+            </nav>
+
+            <!-- Bottom Website Link -->
+            <div class="p-4 border-t border-slate-200 dark:border-white/10 shrink-0">
+                <a asp-controller="Home" asp-action="Index"
+                   class="cms-nav-link justify-center !text-xs !py-2.5 font-medium">
+                    <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                    <span>@SharedLocalizer["CmsVisitLiveWebsite"]</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Sidebar backdrop (mobile) -->
+        <div id="cms-backdrop" class="fixed inset-0 z-30 bg-black/50 backdrop-blur-sm hidden lg:hidden"></div>
+
+        <!-- Main Column -->
+        <div class="flex-1 flex flex-col min-w-0 lg:ms-64">
+
+            <!-- Top Header -->
+            <header id="cms-header" class="cms-header h-20 backdrop-blur-md border-b sticky top-0 z-20 flex items-center justify-between px-4 sm:px-8 gap-4">
+                <div class="flex items-center gap-3 min-w-0">
+                    <button id="cms-sidebar-toggle" type="button"
+                            class="lg:hidden p-2.5 cms-ctrl-btn"
+                            aria-label="@SharedLocalizer["CmsToggleNavigation"]">
+                        <span class="material-symbols-outlined text-[22px]">menu</span>
+                    </button>
+                    <div class="min-w-0">
+                        <h1 class="font-poppins font-bold text-lg sm:text-xl text-brand-navy dark:text-white truncate">
+                            @ViewData["Title"]
+                        </h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">@SharedLocalizer["CmsSubtitle"]</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 sm:gap-4 shrink-0">
+                    <!-- Theme Toggle -->
+                    <button id="cms-theme-toggle" type="button"
+                            class="p-2.5 cms-ctrl-btn"
+                            aria-label="@SharedLocalizer["CmsToggleTheme"]">
+                        <span class="material-symbols-outlined dark:hidden text-[20px]">dark_mode</span>
+                        <span class="material-symbols-outlined hidden dark:inline text-[20px]">light_mode</span>
+                    </button>
+
+                    <!-- Language Toggle — reuses the public site's LanguageController,
+                         so the panel and the public site share one culture cookie. -->
+                    <a id="cms-lang-toggle"
+                       asp-controller="Language" asp-action="SetLanguage"
+                       asp-route-culture="@switchCulture"
+                       asp-route-returnUrl="@langReturnUrl"
+                       class="flex items-center gap-1.5 px-3 py-2.5 cms-ctrl-btn"
+                       title="@SharedLocalizer["CmsSwitchLanguage"]"
+                       aria-label="@SharedLocalizer["CmsSwitchLanguage"]">
+                        <span class="material-symbols-outlined text-[20px]">translate</span>
+                        <span class="text-xs font-semibold tracking-wide">@switchLabel</span>
+                    </a>
+
+                    <!-- User Profile & Logout -->
+                    <div class="flex items-center gap-3 ps-3 sm:ps-4 border-s border-slate-200 dark:border-white/10">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#00B2EC] to-[#10B981] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#00B2EC]/20 shrink-0">
+                            @avatarInitial
+                        </div>
+                        <div class="hidden sm:block text-start">
+                            <span class="block text-sm font-semibold text-slate-800 dark:text-slate-200 max-w-[150px] truncate leading-tight">
+                                @displayName
+                            </span>
+                            <span class="block text-[11px] text-[#00B2EC] font-medium">@SharedLocalizer[roleLabelKey]</span>
+                        </div>
+                        <form asp-controller="CrmAccount" asp-action="Logout" method="post" class="inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit"
+                                    class="p-2 rounded-xl text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
+                                    title="@SharedLocalizer["CmsSignOut"]" aria-label="@SharedLocalizer["CmsSignOut"]">
+                                <span class="material-symbols-outlined text-[20px]">logout</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+                @await Html.PartialAsync("_FlashMessage")
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @if (string.Equals(currentController, "CmsArticle", StringComparison.OrdinalIgnoreCase))
+    {
+        <script src="https://cdn.quilljs.com/1.3.7/quill.min.js"></script>
+    }
+    <script>
+        (function () {
+            var toggle = document.getElementById('cms-sidebar-toggle');
+            var sidebar = document.getElementById('cms-sidebar');
+            var backdrop = document.getElementById('cms-backdrop');
+
+            function closeSidebar() {
+                sidebar.classList.remove('cms-sidebar-open');
+                backdrop.classList.add('hidden');
+            }
+
+            if (toggle) {
+                toggle.addEventListener('click', function () {
+                    var open = sidebar.classList.toggle('cms-sidebar-open');
+                    backdrop.classList.toggle('hidden', !open);
+                });
+            }
+            if (backdrop) backdrop.addEventListener('click', closeSidebar);
+
+            var themeToggle = document.getElementById('cms-theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function () {
+                    window.DaleelTheme.toggle();
+                });
+            }
+        })();
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

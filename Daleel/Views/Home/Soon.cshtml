@@ -1,0 +1,204 @@
+@{
+    // CMS-editable copy (Page Sections -> "soon"). One shared page: every "coming soon"
+    // footer link routes here, so editing this card changes all of them at once.
+    var content = ViewData.PageContent();
+    ViewData["Title"] = content.Section("soon_title", SharedLocalizer["ComingSoon"].Value);
+}
+
+<section class="relative bg-white dark:bg-[#0B1220] py-32 sm:py-48 min-h-[80vh] flex items-center justify-center overflow-hidden transition-colors duration-300">
+    <!-- Ambient Background Glows -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute top-1/4 ltr:-right-40 rtl:-left-40 w-[600px] h-[600px] rounded-full bg-[#00B2EC]/10 blur-[120px]"></div>
+        <div class="absolute bottom-0 ltr:-left-20 rtl:-right-20 w-[500px] h-[500px] rounded-full bg-[#10B981]/10 blur-[100px]"></div>
+    </div>
+
+    <!-- 3D Canvas Background -->
+    <canvas id="soon-canvas" class="absolute inset-0 w-full h-full z-0 opacity-60"></canvas>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center" data-animate="fade-up">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#00B2EC]/10 via-[#10B981]/10 to-[#fdc70c]/10 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-300 font-['Inter'] text-xs font-semibold tracking-wide mb-6">
+            <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">construction</span>
+            @content.Section("soon_badge", SharedLocalizer["UnderConstruction"].Value)
+        </div>
+
+        <h1 class="font-['Poppins'] text-5xl sm:text-7xl font-bold text-slate-900 dark:text-white leading-tight mb-6 drop-shadow-md">
+            @content.Section("soon_title", SharedLocalizer["ComingSoon"].Value)
+        </h1>
+
+        <p class="font-['Inter'] text-lg sm:text-xl text-slate-600 dark:text-slate-300 leading-relaxed mb-10 max-w-2xl mx-auto drop-shadow-md">
+            @content.Section("soon_desc", SharedLocalizer["SoonDesc"].Value)
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a asp-controller="Home" asp-action="Index"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#00B2EC] text-white px-8 py-4 rounded-xl font-['Inter'] font-semibold text-base shadow-lg shadow-[#00B2EC]/20 hover:shadow-xl hover:shadow-[#00B2EC]/30 active:scale-95 transition-all duration-300">
+                <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                @content.Section("soon_cta", SharedLocalizer["ReturnHome"].Value)
+            </a>
+        </div>
+
+        <!-- Dynamic 3D Image Set -->
+        <div class="mt-16 max-w-4xl mx-auto" data-animate="fade-up" style="animation-delay: 200ms;">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@section Scripts {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        (function () {
+            const canvas = document.getElementById('soon-canvas');
+            if (!canvas || !window.THREE) return;
+
+            const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 10;
+
+            // Create a complex 3D shape (Icosahedron)
+            const geometry = new THREE.IcosahedronGeometry(2.5, 1);
+            
+            // Material 1: Wireframe
+            const wireMaterial = new THREE.MeshBasicMaterial({
+                color: 0x00B2EC,
+                wireframe: true,
+                transparent: true,
+                opacity: 0.3
+            });
+            
+            // Material 2: Solid core
+            const solidMaterial = new THREE.MeshPhongMaterial({
+                color: 0x0A192F,
+                emissive: 0x003366,
+                transparent: true,
+                opacity: 0.8,
+                flatShading: true
+            });
+
+            // Group for all 3D objects (the "set")
+            const shapeSet = new THREE.Group();
+            scene.add(shapeSet);
+
+            const mesh = new THREE.Mesh(geometry, solidMaterial);
+            const wireframe = new THREE.Mesh(geometry, wireMaterial);
+            mesh.add(wireframe);
+            shapeSet.add(mesh); // Add center mesh to set
+
+            // Floating objects set
+            const geometries = [
+                new THREE.TorusGeometry(0.8, 0.3, 16, 50),
+                new THREE.OctahedronGeometry(1.2),
+                new THREE.TetrahedronGeometry(1.5),
+                new THREE.SphereGeometry(0.8, 16, 16),
+                new THREE.DodecahedronGeometry(1)
+            ];
+
+            const floatingObjects = [];
+            for(let i = 0; i < 12; i++) {
+                const geom = geometries[Math.floor(Math.random() * geometries.length)];
+                const fMesh = new THREE.Mesh(geom, solidMaterial.clone());
+                const fWire = new THREE.Mesh(geom, wireMaterial.clone());
+                fMesh.add(fWire);
+                
+                fMesh.position.set(
+                    (Math.random() - 0.5) * 25,
+                    (Math.random() - 0.5) * 25,
+                    (Math.random() - 0.5) * 15 - 5
+                );
+                
+                fMesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, Math.random() * Math.PI);
+                
+                const scale = Math.random() * 0.4 + 0.2;
+                fMesh.scale.set(scale, scale, scale);
+                
+                floatingObjects.push({
+                    mesh: fMesh,
+                    rotSpeed: {
+                        x: (Math.random() - 0.5) * 0.02,
+                        y: (Math.random() - 0.5) * 0.02,
+                        z: (Math.random() - 0.5) * 0.02
+                    }
+                });
+                
+                shapeSet.add(fMesh);
+            }
+
+            // Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+
+            const pointLight1 = new THREE.PointLight(0x00B2EC, 2, 50);
+            pointLight1.position.set(5, 5, 5);
+            scene.add(pointLight1);
+
+            const pointLight2 = new THREE.PointLight(0xEF4123, 2, 50);
+            pointLight2.position.set(-5, -5, 5);
+            scene.add(pointLight2);
+
+            // Theme sync
+            function _applyThemeColors() {
+                const isDark = document.documentElement.classList.contains('dark');
+                wireMaterial.color.setHex(isDark ? 0x00B2EC : 0x1D3166);
+                wireMaterial.opacity = isDark ? 0.3 : 0.15;
+                solidMaterial.color.setHex(isDark ? 0x0A192F : 0xF8F9FA);
+                solidMaterial.emissive.setHex(isDark ? 0x003366 : 0xcccccc);
+            }
+            _applyThemeColors();
+            document.addEventListener('daleel:theme-changed', _applyThemeColors);
+
+            // Mouse interaction
+            let targetRotationX = 0;
+            let targetRotationY = 0;
+            let mouseX = 0;
+            let mouseY = 0;
+
+            document.addEventListener('mousemove', (e) => {
+                mouseX = (e.clientX - window.innerWidth / 2) * 0.001;
+                mouseY = (e.clientY - window.innerHeight / 2) * 0.001;
+            });
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                // Auto rotation
+                mesh.rotation.x += 0.002;
+                mesh.rotation.y += 0.003;
+
+                // Auto rotation for floating set
+                floatingObjects.forEach((obj, i) => {
+                    obj.mesh.rotation.x += obj.rotSpeed.x;
+                    obj.mesh.rotation.y += obj.rotSpeed.y;
+                    obj.mesh.rotation.z += obj.rotSpeed.z;
+                    obj.mesh.position.y += Math.sin(Date.now() * 0.001 + i) * 0.005;
+                });
+
+                // Interactive rotation
+                targetRotationY += (mouseX - targetRotationY) * 0.05;
+                targetRotationX += (mouseY - targetRotationX) * 0.05;
+                
+                shapeSet.rotation.y += targetRotationY;
+                shapeSet.rotation.x += targetRotationX;
+
+                // Floating effect
+                mesh.position.y = Math.sin(Date.now() * 0.001) * 0.3;
+
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+        })();
+    </script>
+}

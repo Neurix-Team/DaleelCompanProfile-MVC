@@ -1,0 +1,82 @@
+@model IReadOnlyList<string>
+@{
+    Layout = "_CmsLayout";
+    ViewData["Title"] = SharedLocalizer["CmsPageSections"].Value;
+
+    string PageTitle(string key) => key.ToLowerInvariant() switch
+    {
+        "home" => SharedLocalizer["CmsPageHome"].Value,
+        "about" => SharedLocalizer["CmsPageAbout"].Value,
+        "platforms" => SharedLocalizer["CmsPagePlatforms"].Value,
+        "trust" => SharedLocalizer["CmsPageTrust"].Value,
+        "pricing" => SharedLocalizer["CmsPagePricing"].Value,
+        "shop" => SharedLocalizer["CmsPageShop"].Value,
+        "blog" => SharedLocalizer["CmsPageBlog"].Value,
+        "contact" => SharedLocalizer["CmsPageContact"].Value,
+        "soon" => SharedLocalizer["CmsPageSoon"].Value,
+        _ => char.ToUpperInvariant(key[0]) + key.Substring(1) + " " + SharedLocalizer["CmsPageSuffix"].Value
+    };
+
+    string PageIcon(string key) => key.ToLowerInvariant() switch
+    {
+        "home" => "home",
+        "about" => "info",
+        "platforms" => "apps",
+        "trust" => "verified_user",
+        "pricing" => "payments",
+        "shop" => "storefront",
+        "blog" => "newspaper",
+        "contact" => "mail",
+        "soon" => "construction",
+        _ => "web"
+    };
+}
+
+<div class="space-y-6">
+    <div>
+        <h2 class="font-poppins text-2xl font-bold text-brand-navy dark:text-white">
+            @SharedLocalizer["CmsDynamicPageSections"]
+        </h2>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            @SharedLocalizer["CmsPageSectionsIntro"]
+        </p>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        @foreach (var pageKey in Model)
+        {
+            <div class="p-6 rounded-2xl bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col justify-between hover:border-[#00B2EC]/50 hover:shadow-md transition-all group">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[24px]">@PageIcon(pageKey)</span>
+                        </div>
+                        <span class="font-mono text-xs px-2.5 py-1 rounded-md bg-slate-100 dark:bg-white/5 text-slate-500">
+                            pageKey: @pageKey
+                        </span>
+                    </div>
+
+                    <h3 class="font-poppins font-bold text-lg text-slate-900 dark:text-white group-hover:text-[#00B2EC] transition-colors">
+                        @PageTitle(pageKey)
+                    </h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                        @SharedLocalizer["CmsEditPageHeaderDesc"]
+                    </p>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+                    <a asp-controller="Home" asp-action="@(pageKey.Equals("home", StringComparison.OrdinalIgnoreCase) ? "Index" : char.ToUpperInvariant(pageKey[0]) + pageKey.Substring(1))" target="_blank"
+                       class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[16px]">visibility</span> @SharedLocalizer["CmsLive"]
+                    </a>
+                    <a asp-controller="CmsPage" asp-action="Edit" asp-route-pageKey="@pageKey"
+                       class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC] hover:text-white dark:hover:bg-[#00B2EC] text-slate-700 dark:text-slate-200 font-semibold text-xs transition-all">
+                        <span>@SharedLocalizer["CmsEditContent"]</span>
+                        <span class="material-symbols-outlined text-[16px] rtl:rotate-180">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        }
+    </div>
+</div>

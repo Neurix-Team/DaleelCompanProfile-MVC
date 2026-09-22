@@ -1,0 +1,87 @@
+@model Daleel.Models.LeadFormViewModel
+@using Daleel.DAL.Entities
+@{
+    var inputClass = "w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition";
+    var labelClass = "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2";
+    var errorClass = "mt-1.5 block text-xs text-red-600 dark:text-red-400";
+}
+
+<div asp-validation-summary="ModelOnly"
+     class="mb-6 rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/25 px-4 py-3 text-sm text-red-700 dark:text-red-400 [&_ul]:list-none [&_ul]:m-0 [&_ul]:p-0">
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+    <div>
+        <label asp-for="FirstName" class="@labelClass"></label>
+        <input asp-for="FirstName" class="@inputClass" placeholder="Sara" autofocus />
+        <span asp-validation-for="FirstName" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="LastName" class="@labelClass"></label>
+        <input asp-for="LastName" class="@inputClass" placeholder="Hassan" />
+        <span asp-validation-for="LastName" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="Email" class="@labelClass"></label>
+        <input asp-for="Email" type="email" class="@inputClass" placeholder="sara@acme.com" />
+        <span asp-validation-for="Email" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="Phone" class="@labelClass"></label>
+        <input asp-for="Phone" class="@inputClass" placeholder="+20 100 000 0000" />
+        <span asp-validation-for="Phone" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="CompanyName" class="@labelClass"></label>
+        <input asp-for="CompanyName" class="@inputClass" placeholder="Acme Trading Co." />
+        <span asp-validation-for="CompanyName" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="JobTitle" class="@labelClass"></label>
+        <input asp-for="JobTitle" class="@inputClass" placeholder="Operations Manager" />
+        <span asp-validation-for="JobTitle" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="Status" class="@labelClass"></label>
+        <select asp-for="Status" class="@inputClass">
+            @foreach (var s in Enum.GetValues<LeadStatus>())
+            {
+                <option value="@s" selected="@(Model.Status == s)">@SharedLocalizer[$"CrmLeadStatus_{s}"]</option>
+            }
+        </select>
+        <span asp-validation-for="Status" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="Source" class="@labelClass"></label>
+        <select asp-for="Source" class="@inputClass">
+            @foreach (var s in Enum.GetValues<LeadSource>())
+            {
+                <option value="@s" selected="@(Model.Source == s)">@SharedLocalizer[$"CrmLeadSource_{s}"]</option>
+            }
+        </select>
+        <span asp-validation-for="Source" class="@errorClass"></span>
+    </div>
+
+    <div class="sm:col-span-2">
+        <label asp-for="AssignedToId" class="@labelClass"></label>
+        <select asp-for="AssignedToId" asp-items="Model.AssignedToOptions" class="@inputClass">
+            <option value="">— @SharedLocalizer["CrmUnassigned"] —</option>
+        </select>
+        <span asp-validation-for="AssignedToId" class="@errorClass"></span>
+    </div>
+
+    <div class="sm:col-span-2">
+        <label asp-for="Notes" class="@labelClass"></label>
+        <textarea asp-for="Notes" rows="5" class="@inputClass" placeholder="@SharedLocalizer["CrmNotesPlaceholder"]"></textarea>
+        <span asp-validation-for="Notes" class="@errorClass"></span>
+    </div>
+</div>
+

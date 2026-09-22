@@ -1,0 +1,35 @@
+@model Daleel.Models.BrandProfileFormViewModel
+@{
+    Layout = "_CmsLayout";
+    ViewData["Title"] = SharedLocalizer["CmsTitleCreateBrandProfile"].Value;
+}
+
+<div class="max-w-4xl mx-auto space-y-6">
+    <!-- Header -->
+    <div class="flex items-center justify-between">
+        <div>
+            <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1">
+                <a asp-controller="CmsBrand" asp-action="Index" class="hover:text-[#00B2EC]">@SharedLocalizer["CmsBrands"]</a>
+                <span>/</span>
+                <span>@SharedLocalizer["CmsNew"]</span>
+            </div>
+            <h2 class="font-poppins text-2xl font-bold text-brand-navy dark:text-white">
+                @SharedLocalizer["CmsTitleCreateBrandProfile"]
+            </h2>
+        </div>
+        <a asp-controller="CmsBrand" asp-action="Index"
+           class="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 text-sm font-medium transition-colors">
+            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            <span>@SharedLocalizer["CmsBackToBrands"]</span>
+        </a>
+    </div>
+
+    <form asp-controller="CmsBrand" asp-action="Create" method="post" enctype="multipart/form-data">
+        @Html.AntiForgeryToken()
+        <partial name="_BrandForm" model="Model" />
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

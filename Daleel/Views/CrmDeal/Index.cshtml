@@ -1,0 +1,218 @@
+@model Daleel.BAL.Models.PagedResult<Daleel.BAL.Models.DealListItem>
+@using Daleel.DAL.Entities
+@using Daleel.BAL.Models
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    Layout = "_CrmLayout";
+    ViewData["Title"] = SharedLocalizer["CrmDeals"].Value;
+    var q = ViewData["Q"] as string;
+    var stage = ViewData["Stage"] as DealStage?;
+    var assignedToId = ViewData["AssignedToId"] as string;
+    var openOnly = ViewData["OpenOnly"] is true;
+    var sort = ViewData["Sort"] as DealSort? ?? DealSort.Newest;
+    var userOptions = ViewData["AssignedToOptions"] as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+
+    var inputClass = "w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition";
+    var hasFilters = !string.IsNullOrWhiteSpace(q) || stage.HasValue || !string.IsNullOrWhiteSpace(assignedToId) || openOnly;
+}
+
+<div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+    <p class="text-sm text-slate-500 dark:text-slate-400">
+        @Model.TotalCount @(Model.TotalCount == 1 ? SharedLocalizer["CrmEntityType_Deal"].Value : SharedLocalizer["CrmDeals"].Value)
+    </p>
+    <div class="flex items-center gap-2">
+        <a asp-action="Pipeline"
+           class="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+            <span class="material-symbols-outlined text-[20px]">view_kanban</span>
+            @SharedLocalizer["CrmPipeline"]
+        </a>
+        <a asp-action="Create"
+           class="inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+            <span class="material-symbols-outlined text-[20px]">add</span>
+            @SharedLocalizer["CrmNewDeal"]
+        </a>
+    </div>
+</div>
+
+<!-- Search & filter -->
+<form asp-action="Index" method="get" class="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end">
+    <div class="lg:col-span-2">
+        <label for="q" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">@SharedLocalizer["CrmSearch"]</label>
+        <input type="search" id="q" name="q" value="@q" placeholder="@SharedLocalizer["CrmSearchPlaceholderDeal"]" class="@inputClass" />
+    </div>
+
+    <div>
+        <label for="stage" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">@SharedLocalizer["CrmStage"]</label>
+        <select id="stage" name="stage" class="@inputClass">
+            <option value="">@SharedLocalizer["CrmAllStages"]</option>
+            @foreach (var s in Enum.GetValues<DealStage>())
+            {
+                <option value="@s" selected="@(stage == s)">@SharedLocalizer[$"CrmDealStage_{s}"]</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="assignedToId" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">@SharedLocalizer["CrmAssignedTo"]</label>
+        <select id="assignedToId" name="assignedToId" class="@inputClass">
+            <option value="">@SharedLocalizer["CrmAnyone"]</option>
+            @foreach (var u in userOptions)
+            {
+                <option value="@u.Value" selected="@(assignedToId == u.Value)">@u.Text</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="sort" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">@SharedLocalizer["CrmSortBy"]</label>
+        <select id="sort" name="sort" class="@inputClass">
+            @foreach (var s in Enum.GetValues<DealSort>())
+            {
+                <option value="@s" selected="@(sort == s)">@SharedLocalizer[$"CrmDealSort_{s}"]</option>
+            }
+        </select>
+    </div>
+
+    <div class="sm:col-span-2 lg:col-span-5 flex flex-wrap items-center gap-3">
+        <label class="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 select-none">
+            <input type="checkbox" name="openOnly" value="true" checked="@openOnly"
+                   class="rounded border-slate-300 dark:border-white/20 text-[#00B2EC] focus:ring-[#00B2EC]/30" />
+            @SharedLocalizer["CrmOpenDealsOnly"]
+        </label>
+
+        <button type="submit"
+                class="rounded-lg border border-slate-300 dark:border-white/15 px-4 py-2.5 text-sm font-medium hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+            @SharedLocalizer["CrmApply"]
+        </button>
+
+        @if (hasFilters)
+        {
+            <a asp-action="Index" class="rounded-lg px-4 py-2.5 text-sm text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors">
+                @SharedLocalizer["CrmClear"]
+            </a>
+        }
+    </div>
+</form>
+
+@if (!Model.Items.Any())
+{
+    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-10 text-center">
+        <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center">
+            <span class="material-symbols-outlined text-slate-400 text-[28px]">handshake</span>
+        </div>
+        @if (hasFilters)
+        {
+            <h3 class="mt-5 font-poppins font-semibold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CrmNoMatchingDeals"]</h3>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">@SharedLocalizer["CrmNoMatchingLeadsDesc"]</p>
+        }
+        else
+        {
+            <h3 class="mt-5 font-poppins font-semibold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CrmNoDealsYet"]</h3>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">@SharedLocalizer["CrmNoDealsYetDesc"]</p>
+            <a asp-action="Create"
+               class="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">add</span>
+                @SharedLocalizer["CrmNewDeal"]
+            </a>
+        }
+    </div>
+}
+else
+{
+    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400">
+                    <tr>
+                        <th class="px-5 py-3 font-medium text-start">@SharedLocalizer["CrmDealName"]</th>
+                        <th class="px-5 py-3 font-medium text-start hidden md:table-cell">@SharedLocalizer["CrmCompanyName"]</th>
+                        <th class="px-5 py-3 font-medium text-end">@SharedLocalizer["CrmDealValue"]</th>
+                        <th class="px-5 py-3 font-medium text-start">@SharedLocalizer["CrmStage"]</th>
+                        <th class="px-5 py-3 font-medium text-start hidden lg:table-cell">@SharedLocalizer["CrmExpectedCloseDate"]</th>
+                        <th class="px-5 py-3 font-medium text-start hidden xl:table-cell">@SharedLocalizer["CrmAssignedTo"]</th>
+                        <th class="px-5 py-3 font-medium text-end">@SharedLocalizer["CrmActions"]</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 dark:divide-white/10">
+                    @foreach (var d in Model.Items)
+                    {
+                        var confirmText = System.Text.Encodings.Web.JavaScriptEncoder.Default.Encode(
+                            $"Delete {d.Name}? This cannot be undone.");
+                        <tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                            <td class="px-5 py-3.5">
+                                <a asp-action="Details" asp-route-id="@d.Id"
+                                   class="font-medium text-brand-navy dark:text-white hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors">
+                                    @d.Name
+                                </a>
+                                @if (!string.IsNullOrWhiteSpace(d.PrimaryContactName))
+                                {
+                                    <span class="block text-xs text-slate-400 mt-0.5">@d.PrimaryContactName</span>
+                                }
+                            </td>
+                            <td class="px-5 py-3.5 hidden md:table-cell">
+                                @if (d.CompanyId.HasValue)
+                                {
+                                    <a asp-controller="CrmCompany" asp-action="Details" asp-route-id="@d.CompanyId"
+                                       class="text-slate-600 dark:text-slate-300 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors">
+                                        @d.CompanyName
+                                    </a>
+                                }
+                                else
+                                {
+                                    <span class="text-slate-400">—</span>
+                                }
+                            </td>
+                            <td class="px-5 py-3.5 text-end font-medium text-slate-700 dark:text-slate-200 whitespace-nowrap">
+                                @d.Value.ToString("N2") <span class="text-xs text-slate-400">@d.Currency</span>
+                            </td>
+                            <td class="px-5 py-3.5">
+                                <partial name="_DealStageBadge" model="d.Stage" />
+                            </td>
+                            <td class="px-5 py-3.5 hidden lg:table-cell whitespace-nowrap">
+                                @if (d.ExpectedCloseDate.HasValue)
+                                {
+                                    <span class="@(d.IsOverdue ? "text-red-600 dark:text-red-400 font-medium" : "text-slate-600 dark:text-slate-300")">
+                                        @d.ExpectedCloseDate.Value.ToString("dd MMM yyyy")
+                                    </span>
+                                    @if (d.IsOverdue)
+                                    {
+                                        <span class="block text-xs text-red-500">@SharedLocalizer["CrmOverdue"]</span>
+                                    }
+                                }
+                                else
+                                {
+                                    <span class="text-slate-400">—</span>
+                                }
+                            </td>
+                            <td class="px-5 py-3.5 text-slate-600 dark:text-slate-300 hidden xl:table-cell">@(d.AssignedToName ?? "—")</td>
+                            <td class="px-5 py-3.5">
+                                <div class="flex items-center justify-end gap-1">
+                                    <a asp-action="Edit" asp-route-id="@d.Id" title="@SharedLocalizer["CrmEdit"]"
+                                       class="p-2 rounded-lg text-slate-500 hover:text-[#00B2EC] hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </a>
+                                    <form asp-action="Delete" asp-route-id="@d.Id" method="post" class="inline"
+                                          onsubmit="return confirm('@Html.Raw(confirmText)');">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" title="@SharedLocalizer["CrmDelete"]"
+                                                class="p-2 rounded-lg text-slate-500 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
+                                            <span class="material-symbols-outlined text-[20px]">delete</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @await Html.PartialAsync("_Pager", new Daleel.Models.PagerViewModel
+    {
+        Page = Model.Page,
+        TotalPages = Model.TotalPages,
+        TotalCount = Model.TotalCount
+    })
+}
+

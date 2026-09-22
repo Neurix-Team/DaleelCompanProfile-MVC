@@ -1,0 +1,173 @@
+@model Daleel.Models.LeadConversionViewModel
+@{
+    Layout = "_CrmLayout";
+    ViewData["Title"] = $"{SharedLocalizer["CrmConvert"].Value} {Model.LeadName}";
+
+    var inputClass = "w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition";
+    var labelClass = "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2";
+    var errorClass = "mt-1.5 block text-xs text-red-600 dark:text-red-400";
+}
+
+<div class="max-w-3xl">
+    <a asp-action="Details" asp-route-id="@ViewContext.RouteData.Values["id"]"
+       class="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors mb-5">
+        <span class="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_back</span>
+        @SharedLocalizer["CrmBackToLead"]
+    </a>
+
+    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6 sm:p-8">
+
+        <div class="mb-6 pb-6 border-b border-slate-200 dark:border-white/10">
+            <h2 class="font-poppins font-semibold text-lg text-brand-navy dark:text-white">
+                @SharedLocalizer["CrmConvert"] @Model.LeadName
+            </h2>
+            <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                @SharedLocalizer["CrmConvertLeadSubtitle"]
+            </p>
+        </div>
+
+        <form asp-action="Convert" method="post" novalidate>
+            @Html.AntiForgeryToken()
+
+            <div asp-validation-summary="ModelOnly"
+                 class="mb-6 rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/25 px-4 py-3 text-sm text-red-700 dark:text-red-400 [&_ul]:list-none [&_ul]:m-0 [&_ul]:p-0">
+            </div>
+
+            @* Kept outside the duplicate block below so a link failure always has
+               somewhere to report itself, even when no duplicate is on the page. *@
+            <input asp-for="ExistingContactId" type="hidden" />
+            <span asp-validation-for="ExistingContactId" class="@errorClass mb-4"></span>
+
+            @if (Model.DuplicateContact is not null)
+            {
+                <div class="mb-6 rounded-lg border border-amber-200 dark:border-amber-500/25 bg-amber-50 dark:bg-amber-500/10 px-4 py-4">
+                    <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-[20px] shrink-0 text-amber-600 dark:text-amber-400">person_search</span>
+                        <div class="min-w-0">
+                            <p class="text-sm font-semibold text-amber-800 dark:text-amber-300">
+                                @SharedLocalizer["CrmDuplicateContactFound"]
+                            </p>
+                            <p class="mt-1 text-sm text-amber-700 dark:text-amber-400 break-words">
+                                <a asp-controller="CrmContact" asp-action="Details" asp-route-id="@Model.DuplicateContact.Id"
+                                   target="_blank" class="font-medium underline hover:no-underline">@Model.DuplicateContact.FullName</a>
+                                @if (!string.IsNullOrWhiteSpace(Model.DuplicateContact.CompanyName))
+                                {
+                                    <span> · @Model.DuplicateContact.CompanyName</span>
+                                }
+                                <span> · @Model.DuplicateContact.Email</span>
+                            </p>
+
+                            <label class="mt-3 flex items-center gap-2 text-sm text-amber-800 dark:text-amber-300 cursor-pointer">
+                                <input asp-for="LinkExistingContact" id="link-existing"
+                                       class="rounded border-amber-300 text-[#00B2EC] focus:ring-[#00B2EC]/30" />
+                                <span>@SharedLocalizer["CrmLinkExistingContact"]</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            }
+
+            <div id="new-contact-fields">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label asp-for="FirstName" class="@labelClass"></label>
+                        <input asp-for="FirstName" class="@inputClass" />
+                        <span asp-validation-for="FirstName" class="@errorClass"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="LastName" class="@labelClass"></label>
+                        <input asp-for="LastName" class="@inputClass" />
+                        <span asp-validation-for="LastName" class="@errorClass"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="Email" class="@labelClass"></label>
+                        <input asp-for="Email" type="email" class="@inputClass" />
+                        <span asp-validation-for="Email" class="@errorClass"></span>
+                    </div>
+
+                    <div>
+                        <label asp-for="Phone" class="@labelClass"></label>
+                        <input asp-for="Phone" class="@inputClass" />
+                        <span asp-validation-for="Phone" class="@errorClass"></span>
+                    </div>
+
+                    <div class="sm:col-span-2">
+                        <label asp-for="JobTitle" class="@labelClass"></label>
+                        <input asp-for="JobTitle" class="@inputClass" />
+                        <span asp-validation-for="JobTitle" class="@errorClass"></span>
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-6 border-t border-slate-200 dark:border-white/10 grid grid-cols-1 sm:grid-cols-2 gap-5">
+                    <div>
+                        <label asp-for="ExistingCompanyId" class="@labelClass"></label>
+                        <select asp-for="ExistingCompanyId" asp-items="Model.CompanyOptions" id="company-select" class="@inputClass">
+                            <option value="">— @SharedLocalizer["CrmNoCompany"] —</option>
+                            <option value="@Daleel.Models.LeadConversionViewModel.CreateNewCompanyId">— @SharedLocalizer["CrmCreateNewCompany"] —</option>
+                        </select>
+                        <span asp-validation-for="ExistingCompanyId" class="@errorClass"></span>
+                    </div>
+
+                    <div id="new-company-field">
+                        <label asp-for="NewCompanyName" class="@labelClass"></label>
+                        <input asp-for="NewCompanyName" class="@inputClass" placeholder="Acme Trading Co." />
+                        <span asp-validation-for="NewCompanyName" class="@errorClass"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="link-notice" class="hidden mt-2 flex items-start gap-3 rounded-lg border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-3 text-sm text-slate-600 dark:text-slate-400">
+                <span class="material-symbols-outlined text-[20px] shrink-0">link</span>
+                <span>@SharedLocalizer["CrmLinkNotice"]</span>
+            </div>
+
+            <div class="mt-8 flex items-center gap-3">
+                <button type="submit"
+                        class="rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-5 py-2.5 transition-colors">
+                    @SharedLocalizer["CrmConvertLead"]
+                </button>
+                <a asp-action="Details" asp-route-id="@ViewContext.RouteData.Values["id"]"
+                   class="rounded-lg border border-slate-300 dark:border-white/15 text-sm px-5 py-2.5 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                    @SharedLocalizer["CrmCancel"]
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        (function () {
+            var companySelect = document.getElementById('company-select');
+            var newCompanyField = document.getElementById('new-company-field');
+            var linkCheckbox = document.getElementById('link-existing');
+            var contactFields = document.getElementById('new-contact-fields');
+            var linkNotice = document.getElementById('link-notice');
+            var createNewValue = '@Daleel.Models.LeadConversionViewModel.CreateNewCompanyId';
+
+            function syncCompanyField() {
+                if (!companySelect || !newCompanyField) return;
+                newCompanyField.classList.toggle('hidden', companySelect.value !== createNewValue);
+            }
+
+            function syncLinkMode() {
+                if (!linkCheckbox) return;
+                var linking = linkCheckbox.checked;
+                // Hidden rather than disabled: disabled inputs are not submitted, and the
+                // server still validates the contact fields on every post.
+                contactFields.classList.toggle('hidden', linking);
+                linkNotice.classList.toggle('hidden', !linking);
+            }
+
+            if (companySelect) companySelect.addEventListener('change', syncCompanyField);
+            if (linkCheckbox) linkCheckbox.addEventListener('change', syncLinkMode);
+
+            syncCompanyField();
+            syncLinkMode();
+        })();
+    </script>
+}
+

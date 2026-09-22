@@ -1,0 +1,236 @@
+@using System.Globalization
+@{
+    var isRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+    var langCode = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    var dir = isRtl ? "rtl" : "ltr";
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var displayName = User.Identity?.Name ?? string.Empty;
+    var roleLabelKey = UserRoleDisplay.GetResourceKey(User);
+    var avatarInitial = string.IsNullOrWhiteSpace(displayName)
+        ? "U"
+        : displayName.Trim().Substring(0, 1).ToUpperInvariant();
+
+    // Language toggle: hand the current panel URL back to LanguageController so the
+    // user lands on the same screen after the culture cookie is rewritten.
+    var langReturnUrl = $"{Context.Request.Path}{Context.Request.QueryString}";
+    var switchCulture = isRtl ? "en" : "ar";
+    var switchLabel = isRtl ? "English" : "عربي";
+
+    string NavClass(string controller) => currentController == controller
+        ? "crm-nav-link active"
+        : "crm-nav-link";
+}
+<!DOCTYPE html>
+<html lang="@langCode" dir="@dir" class="scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Daleel CRM</title>
+    <link rel="icon" type="image/svg+xml" href="~/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Theme & Local Tailwind CSS -->
+    <script src="~/js/theme.js" asp-append-version="true"></script>
+    <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
+
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    <style>
+        /* Off-canvas sidebar on mobile: hide toward the inline-start edge for the current dir. */
+        #crm-sidebar { transform: translateX(-100%); }
+        [dir="rtl"] #crm-sidebar { transform: translateX(100%); }
+
+        #crm-sidebar.crm-sidebar-open,
+        [dir="rtl"] #crm-sidebar.crm-sidebar-open { transform: translateX(0); }
+
+        @@media (min-width: 1024px) {
+            #crm-sidebar,
+            [dir="rtl"] #crm-sidebar { transform: translateX(0); }
+        }
+    </style>
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body class="@(isRtl ? "font-cairo" : "font-inter") bg-slate-50 dark:bg-[#0A192F] text-slate-900 dark:text-white transition-colors duration-300 antialiased">
+
+    <div class="min-h-screen flex">
+
+        <!-- Sidebar -->
+        <aside id="crm-sidebar"
+               class="fixed inset-y-0 start-0 border-e z-40 w-64 backdrop-blur-xl flex flex-col transition-transform duration-300 shadow-xl lg:shadow-none">
+
+            <!-- Logo Section -->
+            <div class="h-20 flex items-center px-6 border-b border-slate-200 dark:border-white/10 shrink-0">
+                <a asp-controller="CrmDashboard" asp-action="Index" class="flex items-center gap-3">
+                    <img src="~/assets/Logo/Daleel.png" alt="Daleel"
+                         class="h-8 w-auto dark:brightness-0 dark:invert" />
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-[#00B2EC]/10 text-[#00B2EC] border border-[#00B2EC]/20">
+                        CRM
+                    </span>
+                </a>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="flex-1 overflow-y-auto px-3 py-5 space-y-1 text-sm">
+                <div class="crm-section-header">
+                    @SharedLocalizer["CrmSalesPipeline"]
+                </div>
+
+                <a class="@NavClass("CrmDashboard")" asp-controller="CrmDashboard" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">dashboard</span>
+                    <span>@SharedLocalizer["CrmDashboard"]</span>
+                </a>
+
+                <a class="@NavClass("CrmLead")" asp-controller="CrmLead" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">groups</span>
+                    <span>@SharedLocalizer["CrmLeads"]</span>
+                </a>
+
+                <a class="@NavClass("CrmCompany")" asp-controller="CrmCompany" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">apartment</span>
+                    <span>@SharedLocalizer["CrmCompanies"]</span>
+                </a>
+
+                <a class="@NavClass("CrmContact")" asp-controller="CrmContact" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">contacts</span>
+                    <span>@SharedLocalizer["CrmContacts"]</span>
+                </a>
+
+                <a class="@NavClass("CrmDeal")" asp-controller="CrmDeal" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">handshake</span>
+                    <span>@SharedLocalizer["CrmDeals"]</span>
+                </a>
+
+                <a class="@NavClass("CrmTask")" asp-controller="CrmTask" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">task_alt</span>
+                    <span>@SharedLocalizer["CrmTasks"]</span>
+                </a>
+
+                <div class="pt-5 crm-section-header">
+                    @SharedLocalizer["CmsContentManagement"]
+                </div>
+
+                <a class="crm-nav-link"
+                   asp-controller="CmsDashboard" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px] text-[#00B2EC]">edit_document</span>
+                    <span>@SharedLocalizer["CmsDashboard"]</span>
+                </a>
+            </nav>
+
+            <!-- Bottom Website Link -->
+            <div class="p-4 border-t border-slate-200 dark:border-white/10 shrink-0">
+                <a asp-controller="Home" asp-action="Index"
+                   class="crm-nav-link justify-center !text-xs !py-2.5 font-medium">
+                    <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                    <span>@SharedLocalizer["CmsVisitLiveWebsite"]</span>
+                </a>
+            </div>
+        </aside>
+
+        <!-- Sidebar backdrop (mobile) -->
+        <div id="crm-backdrop" class="fixed inset-0 z-30 bg-black/50 backdrop-blur-sm hidden lg:hidden"></div>
+
+        <!-- Main Column -->
+        <div class="flex-1 flex flex-col min-w-0 lg:ms-64">
+
+            <!-- Top Header -->
+            <header id="crm-header" class="crm-header h-20 backdrop-blur-md border-b sticky top-0 z-20 flex items-center justify-between px-4 sm:px-8 gap-4">
+                <div class="flex items-center gap-3 min-w-0">
+                    <button id="crm-sidebar-toggle" type="button"
+                            class="lg:hidden p-2.5 crm-ctrl-btn"
+                            aria-label="@SharedLocalizer["CrmToggleNavigation"]">
+                        <span class="material-symbols-outlined text-[22px]">menu</span>
+                    </button>
+                    <div class="min-w-0">
+                        <h1 class="font-poppins font-bold text-lg sm:text-xl text-brand-navy dark:text-white truncate">
+                            @ViewData["Title"]
+                        </h1>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">@SharedLocalizer["CrmSubtitle"]</p>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-2 sm:gap-4 shrink-0">
+                    <!-- Theme Toggle -->
+                    <button id="crm-theme-toggle" type="button"
+                            class="p-2.5 crm-ctrl-btn"
+                            aria-label="@SharedLocalizer["CrmToggleTheme"]">
+                        <span class="material-symbols-outlined dark:hidden text-[20px]">dark_mode</span>
+                        <span class="material-symbols-outlined hidden dark:inline text-[20px]">light_mode</span>
+                    </button>
+
+                    <!-- Language Toggle -->
+                    <a id="crm-lang-toggle"
+                       asp-controller="Language" asp-action="SetLanguage"
+                       asp-route-culture="@switchCulture"
+                       asp-route-returnUrl="@langReturnUrl"
+                       class="flex items-center gap-1.5 px-3 py-2.5 crm-ctrl-btn"
+                       title="@SharedLocalizer["CrmSwitchLanguage"]"
+                       aria-label="@SharedLocalizer["CrmSwitchLanguage"]">
+                        <span class="material-symbols-outlined text-[20px]">translate</span>
+                        <span class="text-xs font-semibold tracking-wide">@switchLabel</span>
+                    </a>
+
+                    <!-- User Profile & Logout -->
+                    <div class="flex items-center gap-3 ps-3 sm:ps-4 border-s border-slate-200 dark:border-white/10">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#00B2EC] to-[#10B981] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#00B2EC]/20 shrink-0">
+                            @avatarInitial
+                        </div>
+                        <div class="hidden sm:block text-start">
+                            <span class="block text-sm font-semibold text-slate-800 dark:text-slate-200 max-w-[150px] truncate leading-tight">
+                                @displayName
+                            </span>
+                            <span class="block text-[11px] text-[#00B2EC] font-medium">@SharedLocalizer[roleLabelKey]</span>
+                        </div>
+                        <form asp-controller="CrmAccount" asp-action="Logout" method="post" class="inline">
+                            @Html.AntiForgeryToken()
+                            <button type="submit"
+                                    class="p-2 rounded-xl text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
+                                    title="@SharedLocalizer["CrmSignOut"]" aria-label="@SharedLocalizer["CrmSignOut"]">
+                                <span class="material-symbols-outlined text-[20px]">logout</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content Area -->
+            <main class="flex-1 p-4 sm:p-6 lg:p-8 max-w-7xl w-full mx-auto">
+                @await Html.PartialAsync("_FlashMessage")
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script>
+        (function () {
+            var toggle = document.getElementById('crm-sidebar-toggle');
+            var sidebar = document.getElementById('crm-sidebar');
+            var backdrop = document.getElementById('crm-backdrop');
+
+            function closeSidebar() {
+                sidebar.classList.remove('crm-sidebar-open');
+                backdrop.classList.add('hidden');
+            }
+
+            if (toggle) {
+                toggle.addEventListener('click', function () {
+                    var open = sidebar.classList.toggle('crm-sidebar-open');
+                    backdrop.classList.toggle('hidden', !open);
+                });
+            }
+            if (backdrop) backdrop.addEventListener('click', closeSidebar);
+
+            var themeToggle = document.getElementById('crm-theme-toggle');
+            if (themeToggle) {
+                themeToggle.addEventListener('click', function () {
+                    window.DaleelTheme.toggle();
+                });
+            }
+        })();
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

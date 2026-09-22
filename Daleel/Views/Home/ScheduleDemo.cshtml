@@ -1,0 +1,249 @@
+@model Daleel.Models.ScheduleDemoViewModel
+@{
+    ViewData["Title"] = SharedLocalizer["DemoTitle"];
+    bool isSuccess = TempData["DemoSuccess"] != null && (bool)TempData["DemoSuccess"]!;
+}
+
+<section class="relative py-32 overflow-hidden bg-white dark:bg-[#0B1220] transition-colors duration-300">
+    @* Ambient background glow *@
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute top-10 left-10 w-[600px] h-[600px] rounded-[100%] bg-[#00B2EC]/10 blur-[120px]"></div>
+    </div>
+
+    <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8">
+
+        @* ── Page header ──────────────────────────────────────────────────── *@
+        <div class="text-center max-w-3xl mx-auto mb-20" data-animate="fade-up">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00B2EC]/10 border border-[#00B2EC]/20 text-[#00B2EC] font-['Inter'] text-xs font-semibold tracking-wide mb-6">
+                <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
+                @SharedLocalizer["DemoTitle"]
+            </div>
+            <h1 class="font-['Poppins'] text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 dark:text-white leading-tight mb-6">
+                @SharedLocalizer["DemoHeading"]
+            </h1>
+            <p class="font-['Inter'] text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
+                @SharedLocalizer["DemoDesc"]
+            </p>
+        </div>
+
+        <div class="max-w-3xl mx-auto">
+            <div class="glass-card rounded-[2rem] p-8 sm:p-10 shadow-xl dark:shadow-none" data-animate="scale-in" data-delay="1">
+
+                @* ── Success banner (shown after successful PRG redirect) ──── *@
+                @if (isSuccess)
+                {
+                    <div id="demo-success-banner"
+                         class="mb-8 flex items-start gap-3 rounded-2xl border border-[#10B981]/25 bg-[#10B981]/10 px-5 py-4"
+                         role="alert" aria-live="polite">
+                        <span class="material-symbols-outlined text-[22px] text-[#10B981] mt-0.5"
+                              style="font-variation-settings:'FILL' 1;">check_circle</span>
+                        <div>
+                            <p class="font-['Inter'] font-semibold text-[#10B981] text-sm">Demo request sent successfully!</p>
+                            <p class="font-['Inter'] text-slate-600 dark:text-slate-400 text-xs mt-1">
+                                Our team will be in touch within one business day to confirm your session.
+                            </p>
+                        </div>
+                    </div>
+                }
+
+                @* ── Validation summary – server-side model errors ─────────── *@
+                <div asp-validation-summary="ModelOnly"
+                     class="mb-6 rounded-xl border border-red-300 bg-red-50 dark:bg-red-950/30 dark:border-red-800 px-4 py-3 text-sm text-red-700 dark:text-red-400 font-['Inter']">
+                </div>
+
+                @* ── Main form ────────────────────────────────────────────── *@
+                <form asp-action="ScheduleDemo" asp-controller="Home" method="post"
+                      id="demo-request-form" novalidate>
+                    @Html.AntiForgeryToken()
+
+                    <div class="grid grid-cols-2 gap-6 mb-6">
+                        <div class="col-span-2 sm:col-span-1">
+                            <label asp-for="FirstName"
+                                   class="block font-['Inter'] text-sm font-medium text-slate-900 dark:text-slate-300 mb-2">
+                                @SharedLocalizer["FirstName"] <span class="text-red-500">*</span>
+                            </label>
+                            <input asp-for="FirstName"
+                                   id="demo-first-name"
+                                   autocomplete="given-name"
+                                   placeholder="e.g. Ahmed"
+                                   class="demo-field w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" />
+                            <span asp-validation-for="FirstName"
+                                  class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
+                            <p id="demo-first-name-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Must be at least 3 characters and contain only letters.</p>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label asp-for="LastName"
+                                   class="block font-['Inter'] text-sm font-medium text-slate-900 dark:text-slate-300 mb-2">
+                                @SharedLocalizer["LastName"] <span class="text-red-500">*</span>
+                            </label>
+                            <input asp-for="LastName"
+                                   id="demo-last-name"
+                                   autocomplete="family-name"
+                                   placeholder="e.g. Al-Rashid"
+                                   class="demo-field w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" />
+                            <span asp-validation-for="LastName"
+                                  class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
+                            <p id="demo-last-name-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Must be at least 3 characters and contain only letters.</p>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <label asp-for="WorkEmail"
+                               class="block font-['Inter'] text-sm font-medium text-slate-900 dark:text-slate-300 mb-2">
+                            @SharedLocalizer["WorkEmail"] <span class="text-red-500">*</span>
+                        </label>
+                        <input asp-for="WorkEmail"
+                               id="demo-email"
+                               type="email"
+                               autocomplete="email"
+                               placeholder="you@company.com"
+                               class="demo-field w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" />
+                        <span asp-validation-for="WorkEmail"
+                              class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
+                        <p id="demo-email-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Please enter a valid email address (e.g., name@domain.com).</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-6 mb-8">
+                        <div class="col-span-2 sm:col-span-1">
+                            <label asp-for="Company"
+                                   class="block font-['Inter'] text-sm font-medium text-slate-900 dark:text-slate-300 mb-2">
+                                @SharedLocalizer["Company"] <span class="text-red-500">*</span>
+                            </label>
+                            <input asp-for="Company"
+                                   id="demo-company"
+                                   autocomplete="organization"
+                                   placeholder="e.g. Acme Corp"
+                                   class="demo-field w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" />
+                            <span asp-validation-for="Company"
+                                  class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
+                            <p id="demo-company-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Company name must be between 2 and 200 characters.</p>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label asp-for="JobTitle"
+                                   class="block font-['Inter'] text-sm font-medium text-slate-900 dark:text-slate-300 mb-2">
+                                @SharedLocalizer["JobTitle"] <span class="text-red-500">*</span>
+                            </label>
+                            <input asp-for="JobTitle"
+                                   id="demo-job-title"
+                                   autocomplete="organization-title"
+                                   placeholder="e.g. CTO"
+                                   class="demo-field w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" />
+                            <span asp-validation-for="JobTitle"
+                                  class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
+                            <p id="demo-job-title-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Must be at least 3 characters and contain only letters.</p>
+                        </div>
+                    </div>
+
+                    <button type="submit"
+                            id="demo-submit-btn"
+                            class="w-full bg-[#00B2EC] text-white px-8 py-4 rounded-xl font-['Inter'] font-semibold text-base shadow-lg shadow-[#00B2EC]/20 hover:shadow-xl hover:shadow-[#00B2EC]/30 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                        <span id="demo-btn-text">@SharedLocalizer["RequestDemo"]</span>
+                        <span id="demo-btn-icon" class="material-symbols-outlined text-[20px] rtl:rotate-180">arrow_forward</span>
+                        <span id="demo-btn-spinner" class="hidden">
+                            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                            </svg>
+                        </span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @* Unobtrusive client-side validation (jQuery + jquery.validate) *@
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+
+    <script>
+        const form       = document.getElementById('demo-request-form');
+        const submitBtn  = document.getElementById('demo-submit-btn');
+        const btnText    = document.getElementById('demo-btn-text');
+        const btnIcon    = document.getElementById('demo-btn-icon');
+        const btnSpinner = document.getElementById('demo-btn-spinner');
+
+        const firstName   = document.getElementById('demo-first-name');
+        const lastName    = document.getElementById('demo-last-name');
+        const email       = document.getElementById('demo-email');
+        const company     = document.getElementById('demo-company');
+        const jobTitle    = document.getElementById('demo-job-title');
+
+        const firstNameError  = document.getElementById('demo-first-name-error');
+        const lastNameError   = document.getElementById('demo-last-name-error');
+        const emailError      = document.getElementById('demo-email-error');
+        const companyError    = document.getElementById('demo-company-error');
+        const jobTitleError   = document.getElementById('demo-job-title-error');
+
+        function validateInput(input, errorElement, mode = 'name') {
+            const val = input.value.trim();
+            const minimumLength = mode === 'company' ? 2 : 3;
+            const isLengthValid = val.length >= minimumLength &&
+                (mode !== 'company' || val.length <= 200);
+            let isFormatValid = true;
+            if (val.length > 0) {
+                if (mode === 'name') {
+                    isFormatValid = /^[\p{L}\s]+$/u.test(val);
+                }
+            }
+            if (!isLengthValid || !isFormatValid) {
+                errorElement.classList.remove('hidden');
+                return false;
+            } else {
+                errorElement.classList.add('hidden');
+                return true;
+            }
+        }
+
+        function validateEmail(input, errorElement) {
+            const val = input.value.trim();
+            const emailRegex = /^[a-zA-Z0-9.]+@@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+            const localPart = val.split('@@')[0] || '';
+            const startsWithDot = localPart.startsWith('.');
+            const endsWithDot   = localPart.endsWith('.');
+            const hasConsecDots = localPart.includes('..');
+            if (!emailRegex.test(val) || startsWithDot || endsWithDot || hasConsecDots) {
+                errorElement.classList.remove('hidden');
+                return false;
+            } else {
+                errorElement.classList.add('hidden');
+                return true;
+            }
+        }
+
+        firstName.addEventListener('input', () => validateInput(firstName, firstNameError, 'name'));
+        lastName.addEventListener('input',  () => validateInput(lastName,  lastNameError,  'name'));
+        email.addEventListener('input',     () => validateEmail(email, emailError));
+        company.addEventListener('input',   () => validateInput(company,  companyError,  'company'));
+        jobTitle.addEventListener('input',  () => validateInput(jobTitle, jobTitleError, 'name'));
+
+        form.addEventListener('submit', function (e) {
+            const isFirstValid    = validateInput(firstName, firstNameError, 'name');
+            const isLastValid     = validateInput(lastName,  lastNameError,  'name');
+            const isEmailValid    = validateEmail(email, emailError);
+            const isCompanyValid  = validateInput(company,  companyError,  'company');
+            const isJobValid      = validateInput(jobTitle, jobTitleError, 'name');
+
+            if (!isFirstValid || !isLastValid || !isEmailValid || !isCompanyValid || !isJobValid) {
+                e.preventDefault();
+                return;
+            }
+
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.textContent = 'Sending\u2026';
+            btnIcon.classList.add('hidden');
+            btnSpinner.classList.remove('hidden');
+        });
+
+        // ── Auto-fade the success banner after 8 s ──────────────────────
+        var banner = document.getElementById('demo-success-banner');
+        if (banner) {
+            setTimeout(function () {
+                banner.style.transition = 'opacity 0.6s ease';
+                banner.style.opacity = '0';
+                setTimeout(function () { banner.remove(); }, 700);
+            }, 8000);
+        }
+    </script>
+}

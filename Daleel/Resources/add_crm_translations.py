@@ -1,0 +1,671 @@
+import xml.etree.ElementTree as ET
+import os
+
+def update_or_add_resx(filepath, translations):
+    if not os.path.exists(filepath):
+        print(f"File not found: {filepath}")
+        return
+        
+    tree = ET.parse(filepath)
+    root = tree.getroot()
+    
+    keys_map = {}
+    for data in root.findall('data'):
+        keys_map[data.get('name')] = data
+        
+    for key, val in translations.items():
+        if key in keys_map:
+            data_elem = keys_map[key]
+            value_elem = data_elem.find('value')
+            if value_elem is not None:
+                value_elem.text = val
+            else:
+                value_elem = ET.SubElement(data_elem, 'value')
+                value_elem.text = val
+            print(f"Updated key: {key}")
+        else:
+            data_elem = ET.SubElement(root, 'data')
+            data_elem.set('name', key)
+            data_elem.set('xml:space', 'preserve')
+            value_elem = ET.SubElement(data_elem, 'value')
+            value_elem.text = val
+            print(f"Added key: {key}")
+            
+    tree.write(filepath, encoding='utf-8', xml_declaration=True)
+    print(f"Saved: {filepath}")
+
+# CRM English translations
+en_crm = {
+    # Navigation & General
+    "CrmSalesPipeline": "Sales & Pipeline",
+    "CrmDashboard": "Dashboard",
+    "CrmLeads": "Leads",
+    "CrmCompanies": "Companies",
+    "CrmContacts": "Contacts",
+    "CrmDeals": "Deals",
+    "CrmTasks": "Tasks",
+    "CrmContent": "Content",
+    "CrmCmsContent": "CMS Content",
+    "CrmBackToWebsite": "Back to website",
+    "CrmSubtitle": "Daleel CRM & Sales Pipeline",
+    "CrmSalesAgent": "Sales Specialist",
+    "CrmSignOut": "Sign out",
+    "CrmToggleTheme": "Toggle theme",
+    "CrmToggleNavigation": "Toggle navigation",
+    "CrmSwitchLanguage": "Switch language",
+
+    # Common Actions & Labels
+    "CrmNew": "New",
+    "CrmEdit": "Edit",
+    "CrmDelete": "Delete",
+    "CrmSave": "Save",
+    "CrmSaveChanges": "Save changes",
+    "CrmCancel": "Cancel",
+    "CrmActions": "Actions",
+    "CrmSearch": "Search",
+    "CrmApply": "Apply",
+    "CrmClear": "Clear",
+    "CrmClearFilters": "Clear filters",
+    "CrmViewAll": "View all",
+    "CrmShowArchived": "Show archived",
+    "CrmArchive": "Archive",
+    "CrmRestore": "Restore",
+    "CrmUnarchive": "Restore",
+    "CrmConvert": "Convert",
+    "CrmDetails": "Details",
+    "CrmCreated": "Created",
+    "CrmUpdated": "Updated",
+    "CrmDue": "Due",
+    "CrmOverdue": "overdue",
+    "CrmPriority": "priority",
+    "CrmOpen": "open",
+    "CrmTotal": "Total",
+    "CrmStatus": "Status",
+    "CrmSource": "Source",
+    "CrmAssignedTo": "Assigned to",
+    "CrmAllStatuses": "All statuses",
+    "CrmAllSources": "All sources",
+    "CrmAnyone": "Anyone",
+    "CrmAllOwners": "All owners",
+    "CrmAllStages": "All stages",
+    "CrmUnassigned": "— Unassigned —",
+    "CrmNotLinked": "— Not linked —",
+    "CrmNoCompany": "— No company —",
+    "CrmNoContact": "— No contact —",
+
+    # Enums - DealStage
+    "CrmDealStage_New": "New",
+    "CrmDealStage_Qualified": "Qualified",
+    "CrmDealStage_Proposal": "Proposal",
+    "CrmDealStage_Negotiation": "Negotiation",
+    "CrmDealStage_Won": "Won",
+    "CrmDealStage_Lost": "Lost",
+
+    # Enums - LeadStatus
+    "CrmLeadStatus_New": "New",
+    "CrmLeadStatus_Contacted": "Contacted",
+    "CrmLeadStatus_Qualified": "Qualified",
+    "CrmLeadStatus_Unqualified": "Unqualified",
+    "CrmLeadStatus_Converted": "Converted",
+
+    # Enums - LeadSource
+    "CrmLeadSource_Website": "Website",
+    "CrmLeadSource_ContactForm": "Contact Form",
+    "CrmLeadSource_ScheduleDemo": "Demo Request",
+    "CrmLeadSource_PartnerInquiry": "Partner Inquiry",
+    "CrmLeadSource_Referral": "Referral",
+    "CrmLeadSource_ColdCall": "Cold Call",
+    "CrmLeadSource_Event": "Event",
+    "CrmLeadSource_SocialMedia": "Social Media",
+    "CrmLeadSource_Other": "Other",
+
+    # Enums - RecordStatus
+    "CrmRecordStatus_Active": "Active",
+    "CrmRecordStatus_Archived": "Archived",
+    "CrmRecordStatus_Inactive": "Inactive",
+
+    # Enums - TaskPriority
+    "CrmTaskPriority_Low": "Low",
+    "CrmTaskPriority_Medium": "Medium",
+    "CrmTaskPriority_High": "High",
+
+    # Enums - CrmTaskStatus
+    "CrmTaskStatus_Open": "Open",
+    "CrmTaskStatus_InProgress": "In Progress",
+    "CrmTaskStatus_Done": "Done",
+
+    # Enums - ActivityType
+    "CrmActivityType_Call": "Call",
+    "CrmActivityType_Email": "Email",
+    "CrmActivityType_Meeting": "Meeting",
+    "CrmActivityType_Note": "Note",
+
+    # Enums - CrmEntityType
+    "CrmEntityType_Lead": "Lead",
+    "CrmEntityType_Contact": "Contact",
+    "CrmEntityType_Company": "Company",
+    "CrmEntityType_Deal": "Deal",
+
+    # Enums - DealSort
+    "CrmDealSort_Newest": "Newest first",
+    "CrmDealSort_Name": "Name (A–Z)",
+    "CrmDealSort_ValueHigh": "Value (high → low)",
+    "CrmDealSort_ValueLow": "Value (low → high)",
+    "CrmDealSort_CloseDate": "Closing soonest",
+
+    # Dashboard
+    "CrmWelcomeBack": "Welcome back",
+    "CrmDashboardSubtitle": "Here is where things stand right now.",
+    "CrmTotalLeads": "Total leads",
+    "CrmOpenDeals": "Open deals",
+    "CrmCustomers": "Customers",
+    "CrmOpenTasks": "Open tasks",
+    "CrmNewLeads": "New leads",
+    "CrmQualifiedLeads": "Qualified leads",
+    "CrmWonDeals": "Won deals",
+    "CrmLostDeals": "Lost deals",
+    "CrmOpenPipelineValue": "Open pipeline value",
+    "CrmOpenThePipeline": "Open the pipeline",
+    "CrmNoOpenDealsYet": "No open deals yet.",
+    "CrmRecentLeads": "Recent leads",
+    "CrmNoLeadsYet": "No leads yet.",
+    "CrmTasksNeedingAttention": "Tasks needing attention",
+    "CrmNoPendingTasks": "No pending tasks.",
+    "CrmRecentActivities": "Recent activities",
+    "CrmNoRecentActivities": "No recent activities.",
+    "CrmByExpectedCloseDate": "by expected close date",
+
+    # Partials: Task Widget & Activity Log
+    "CrmTasksTitle": "Tasks",
+    "CrmFullForm": "Full form",
+    "CrmQuickTaskPlaceholder": "Follow up on the proposal…",
+    "CrmAdd": "Add",
+    "CrmNoTasksForRecord": "No tasks for this record.",
+    "CrmReopen": "Reopen",
+    "CrmMarkDone": "Mark done",
+    "CrmActivityTitle": "Activity",
+    "CrmLogActivity": "Log activity",
+    "CrmLogANewActivity": "Log a new activity",
+    "CrmSubjectPlaceholder": "Intro call — discussed pricing",
+    "CrmNotesPlaceholder": "What was said, what happens next…",
+    "CrmNothingLoggedYet": "Nothing logged yet.",
+    "CrmDeleteActivityConfirm": "Delete this activity?",
+    "CrmDeleteActivity": "Delete activity",
+    "CrmType": "Type",
+    "CrmSubject": "Subject",
+    "CrmNotes": "Notes",
+    "CrmOccurredAt": "Occurred At",
+
+    # Leads
+    "CrmNewLead": "New lead",
+    "CrmEditLead": "Edit lead",
+    "CrmViewLead": "View lead",
+    "CrmBackToLeads": "Back to leads",
+    "CrmSearchPlaceholderLead": "Name, email, phone, company…",
+    "CrmNoMatchingLeads": "No matching leads",
+    "CrmNoMatchingLeadsDesc": "Try a different search term or clear the filters.",
+    "CrmNoLeadsYetDesc": "Create your first lead to get started.",
+    "CrmLeadArchivedNotice": "This lead is archived. It is hidden from the default list but nothing has been deleted.",
+    "CrmLeadConvertedToContact": "Converted to contact",
+    "CrmLeadConvertedDeletedContact": "This lead was converted. The contact it created has since been deleted.",
+    "CrmConvertLeadTitle": "Convert {0}",
+    "CrmConvertLeadSubtitle": "This creates a contact record and marks the lead as converted. The lead itself is kept.",
+    "CrmDuplicateContactFound": "A contact already uses this email address",
+    "CrmLinkExistingContact": "Link the lead to this contact instead of creating a new one",
+    "CrmCreateNewCompany": "— Create a new company —",
+    "CrmNewCompanyName": "New company name",
+    "CrmLinkNotice": "The existing contact's details and company will be left exactly as they are.",
+    "CrmConvertLead": "Convert lead",
+    "CrmBackToLead": "Back to lead",
+
+    # Companies
+    "CrmNewCompany": "New company",
+    "CrmEditCompany": "Edit company",
+    "CrmDeleteCompany": "Delete company",
+    "CrmBackToCompanies": "Back to companies",
+    "CrmSearchPlaceholderCompany": "Name, industry, email, phone, city…",
+    "CrmNoMatchingCompanies": "No matching companies",
+    "CrmNoCompaniesYet": "No companies yet",
+    "CrmNoCompaniesYetDesc": "Create your first company to get started.",
+    "CrmContactsAtCompany": "Contacts at this company",
+    "CrmAddContact": "Add contact",
+    "CrmNoContactsAtCompany": "No contacts linked to this company yet.",
+    "CrmCompanyName": "Company Name",
+    "CrmIndustry": "Industry",
+    "CrmLocation": "Location",
+    "CrmWebsite": "Website",
+    "CrmAddress": "Address",
+    "CrmCity": "City",
+    "CrmCountry": "Country",
+    "CrmDescription": "Description",
+    "CrmEditingCompany": "Editing",
+    "CrmCreateCompany": "Create company",
+
+    # Contacts
+    "CrmNewContact": "New contact",
+    "CrmEditContact": "Edit contact",
+    "CrmDeleteContact": "Delete contact",
+    "CrmBackToContacts": "Back to contacts",
+    "CrmSearchPlaceholderContact": "Name, email, phone, company or title…",
+    "CrmNoMatchingContacts": "No matching contacts",
+    "CrmNoContactsYet": "No contacts yet",
+    "CrmNoContactsYetDesc": "Create your first contact to get started.",
+    "CrmNotLinkedToCompany": "Not linked to a company",
+    "CrmContactName": "Name",
+    "CrmFirstName": "First Name",
+    "CrmLastName": "Last Name",
+    "CrmEmail": "Email",
+    "CrmPhone": "Phone",
+    "CrmJobTitle": "Job Title",
+    "CrmEditingContact": "Editing",
+    "CrmCreateContact": "Create contact",
+
+    # Deals
+    "CrmNewDeal": "New deal",
+    "CrmEditDeal": "Edit deal",
+    "CrmDeleteDeal": "Delete deal",
+    "CrmBackToDeals": "Back to deals",
+    "CrmPipeline": "Pipeline",
+    "CrmListView": "List",
+    "CrmSearchPlaceholderDeal": "Deal, company or contact…",
+    "CrmSortBy": "Sort by",
+    "CrmOpenDealsOnly": "Open deals only",
+    "CrmNoMatchingDeals": "No matching deals",
+    "CrmNoDealsYet": "No deals yet",
+    "CrmNoDealsYetDesc": "Create your first deal to track your sales pipeline.",
+    "CrmDealName": "Deal Name",
+    "CrmDealValue": "Value",
+    "CrmCurrency": "Currency",
+    "CrmExpectedCloseDate": "Expected close date",
+    "CrmPrimaryContact": "Primary contact",
+    "CrmMoveToStage": "Move to stage",
+    "CrmDragCardHint": "Drag a card to another column to change its stage. On touch devices, open the deal and use the stage buttons.",
+    "CrmClosedAsStage": "Closed as {0}",
+    "CrmStageProgress": "Stage {0} of {1} — {2}",
+    "CrmMixedCurrencyWarning": "Totals mix multiple currencies and are not converted.",
+    "CrmFilter": "Filter",
+    "CrmEditingDeal": "Editing",
+    "CrmCreateDeal": "Create deal",
+
+    # Tasks
+    "CrmNewTask": "New task",
+    "CrmEditTaskTitle": "Edit task",
+    "CrmDeleteTask": "Delete task",
+    "CrmDeleteTaskConfirm": "Delete this task? This cannot be undone.",
+    "CrmBackToTasks": "Back to tasks",
+    "CrmSearchPlaceholderTask": "Title or description…",
+    "CrmOverdueOnly": "Overdue only",
+    "CrmNoMatchingTasks": "No matching tasks",
+    "CrmNoTasksYet": "No tasks yet",
+    "CrmNoTasksYetDesc": "Create your first task to stay organized.",
+    "CrmTaskTitle": "Title",
+    "CrmDueDate": "Due Date",
+    "CrmPriorityField": "Priority",
+    "CrmRelatedRecord": "Related To",
+    "CrmRecord": "Record",
+    "CrmChooseTypeFirst": "— Choose a type first —",
+    "CrmChooseLead": "— Choose a lead —",
+    "CrmChooseContact": "— Choose a contact —",
+    "CrmChooseCompany": "— Choose a company —",
+    "CrmChooseDeal": "— Choose a deal —",
+    "CrmCreateTask": "Create task",
+    "CrmEditingTask": "Editing",
+
+    # Account / Auth
+    "CrmSignInTitle": "Sign in to Daleel CRM",
+    "CrmAuthorizedOnly": "Authorized employees only.",
+    "CrmEmailField": "Email",
+    "CrmPasswordField": "Password",
+    "CrmRememberMe": "Remember me",
+    "CrmSignInBtn": "Sign in",
+    "CrmAccessDeniedTitle": "Access denied",
+    "CrmAccessDeniedMessage": "Your account does not have permission to view this page. If you believe this is a mistake, please contact your CRM administrator.",
+    "CrmGoToDashboard": "Go to dashboard",
+
+    # DataAnnotations / Field Names
+    "First Name": "First Name",
+    "Last Name": "Last Name",
+    "Job Title": "Job Title",
+    "Company Name": "Company Name",
+    "Deal Name": "Deal Name",
+    "Primary Contact": "Primary Contact",
+    "Value": "Value",
+    "Expected Close Date": "Expected Close Date",
+    "Related To": "Related To",
+    "When": "When",
+    "Title": "Title",
+    "Due Date": "Due Date",
+    "Notes": "Notes",
+    "Description": "Description",
+    "Industry": "Industry",
+    "Address": "Address",
+    "City": "City",
+    "Country": "Country",
+    "Stage": "Stage",
+    "Priority": "Priority",
+    "Record": "Record",
+}
+
+# CRM Arabic translations
+ar_crm = {
+    # Navigation & General
+    "CrmSalesPipeline": "المبيعات وإدارة العلاقات",
+    "CrmDashboard": "لوحة التحكم",
+    "CrmLeads": "العملاء المحتملون",
+    "CrmCompanies": "الشركات",
+    "CrmContacts": "جهات الاتصال",
+    "CrmDeals": "الصفقات",
+    "CrmTasks": "المهام",
+    "CrmContent": "المحتوى",
+    "CrmCmsContent": "إدارة المحتوى (CMS)",
+    "CrmBackToWebsite": "العودة للموقع",
+    "CrmSubtitle": "نظام دليل لإدارة علاقات العملاء ومسار المبيعات",
+    "CrmSalesAgent": "أخصائي مبيعات",
+    "CrmSignOut": "تسجيل الخروج",
+    "CrmToggleTheme": "تبديل المظهر",
+    "CrmToggleNavigation": "تبديل القائمة",
+    "CrmSwitchLanguage": "تغيير اللغة",
+
+    # Common Actions & Labels
+    "CrmNew": "جديد",
+    "CrmEdit": "تعديل",
+    "CrmDelete": "حذف",
+    "CrmSave": "حفظ",
+    "CrmSaveChanges": "حفظ التغييرات",
+    "CrmCancel": "إلغاء",
+    "CrmActions": "الإجراءات",
+    "CrmSearch": "بحث",
+    "CrmApply": "تطبيق",
+    "CrmClear": "مسح",
+    "CrmClearFilters": "إعادة ضبط التصفية",
+    "CrmViewAll": "عرض الكل",
+    "CrmShowArchived": "عرض المؤرشفة",
+    "CrmArchive": "أرشفة",
+    "CrmRestore": "استعادة",
+    "CrmUnarchive": "استعادة",
+    "CrmConvert": "تحويل",
+    "CrmDetails": "التفاصيل",
+    "CrmCreated": "تاريخ الإنشاء",
+    "CrmUpdated": "آخر تحديث",
+    "CrmDue": "الاستحقاق",
+    "CrmOverdue": "متأخرة",
+    "CrmPriority": "الأولوية",
+    "CrmOpen": "مفتوحة",
+    "CrmTotal": "الإجمالي",
+    "CrmStatus": "الحالة",
+    "CrmSource": "المصدر",
+    "CrmAssignedTo": "المسؤول",
+    "CrmAllStatuses": "جميع الحالات",
+    "CrmAllSources": "جميع المصادر",
+    "CrmAnyone": "أي مسؤول",
+    "CrmAllOwners": "جميع المسؤولين",
+    "CrmAllStages": "جميع المراحل",
+    "CrmUnassigned": "— غير محدد —",
+    "CrmNotLinked": "— غير مرتبط بسجل —",
+    "CrmNoCompany": "— بدون شركة —",
+    "CrmNoContact": "— بدون جهة اتصال —",
+
+    # Enums - DealStage
+    "CrmDealStage_New": "جديدة",
+    "CrmDealStage_Qualified": "مؤهلة",
+    "CrmDealStage_Proposal": "تقديم عرض",
+    "CrmDealStage_Negotiation": "تفاوض",
+    "CrmDealStage_Won": "تمت بنجاح",
+    "CrmDealStage_Lost": "خاسرة",
+
+    # Enums - LeadStatus
+    "CrmLeadStatus_New": "جديد",
+    "CrmLeadStatus_Contacted": "تم التواصل",
+    "CrmLeadStatus_Qualified": "مؤهل",
+    "CrmLeadStatus_Unqualified": "غير مؤهل",
+    "CrmLeadStatus_Converted": "تم تحويله",
+
+    # Enums - LeadSource
+    "CrmLeadSource_Website": "الموقع الإلكتروني",
+    "CrmLeadSource_ContactForm": "نموذج التواصل",
+    "CrmLeadSource_ScheduleDemo": "طلب عرض تجريبي",
+    "CrmLeadSource_PartnerInquiry": "استفسار شراكة",
+    "CrmLeadSource_Referral": "إحالة / توصية",
+    "CrmLeadSource_ColdCall": "اتصال تسويقي",
+    "CrmLeadSource_Event": "فعالية أو مؤتمر",
+    "CrmLeadSource_SocialMedia": "منصات التواصل",
+    "CrmLeadSource_Other": "أخرى",
+
+    # Enums - RecordStatus
+    "CrmRecordStatus_Active": "نشط",
+    "CrmRecordStatus_Archived": "مؤرشف",
+    "CrmRecordStatus_Inactive": "غير نشط",
+
+    # Enums - TaskPriority
+    "CrmTaskPriority_Low": "منخفضة",
+    "CrmTaskPriority_Medium": "متوسطة",
+    "CrmTaskPriority_High": "مرتفعة",
+
+    # Enums - CrmTaskStatus
+    "CrmTaskStatus_Open": "مفتوحة",
+    "CrmTaskStatus_InProgress": "قيد التنفيذ",
+    "CrmTaskStatus_Done": "مكتملة",
+
+    # Enums - ActivityType
+    "CrmActivityType_Call": "مكالمة هاتفية",
+    "CrmActivityType_Email": "بريد إلكتروني",
+    "CrmActivityType_Meeting": "اجتماع",
+    "CrmActivityType_Note": "ملاحظة",
+
+    # Enums - CrmEntityType
+    "CrmEntityType_Lead": "عميل محتمل",
+    "CrmEntityType_Contact": "جهة اتصال",
+    "CrmEntityType_Company": "شركة",
+    "CrmEntityType_Deal": "صفقة",
+
+    # Enums - DealSort
+    "CrmDealSort_Newest": "الأحدث أولاً",
+    "CrmDealSort_Name": "الاسم (أبجدياً)",
+    "CrmDealSort_ValueHigh": "القيمة (من الأعلى للأدنى)",
+    "CrmDealSort_ValueLow": "القيمة (من الأدنى للأعلى)",
+    "CrmDealSort_CloseDate": "الأقرب إغلاقاً",
+
+    # Dashboard
+    "CrmWelcomeBack": "مرحباً بعودتك",
+    "CrmDashboardSubtitle": "نظرة شاملة وسريعة على سير المبيعات والأعمال حالياً.",
+    "CrmTotalLeads": "إجمالي العملاء المحتملين",
+    "CrmOpenDeals": "الصفقات المفتوحة",
+    "CrmCustomers": "العملاء",
+    "CrmOpenTasks": "المهام المفتوحة",
+    "CrmNewLeads": "عملاء محتملون جدد",
+    "CrmQualifiedLeads": "عملاء مؤهلون",
+    "CrmWonDeals": "صفقات رابحة",
+    "CrmLostDeals": "صفقات خاسرة",
+    "CrmOpenPipelineValue": "قيمة الصفقات المفتوحة",
+    "CrmOpenThePipeline": "عرض لوحة الصفقات",
+    "CrmNoOpenDealsYet": "لا توجد صفقات مفتوحة حالياً.",
+    "CrmRecentLeads": "أحدث العملاء المحتملين",
+    "CrmNoLeadsYet": "لا يوجد عملاء محتملون حتى الآن.",
+    "CrmTasksNeedingAttention": "مهام بحاجة للمتابعة",
+    "CrmNoPendingTasks": "لا توجد مهام معلقة.",
+    "CrmRecentActivities": "أحدث الأنشطة",
+    "CrmNoRecentActivities": "لا توجد أنشطة مسجلة مؤخراً.",
+    "CrmByExpectedCloseDate": "حسب تاريخ الإغلاق المتوقع",
+
+    # Partials: Task Widget & Activity Log
+    "CrmTasksTitle": "المهام",
+    "CrmFullForm": "النموذج الكامل",
+    "CrmQuickTaskPlaceholder": "متابعة العرض الفني والمالي...",
+    "CrmAdd": "إضافة",
+    "CrmNoTasksForRecord": "لا توجد مهام مرتبطة بهذا السجل.",
+    "CrmReopen": "إعادة فتح",
+    "CrmMarkDone": "تعيين كمكتملة",
+    "CrmActivityTitle": "سجل الأنشطة",
+    "CrmLogActivity": "تسجيل نشاط",
+    "CrmLogANewActivity": "تسجيل نشاط جديد",
+    "CrmSubjectPlaceholder": "مكالمة تعريفية — مناقشة عروض الأسعار",
+    "CrmNotesPlaceholder": "ما تم الاتفاق عليه والخطوات التالية...",
+    "CrmNothingLoggedYet": "لم يتم تسجيل أي نشاط حتى الآن.",
+    "CrmDeleteActivityConfirm": "هل أنت متأكد من حذف هذا النشاط؟",
+    "CrmDeleteActivity": "حذف النشاط",
+    "CrmType": "النوع",
+    "CrmSubject": "الموضوع",
+    "CrmNotes": "الملاحظات",
+    "CrmOccurredAt": "وقت الحدوث",
+
+    # Leads
+    "CrmNewLead": "عميل محتمل جديد",
+    "CrmEditLead": "تعديل العميل المحتمل",
+    "CrmViewLead": "عرض العميل المحتمل",
+    "CrmBackToLeads": "العودة للعملاء المحتملين",
+    "CrmSearchPlaceholderLead": "الاسم، البريد، الهاتف، الشركة...",
+    "CrmNoMatchingLeads": "لا يوجد عملاء محتملون يطابقون البحث",
+    "CrmNoMatchingLeadsDesc": "جرب كلمة بحث أخرى أو أزل الفلاتر المحددة.",
+    "CrmNoLeadsYetDesc": "أضف أول عميل محتمل للبدء في تتبعه وتحويله لعميل.",
+    "CrmLeadArchivedNotice": "هذا العميل المحتمل مؤرشف. تم إخفاؤه من القائمة الافتراضية دون حذف أي بيانات.",
+    "CrmLeadConvertedToContact": "تم تحويله إلى جهة اتصال",
+    "CrmLeadConvertedDeletedContact": "تم تحويل هذا العميل المحتمل مسبقاً، وقد تم حذف جهة الاتصال لاحقاً.",
+    "CrmConvertLeadTitle": "تحويل {0}",
+    "CrmConvertLeadSubtitle": "سيؤدي هذا إلى إنشاء جهة اتصال جديدة وتحديث حالة العميل المحتمل إلى محوّل مع الاحتفاظ ببياناته.",
+    "CrmDuplicateContactFound": "توجد جهة اتصال مسجلة مسبقاً بنفس هذا البريد الإلكتروني",
+    "CrmLinkExistingContact": "ربط العميل المحتمل بجهة الاتصال الحالية بدلاً من إنشاء جهة جديدة",
+    "CrmCreateNewCompany": "— إنشاء شركة جديدة —",
+    "CrmNewCompanyName": "اسم الشركة الجديدة",
+    "CrmLinkNotice": "ستبقى تفاصيل جهة الاتصال والشركة الحالية دون أي تعديل.",
+    "CrmConvertLead": "تحويل العميل المحتمل",
+    "CrmBackToLead": "العودة للعميل المحتمل",
+
+    # Companies
+    "CrmNewCompany": "شركة جديدة",
+    "CrmEditCompany": "تعديل الشركة",
+    "CrmDeleteCompany": "حذف الشركة",
+    "CrmBackToCompanies": "العودة للشركات",
+    "CrmSearchPlaceholderCompany": "الاسم، المجال، البريد، الهاتف، المدينة...",
+    "CrmNoMatchingCompanies": "لا توجد شركات مطابقة للبحث",
+    "CrmNoCompaniesYet": "لا توجد شركات مسجلة حتى الآن",
+    "CrmNoCompaniesYetDesc": "أضف أول شركة للبدء في إدارة حسابات وعلاقات الشركات.",
+    "CrmContactsAtCompany": "جهات الاتصال التابعة لهذه الشركة",
+    "CrmAddContact": "إضافة جهة اتصال",
+    "CrmNoContactsAtCompany": "لا توجد جهات اتصال مرتبطة بهذه الشركة حتى الآن.",
+    "CrmCompanyName": "اسم الشركة",
+    "CrmIndustry": "مجال العمل / الصناعة",
+    "CrmLocation": "الموقع",
+    "CrmWebsite": "الموقع الإلكتروني",
+    "CrmAddress": "العنوان",
+    "CrmCity": "المدينة",
+    "CrmCountry": "الدولة",
+    "CrmDescription": "الوصف",
+    "CrmEditingCompany": "تعديل",
+    "CrmCreateCompany": "إنشاء شركة",
+
+    # Contacts
+    "CrmNewContact": "جهة اتصال جديدة",
+    "CrmEditContact": "تعديل جهة الاتصال",
+    "CrmDeleteContact": "حذف جهة الاتصال",
+    "CrmBackToContacts": "العودة لجهات الاتصال",
+    "CrmSearchPlaceholderContact": "الاسم، البريد، الهاتف، الشركة أو المسمى...",
+    "CrmNoMatchingContacts": "لا توجد جهات اتصال مطابقة للبحث",
+    "CrmNoContactsYet": "لا توجد جهات اتصال مسجلة حتى الآن",
+    "CrmNoContactsYetDesc": "أضف أول جهة اتصال لبدء التواصل وبناء العلاقات.",
+    "CrmNotLinkedToCompany": "غير مرتبطة بشركة",
+    "CrmContactName": "الاسم",
+    "CrmFirstName": "الاسم الأول",
+    "CrmLastName": "اسم العائلة",
+    "CrmEmail": "البريد الإلكتروني",
+    "CrmPhone": "الهاتف",
+    "CrmJobTitle": "المسمى الوظيفي",
+    "CrmEditingContact": "تعديل",
+    "CrmCreateContact": "إنشاء جهة اتصال",
+
+    # Deals
+    "CrmNewDeal": "صفقة جديدة",
+    "CrmEditDeal": "تعديل الصفقة",
+    "CrmDeleteDeal": "حذف الصفقة",
+    "CrmBackToDeals": "العودة للصفقات",
+    "CrmPipeline": "لوحة الصفقات",
+    "CrmListView": "عرض القائمة",
+    "CrmSearchPlaceholderDeal": "اسم الصفقة، الشركة أو جهة الاتصال...",
+    "CrmSortBy": "ترتيب حسب",
+    "CrmOpenDealsOnly": "الصفقات المفتوحة فقط",
+    "CrmNoMatchingDeals": "لا توجد صفقات مطابقة للبحث",
+    "CrmNoDealsYet": "لا توجد صفقات حتى الآن",
+    "CrmNoDealsYetDesc": "أضف أول صفقة لبدء تتبع مسار مبيعاتك وأرباحك.",
+    "CrmDealName": "اسم الصفقة",
+    "CrmDealValue": "القيمة",
+    "CrmCurrency": "العملة",
+    "CrmExpectedCloseDate": "تاريخ الإغلاق المتوقع",
+    "CrmPrimaryContact": "جهة الاتصال الرئيسية",
+    "CrmMoveToStage": "نقل إلى مرحلة",
+    "CrmDragCardHint": "اسحب البطاقة إلى عمود آخر لتغيير مرحلة الصفقة، أو افتح الصفقة واستخدم أزرار تغيير المرحلة.",
+    "CrmClosedAsStage": "أغلقت بحالة {0}",
+    "CrmStageProgress": "المرحلة {0} من {1} — {2}",
+    "CrmMixedCurrencyWarning": "القيم الإجمالية تجمع عملات متعددة ولم يتم تحويلها.",
+    "CrmFilter": "تصفية",
+    "CrmEditingDeal": "تعديل",
+    "CrmCreateDeal": "إنشاء صفقة",
+
+    # Tasks
+    "CrmNewTask": "مهمة جديدة",
+    "CrmEditTaskTitle": "تعديل المهمة",
+    "CrmDeleteTask": "حذف المهمة",
+    "CrmDeleteTaskConfirm": "هل أنت متأكد من حذف هذه المهمة؟ لا يمكن التراجع عن هذا الإجراء.",
+    "CrmBackToTasks": "العودة للمهام",
+    "CrmSearchPlaceholderTask": "العنوان أو الوصف...",
+    "CrmOverdueOnly": "المتأخرة فقط",
+    "CrmNoMatchingTasks": "لا توجد مهام مطابقة للبحث",
+    "CrmNoTasksYet": "لا توجد مهام حتى الآن",
+    "CrmNoTasksYetDesc": "أضف مهمتك الأولى لتنظيم متابعاتك وأعمالك.",
+    "CrmTaskTitle": "عنوان المهمة",
+    "CrmDueDate": "تاريخ الاستحقاق",
+    "CrmPriorityField": "الأولوية",
+    "CrmRelatedRecord": "مرتبط بـ",
+    "CrmRecord": "السجل",
+    "CrmChooseTypeFirst": "— اختر نوع السجل أولاً —",
+    "CrmChooseLead": "— اختر عميلاً محتملاً —",
+    "CrmChooseContact": "— اختر جهة اتصال —",
+    "CrmChooseCompany": "— اختر شركة —",
+    "CrmChooseDeal": "— اختر صفقة —",
+    "CrmCreateTask": "إنشاء مهمة",
+    "CrmEditingTask": "تعديل",
+
+    # Account / Auth
+    "CrmSignInTitle": "تسجيل الدخول إلى دليل CRM",
+    "CrmAuthorizedOnly": "للموظفين المصرح لهم فقط.",
+    "CrmEmailField": "البريد الإلكتروني",
+    "CrmPasswordField": "كلمة المرور",
+    "CrmRememberMe": "تذكرني",
+    "CrmSignInBtn": "تسجيل الدخول",
+    "CrmAccessDeniedTitle": "تم رفض الوصول",
+    "CrmAccessDeniedMessage": "حسابك لا يمتلك الصلاحيات الكافية لعرض هذه الصفحة. إذا كنت تعتقد أن هذا خطأ، يرجى التواصل مع مدير النظام.",
+    "CrmGoToDashboard": "الذهاب للوحة التحكم",
+
+    # DataAnnotations / Field Names
+    "First Name": "الاسم الأول",
+    "Last Name": "اسم العائلة",
+    "Job Title": "المسمى الوظيفي",
+    "Company Name": "اسم الشركة",
+    "Deal Name": "اسم الصفقة",
+    "Primary Contact": "جهة الاتصال الرئيسية",
+    "Value": "القيمة",
+    "Expected Close Date": "تاريخ الإغلاق المتوقع",
+    "Related To": "مرتبط بـ",
+    "When": "التوقيت",
+    "Title": "العنوان",
+    "Due Date": "تاريخ الاستحقاق",
+    "Notes": "الملاحظات",
+    "Description": "الوصف",
+    "Industry": "مجال العمل",
+    "Address": "العنوان",
+    "City": "المدينة",
+    "Country": "الدولة",
+    "Stage": "المرحلة",
+    "Priority": "الأولوية",
+    "Record": "السجل",
+}
+
+if __name__ == "__main__":
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    en_file = os.path.join(current_dir, "SharedResource.en.resx")
+    ar_file = os.path.join(current_dir, "SharedResource.ar.resx")
+    
+    print("Updating English CRM resources...")
+    update_or_add_resx(en_file, en_crm)
+    
+    print("\nUpdating Arabic CRM resources...")
+    update_or_add_resx(ar_file, ar_crm)
+    print("\nCRM ResX entries updated successfully!")

@@ -1,0 +1,211 @@
+@model Daleel.Models.BlogIndexViewModel
+@using System.Globalization
+@{
+    var isAr = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+
+    // CMS-editable copy (Page Sections -> "blog") governs this page's fixed hero only.
+    // The article cards below come from Articles & Blog and are unaffected.
+    var content = ViewData.PageContent();
+    ViewData["Title"] = isAr ? "الأخبار والرؤى المعرفية" : "Insights & Company News";
+}
+
+<section class="relative py-28 bg-slate-50 dark:bg-[#070E1A] transition-colors duration-300 min-h-screen">
+    
+    <!-- Hero Header -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8 pb-12" data-animate="fade-up">
+        <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-[#00B2EC]/10 text-[#00B2EC] border border-[#00B2EC]/20 mb-4">
+            <span class="material-symbols-outlined text-[16px]">newspaper</span>
+            @content.Section("blog_badge", isAr ? "دليل للمعرفة والأخبار" : "Daleel Newsroom & Insights")
+        </span>
+        <h1 class="font-poppins text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white tracking-tight mb-4">
+            @content.Section("blog_title", isAr ? "رؤى وأخبار المنظومة الرقمية" : "Latest Insights & Updates")
+        </h1>
+        <p class="text-base sm:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto font-inter">
+            @content.Section("blog_desc", isAr ? "استكشف أحدث المقالات والتحليلات والتقارير التقنية لدعم نمو مؤسستك في السوق السعودي." : "Explore expert perspectives, platform announcements, and business intelligence strategies.")
+        </p>
+
+        <!-- Search Form -->
+        <form method="get" asp-controller="Home" asp-action="Blog" class="mt-8 max-w-xl mx-auto flex items-center gap-2">
+            <div class="relative flex-1">
+                <span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[20px] rtl:left-auto rtl:right-3.5">search</span>
+                <input type="text" name="q" value="@Model.SearchTerm"
+                       placeholder="@(isAr ? "ابحث في المقالات والمواضيع..." : "Search articles, topics, keywords...")"
+                       class="w-full pl-10 pr-4 rtl:pl-4 rtl:pr-10 py-3 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-[#0F2542] text-sm text-slate-900 dark:text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+            </div>
+            @if (!string.IsNullOrWhiteSpace(Model.SelectedCategory))
+            {
+                <input type="hidden" name="category" value="@Model.SelectedCategory" />
+            }
+            @if (!string.IsNullOrWhiteSpace(Model.SelectedTag))
+            {
+                <input type="hidden" name="tag" value="@Model.SelectedTag" />
+            }
+            <button type="submit"
+                    class="px-6 py-3 rounded-2xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm shadow-md hover:opacity-95 transition-all">
+                @(isAr ? "بحث" : "Search")
+            </button>
+        </form>
+
+        <!-- Categories & Tags Filtering Bar -->
+        <div class="mt-8 flex flex-col items-center gap-3">
+            <!-- Category Pills -->
+            <div class="flex flex-wrap items-center justify-center gap-2">
+                @foreach (var cat in Model.Categories)
+                {
+                    var isSelected = (string.IsNullOrEmpty(Model.SelectedCategory) && cat == "All") || Model.SelectedCategory == cat;
+                    var catUrl = cat == "All" 
+                        ? Url.Action("Blog", "Home", new { q = Model.SearchTerm, tag = Model.SelectedTag })
+                        : Url.Action("Blog", "Home", new { q = Model.SearchTerm, category = cat, tag = Model.SelectedTag });
+
+                    <a href="@catUrl"
+                       class="px-4 py-1.5 rounded-full text-xs font-semibold transition-all @(isSelected ? "bg-[#00B2EC] text-white shadow-md shadow-[#00B2EC]/20" : "bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:border-[#00B2EC]")">
+                        @cat
+                    </a>
+                }
+            </div>
+
+            <!-- Tag Pills -->
+            @if (Model.Tags.Count > 0)
+            {
+                <div class="flex flex-wrap items-center justify-center gap-2 pt-2">
+                    <span class="text-[11px] text-slate-400 font-semibold flex items-center gap-1">
+                        <span class="material-symbols-outlined text-[14px]">label</span>
+                        @(isAr ? "الوسوم:" : "Tags:")
+                    </span>
+                    @foreach (var tag in Model.Tags)
+                    {
+                        var isTagSelected = Model.SelectedTag == tag;
+                        var tagUrl = isTagSelected
+                            ? Url.Action("Blog", "Home", new { q = Model.SearchTerm, category = Model.SelectedCategory })
+                            : Url.Action("Blog", "Home", new { q = Model.SearchTerm, category = Model.SelectedCategory, tag = tag });
+
+                        <a href="@tagUrl"
+                           class="px-2.5 py-1 rounded-lg text-[11px] font-medium transition-all @(isTagSelected ? "bg-emerald-500 text-white shadow-sm" : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 hover:text-[#00B2EC]")">
+                            #@tag
+                        </a>
+                    }
+                    @if (!string.IsNullOrWhiteSpace(Model.SelectedTag))
+                    {
+                        <a asp-controller="Home" asp-action="Blog" asp-route-q="@Model.SearchTerm" asp-route-category="@Model.SelectedCategory"
+                           class="text-[11px] text-red-500 hover:underline flex items-center gap-0.5 ml-2 rtl:ml-0 rtl:mr-2">
+                            <span class="material-symbols-outlined text-[14px]">close</span>
+                            @(isAr ? "إلغاء تصفية الوسم" : "Clear tag filter")
+                        </a>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Articles Grid -->
+        @if (Model.Articles.Items.Count == 0)
+        {
+            <div class="bg-white dark:bg-[#0B1728] p-16 rounded-3xl border border-slate-200 dark:border-white/10 text-center max-w-lg mx-auto shadow-sm">
+                <div class="w-16 h-16 rounded-2xl bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center mx-auto mb-4">
+                    <span class="material-symbols-outlined text-[32px]">menu_book</span>
+                </div>
+                <h3 class="font-poppins font-bold text-xl text-slate-900 dark:text-white">
+                    @(isAr ? "لا توجد مقالات تطابق معايير البحث" : "No Articles Found")
+                </h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                    @(isAr ? "جرّب البحث بكلمات أخرى أو إلغاء فلاتر التصنيف والوسوم." : "Try clearing your search query or filters.")
+                </p>
+                <a asp-controller="Home" asp-action="Blog"
+                   class="inline-flex items-center gap-2 mt-6 px-5 py-2.5 rounded-xl bg-[#00B2EC] text-white font-medium text-sm">
+                    @(isAr ? "عرض جميع المقالات" : "View All Articles")
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach (var article in Model.Articles.Items)
+                {
+                    var artTitle = isAr ? (string.IsNullOrEmpty(article.TitleAr) ? article.TitleEn : article.TitleAr) : (string.IsNullOrEmpty(article.TitleEn) ? article.TitleAr : article.TitleEn);
+                    var artSummary = isAr ? (string.IsNullOrEmpty(article.SummaryAr) ? article.SummaryEn : article.SummaryAr) : (string.IsNullOrEmpty(article.SummaryEn) ? article.SummaryAr : article.SummaryEn);
+                    var cover = !string.IsNullOrWhiteSpace(article.CoverImagePath)
+                        ? article.CoverImagePath
+                        : "https://lh3.googleusercontent.com/aida-public/AB6AXuBYvt_umU7PQEKKpALP6ubUKpQGILOmQ-JUgeEf9D2X8QcOWVHA9msHxUOWvLJ45rK1Zf-PATGkErd67lGkqP1MamDwvN-r85ninbUfzndrqVDs-hhLmAdAb6z3Sghc-rwbxjhd6-IalHKRq04WO7Fg9gPdGtNDvYJy-Gwb4o4y41VIGt1gQ1D7xshfcMERwwqSk6HS06Kt7Q1Y69C6paBPW7hWlt2yEIi4JQFAkbgInSnUyfSNDlgZkKlAaL4aWMt6PJTVRS1bej0";
+
+                    <article class="bg-white dark:bg-[#0B1728] rounded-3xl border border-slate-200/80 dark:border-white/10 overflow-hidden shadow-sm hover:shadow-xl hover:border-[#00B2EC]/50 transition-all duration-300 flex flex-col group">
+                        
+                        <!-- Thumbnail -->
+                        <div class="relative h-56 w-full overflow-hidden bg-slate-900">
+                            <img src="@cover" alt="@artTitle"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                            
+                            <!-- Category Badge -->
+                            <div class="absolute top-4 left-4 rtl:left-auto rtl:right-4">
+                                <span class="px-3 py-1 rounded-lg text-[11px] font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-white border border-white/20">
+                                    @(string.IsNullOrWhiteSpace(article.Category) ? (isAr ? "عام" : "General") : article.Category)
+                                </span>
+                            </div>
+
+                            <!-- Reading Time -->
+                            <div class="absolute bottom-4 right-4 rtl:right-auto rtl:left-4 flex items-center gap-1 text-white/90 text-xs font-medium">
+                                <span class="material-symbols-outlined text-[16px]">schedule</span>
+                                <span>@article.ReadingMinutes @(isAr ? "دقائق" : "min")</span>
+                            </div>
+                        </div>
+
+                        <!-- Card Body -->
+                        <div class="p-6 flex-1 flex flex-col justify-between">
+                            <div>
+                                <div class="text-xs text-slate-400 mb-2 flex items-center gap-2">
+                                    <span>@article.AuthorName</span>
+                                    <span>·</span>
+                                    <span>@(article.PublishedAt?.ToString("MMM dd, yyyy") ?? article.CreatedAt.ToString("MMM dd, yyyy"))</span>
+                                </div>
+
+                                <h3 class="font-poppins font-bold text-xl text-slate-900 dark:text-white group-hover:text-[#00B2EC] transition-colors line-clamp-2 leading-snug">
+                                    <a asp-controller="Home" asp-action="Article" asp-route-slug="@article.Slug">
+                                        @artTitle
+                                    </a>
+                                </h3>
+
+                                <p class="text-sm text-slate-600 dark:text-slate-400 mt-3 line-clamp-3 leading-relaxed">
+                                    @artSummary
+                                </p>
+
+                                @if (!string.IsNullOrWhiteSpace(article.Tags))
+                                {
+                                    <div class="flex items-center gap-1.5 flex-wrap mt-3">
+                                        @foreach (var tag in article.Tags.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Take(3))
+                                        {
+                                            <span class="text-[10px] px-2 py-0.5 rounded-md bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 font-medium">#@tag</span>
+                                        }
+                                    </div>
+                                }
+                            </div>
+
+                            <!-- Read Link -->
+                            <div class="mt-6 pt-4 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+                                <a asp-controller="Home" asp-action="Article" asp-route-slug="@article.Slug"
+                                   class="inline-flex items-center gap-1.5 text-sm font-semibold text-[#00B2EC] group-hover:text-[#008dbb] transition-colors">
+                                    <span>@(isAr ? "اقرأ المقال كاملاً" : "Read Full Article")</span>
+                                    <span class="material-symbols-outlined text-[18px] rtl:rotate-180 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 transition-transform">arrow_forward</span>
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                }
+            </div>
+
+            <!-- Pager -->
+            @if (Model.Articles.TotalPages > 1)
+            {
+                <div class="mt-12">
+                    @await Html.PartialAsync("_Pager", new Daleel.Models.PagerViewModel
+                    {
+                        Page = Model.Articles.Page,
+                        TotalPages = Model.Articles.TotalPages,
+                        TotalCount = Model.Articles.TotalCount
+                    })
+                </div>
+            }
+        }
+    </div>
+</section>

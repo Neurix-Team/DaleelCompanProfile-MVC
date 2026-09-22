@@ -1,0 +1,128 @@
+@model Daleel.Models.ActivityFormViewModel
+@using Daleel.BAL.Models
+@using Daleel.DAL.Entities
+@{
+    // The log itself is passed alongside the form model so the detail page makes one
+    // service call and this partial stays purely presentational.
+    var entries = ViewData["Activities"] as IReadOnlyList<ActivityListItem> ?? Array.Empty<ActivityListItem>();
+    var returnUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString;
+
+    var inputClass = "w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition";
+    var labelClass = "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2";
+
+    string Icon(ActivityType type) => type switch
+    {
+        ActivityType.Call => "call",
+        ActivityType.Email => "mail",
+        ActivityType.Meeting => "groups",
+        _ => "sticky_note_2"
+    };
+
+    string IconTone(ActivityType type) => type switch
+    {
+        ActivityType.Call => "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400",
+        ActivityType.Email => "bg-sky-500/10 text-sky-600 dark:text-sky-400",
+        ActivityType.Meeting => "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400",
+        _ => "bg-slate-500/10 text-slate-500 dark:text-slate-400"
+    };
+}
+
+<div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6">
+    <h3 class="font-poppins font-semibold text-base text-brand-navy dark:text-white mb-5">
+        @SharedLocalizer["CrmActivityTitle"]
+        <span class="ms-1 text-sm font-normal text-slate-400">@entries.Count</span>
+    </h3>
+
+    <!-- Log a new activity -->
+    <form asp-controller="CrmActivity" asp-action="Create" method="post" class="mb-6" novalidate>
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="EntityType" />
+        <input type="hidden" asp-for="EntityId" />
+        <input type="hidden" name="ReturnUrl" value="@returnUrl" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div>
+                <label asp-for="Type" class="@labelClass"></label>
+                <select asp-for="Type" class="@inputClass">
+                    @foreach (var t in Enum.GetValues<ActivityType>())
+                    {
+                        <option value="@t" selected="@(Model.Type == t)">@SharedLocalizer[$"CrmActivityType_{t}"]</option>
+                    }
+                </select>
+            </div>
+
+            <div class="sm:col-span-2">
+                <label asp-for="Subject" class="@labelClass"></label>
+                <input asp-for="Subject" class="@inputClass" placeholder="@SharedLocalizer["CrmSubjectPlaceholder"]" required />
+            </div>
+
+            <div class="sm:col-span-3">
+                <label asp-for="Notes" class="@labelClass"></label>
+                <textarea asp-for="Notes" rows="3" class="@inputClass" placeholder="@SharedLocalizer["CrmNotesPlaceholder"]"></textarea>
+            </div>
+
+            <div>
+                <label asp-for="OccurredAt" class="@labelClass"></label>
+                @* Defaults to now on the server when left blank, so back-dating stays optional. *@
+                <input asp-for="OccurredAt" type="datetime-local" class="@inputClass" />
+            </div>
+        </div>
+
+        <button type="submit"
+                class="mt-4 inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+            <span class="material-symbols-outlined text-[20px]">add_comment</span>
+            @SharedLocalizer["CrmLogActivity"]
+        </button>
+    </form>
+
+    @if (!entries.Any())
+    {
+        <p class="border-t border-slate-200 dark:border-white/10 pt-5 text-sm text-slate-400 dark:text-slate-500">
+            @SharedLocalizer["CrmNothingLoggedYet"]
+        </p>
+    }
+    else
+    {
+        <ol class="border-t border-slate-200 dark:border-white/10 pt-5 space-y-5">
+            @foreach (var entry in entries)
+            {
+                <li class="flex gap-3">
+                    <span class="w-9 h-9 shrink-0 rounded-full flex items-center justify-center @IconTone(entry.Type)">
+                        <span class="material-symbols-outlined text-[18px]">@Icon(entry.Type)</span>
+                    </span>
+
+                    <div class="min-w-0 flex-1">
+                        <div class="flex flex-wrap items-baseline gap-x-2">
+                            <p class="font-medium text-sm text-slate-800 dark:text-slate-100 break-words">@entry.Subject</p>
+                            <span class="text-xs text-slate-400">@SharedLocalizer[$"CrmActivityType_{entry.Type}"]</span>
+                        </div>
+
+                        @if (!string.IsNullOrWhiteSpace(entry.Notes))
+                        {
+                            <p class="mt-1 text-sm text-slate-600 dark:text-slate-300 whitespace-pre-line break-words">@entry.Notes</p>
+                        }
+
+                        <p class="mt-1 text-xs text-slate-400 dark:text-slate-500">
+                            @entry.OccurredAt.ToString("dd MMM yyyy, HH:mm") UTC
+                            @if (!string.IsNullOrWhiteSpace(entry.CreatedByName))
+                            {
+                                <span>· @entry.CreatedByName</span>
+                            }
+                        </p>
+                    </div>
+
+                    <form asp-controller="CrmActivity" asp-action="Delete" asp-route-id="@entry.Id" method="post"
+                          class="shrink-0" onsubmit="return confirm('@SharedLocalizer["CrmDeleteActivityConfirm"]');">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="returnUrl" value="@returnUrl" />
+                        <button type="submit" title="@SharedLocalizer["CrmDeleteActivity"]"
+                                class="p-1.5 rounded-lg text-slate-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
+                            <span class="material-symbols-outlined text-[18px]">delete</span>
+                        </button>
+                    </form>
+                </li>
+            }
+        </ol>
+    }
+</div>
+

@@ -1,0 +1,2572 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SharedRoleAdministrator" xml:space="preserve"><value>مسؤول النظام</value></data>
+  <data name="SharedRoleStaff" xml:space="preserve"><value>موظف</value></data>
+  <data name="SharedRoleUser" xml:space="preserve"><value>مستخدم</value></data>
+  <data name="CmsEditLink" xml:space="preserve"><value>تعديل الرابط</value></data>
+  <data name="CmsInactive" xml:space="preserve"><value>غير نشط</value></data>
+  <data name="CmsNewLink" xml:space="preserve"><value>رابط جديد</value></data>
+  <data name="CmsNoTeamMembersFound" xml:space="preserve"><value>لم يتم العثور على أعضاء فريق</value></data>
+  <data name="CmsSave" xml:space="preserve"><value>حفظ الرابط</value></data>
+  <data name="CmsUpdate" xml:space="preserve"><value>تحديث الرابط</value></data>
+  <data name="CrmEditTask" xml:space="preserve"><value>تعديل المهمة</value></data>
+  <data name="CrmLeadAssignedTo" xml:space="preserve"><value>مُسند إلى</value></data>
+  <data name="CrmLeadCompany" xml:space="preserve"><value>الشركة</value></data>
+  <data name="CrmLeadName" xml:space="preserve"><value>العميل المحتمل</value></data>
+  <data name="CrmLeadSource" xml:space="preserve"><value>المصدر</value></data>
+  <data name="CrmLeadStatus" xml:space="preserve"><value>الحالة</value></data>
+  <data name="Home" xml:space="preserve">
+    <value>الرئيسية</value>
+  </data>
+  <data name="Platforms" xml:space="preserve">
+    <value>المنصات</value>
+  </data>
+  <data name="Shop" xml:space="preserve">
+    <value>سوق عالمي</value>
+  </data>
+  <data name="TrustGovernance" xml:space="preserve">
+    <value>الثقة والحوكمة</value>
+  </data>
+  <data name="Partners" xml:space="preserve">
+    <value>الشركاء</value>
+  </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>من نحن</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>اتصل بنا</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>الشركة</value>
+  </data>
+  <data name="Platform" xml:space="preserve">
+    <value>المنصة</value>
+  </data>
+  <data name="Solutions" xml:space="preserve">
+    <value>الحلول</value>
+  </data>
+  <data name="IntelligenceFeed" xml:space="preserve">
+    <value>خلاصة الذكاء</value>
+  </data>
+  <data name="RiskDashboard" xml:space="preserve">
+    <value>لوحة المخاطر</value>
+  </data>
+  <data name="APIAccess" xml:space="preserve">
+    <value>الوصول لبرمجة التطبيقات</value>
+  </data>
+  <data name="Integrations" xml:space="preserve">
+    <value>التكامل</value>
+  </data>
+  <data name="StayInformed" xml:space="preserve">
+    <value>ابق على اطلاع</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>اشترك</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>ابدأ الآن</value>
+  </data>
+  <data name="FooterDescription" xml:space="preserve">
+    <value>تمكين قرارات الحياة من خلال المعلومات الموثقة والتجارة العالمية والإعلام الهادف. تنقل في الحياة العصرية بوضوح وهدف.</value>
+  </data>
+  <data name="StayInformedDescription" xml:space="preserve">
+    <value>موجز الذكاء الأسبوعي يتم إرساله إلى بريدك الإلكتروني.</value>
+  </data>
+  <data name="EnterYourEmail" xml:space="preserve">
+    <value>أدخل بريدك الإلكتروني</value>
+  </data>
+  <data name="NoSpam" xml:space="preserve">
+    <value>لا رسائل مزعجة. يمكنك إلغاء الاشتراك في أي وقت.</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>جميع الحقوق محفوظة.</value>
+  </data>
+  <data name="WelcomeToDaleel" xml:space="preserve">
+    <value>مرحباً بك في دليل</value>
+  </data>
+  <data name="GlobalVision" xml:space="preserve">
+    <value>تقدّم بثقة</value>
+  </data>
+  <data name="LocalPrecision" xml:space="preserve">
+    <value>في عالم سريع التغيّر.</value>
+  </data>
+  <data name="HeroDescription" xml:space="preserve">
+    <value>منصة دليل هي بوضوح بوابتك إلى المعلومات الموثقة، والتغطية العالمية، والرؤى الاقتصادية والإنسانية — ضمن منظومة رقمية حديثة مدعومة بتقنيات Neurix AI لتقديم محتوى دقيق، سريع، وموثوق على مدار الساعة
+
+دليل… رؤيتك إلى عالم أكثر وضوحًا.</value>
+  </data>
+  <data name="ScrollToExplore" xml:space="preserve">
+    <value>مرر للاستكشاف</value>
+  </data>
+  <data name="DataIntelligence" xml:space="preserve">
+    <value>ذكاء البيانات</value>
+  </data>
+  <data name="TenMillionSources" xml:space="preserve">
+    <value>معلومات.</value>
+  </data>
+  <data name="OneTruth" xml:space="preserve">
+    <value>قرارات أذكى</value>
+  </data>
+  <data name="HarvestDescription" xml:space="preserve">
+    <value>بيانات موثوقة، وتحليلات ذكية، وتغطية عالمية مستمرة — ضمن منصة موحدة تساعدك على فهم العالم واتخاذ قرارات مبنية على المعرفة، لا الضوضاء.</value>
+  </data>
+  <data name="Countries" xml:space="preserve">
+    <value>دولة</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>مراقبة</value>
+  </data>
+  <data name="Verified" xml:space="preserve">
+    <value>سياق</value>
+  </data>
+  <data name="NeuralFusionEngine" xml:space="preserve">
+    <value>محرك الدمج العصبي</value>
+  </data>
+  <data name="AIThatSees" xml:space="preserve">
+    <value>الذكاء الاصطناعي يرى</value>
+  </data>
+  <data name="WhatYouCant" xml:space="preserve">
+    <value>ما لا يمكنك رؤيته.</value>
+  </data>
+  <data name="AIDescription" xml:space="preserve">
+    <value>تحليل ذكي لقرارات أفضل. أدوات الذكاء الاصطناعي والتحليل الذكي المتقدمة لدينا تعالج البيانات الموثقة عبر جميع مجالات الحياة - مما يتيح لك الوصول إلى قرارات مثلى ومدعومة علميا لحياتك المهنية والشخصية.</value>
+  </data>
+  <data name="PatternRecognition" xml:space="preserve">
+    <value>التعرف على الأنماط</value>
+  </data>
+  <data name="SentimentAnalysis" xml:space="preserve">
+    <value>تحليل المشاعر والاتجاهات</value>
+  </data>
+  <data name="RiskCorrelation" xml:space="preserve">
+    <value>الارتباط بالمخاطر</value>
+  </data>
+  <data name="StrategicCommand" xml:space="preserve">
+    <value>القيادة الاستراتيجية</value>
+  </data>
+  <data name="ClarityFrom" xml:space="preserve">
+    <value>الوضوح من</value>
+  </data>
+  <data name="Complexity" xml:space="preserve">
+    <value>التعقيد.</value>
+  </data>
+  <data name="DashboardDescription" xml:space="preserve">
+    <value>من المعلومات إلى القرارات المستنيرة. يتبع دليل عملية دقيقة من خطوتين: أولا جمع المعلومات والتحقق منها من مستودع مركزي شامل، ثم تطبيق أدوات التحليل الذكي لمساعدتك على اتخاذ أفضل القرارات في كل مجال من مجالات الحياة.</value>
+  </data>
+  <data name="OpportunityScore" xml:space="preserve">
+    <value>نقاط الفرصة</value>
+  </data>
+  <data name="RiskExposure" xml:space="preserve">
+    <value>التعرض للمخاطر</value>
+  </data>
+  <data name="ReadyToLead" xml:space="preserve">
+    <value>هل أنت مستعد للإبحار بوضوح؟</value>
+  </data>
+  <data name="ReadyToLeadDesc" xml:space="preserve">
+    <value>انضم إلى مجتمع عالمي يثق بدليل للوصول إلى معلومات موثوقة، ورؤى اقتصادية عميقة، وإعلام هادف — ضمن منظومة رقمية حديثة قائمة على القيم الإنسانية، والشفافية، والمسؤولية الأخلاقية</value>
+  </data>
+  <data name="ExploreSolutions" xml:space="preserve">
+    <value>اكتشف المنصات</value>
+  </data>
+  <data name="DownloadBriefing" xml:space="preserve">
+    <value>تحميل الموجز</value>
+  </data>
+  <data name="EnterpriseGradeIntelligence" xml:space="preserve">
+    <value>ذكاء بمستوى المؤسسات</value>
+  </data>
+  <data name="PrecisionStrategy" xml:space="preserve">
+    <value>استراتيجية دقيقة</value>
+  </data>
+  <data name="ForTheGlobalMarket" xml:space="preserve">
+    <value>للسوق العالمي.</value>
+  </data>
+  <data name="PrecisionStrategyDesc" xml:space="preserve">
+    <value>يوفر دليل رؤية واضحة مطلوبة لإدارة المشاهد الدولية المعقدة من خلال الدقة المدفوعة بالبيانات.</value>
+  </data>
+  <data name="WatchBriefing" xml:space="preserve">
+    <value>شاهد الموجز</value>
+  </data>
+  <data name="GlobalInsightAI" xml:space="preserve">
+    <value>رؤية عالمية</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>متصل</value>
+  </data>
+  <data name="AnalyzeTradeCorridors" xml:space="preserve">
+    <value>تحليل مسارات التجارة...</value>
+  </data>
+  <data name="MarketVolatility" xml:space="preserve">
+    <value>تقلبات السوق</value>
+  </data>
+  <data name="SupplyChain" xml:space="preserve">
+    <value>سلسلة التوريد</value>
+  </data>
+  <data name="VerifiedArticles" xml:space="preserve">
+    <value>مقالة موثقة</value>
+  </data>
+  <data name="TradePartners" xml:space="preserve">
+    <value>شريك تجاري</value>
+  </data>
+  <data name="TrustScore" xml:space="preserve">
+    <value>نقاط الثقة</value>
+  </data>
+  <data name="AIMonitoring" xml:space="preserve">
+    <value>مراقبة ذكية</value>
+  </data>
+  <data name="OurCorePillars" xml:space="preserve">
+    <value>ركائزنا الأساسية</value>
+  </data>
+  <data name="TheDaleel" xml:space="preserve">
+    <value>إطار عمل</value>
+  </data>
+  <data name="Framework" xml:space="preserve">
+    <value>دليل</value>
+  </data>
+  <data name="FrameworkDesc" xml:space="preserve">
+    <value>ثلاث ركائز مترابطة تشكل أساس الذكاء الاستراتيجي العالمي.</value>
+  </data>
+  <data name="GlobalInformation" xml:space="preserve">
+    <value>المعلومات العالمية</value>
+  </data>
+  <data name="GlobalInformationDesc" xml:space="preserve">
+    <value>منظومة شاملة لجمع وتحليل المعلومات عبر الأسواق والقطاعات العالمية، توفّر مصدرًا موثوقًا لصنّاع القرار والمؤسسات.</value>
+  </data>
+  <data name="RealTimeNews" xml:space="preserve">
+    <value>مراقبة الأخبار والتحولات العالمية لحظيًا</value>
+  </data>
+  <data name="RegulatoryFiling" xml:space="preserve">
+    <value>تتبع الإيداعات والبيانات التنظيمية</value>
+  </data>
+  <data name="MultiLanguageProcessing" xml:space="preserve">
+    <value>تحليل ومعالجة متعددة اللغات</value>
+  </data>
+  <data name="GlobalTrade" xml:space="preserve">
+    <value>التجارة العالمية</value>
+  </data>
+  <data name="GlobalTradeDesc" xml:space="preserve">
+    <value>حلول ذكية لتحليل وتحسين العمليات التجارية العابرة للحدود، مدعومة بذكاء لوجستي وتحليلات للمخاطر الجيوسياسية المعتمدة على الذكاء الاصطناعي.</value>
+  </data>
+  <data name="SupplyChainOpt" xml:space="preserve">
+    <value>تحسين كفاءة سلاسل الإمداد</value>
+  </data>
+  <data name="TariffCompliance" xml:space="preserve">
+    <value>تخطيط الامتثال والرسوم الجمركية</value>
+  </data>
+  <data name="RiskCorridor" xml:space="preserve">
+    <value>تحليل ممرات ومخاطر التجارة العالمية</value>
+  </data>
+  <data name="PurposefulMedia" xml:space="preserve">
+    <value>الإعلام الهادف</value>
+  </data>
+  <data name="PurposefulMediaDesc" xml:space="preserve">
+    <value>بناء استراتيجيات إعلامية واتصالية مؤثرة تساعد المؤسسات والعلامات التجارية على إيصال رسائلها بوضوح وفاعلية ضمن المشهد الرقمي العالمي.</value>
+  </data>
+  <data name="NarrativeIntelligence" xml:space="preserve">
+    <value>ذكاء السرد وصناعة الرسائل</value>
+  </data>
+  <data name="DigitalReputation" xml:space="preserve">
+    <value>إدارة السمعة والتخطيط الإعلامي الرقمي</value>
+  </data>
+  <data name="WhatSetsUsApart" xml:space="preserve">
+    <value>ما يميزنا</value>
+  </data>
+  <data name="WhyDaleelIsDifferent" xml:space="preserve">
+    <value>لماذا دليل مختلف؟</value>
+  </data>
+  <data name="WhyDaleelDesc" xml:space="preserve">
+    <value>بينما يتفاعل الآخرون مع السوق، نحن نتوقعه. تم بناء البنية التحتية الاستراتيجية لدينا من أجل السرعة والتعقيد في الاقتصاد العالمي الحديث.</value>
+  </data>
+  <data name="RealTimeIntelligence" xml:space="preserve">
+    <value>ذكاء في الوقت الفعلي</value>
+  </data>
+  <data name="RealTimeIntDesc" xml:space="preserve">
+    <value>تقدم شبكتنا الاستراتيجية رؤى قابلة للتنفيذ في دقائق وليس أسابيع.</value>
+  </data>
+  <data name="AvgInsightDelivery" xml:space="preserve">
+    <value>تسليم الرؤى</value>
+  </data>
+  <data name="TrustFirstArchitecture" xml:space="preserve">
+    <value>بنية معلوماتية موثقة</value>
+  </data>
+  <data name="TrustFirstDesc" xml:space="preserve">
+    <value>يتم التحقق من كل نقطة بيانات من خلال نظام تقييم الثقة الخاص بنا. لا ضوضاء. فقط الذكاء الموثق الذي يمكنك اتخاذ القرارات بناءً عليه.</value>
+  </data>
+  <data name="VerifiedTrustScore" xml:space="preserve">
+    <value>نقاط ثقة مؤكدة</value>
+  </data>
+  <data name="CrossDomainFusion" xml:space="preserve">
+    <value>تكامل المجالات</value>
+  </data>
+  <data name="CrossDomainDesc" xml:space="preserve">
+    <value>القيمة الحقيقية لا تكمن في تحليل التجارة أو الإعلام أو البيانات كلٌ على حدة، بل في فهم العلاقات التي تربط بينها.</value>
+  </data>
+  <data name="InfoTradeMedia" xml:space="preserve">
+    <value>المعلومات · التجارة · الإعلام</value>
+  </data>
+  <data name="TrueGlobalCoverage" xml:space="preserve">
+    <value>تغطية عالمية حقيقية</value>
+  </data>
+  <data name="GlobalCoverageDesc" xml:space="preserve">
+    <value>من ممرات الشرق الأوسط وشمال أفريقيا إلى سلاسل التوريد في جنوب شرق آسيا — تمتد شبكتنا الاستراتيجية في كل منطقة تجارية رئيسية مع خبرة محلية وسياق ثقافي.</value>
+  </data>
+  <data name="JurisdictionsCovered" xml:space="preserve">
+    <value>الولايات القضائية المغطاة</value>
+  </data>
+  <data name="PredictiveNotReactive" xml:space="preserve">
+    <value>ذكاء استباقي</value>
+  </data>
+  <data name="PredictiveDesc" xml:space="preserve">
+    <value>يقوم الذكاء الاصطناعي لدينا بتحليل اتجاهات السوق والتحولات الجيوسياسية باستمرار، لتحديد الأنماط الناسة ومنحك ميزة استراتيجية.</value>
+  </data>
+  <data name="EarlyWarningAdvantage" xml:space="preserve">
+    <value>تحليل مستمر</value>
+  </data>
+  <data name="EnterpriseSecurity" xml:space="preserve">
+    <value>حوكمة بمستوى المؤسسات</value>
+  </data>
+  <data name="EnterpriseSecurityDesc" xml:space="preserve">
+    <value>بنيت من أجل الشفافية وقابلية التدقيق والوصول القائم على الأدوار. ذكاؤك يبقى لك - محمي بأعلى معايير الحوكمة.</value>
+  </data>
+  <data name="CertifiedEncrypted" xml:space="preserve">
+    <value>معتمد وشفاف</value>
+  </data>
+  <data name="ReadyToExperience" xml:space="preserve">
+    <value>هل أنت مستعد لتجربة الفرق؟</value>
+  </data>
+  <data name="ScheduleDemo" xml:space="preserve">
+    <value>جدولة عرض توضيحي</value>
+  </data>
+  <data name="ViewPricingPlans" xml:space="preserve">
+    <value>عرض خطط التسعير</value>
+  </data>
+  <data name="GlobalPerspectives" xml:space="preserve">
+    <value>رؤى عالمية</value>
+  </data>
+  <data name="StrategicInsightsDesc" xml:space="preserve">
+    <value>رؤى استراتيجية من محللينا العالميين.</value>
+  </data>
+  <data name="ViewAllInsights" xml:space="preserve">
+    <value>عرض جميع الرؤى</value>
+  </data>
+  <data name="WhitePaper" xml:space="preserve">
+    <value>ورقة بيضاء</value>
+  </data>
+  <data name="WhitePaperTitle" xml:space="preserve">
+    <value>المحور الاقتصادي العالمي 2025: استراتيجيات الملاحة</value>
+  </data>
+  <data name="WhitePaperDesc" xml:space="preserve">
+    <value>كيف تعيد الاقتصادات الناشئة تشكيل الممرات التجارية وماذا يعني ذلك للمستثمرين المؤسسيين.</value>
+  </data>
+  <data name="MinRead12" xml:space="preserve">
+    <value>12 دقيقة للقراءة</value>
+  </data>
+  <data name="May152024" xml:space="preserve">
+    <value>15 مايو 2024</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>تقرير</value>
+  </data>
+  <data name="May122024" xml:space="preserve">
+    <value>12 مايو 2024</value>
+  </data>
+  <data name="ReportTitle" xml:space="preserve">
+    <value>مرونة سلسلة التوريد: رسم طرق جديدة في جنوب شرق آسيا</value>
+  </data>
+  <data name="ReportDesc" xml:space="preserve">
+    <value>كيف تؤدي الديناميكيات الجيوسياسية المتغيرة إلى إنشاء ممرات لوجستية جديدة وما يجب على المؤسسات الاستعداد له.</value>
+  </data>
+  <data name="MinRead8" xml:space="preserve">
+    <value>8 دقائق للقراءة</value>
+  </data>
+  <data name="Analysis" xml:space="preserve">
+    <value>تحليل</value>
+  </data>
+  <data name="May082024" xml:space="preserve">
+    <value>08 مايو 2024</value>
+  </data>
+  <data name="AnalysisTitle" xml:space="preserve">
+    <value>الاقتصاد الرقمي بين فرص النمو وتحديات التحول الشامل</value>
+  </data>
+  <data name="AnalysisDesc" xml:space="preserve">
+    <value>لم تعد الرقمنة والتطوير التكنولوجي مجرد أدوات لتحسين الأداء أو تسريع العمليات، بل تحولت خلال العقود الأخيرة إلى أحد أبرز العوامل المؤثرة في تشكيل الاقتصادات الحديثة وتحديد قدرتها على المنافسة والنمو. وفي عالم يشهد تسارعاً غير مسبوق في تبني الذكاء الاصطناعي، والحوسبة السحابية، وتحليل البيانات الضخمة، والأتمتة، أصبحت التكنولوجيا جزءاً أساسياً من البنية الاقتصادية للدول، سواء المتقدمة أو الناشئة.</value>
+  </data>
+  <data name="MinRead6" xml:space="preserve">
+    <value>6 دقائق للقراءة</value>
+  </data>
+  <data name="TradeAlert" xml:space="preserve">
+    <value>تنبيه تجاري</value>
+  </data>
+  <data name="TradeAlertTitle" xml:space="preserve">
+    <value>ارتفاع حجم التجارة في الشرق الأوسط وشمال أفريقيا بنسبة 23٪ في الربع الأول من 2024</value>
+  </data>
+  <data name="RiskAlert" xml:space="preserve">
+    <value>تنبيه بالمخاطر</value>
+  </data>
+  <data name="RiskAlertTitle" xml:space="preserve">
+    <value>تأثير العقوبات الناشئة على تدفقات السلع</value>
+  </data>
+  <data name="MediaWatch" xml:space="preserve">
+    <value>مراقبة الإعلام</value>
+  </data>
+  <data name="MediaWatchTitle" xml:space="preserve">
+    <value>تحولات السرد الرقمي في الإبلاغ العالمي عن ESG</value>
+  </data>
+  <data name="Opportunity" xml:space="preserve">
+    <value>فرصة</value>
+  </data>
+  <data name="OpportunityTitle" xml:space="preserve">
+    <value>مناطق التجارة الحرة الجديدة تخلق ممرات استثمارية</value>
+  </data>
+  <data name="AboutOurStory" xml:space="preserve">
+    <value>قصتنا</value>
+  </data>
+  <data name="AboutHeading" xml:space="preserve">
+    <value>نرسم </value>
+  </data>
+  <data name="AboutTagline" xml:space="preserve">
+    <value>المستقبل</value>
+  </data>
+  <data name="AboutDesc" xml:space="preserve">
+    <value>تأسس دليل كمبادرة حضارية شاملة مكرسة لتقديم خدمات إنسانية عالمية من خلال رؤية أخلاقية واستراتيجية تدمج التكنولوجيا المتطورة مع القيم الإنسانية الأساسية لضمان بقاء التقدم في خدمة الروح البشرية.</value>
+  </data>
+  <data name="AboutFounded" xml:space="preserve">
+    <value>سنة التأسيس</value>
+  </data>
+  <data name="AboutJurisdictions" xml:space="preserve">
+    <value>ولاية قضائية</value>
+  </data>
+  <data name="AboutDailySignals" xml:space="preserve">
+    <value>إشارة يومية</value>
+  </data>
+  <data name="OurMission" xml:space="preserve">
+    <value>مهمتنا</value>
+  </data>
+  <data name="MissionStatement" xml:space="preserve">
+    <value>سد الفجوة بين التقدم التكنولوجي والتطور الإنساني. يقدم "دليل" خدمات عالمية برؤية استراتيجية وأخلاقية، لضمان بقاء الابتكارات المتطورة راسخة في القيم الإنسانية الأساسية.</value>
+  </data>
+  <data name="GetInTouch" xml:space="preserve">
+    <value>تواصل معنا</value>
+  </data>
+  <data name="ContactHeading" xml:space="preserve">
+    <value>تواصل مع </value>
+  </data>
+  <data name="ContactDesc" xml:space="preserve">
+    <value>هل أنت مستعد لرفع مستوى قدراتك الاستراتيجية والتحليلية؟ فريقنا العالمي متاح على مدار الساعة لمناقشة احتياجاتك الاستراتيجية.</value>
+  </data>
+  <data name="ReachOutDirectly" xml:space="preserve">
+    <value>تواصل مباشرة</value>
+  </data>
+  <data name="GlobalHeadquarters" xml:space="preserve">
+    <value>المقر الرئيسي العالمي</value>
+  </data>
+  <data name="HQAddress" xml:space="preserve">
+    <value>167-169 شارع غريت بورتلاند، الطابق الخامس، لندن، المملكة المتحدة</value>
+  </data>
+  <data name="EmailUs" xml:space="preserve">
+    <value>راسلنا</value>
+  </data>
+  <data name="CallUs" xml:space="preserve">
+    <value>اتصل بنا</value>
+  </data>
+  <data name="HQPhone" xml:space="preserve">
+    <value>+1 (302) 602 4695</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>الاسم الأول</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>اسم العائلة</value>
+  </data>
+  <data name="WorkEmail" xml:space="preserve">
+    <value>البريد الإلكتروني للعمل</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>الموضوع</value>
+  </data>
+  <data name="SubjectPlatformDemo" xml:space="preserve">
+    <value>عرض توضيحي للمنصة</value>
+  </data>
+  <data name="SubjectPartnership" xml:space="preserve">
+    <value>استفسار شراكة</value>
+  </data>
+  <data name="SubjectSupport" xml:space="preserve">
+    <value>الدعم</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>الرسالة</value>
+  </data>
+  <data name="MessagePlaceholder" xml:space="preserve">
+    <value>كيف يمكننا مساعدتك؟</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>إرسال الرسالة</value>
+  </data>
+  <data name="PartnersGlobalNetwork" xml:space="preserve">
+    <value>الشبكة العالمية</value>
+  </data>
+  <data name="PartnersHeading" xml:space="preserve">
+    <value>شركاؤنا الموثوقون</value>
+  </data>
+  <data name="PartnersDesc" xml:space="preserve">
+    <value>يتعاون دليل مع كبرى المؤسسات البحثية والتحليلية والمؤسسات المالية ومزودي التكنولوجيا في العالم لتقديم مزايا استراتيجية لا مثيل لها.</value>
+  </data>
+  <data name="PartnersEcosystemCTA" xml:space="preserve">
+    <value>كن جزءاً من منظومتنا الاستراتيجية العالمية.</value>
+  </data>
+  <data name="BecomePartner" xml:space="preserve">
+    <value>كن شريكاً</value>
+  </data>
+  <data name="CorePlatforms" xml:space="preserve">
+    <value>المنصات الأساسية</value>
+  </data>
+  <data name="PlatformsHeading" xml:space="preserve">
+    <value>منظومة دليل</value>
+  </data>
+  <data name="PlatformsDesc" xml:space="preserve">
+    <value>تعمل منظومة دليل على تطوير منصات ذكية مترابطة توحّد المعرفة الاقتصادية، والعلمية، والثقافية ضمن بنية رقمية متكاملة تهدف إلى خدمة الإنسان ودعم التقدم المستدام.
+
+وترتكز المنظومة على رؤية تؤمن بأن القيمة الحقيقية للتكنولوجيا لا تُقاس بالعائد الاقتصادي وحده، بل بقدرتها على إحداث أثر إنساني ملموس وتعزيز المعرفة والابتكار</value>
+  </data>
+  <data name="TabInformation" xml:space="preserve">
+    <value>المعلومات والقرارات</value>
+  </data>
+  <data name="TabTrade" xml:space="preserve">
+    <value>التجارة العالمية</value>
+  </data>
+  <data name="TabMedia" xml:space="preserve">
+    <value>الإعلام والتواصل</value>
+  </data>
+  <data name="InfoPlatformTitle" xml:space="preserve">
+    <value>١ — المعلومات واتخاذ القرار</value>
+  </data>
+  <data name="InfoPlatformDesc" xml:space="preserve">
+    <value>منظومة شاملة لجمع وتحليل المعلومات عبر الأسواق والقطاعات العالمية، توفّر مصدرًا موثوقًا لصنّاع القرار والمؤسسات.</value>
+  </data>
+  <data name="InfoFeature1" xml:space="preserve">
+    <value>مراقبة الأخبار والتحولات العالمية لحظيًا</value>
+  </data>
+  <data name="InfoFeature2" xml:space="preserve">
+    <value>تتبع الإيداعات والبيانات التنظيمية</value>
+  </data>
+  <data name="InfoFeature3" xml:space="preserve">
+    <value>تحليل ومعالجة متعددة اللغات</value>
+  </data>
+  <data name="ExploreInfoPlatform" xml:space="preserve">
+    <value>استكشف منصة المعلومات</value>
+  </data>
+  <data name="TradePlatformTitle" xml:space="preserve">
+    <value>٢ — التجارة العالمية</value>
+  </data>
+  <data name="TradePlatformDesc" xml:space="preserve">
+    <value>حلول ذكية لتحليل وتحسين العمليات التجارية العابرة للحدود، مدعومة بذكاء لوجستي وتحليلات للمخاطر الجيوسياسية المعتمدة على الذكاء الاصطناعي.</value>
+  </data>
+  <data name="TradeFeature1" xml:space="preserve">
+    <value>تحسين كفاءة سلاسل الإمداد</value>
+  </data>
+  <data name="TradeFeature2" xml:space="preserve">
+    <value>تخطيط الامتثال والرسوم الجمركية</value>
+  </data>
+  <data name="TradeFeature3" xml:space="preserve">
+    <value>تحليل ممرات ومخاطر التجارة العالمية</value>
+  </data>
+  <data name="ExploreTradePlatform" xml:space="preserve">
+    <value>استكشف منصة التجارة</value>
+  </data>
+  <data name="MediaPlatformTitle" xml:space="preserve">
+    <value>٣ — الإعلام والتواصل</value>
+  </data>
+  <data name="MediaPlatformDesc" xml:space="preserve">
+    <value>بناء استراتيجيات إعلامية واتصالية مؤثرة تساعد المؤسسات والعلامات التجارية على إيصال رسائلها بوضوح وفاعلية ضمن المشهد الرقمي العالمي.</value>
+  </data>
+  <data name="MediaFeature1" xml:space="preserve">
+    <value>تحليل المشاعر والاتجاهات</value>
+  </data>
+  <data name="MediaFeature2" xml:space="preserve">
+    <value>ذكاء السرد وصناعة الرسائل</value>
+  </data>
+  <data name="MediaFeature3" xml:space="preserve">
+    <value>إدارة السمعة والتخطيط الإعلامي الرقمي</value>
+  </data>
+  <data name="ExploreMediaPlatform" xml:space="preserve">
+    <value>استكشف منصة الإعلام</value>
+  </data>
+  <data name="DaleelShop" xml:space="preserve">
+    <value>سوق عالمي</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>قريباً</value>
+  </data>
+  <data name="ShopDesc" xml:space="preserve">
+    <value>نحن نبني سوقا عالميا يشمل كامل طيف التجارة البشرية -- مع منصات فرعية متخصصة للزراعة والصناعة والعقارات والسيارات والمعدات الثقيلة -- مصمم لتسهيل التجارة الدولية باستخدام تقنيات مستقبلية التوجه.</value>
+  </data>
+  <data name="ReturnHome" xml:space="preserve">
+    <value>العودة للرئيسية</value>
+  </data>
+  <data name="UnderConstruction" xml:space="preserve">
+    <value>قيد الإنشاء</value>
+  </data>
+  <data name="SoonDesc" xml:space="preserve">
+    <value>نحن حالياً نصنع شيئاً استثنائياً. هذه الميزة يتم بناؤها بدقة استراتيجية فائقة وستكون متاحة قريباً.</value>
+  </data>
+  <data name="SecurityFirst" xml:space="preserve">
+    <value>الأمان أولاً</value>
+  </data>
+  <data name="TrustHeading" xml:space="preserve">
+    <value>الثقة والحوكمة</value>
+  </data>
+  <data name="TrustDesc" xml:space="preserve">
+    <value>دليل مبني على أساس من الحوكمة الأخلاقية والمعايير التنظيمية الصارمة. كل جانب من منصتنا - من المعلومات إلى التجارة إلى الإعلام - يعمل تحت قواعد وشروط واضحة مصممة للحفاظ على نزاهة التفاعل البشري وصناعة القرار.</value>
+  </data>
+  <data name="MilGradeEncryption" xml:space="preserve">
+    <value>سيادة البيانات الأخلاقية</value>
+  </data>
+  <data name="MilGradeEncDesc" xml:space="preserve">
+    <value>ضمان التزام جميع البيانات التي تتم معالجتها في دليل بأعلى معايير الخصوصية والسيادة الإقليمية.</value>
+  </data>
+  <data name="GlobalCompliance" xml:space="preserve">
+    <value>الحوكمة والشفافية</value>
+  </data>
+  <data name="GlobalComplianceDesc" xml:space="preserve">
+    <value>تخضع منصتنا لبروتوكولات شفافة تضمن نزاهة السرد والتوافق عبر الحدود.</value>
+  </data>
+  <data name="EthicalAIFramework" xml:space="preserve">
+    <value>ذكاء اصطناعي متمحور حول الإنسان</value>
+  </data>
+  <data name="EthicalAIDesc" xml:space="preserve">
+    <value>تم بناء نماذجنا لتمكين القرارات البشرية، مع التركيز على الرؤى النوعية والتأثير الأخلاقي.</value>
+  </data>
+  <data name="AESEncryption" xml:space="preserve">
+    <value>حوكمة</value>
+  </data>
+  <data name="Compliant" xml:space="preserve">
+    <value>موثق</value>
+  </data>
+  <data name="TypeIICertified" xml:space="preserve">
+    <value>ذكاء اصطناعي أخلاقي</value>
+  </data>
+  <data name="UptimeSLA" xml:space="preserve">
+    <value>متمحور حول الإنسان</value>
+  </data>
+  <data name="Daleel" xml:space="preserve">
+    <value>دليل</value>
+  </data>
+  <data name="ExpectedResponseTime" xml:space="preserve">
+    <value>نستجيب خلال يوم عمل واحد.</value>
+  </data>
+  <data name="DemoTitle" xml:space="preserve">
+    <value>جدولة عرض توضيحي</value>
+  </data>
+  <data name="DemoHeading" xml:space="preserve">
+    <value>شاهد دليل أثناء العمل</value>
+  </data>
+  <data name="DemoDesc" xml:space="preserve">
+    <value>احجز جلسة مخصصة مع خبرائنا الاستراتيجيين. سنوضح لك كيف يمكن لمنصتنا توفير الوضوح والميزة الاستراتيجية لحالات الاستخدام الخاصة بك.</value>
+  </data>
+  <data name="RequestDemo" xml:space="preserve">
+    <value>طلب عرض توضيحي</value>
+  </data>
+  <data name="JobTitle" xml:space="preserve">
+    <value>المسمى الوظيفي</value>
+  </data>
+  <data name="PricingTitle" xml:space="preserve">
+    <value>خطط الأسعار</value>
+  </data>
+  <data name="PricingHeading" xml:space="preserve">
+    <value>أسعار شفافة للرؤى والتحليلات العالمية</value>
+  </data>
+  <data name="PricingDesc" xml:space="preserve">
+    <value>اختر الفئة التي تناسب احتياجات مؤسستك. من الشركات الناشئة إلى القوى العالمية، لدينا خطة تناسبك.</value>
+  </data>
+  <data name="PlanProfessional" xml:space="preserve">
+    <value>الاحترافية</value>
+  </data>
+  <data name="PlanProfDesc" xml:space="preserve">
+    <value>التحليلات الأساسية للفرق المتنامية.</value>
+  </data>
+  <data name="PlanProfPrice" xml:space="preserve">
+    <value>999 دولار/شهرياً</value>
+  </data>
+  <data name="PlanEnterprise" xml:space="preserve">
+    <value>المؤسسية</value>
+  </data>
+  <data name="PlanEntDesc" xml:space="preserve">
+    <value>قدرات متقدمة للمنظمات العالمية.</value>
+  </data>
+  <data name="PlanEntPrice" xml:space="preserve">
+    <value>أسعار مخصصة</value>
+  </data>
+  <data name="GetStartedNow" xml:space="preserve">
+    <value>ابدأ الآن</value>
+  </data>
+  <data name="ArticleTitle" xml:space="preserve">
+    <value>الرؤى والتحليلات العالمية</value>
+  </data>
+  <data name="ArticleHeading" xml:space="preserve">
+    <value>الذكاء الاصطناعي في الحوكمة الحديثة:</value>
+  </data>
+  <data name="ArticleContent1" xml:space="preserve">
+    <value>تستخدم الحكومات والمؤسسات النماذج التنبؤية لفهم تأثير السياسات، وتعزيز الامتثال التنظيمي، وتحسين إدارة المخاطر بكفاءة غير مسبوقة</value>
+  </data>
+  <data name="ArticleContent2" xml:space="preserve">
+    <value>يشير تحليلنا إلى أن نقاط ضعف سلسلة التوريد لم تعد مجرد تحديات لوجستية؛ بل يتم استخدامها بشكل متزايد كسلاح في المفاوضات التجارية. يجب على المنظمات التحول من الإدارة التفاعلية لسلسلة التوريد إلى النمذجة التنبؤية للمخاطر.</value>
+  </data>
+  <data name="ArticleContent3" xml:space="preserve">
+    <value>تتبعت منصة دليل ملايين نقاط البيانات الموثقة هذا الربع، وكشفت عن تحول دقيق ولكنه واضح في ارتباطات التجارة عبر الحدود. تشير هذه المؤشرات إلى أن الاقتصادات من الفئة المتوسطة تشكل بسرعة كتلاً تجارية جديدة مستقلة عن القوى العظمى التقليدية.</value>
+  </data>
+  <data name="ArticleAuthor" xml:space="preserve">
+    <value>وحدة أبحاث دليل</value>
+  </data>
+  <data name="ArticleDate" xml:space="preserve">
+    <value>15 مايو 2024</value>
+  </data>
+  <data name="ArticleReadTime" xml:space="preserve">
+    <value>قراءة 12 دقيقة</value>
+  </data>
+  <data name="ArticleTag" xml:space="preserve">
+    <value>الجغرافيا السياسية</value>
+  </data>
+  <data name="ArticleQuote" xml:space="preserve">
+    <value>“إن القدرة على توقع اضطرابات التجارة لم تعد رفاهية؛ بل هي الأساس الجوهري للتنافسية العالمية.”</value>
+  </data>
+  <data name="ArticleContent4" xml:space="preserve">
+    <value>باستخدام منظومة دليل، يمكن لصناع القرار دمج تحليل المشاعر الفوري مع طرق التجارة الفعلية، مما يكشف عن ارتباطات خفية. على سبيل المثال، غالباً ما يسبق التحول الطفيف في المشاعر الإعلامية في منطقة رئيسية لتصدير المعادن تشديداً في حصص التصدير بمدة 4 إلى 6 أسابيع.</value>
+  </data>
+  <data name="Fig1" xml:space="preserve">
+    <value>الشكل 1. ارتباط التجارة</value>
+  </data>
+  <data name="Fig2" xml:space="preserve">
+    <value>الشكل 2. تحول المشاعر</value>
+  </data>
+  <data name="StrategicImperatives" xml:space="preserve">
+    <value>الضرورات الاستراتيجية</value>
+  </data>
+  <data name="MonitoringDesc" xml:space="preserve">
+    <value>التقارير ربع السنوية الثابتة أصبحت بالية. يجب أن تكون التحليلات فورية ومستمرة.</value>
+  </data>
+  <data name="Synthesis" xml:space="preserve">
+    <value>تكامل المجالات:</value>
+  </data>
+  <data name="SynthesisDesc" xml:space="preserve">
+    <value>
+القيمة الحقيقية لا تكمن في تحليل التجارة أو الإعلام أو البيانات كلٌ على حدة، بل في فهم العلاقات التي تربط بينها.</value>
+  </data>
+  <data name="ArticleConclusion" xml:space="preserve">
+    <value>التحول العالمي القادم لن يعلن عن نفسه بعنوان رئيسي؛ بل سيظهر كهمسة في البيانات. هل تستمع؟</value>
+  </data>
+  <data name="ShareInsight" xml:space="preserve">
+    <value>شارك هذه الرؤية:</value>
+  </data>
+  <data name="BackToFeed" xml:space="preserve">
+    <value>العودة للرئيسية</value>
+  </data>
+  <data name="Stat5Min" xml:space="preserve">
+    <value>استراتيجي</value>
+  </data>
+  <data name="Stat100Percent" xml:space="preserve">
+    <value>مُوثق</value>
+  </data>
+  <data name="Stat3In1" xml:space="preserve">
+    <value>3 ركائز</value>
+  </data>
+  <data name="Stat140Plus" xml:space="preserve">
+    <value>عالمي</value>
+  </data>
+  <data name="Stat247" xml:space="preserve">
+    <value>متاح دائماً</value>
+  </data>
+  <data name="StatSOC2" xml:space="preserve">
+    <value>آمن</value>
+  </data>
+  <data name="StartConversation" xml:space="preserve">
+    <value>ابدأ المحادثة</value>
+  </data>
+  <data name="SectorAgriculture" xml:space="preserve">
+    <value>الزراعة</value>
+  </data>
+  <data name="SectorIndustry" xml:space="preserve">
+    <value>الصناعة</value>
+  </data>
+  <data name="SectorRealEstate" xml:space="preserve">
+    <value>العقارات</value>
+  </data>
+  <data name="SectorAutomotive" xml:space="preserve">
+    <value>السيارات</value>
+  </data>
+  <data name="SectorHeavyMachinery" xml:space="preserve">
+    <value>المعدات الثقيلة</value>
+  </data>
+  <data name="AdvHumanitarian" xml:space="preserve">
+    <value>مصمم انطلاقًا من فهم عميق للتجربة الإنسانية</value>
+  </data>
+  <data name="AdvGovernance" xml:space="preserve">
+    <value>حوكمة أخلاقية</value>
+  </data>
+  <data name="AdvTruth" xml:space="preserve">
+    <value>معلومات موثقة. رؤية أوضح.</value>
+  </data>
+  <data name="AdvBridge" xml:space="preserve">
+    <value>وصول عالمي</value>
+  </data>
+  <data name="AdvIntegrity" xml:space="preserve">
+    <value>دعم القرارات الذكية</value>
+  </data>
+  <data name="AdvForesight" xml:space="preserve">
+    <value>أمن بمستوى المؤسسات</value>
+  </data>
+  <data name="AdvHumanitarianDesc" xml:space="preserve">
+    <value>إعطاء الأولوية للتأثير الإنساني في كل قرار مدفوع بالبيانات.</value>
+  </data>
+  <data name="AdvGovernanceDesc" xml:space="preserve">
+    <value>بنيت على أساس من الشفافية والرقابة الأخلاقية.</value>
+  </data>
+  <data name="AdvTruthDesc" xml:space="preserve">
+    <value>القضاء على الضجيج لتقديم حقيقة موثقة ومرجعية.</value>
+  </data>
+  <data name="AdvBridgeDesc" xml:space="preserve">
+    <value>ربط الأسواق بهدف وازدهار مشترك.</value>
+  </data>
+  <data name="AdvIntegrityDesc" xml:space="preserve">
+    <value>ضمان بقاء التواصل الاستراتيجي صادقاً ومؤثراً.</value>
+  </data>
+  <data name="AdvForesightDesc" xml:space="preserve">
+    <value>توقع التحولات العالمية من خلال تحليل كيفي عميق.</value>
+  </data>
+  <data name="PartnerRegistrationHeading" xml:space="preserve">
+    <value>تسجيل الشركاء</value>
+  </data>
+  <data name="PartnerRegistrationDesc" xml:space="preserve">
+    <value>انضم إلى منظومتنا الاستراتيجية العالمية. أخبرنا عن مؤسستك وكيف يمكننا خلق قيمة استراتيجية معاً.</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>اسم الشركة</value>
+  </data>
+  <data name="PartnershipType" xml:space="preserve">
+    <value>نوع الشراكة</value>
+  </data>
+  <data name="TechnologyPartner" xml:space="preserve">
+    <value>شريك تكنولوجي</value>
+  </data>
+  <data name="IntelligencePartner" xml:space="preserve">
+    <value>شريك معرفي وتحليلي</value>
+  </data>
+  <data name="StrategicPartner" xml:space="preserve">
+    <value>شريك استراتيجي</value>
+  </data>
+  <data name="OtherPartner" xml:space="preserve">
+    <value>أخرى</value>
+  </data>
+  <data name="SubmitApplication" xml:space="preserve">
+    <value>تقديم الطلب</value>
+  </data>
+  <data name="ApplicationSuccess" xml:space="preserve">
+    <value>تم تقديم الطلب بنجاح.</value>
+  </data>
+  <data name="StarterPlan" xml:space="preserve">
+    <value>البداية</value>
+  </data>
+  <data name="StarterDesc" xml:space="preserve">
+    <value>ذكاء أساسي للفرق الصغيرة والشركات الناشئة.</value>
+  </data>
+  <data name="ProPlan" xml:space="preserve">
+    <value>المحترف</value>
+  </data>
+  <data name="ProDesc" xml:space="preserve">
+    <value>ميزات متقدمة للمؤسسات المتنامية.</value>
+  </data>
+  <data name="EnterprisePlan" xml:space="preserve">
+    <value>المؤسسات</value>
+  </data>
+  <data name="EnterpriseDesc" xml:space="preserve">
+    <value>حلول مخصصة للمؤسسات العالمية.</value>
+  </data>
+  <data name="MostPopular" xml:space="preserve">
+    <value>الأكثر شيوعاً</value>
+  </data>
+  <data name="ContactSales" xml:space="preserve">
+    <value>تواصل مع المبيعات</value>
+  </data>
+  <data name="CustomPricing" xml:space="preserve">
+    <value>مخصص</value>
+  </data>
+  <data name="Feature1" xml:space="preserve">
+    <value>مراقبة الأخبار في الوقت الفعلي</value>
+  </data>
+  <data name="Feature2" xml:space="preserve">
+    <value>تقييم المخاطر الأساسي</value>
+  </data>
+  <data name="Feature3" xml:space="preserve">
+    <value>تحليل عبر النطاقات</value>
+  </data>
+  <data name="Feature4" xml:space="preserve">
+    <value>نمذجة الذكاء الاصطناعي التنبؤية</value>
+  </data>
+  <data name="Feature5" xml:space="preserve">
+    <value>مدير دعم مخصص</value>
+  </data>
+  <data name="StrategyCard1Title" xml:space="preserve">
+    <value>١٠٠٪ معلومات</value>
+  </data>
+  <data name="StrategyCard1Subtitle" xml:space="preserve">
+    <value>موثقة</value>
+  </data>
+  <data name="StrategyCard1Desc" xml:space="preserve">
+    <value>جميع المعلومات موثقة ومتحقق منها بدقة قبل إتاحتها لضمان ثقتك التامة.</value>
+  </data>
+  <data name="StrategyCard2Title" xml:space="preserve">
+    <value>جميع قطاعات</value>
+  </data>
+  <data name="StrategyCard2Subtitle" xml:space="preserve">
+    <value>الحياة</value>
+  </data>
+  <data name="StrategyCard2Desc" xml:space="preserve">
+    <value>تغطية شاملة للمجالات الطبية، والعلمية، والمهنية، والتجارية.</value>
+  </data>
+  <data name="StrategyCard3Title" xml:space="preserve">
+    <value>تحليل</value>
+  </data>
+  <data name="StrategyCard3Subtitle" xml:space="preserve">
+    <value>بالذكاء الاصطناعي</value>
+  </data>
+  <data name="StrategyCard3Desc" xml:space="preserve">
+    <value>أدوات متقدمة تعالج البيانات لمساعدتك في اتخاذ قرارات مثلى ومدعومة علمياً.</value>
+  </data>
+  <data name="StrategyCard4Title" xml:space="preserve">
+    <value>دعم</value>
+  </data>
+  <data name="StrategyCard4Subtitle" xml:space="preserve">
+    <value>مستمر</value>
+  </data>
+  <data name="StrategyCard4Desc" xml:space="preserve">
+    <value>مساندة دائمة وموثوقة لمساعدتك على التعامل مع تعقيدات الحياة العصرية بوضوح وهدف.</value>
+  </data>
+<data name="AnalysisP2" xml:space="preserve"><value>وتتباين آثار التحول الرقمي بين فرص واسعة للنمو والإنتاجية من جهة، وتحديات تتعلق بسوق العمل والعدالة الاقتصادية والأمن السيبراني من جهة أخرى، ما يجعل التكنولوجيا قوة مؤثرة تحمل في طياتها إمكانات كبيرة ومخاطر تتطلب إدارة واعية ومتوازنة.</value></data><data name="AnalysisP3" xml:space="preserve"><value>على المستوى الاقتصادي، ساهمت الرقمنة في رفع كفاءة القطاعات الإنتاجية والخدمية عبر تقليل التكاليف التشغيلية وتسريع عمليات الإنتاج والتوزيع واتخاذ القرار. وأصبحت البيانات أحد أهم الأصول الاقتصادية الجديدة، حيث تعتمد المؤسسات والحكومات بشكل متزايد على تحليل البيانات لفهم الأسواق وتحسين الخدمات وتوجيه الاستثمارات بكفاءة أكبر.</value></data><data name="AnalysisP4" xml:space="preserve"><value>كما ساعدت التكنولوجيا على ظهور نماذج اقتصادية جديدة لم تكن موجودة قبل سنوات قليلة، مثل الاقتصاد الرقمي، والتجارة الإلكترونية، ومنصات العمل الحر، والخدمات المالية الرقمية، وهو ما أتاح فرصاً جديدة للشركات والأفراد للوصول إلى أسواق أوسع تتجاوز الحدود الجغرافية التقليدية.</value></data><data name="AnalysisP5" xml:space="preserve"><value>وفي الوقت ذاته، أصبحت البنية التحتية الرقمية عاملاً رئيسياً في جذب الاستثمارات الأجنبية. فالمستثمرون ينظرون اليوم إلى مستوى جاهزية الدول الرقمية باعتباره أحد المؤشرات الأساسية على قدرتها على استيعاب الأعمال الحديثة وتوفير بيئة تنافسية ومستقرة للنمو.</value></data><data name="AnalysisP6" xml:space="preserve"><value>من ناحية أخرى، ساهمت التقنيات الحديثة في تعزيز الابتكار وريادة الأعمال، إذ انخفضت تكلفة إطلاق المشروعات التقنية مقارنة بالماضي، وأصبح بإمكان الشركات الناشئة الوصول إلى أدوات وخدمات متقدمة كانت حكراً على المؤسسات الكبرى. وقد أدى ذلك إلى تسريع وتيرة الابتكار وخلق قطاعات اقتصادية جديدة قائمة بالكامل على المعرفة والتكنولوجيا.</value></data><data name="AnalysisP7" xml:space="preserve"><value>كما تطرح الرقمنة أسئلة متزايدة حول تركز القوة الاقتصادية في أيدي عدد محدود من الشركات التقنية العملاقة التي تمتلك البيانات والبنية التحتية والمنصات الرقمية العالمية، الأمر الذي يدفع العديد من الحكومات إلى تطوير أطر تنظيمية جديدة لتحقيق التوازن بين الابتكار والمنافسة العادلة.</value></data><data name="AnalysisP8" xml:space="preserve"><value>إلى جانب ذلك، أصبحت قضايا الأمن السيبراني وحماية البيانات جزءاً لا يتجزأ من الاقتصاد الرقمي. فكلما توسعت الأنشطة الاقتصادية عبر الفضاء الرقمي، ازدادت الحاجة إلى استثمارات أكبر في حماية الأنظمة والبنى التحتية من الهجمات والاختراقات التي قد تؤثر على الاستقرار الاقتصادي والثقة في الأسواق.</value></data><data name="AnalysisP9" xml:space="preserve"><value>وتختلف قدرة الدول على الاستفادة من التحول الرقمي بحسب جاهزية بنيتها التحتية ومستوى الاستثمار في التعليم والبحث العلمي والابتكار. فالتكنولوجيا بحد ذاتها لا تضمن النمو الاقتصادي، وإنما تعتمد نتائجها على كيفية توظيفها ضمن سياسات تنموية واضحة تستهدف تعزيز الإنتاجية وتوسيع الفرص وتحقيق التنمية المستدامة.</value></data><data name="AnalysisP10" xml:space="preserve"><value>وفي ظل التحولات العالمية المتسارعة، يبدو أن الرقمنة لم تعد خياراً تنموياً، بل أصبحت أحد المكونات الأساسية للاقتصاد الحديث. وبينما تفتح التكنولوجيا آفاقاً واسعة للنمو والابتكار وتحسين جودة الحياة، فإن تحقيق أقصى استفادة منها يتطلب موازنة دقيقة بين التطور التقني والاعتبارات الاقتصادية والاجتماعية والتنظيمية، بما يضمن أن تكون الثورة الرقمية عاملاً داعماً للتنمية الشاملة لا مصدراً لفجوات جديدة في المجتمع</value></data>
+  <data name="CmsContentManagement" xml:space="preserve">
+    <value>إدارة المحتوى</value>
+  </data>
+  <data name="CmsBrandModules" xml:space="preserve">
+    <value>وحدات العلامة التجارية</value>
+  </data>
+  <data name="CmsAdministration" xml:space="preserve">
+    <value>الإدارة</value>
+  </data>
+  <data name="CmsQuickSwitch" xml:space="preserve">
+    <value>تنقل سريع</value>
+  </data>
+  <data name="CmsDashboard" xml:space="preserve">
+    <value>لوحة التحكم</value>
+  </data>
+  <data name="CmsCompaniesBrands" xml:space="preserve">
+    <value>الشركات / العلامات التجارية</value>
+  </data>
+  <data name="CmsArticlesBlog" xml:space="preserve">
+    <value>المقالات والمدونة</value>
+  </data>
+  <data name="CmsPageSections" xml:space="preserve">
+    <value>أقسام الصفحات</value>
+  </data>
+  <data name="CmsMediaLibrary" xml:space="preserve">
+    <value>مكتبة الوسائط</value>
+  </data>
+  <data name="CmsServices" xml:space="preserve">
+    <value>الخدمات</value>
+  </data>
+  <data name="CmsProjects" xml:space="preserve">
+    <value>المشاريع</value>
+  </data>
+  <data name="CmsTeam" xml:space="preserve">
+    <value>الفريق</value>
+  </data>
+  <data name="CmsTestimonials" xml:space="preserve">
+    <value>شهادات العملاء</value>
+  </data>
+  <data name="CmsUsersAccess" xml:space="preserve">
+    <value>المستخدمون والصلاحيات</value>
+  </data>
+  <data name="CmsCrmPipeline" xml:space="preserve">
+    <value>مسار إدارة العلاقات</value>
+  </data>
+  <data name="CmsViewPublicBlog" xml:space="preserve">
+    <value>عرض المدونة العامة</value>
+  </data>
+  <data name="CmsVisitLiveWebsite" xml:space="preserve">
+    <value>زيارة الموقع المباشر</value>
+  </data>
+  <data name="CmsSubtitle" xml:space="preserve">
+    <value>إدارة محتوى ووسائط دليل</value>
+  </data>
+  <data name="CmsAdministrator" xml:space="preserve">
+    <value>مدير النظام</value>
+  </data>
+  <data name="CmsSignOut" xml:space="preserve">
+    <value>تسجيل الخروج</value>
+  </data>
+  <data name="CmsToggleNavigation" xml:space="preserve">
+    <value>إظهار/إخفاء القائمة</value>
+  </data>
+  <data name="CmsToggleTheme" xml:space="preserve">
+    <value>تبديل المظهر</value>
+  </data>
+  <data name="CmsSwitchToArabic" xml:space="preserve">
+    <value>عربي</value>
+  </data>
+  <data name="CmsSwitchToEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="CmsSwitchLanguage" xml:space="preserve">
+    <value>تغيير اللغة</value>
+  </data>
+  <data name="CmsEdit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="CmsNew" xml:space="preserve">
+    <value>جديد</value>
+  </data>
+  <data name="CmsDelete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="CmsStatus" xml:space="preserve">
+    <value>الحالة</value>
+  </data>
+  <data name="CmsActions" xml:space="preserve">
+    <value>الإجراءات</value>
+  </data>
+  <data name="CmsCategory" xml:space="preserve">
+    <value>التصنيف</value>
+  </data>
+  <data name="CmsDate" xml:space="preserve">
+    <value>التاريخ</value>
+  </data>
+  <data name="CmsAuthor" xml:space="preserve">
+    <value>الكاتب</value>
+  </data>
+  <data name="CmsOptional" xml:space="preserve">
+    <value>اختياري</value>
+  </data>
+  <data name="CmsPreview" xml:space="preserve">
+    <value>معاينة</value>
+  </data>
+  <data name="CmsCopyUrl" xml:space="preserve">
+    <value>نسخ الرابط</value>
+  </data>
+  <data name="CmsViewLive" xml:space="preserve">
+    <value>عرض مباشر</value>
+  </data>
+  <data name="CmsViewLiveCap" xml:space="preserve">
+    <value>عرض مباشر</value>
+  </data>
+  <data name="CmsResetPassword" xml:space="preserve">
+    <value>إعادة تعيين كلمة المرور</value>
+  </data>
+  <data name="CmsClearFilters" xml:space="preserve">
+    <value>إزالة عوامل التصفية</value>
+  </data>
+  <data name="CmsAllStatuses" xml:space="preserve">
+    <value>جميع الحالات</value>
+  </data>
+  <data name="CmsPublishedOnly" xml:space="preserve">
+    <value>المنشور فقط</value>
+  </data>
+  <data name="CmsDraftsOnly" xml:space="preserve">
+    <value>المسودات فقط</value>
+  </data>
+  <data name="CmsPublishedLive" xml:space="preserve">
+    <value>منشور مباشرة</value>
+  </data>
+  <data name="CmsPublishedVisible" xml:space="preserve">
+    <value>منشور (مرئي للجميع)</value>
+  </data>
+  <data name="CmsMoveToDraft" xml:space="preserve">
+    <value>نقل إلى المسودات</value>
+  </data>
+  <data name="CmsPublishLiveAction" xml:space="preserve">
+    <value>نشر مباشرة</value>
+  </data>
+  <data name="CmsClickToUnpublish" xml:space="preserve">
+    <value>اضغط لإلغاء النشر</value>
+  </data>
+  <data name="CmsClickToPublish" xml:space="preserve">
+    <value>اضغط للنشر</value>
+  </data>
+  <data name="CmsOrderHint" xml:space="preserve">
+    <value>الأرقام الأصغر تظهر أولاً.</value>
+  </data>
+  <data name="CmsAllBrands" xml:space="preserve">
+    <value>جميع العلامات التجارية</value>
+  </data>
+  <data name="CmsOngoing" xml:space="preserve">
+    <value>جارٍ</value>
+  </data>
+  <data name="CmsSaveChanges" xml:space="preserve">
+    <value>حفظ التغييرات</value>
+  </data>
+  <data name="CmsCurrentImage" xml:space="preserve">
+    <value>الصورة الحالية</value>
+  </data>
+  <data name="CmsManageBrands" xml:space="preserve">
+    <value>إدارة العلامات التجارية</value>
+  </data>
+  <data name="CmsBrandProfiles" xml:space="preserve">
+    <value>ملفات العلامات التجارية</value>
+  </data>
+  <data name="CmsOfferingsSolutions" xml:space="preserve">
+    <value>العروض والحلول</value>
+  </data>
+  <data name="CmsPortfolioProjects" xml:space="preserve">
+    <value>مشاريع الأعمال</value>
+  </data>
+  <data name="CmsCaseStudies" xml:space="preserve">
+    <value>دراسات الحالة</value>
+  </data>
+  <data name="CmsTeamMembers" xml:space="preserve">
+    <value>أعضاء الفريق</value>
+  </data>
+  <data name="CmsLeadershipStaff" xml:space="preserve">
+    <value>القيادة والموظفون</value>
+  </data>
+  <data name="CmsClientEndorsements" xml:space="preserve">
+    <value>توصيات العملاء</value>
+  </data>
+  <data name="CmsLiveArticles" xml:space="preserve">
+    <value>المقالات المنشورة</value>
+  </data>
+  <data name="CmsRecentArticles" xml:space="preserve">
+    <value>أحدث المقالات</value>
+  </data>
+  <data name="CmsRecentArticlesDesc" xml:space="preserve">
+    <value>أحدث المحتوى المنشور والمحدَّث</value>
+  </data>
+  <data name="CmsNoArticlesYet" xml:space="preserve">
+    <value>لا توجد مقالات بعد</value>
+  </data>
+  <data name="CmsNoArticlesYetDesc" xml:space="preserve">
+    <value>أنشئ أول تدوينة أو إعلان للشركة لتعبئة نظام إدارة المحتوى.</value>
+  </data>
+  <data name="CmsArticle" xml:space="preserve">
+    <value>مقال</value>
+  </data>
+  <data name="CmsActiveBrands" xml:space="preserve">
+    <value>العلامات التجارية النشطة</value>
+  </data>
+  <data name="CmsNoBrandsInitialized" xml:space="preserve">
+    <value>لم يتم إعداد أي علامة تجارية بعد.</value>
+  </data>
+  <data name="CmsModules" xml:space="preserve">
+    <value>وحدات إدارة المحتوى</value>
+  </data>
+  <data name="CmsAddBrandProfile" xml:space="preserve">
+    <value>إضافة ملف علامة تجارية</value>
+  </data>
+  <data name="CmsAllBrandProfiles" xml:space="preserve">
+    <value>جميع ملفات العلامات التجارية</value>
+  </data>
+  <data name="CmsNoBrandProfilesFound" xml:space="preserve">
+    <value>لا توجد ملفات علامات تجارية</value>
+  </data>
+  <data name="CmsNoBrandProfilesDesc" xml:space="preserve">
+    <value>ابدأ بإضافة أول ملف تعريفي لشركتك.</value>
+  </data>
+  <data name="CmsBrands" xml:space="preserve">
+    <value>العلامات التجارية</value>
+  </data>
+  <data name="CmsBackToBrands" xml:space="preserve">
+    <value>العودة إلى العلامات التجارية</value>
+  </data>
+  <data name="CmsEditBrand" xml:space="preserve">
+    <value>تعديل العلامة التجارية</value>
+  </data>
+  <data name="CmsDeleteBrandProfile" xml:space="preserve">
+    <value>حذف ملف العلامة التجارية</value>
+  </data>
+  <data name="CmsPalette" xml:space="preserve">
+    <value>لوحة الألوان:</value>
+  </data>
+  <data name="CmsFaviconConfigured" xml:space="preserve">
+    <value>تم ضبط أيقونة الموقع</value>
+  </data>
+  <data name="CmsDarkLogoConfigured" xml:space="preserve">
+    <value>تم ضبط الشعار الداكن</value>
+  </data>
+  <data name="CmsBrandProfileIdentity" xml:space="preserve">
+    <value>هوية العلامة التجارية والملف</value>
+  </data>
+  <data name="CmsBrandIdentityDesc" xml:space="preserve">
+    <value>اسم الشركة الأساسي والمعرف والحالة</value>
+  </data>
+  <data name="CmsEgDaleelNeurix" xml:space="preserve">
+    <value>مثال: دليل أو نيوريكس</value>
+  </data>
+  <data name="CmsEgDaleelSlug" xml:space="preserve">
+    <value>مثال: daleel (يتم إنشاؤه تلقائياً إذا تُرك فارغاً)</value>
+  </data>
+  <data name="CmsSlugUrlHint" xml:space="preserve">
+    <value>يُستخدم في الروابط وتوجيه العلامات التجارية المتعددة.</value>
+  </data>
+  <data name="CmsVisualIdentityTheme" xml:space="preserve">
+    <value>الهوية البصرية ونظام الألوان</value>
+  </data>
+  <data name="CmsVisualIdentityDesc" xml:space="preserve">
+    <value>اضبط ألوان العلامة التجارية للترويسات والأزرار والعناصر المميزة</value>
+  </data>
+  <data name="CmsPrimaryColorHint" xml:space="preserve">
+    <value>اللون الرئيسي للعلامة (الأزرار والعناصر الأساسية).</value>
+  </data>
+  <data name="CmsSecondaryColorHint" xml:space="preserve">
+    <value>التدرج الثانوي واللون المساند.</value>
+  </data>
+  <data name="CmsAccentColorHint" xml:space="preserve">
+    <value>الشارات والتنبيهات وعناصر الدعوة لاتخاذ إجراء.</value>
+  </data>
+  <data name="CmsBrandLogosFavicon" xml:space="preserve">
+    <value>شعارات العلامة وأيقونة الموقع</value>
+  </data>
+  <data name="CmsBrandLogosDesc" xml:space="preserve">
+    <value>الشعار الرئيسي ونسخة الوضع الداكن وأيقونة المتصفح</value>
+  </data>
+  <data name="CmsPrimaryLogo" xml:space="preserve">
+    <value>الشعار الرئيسي</value>
+  </data>
+  <data name="CmsCurrentLogo" xml:space="preserve">
+    <value>الشعار الحالي</value>
+  </data>
+  <data name="CmsDarkModeVariant" xml:space="preserve">
+    <value>نسخة الوضع الداكن</value>
+  </data>
+  <data name="CmsDarkLogo" xml:space="preserve">
+    <value>الشعار الداكن</value>
+  </data>
+  <data name="CmsFavicon" xml:space="preserve">
+    <value>أيقونة الموقع</value>
+  </data>
+  <data name="CmsCurrentFavicon" xml:space="preserve">
+    <value>الأيقونة الحالية</value>
+  </data>
+  <data name="CmsTaglinesOverview" xml:space="preserve">
+    <value>الشعارات والنظرة العامة</value>
+  </data>
+  <data name="CmsTaglinesDesc" xml:space="preserve">
+    <value>ملخص تسويقي ثنائي اللغة والرسالة</value>
+  </data>
+  <data name="CmsEgTagline" xml:space="preserve">
+    <value>مثال: منصة الذكاء الاصطناعي المؤسسي من الجيل القادم</value>
+  </data>
+  <data name="CmsFullDescEnPlaceholder" xml:space="preserve">
+    <value>الوصف الكامل للعلامة التجارية بالإنجليزية...</value>
+  </data>
+  <data name="CmsSeoAnalyticsDefaults" xml:space="preserve">
+    <value>الإعدادات الافتراضية لتحسين محركات البحث والتحليلات</value>
+  </data>
+  <data name="CmsSeoAnalyticsDesc" xml:space="preserve">
+    <value>وسوم محركات البحث الافتراضية وإعدادات التتبع</value>
+  </data>
+  <data name="CmsEgMetaTitle" xml:space="preserve">
+    <value>مثال: دليل - الذكاء الاصطناعي المؤسسي والحلول الرقمية</value>
+  </data>
+  <data name="CmsSeoDescEnPlaceholder" xml:space="preserve">
+    <value>وصف تحسين محركات البحث بالإنجليزية لمعاينات البحث...</value>
+  </data>
+  <data name="CmsAnalyticsIdHint" xml:space="preserve">
+    <value>معرف القياس المستخدم في تحليلات حركة الزوار.</value>
+  </data>
+  <data name="CmsPublicContactInfo" xml:space="preserve">
+    <value>معلومات التواصل العامة</value>
+  </data>
+  <data name="CmsPublicContactDesc" xml:space="preserve">
+    <value>قنوات التواصل العامة والنطاق الرسمي</value>
+  </data>
+  <data name="CmsEgAddress" xml:space="preserve">
+    <value>مثال: طريق الملك فهد، الرياض، المملكة العربية السعودية</value>
+  </data>
+  <data name="CmsSocialChannels" xml:space="preserve">
+    <value>قنوات التواصل الاجتماعي</value>
+  </data>
+  <data name="CmsSocialChannelsDesc" xml:space="preserve">
+    <value>روابط الحسابات الرسمية في الترويسة والتذييل ونقاط العلامة التجارية</value>
+  </data>
+  <data name="CmsNewArticle" xml:space="preserve">
+    <value>مقال جديد</value>
+  </data>
+  <data name="CmsCreateArticle" xml:space="preserve">
+    <value>إنشاء مقال</value>
+  </data>
+  <data name="CmsCreateNewArticle" xml:space="preserve">
+    <value>إنشاء مقال جديد</value>
+  </data>
+  <data name="CmsCreateArticleDesc" xml:space="preserve">
+    <value>انشر الأخبار والإعلانات والمقالات القيادية بلغتين</value>
+  </data>
+  <data name="CmsEditArticle" xml:space="preserve">
+    <value>تعديل المقال</value>
+  </data>
+  <data name="CmsEditArticleDesc" xml:space="preserve">
+    <value>تحديث المحتوى أو الترجمات أو حالة النشر</value>
+  </data>
+  <data name="CmsSearchArticles" xml:space="preserve">
+    <value>ابحث بالعنوان أو التصنيف أو الكاتب...</value>
+  </data>
+  <data name="CmsNoArticlesMatch" xml:space="preserve">
+    <value>لا توجد مقالات تطابق معايير البحث</value>
+  </data>
+  <data name="CmsNoArticlesMatchDesc" xml:space="preserve">
+    <value>جرّب إزالة عوامل التصفية أو إنشاء تدوينة جديدة.</value>
+  </data>
+  <data name="CmsArticleTitle" xml:space="preserve">
+    <value>عنوان المقال</value>
+  </data>
+  <data name="CmsEnglishContent" xml:space="preserve">
+    <value>المحتوى بالإنجليزية</value>
+  </data>
+  <data name="CmsEgArticleTitle" xml:space="preserve">
+    <value>مثال: تسريع الذكاء الاصطناعي المؤسسي في السعودية</value>
+  </data>
+  <data name="CmsSummaryPlaceholder" xml:space="preserve">
+    <value>مقدمة موجزة لبطاقة المقال ووصف الميتا...</value>
+  </data>
+  <data name="CmsSlugAutoHint" xml:space="preserve">
+    <value>اتركه فارغاً ليتم إنشاؤه تلقائياً من العنوان الإنجليزي.</value>
+  </data>
+  <data name="CmsEgCategory" xml:space="preserve">
+    <value>مثال: تقنية، ذكاء اصطناعي، إدارة علاقات</value>
+  </data>
+  <data name="CmsEgTags" xml:space="preserve">
+    <value>مثال: ذكاء اصطناعي، تقنية مؤسسية، رؤية 2030</value>
+  </data>
+  <data name="CmsTagsHint" xml:space="preserve">
+    <value>افصل الوسوم بفواصل.</value>
+  </data>
+  <data name="CmsScheduledHint" xml:space="preserve">
+    <value>عند التحديد، سيظهر المقال بمجرد الوصول للتاريخ المجدول.</value>
+  </data>
+  <data name="CmsScheduleEmptyHint" xml:space="preserve">
+    <value>اتركه فارغاً للنشر الفوري عند تحديد خيار النشر.</value>
+  </data>
+  <data name="CmsCover" xml:space="preserve">
+    <value>الغلاف</value>
+  </data>
+  <data name="CmsNoCoverImage" xml:space="preserve">
+    <value>لم يتم رفع صورة غلاف</value>
+  </data>
+  <data name="CmsSupportedFormats" xml:space="preserve">
+    <value>الصيغ المدعومة: JPG، PNG، WEBP (بحد أقصى 5 ميجابايت)</value>
+  </data>
+  <data name="CmsSeoSocialSharing" xml:space="preserve">
+    <value>تحسين محركات البحث والمشاركة الاجتماعية</value>
+  </data>
+  <data name="CmsEnglishSeoMeta" xml:space="preserve">
+    <value>بيانات SEO بالإنجليزية</value>
+  </data>
+  <data name="CmsMetaTitlePlaceholder" xml:space="preserve">
+    <value>عنوان مخصص للصفحة في محركات البحث...</value>
+  </data>
+  <data name="CmsMetaDescPlaceholder" xml:space="preserve">
+    <value>وصف مقتطف البحث (يُفضّل 150-160 حرفاً)...</value>
+  </data>
+  <data name="CmsEditPageDesc" xml:space="preserve">
+    <value>تعديل النصوص ثنائية اللغة وقيم الأقسام لهذه الصفحة</value>
+  </data>
+  <data name="CmsAddNewSectionKey" xml:space="preserve">
+    <value>إضافة مفتاح قسم جديد</value>
+  </data>
+  <data name="CmsNoSectionsFound" xml:space="preserve">
+    <value>لا توجد أقسام لهذه الصفحة بعد. اضغط "إضافة مفتاح قسم جديد" أعلاه لإنشاء واحد.</value>
+  </data>
+  <data name="CmsDeleteSection" xml:space="preserve">
+    <value>حذف القسم</value>
+  </data>
+  <data name="CmsSaveAllSections" xml:space="preserve">
+    <value>حفظ جميع الأقسام</value>
+  </data>
+  <data name="CmsAddSectionKey" xml:space="preserve">
+    <value>إضافة مفتاح قسم</value>
+  </data>
+  <data name="CmsSectionKeySlug" xml:space="preserve">
+    <value>مفتاح القسم (المعرف)</value>
+  </data>
+  <data name="CmsEgSectionKey" xml:space="preserve">
+    <value>مثال: cta_banner_text</value>
+  </data>
+  <data name="CmsDataType" xml:space="preserve">
+    <value>نوع البيانات</value>
+  </data>
+  <data name="CmsTextSingleLine" xml:space="preserve">
+    <value>نص (سطر واحد)</value>
+  </data>
+  <data name="CmsHtmlMultiline" xml:space="preserve">
+    <value>HTML / نص متعدد الأسطر</value>
+  </data>
+  <data name="CmsImagePathUrl" xml:space="preserve">
+    <value>مسار الصورة (رابط)</value>
+  </data>
+  <data name="CmsEnglishCopyPlaceholder" xml:space="preserve">
+    <value>النص بالإنجليزية...</value>
+  </data>
+  <data name="CmsEnglishValue" xml:space="preserve">
+    <value>القيمة بالإنجليزية</value>
+  </data>
+  <data name="CmsEditContent" xml:space="preserve">
+    <value>تعديل المحتوى</value>
+  </data>
+  <data name="CmsSearchFilename" xml:space="preserve">
+    <value>ابحث باسم الملف...</value>
+  </data>
+  <data name="CmsNoMediaFound" xml:space="preserve">
+    <value>لا توجد ملفات وسائط</value>
+  </data>
+  <data name="CmsUploadFile" xml:space="preserve">
+    <value>رفع ملف</value>
+  </data>
+  <data name="CmsUploadMedia" xml:space="preserve">
+    <value>رفع وسائط</value>
+  </data>
+  <data name="CmsMaxSizeHint" xml:space="preserve">
+    <value>الحد الأقصى 10 ميجابايت (JPG، PNG، WEBP، GIF، SVG)</value>
+  </data>
+  <data name="CmsDestinationFolder" xml:space="preserve">
+    <value>المجلد الهدف</value>
+  </data>
+  <data name="CmsSelectFile" xml:space="preserve">
+    <value>اختر ملفاً</value>
+  </data>
+  <data name="CmsNewService" xml:space="preserve">
+    <value>خدمة جديدة</value>
+  </data>
+  <data name="CmsCreateService" xml:space="preserve">
+    <value>إنشاء خدمة</value>
+  </data>
+  <data name="CmsEditService" xml:space="preserve">
+    <value>تعديل الخدمة</value>
+  </data>
+  <data name="CmsDeleteService" xml:space="preserve">
+    <value>حذف الخدمة</value>
+  </data>
+  <data name="CmsBackToServices" xml:space="preserve">
+    <value>العودة إلى الخدمات</value>
+  </data>
+  <data name="CmsSearchServices" xml:space="preserve">
+    <value>ابحث باسم الخدمة أو وصفها...</value>
+  </data>
+  <data name="CmsNoServicesFound" xml:space="preserve">
+    <value>لا توجد خدمات</value>
+  </data>
+  <data name="CmsNoServicesDesc" xml:space="preserve">
+    <value>ابدأ بإنشاء أول خدمة في المنصة.</value>
+  </data>
+  <data name="CmsServiceIdentityBrand" xml:space="preserve">
+    <value>هوية الخدمة والعلامة التجارية</value>
+  </data>
+  <data name="CmsTargetBrandHint" xml:space="preserve">
+    <value>ملف العلامة التجارية المستهدف والاسم والمعرف</value>
+  </data>
+  <data name="CmsEgServiceSlug" xml:space="preserve">
+    <value>مثال: enterprise-intelligence (يتم إنشاؤه تلقائياً إذا تُرك فارغاً)</value>
+  </data>
+  <data name="CmsUniquePerBrand" xml:space="preserve">
+    <value>فريد لكل ملف علامة تجارية.</value>
+  </data>
+  <data name="CmsEgServiceName" xml:space="preserve">
+    <value>مثال: ذكاء الأعمال المؤسسي والتحليلات</value>
+  </data>
+  <data name="CmsServiceContent" xml:space="preserve">
+    <value>محتوى الخدمة</value>
+  </data>
+  <data name="CmsServiceContentDesc" xml:space="preserve">
+    <value>نظرة موجزة ووصف تفصيلي</value>
+  </data>
+  <data name="CmsBriefCardEnPlaceholder" xml:space="preserve">
+    <value>ملخص موجز للبطاقة بالإنجليزية...</value>
+  </data>
+  <data name="CmsServiceDetailEnPlaceholder" xml:space="preserve">
+    <value>تفاصيل مزايا الخدمة وبنيتها بالإنجليزية...</value>
+  </data>
+  <data name="CmsIconMediaOrdering" xml:space="preserve">
+    <value>الأيقونة والوسائط والترتيب</value>
+  </data>
+  <data name="CmsIconMediaDesc" xml:space="preserve">
+    <value>العناصر البصرية ورمز الأيقونة وحالة النشر</value>
+  </data>
+  <data name="CmsEgIconNames" xml:space="preserve">
+    <value>مثال: insights، hub، psychology</value>
+  </data>
+  <data name="CmsIconHint" xml:space="preserve">
+    <value>اسم أيقونة من مكتبة Google Material Symbols.</value>
+  </data>
+  <data name="CmsNewProject" xml:space="preserve">
+    <value>مشروع جديد</value>
+  </data>
+  <data name="CmsCreateProject" xml:space="preserve">
+    <value>إنشاء مشروع</value>
+  </data>
+  <data name="CmsEditProject" xml:space="preserve">
+    <value>تعديل المشروع</value>
+  </data>
+  <data name="CmsDeleteProject" xml:space="preserve">
+    <value>حذف المشروع</value>
+  </data>
+  <data name="CmsBackToProjects" xml:space="preserve">
+    <value>العودة إلى المشاريع</value>
+  </data>
+  <data name="CmsSearchProjects" xml:space="preserve">
+    <value>ابحث باسم المشروع أو العميل أو الوصف...</value>
+  </data>
+  <data name="CmsNoProjectsFound" xml:space="preserve">
+    <value>لا توجد مشاريع</value>
+  </data>
+  <data name="CmsNoProjectsDesc" xml:space="preserve">
+    <value>ابدأ بإضافة أول دراسة حالة أو مشروع عميل.</value>
+  </data>
+  <data name="CmsProjectIdentityBrand" xml:space="preserve">
+    <value>هوية المشروع والعلامة التجارية</value>
+  </data>
+  <data name="CmsEgProjectSlug" xml:space="preserve">
+    <value>مثال: saudi-telemetry-hub (يتم إنشاؤه تلقائياً إذا تُرك فارغاً)</value>
+  </data>
+  <data name="CmsEgProjectName" xml:space="preserve">
+    <value>مثال: المركز الوطني للقياس المؤسسي</value>
+  </data>
+  <data name="CmsClientCaseMetadata" xml:space="preserve">
+    <value>بيانات العميل ودراسة الحالة</value>
+  </data>
+  <data name="CmsClientCaseDesc" xml:space="preserve">
+    <value>تفاصيل العميل وتاريخ الإنجاز ورابط العرض المباشر</value>
+  </data>
+  <data name="CmsEgClientName" xml:space="preserve">
+    <value>مثال: مجموعة الرياض للخدمات اللوجستية</value>
+  </data>
+  <data name="CmsProjectCaseContent" xml:space="preserve">
+    <value>محتوى دراسة حالة المشروع</value>
+  </data>
+  <data name="CmsProjectCaseContentDesc" xml:space="preserve">
+    <value>ملخص البطاقة والدراسة التفصيلية</value>
+  </data>
+  <data name="CmsBriefPortfolioEnPlaceholder" xml:space="preserve">
+    <value>ملخص موجز لبطاقة الأعمال بالإنجليزية...</value>
+  </data>
+  <data name="CmsProjectDetailEnPlaceholder" xml:space="preserve">
+    <value>تفاصيل تنفيذ المشروع وبنيته ونتائجه التجارية بالإنجليزية...</value>
+  </data>
+  <data name="CmsMediaPublishing" xml:space="preserve">
+    <value>الوسائط والنشر</value>
+  </data>
+  <data name="CmsMediaPublishingDesc" xml:space="preserve">
+    <value>صورة الغلاف وترتيب العرض والظهور</value>
+  </data>
+  <data name="CmsCreateNewCmsUser" xml:space="preserve">
+    <value>إنشاء مستخدم جديد</value>
+  </data>
+  <data name="CmsCreateUserDesc" xml:space="preserve">
+    <value>أضف مديراً أو موظفاً لديه صلاحية الوصول للنظام.</value>
+  </data>
+  <data name="CmsFirstName" xml:space="preserve">
+    <value>الاسم الأول</value>
+  </data>
+  <data name="CmsLastName" xml:space="preserve">
+    <value>اسم العائلة</value>
+  </data>
+  <data name="CmsWorkEmail" xml:space="preserve">
+    <value>البريد الإلكتروني للعمل</value>
+  </data>
+  <data name="CmsAccessRole" xml:space="preserve">
+    <value>دور الصلاحية</value>
+  </data>
+  <data name="CmsRoleAdminFull" xml:space="preserve">
+    <value>مدير (وصول كامل للمحتوى وإعدادات العلامة وإدارة العلاقات)</value>
+  </data>
+  <data name="CmsRoleStaff" xml:space="preserve">
+    <value>موظف (وصول معياري للمحتوى وإدارة العلاقات)</value>
+  </data>
+  <data name="CmsInitialPassword" xml:space="preserve">
+    <value>كلمة المرور المبدئية</value>
+  </data>
+  <data name="CmsConfirmPassword" xml:space="preserve">
+    <value>تأكيد كلمة المرور</value>
+  </data>
+  <data name="CmsAccountActiveLogin" xml:space="preserve">
+    <value>الحساب نشط ومسموح له بتسجيل الدخول</value>
+  </data>
+  <data name="CmsEditCmsUser" xml:space="preserve">
+    <value>تعديل المستخدم</value>
+  </data>
+  <data name="CmsEditUserDesc" xml:space="preserve">
+    <value>تحديث بيانات الحساب والصلاحيات وحالة الوصول.</value>
+  </data>
+  <data name="CmsAccountActive" xml:space="preserve">
+    <value>الحساب نشط</value>
+  </data>
+  <data name="CmsCreateNewUser" xml:space="preserve">
+    <value>إنشاء مستخدم جديد</value>
+  </data>
+  <data name="CmsUser" xml:space="preserve">
+    <value>المستخدم</value>
+  </data>
+  <data name="CmsRole" xml:space="preserve">
+    <value>الدور</value>
+  </data>
+  <data name="CmsCreated" xml:space="preserve">
+    <value>تاريخ الإنشاء</value>
+  </data>
+  <data name="CmsEditUser" xml:space="preserve">
+    <value>تعديل المستخدم</value>
+  </data>
+  <data name="CmsUserLabel" xml:space="preserve">
+    <value>المستخدم:</value>
+  </data>
+  <data name="CmsEmailLabel" xml:space="preserve">
+    <value>البريد الإلكتروني:</value>
+  </data>
+  <data name="CmsNewPassword" xml:space="preserve">
+    <value>كلمة المرور الجديدة</value>
+  </data>
+  <data name="CmsConfirmNewPassword" xml:space="preserve">
+    <value>تأكيد كلمة المرور الجديدة</value>
+  </data>
+  <data name="CmsAddMember" xml:space="preserve">
+    <value>إضافة عضو</value>
+  </data>
+  <data name="CmsBackToTeam" xml:space="preserve">
+    <value>العودة إلى الفريق</value>
+  </data>
+  <data name="CmsSearchTeam" xml:space="preserve">
+    <value>ابحث بالاسم أو المسمى الوظيفي...</value>
+  </data>
+  <data name="CmsNoTeamFound" xml:space="preserve">
+    <value>لا يوجد أعضاء فريق</value>
+  </data>
+  <data name="CmsNoTeamDesc" xml:space="preserve">
+    <value>أضف أول عضو لعرض فريق القيادة على الموقع العام.</value>
+  </data>
+  <data name="CmsLinkedIn" xml:space="preserve">
+    <value>لينكد إن</value>
+  </data>
+  <data name="CmsMemberIdentityBrand" xml:space="preserve">
+    <value>هوية العضو والعلامة التجارية</value>
+  </data>
+  <data name="CmsCompanyAssignmentHint" xml:space="preserve">
+    <value>الشركة المرتبطة والاسم والمعرف</value>
+  </data>
+  <data name="CmsEgMemberSlug" xml:space="preserve">
+    <value>مثال: ahmed-al-rashid (يتم إنشاؤه تلقائياً إذا تُرك فارغاً)</value>
+  </data>
+  <data name="CmsEgMemberName" xml:space="preserve">
+    <value>مثال: أحمد الراشد</value>
+  </data>
+  <data name="CmsRoleBiography" xml:space="preserve">
+    <value>المنصب والنبذة</value>
+  </data>
+  <data name="CmsRoleBiographyDesc" xml:space="preserve">
+    <value>المسمى الوظيفي والنبذة والروابط المهنية</value>
+  </data>
+  <data name="CmsEgJobTitle" xml:space="preserve">
+    <value>مثال: الرئيس التنفيذي للتقنية</value>
+  </data>
+  <data name="CmsBioEnPlaceholder" xml:space="preserve">
+    <value>نبذة مهنية موجزة بالإنجليزية...</value>
+  </data>
+  <data name="CmsPhotoPublishing" xml:space="preserve">
+    <value>الصورة والنشر</value>
+  </data>
+  <data name="CmsHeadshotOrderingDesc" xml:space="preserve">
+    <value>الصورة الشخصية وترتيب العرض والظهور</value>
+  </data>
+  <data name="CmsCurrentPhoto" xml:space="preserve">
+    <value>الصورة الحالية</value>
+  </data>
+  <data name="CmsNewTestimonial" xml:space="preserve">
+    <value>شهادة جديدة</value>
+  </data>
+  <data name="CmsEditTestimonial" xml:space="preserve">
+    <value>تعديل الشهادة</value>
+  </data>
+  <data name="CmsDeleteTestimonial" xml:space="preserve">
+    <value>حذف الشهادة</value>
+  </data>
+  <data name="CmsBackToTestimonials" xml:space="preserve">
+    <value>العودة إلى شهادات العملاء</value>
+  </data>
+  <data name="CmsSearchTestimonials" xml:space="preserve">
+    <value>ابحث باسم العميل أو الشركة أو نص الشهادة...</value>
+  </data>
+  <data name="CmsNoTestimonialsFound" xml:space="preserve">
+    <value>لا توجد شهادات</value>
+  </data>
+  <data name="CmsNoTestimonialsDesc" xml:space="preserve">
+    <value>أضف تقييمات العملاء والشهادات المؤسسية لتعزيز الثقة على الموقع.</value>
+  </data>
+  <data name="CmsCustomerCompanyInfo" xml:space="preserve">
+    <value>معلومات العميل والشركة</value>
+  </data>
+  <data name="CmsReviewerProfileDesc" xml:space="preserve">
+    <value>بيانات المُقيّم والشركة التابع لها</value>
+  </data>
+  <data name="CmsEgCustomerName" xml:space="preserve">
+    <value>مثال: فهد الحسيني</value>
+  </data>
+  <data name="CmsEgCompanyName" xml:space="preserve">
+    <value>مثال: شركة الرياض للخدمات اللوجستية</value>
+  </data>
+  <data name="CmsEgRoleTitle" xml:space="preserve">
+    <value>مثال: نائب رئيس العمليات</value>
+  </data>
+  <data name="CmsReviewRating" xml:space="preserve">
+    <value>التقييم والمراجعة</value>
+  </data>
+  <data name="CmsReviewRatingDesc" xml:space="preserve">
+    <value>نص الشهادة وتقييم النجوم</value>
+  </data>
+  <data name="CmsStars5" xml:space="preserve">
+    <value>⭐⭐⭐⭐⭐ (5 نجوم - استثنائي)</value>
+  </data>
+  <data name="CmsStars4" xml:space="preserve">
+    <value>⭐⭐⭐⭐ (4 نجوم - جيد جداً)</value>
+  </data>
+  <data name="CmsStars3" xml:space="preserve">
+    <value>⭐⭐⭐ (3 نجوم - جيد)</value>
+  </data>
+  <data name="CmsStars2" xml:space="preserve">
+    <value>⭐⭐ (نجمتان - مقبول)</value>
+  </data>
+  <data name="CmsStars1" xml:space="preserve">
+    <value>⭐ (نجمة واحدة - ضعيف)</value>
+  </data>
+  <data name="CmsQuoteEnPlaceholder" xml:space="preserve">
+    <value>نص شهادة العميل بالإنجليزية...</value>
+  </data>
+  <data name="CmsCustomerHeadshotDesc" xml:space="preserve">
+    <value>صورة العميل والترتيب وحالة الظهور</value>
+  </data>
+
+  <data name="CmsUnpublishToDraft" xml:space="preserve">
+    <value>إلغاء النشر ونقله للمسودات</value>
+  </data>
+  <data name="CmsPublishLiveTitle" xml:space="preserve">
+    <value>نشر مباشرة</value>
+  </data>
+  <data name="CmsDeactivateUser" xml:space="preserve">
+    <value>تعطيل المستخدم</value>
+  </data>
+  <data name="CmsActivateUser" xml:space="preserve">
+    <value>تنشيط المستخدم</value>
+  </data>
+  <data name="CmsUnpublish" xml:space="preserve">
+    <value>إلغاء النشر</value>
+  </data>
+  <data name="CmsPublish" xml:space="preserve">
+    <value>نشر</value>
+  </data>
+
+  <data name="CmsFldEnglishTitle" xml:space="preserve">
+    <value>العنوان بالإنجليزية</value>
+  </data>
+  <data name="CmsFldArabicTitle" xml:space="preserve">
+    <value>العنوان بالعربية</value>
+  </data>
+  <data name="CmsFldSlugOptional" xml:space="preserve">
+    <value>معرف الرابط (اختياري، يُنشأ تلقائياً إذا تُرك فارغاً)</value>
+  </data>
+  <data name="CmsFldEnglishSummary" xml:space="preserve">
+    <value>الملخص بالإنجليزية</value>
+  </data>
+  <data name="CmsFldArabicSummary" xml:space="preserve">
+    <value>الملخص بالعربية</value>
+  </data>
+  <data name="CmsFldEnglishContentHtml" xml:space="preserve">
+    <value>المحتوى بالإنجليزية (HTML)</value>
+  </data>
+  <data name="CmsFldArabicContentHtml" xml:space="preserve">
+    <value>المحتوى بالعربية (HTML)</value>
+  </data>
+  <data name="CmsFldCategory" xml:space="preserve">
+    <value>التصنيف</value>
+  </data>
+  <data name="CmsFldTags" xml:space="preserve">
+    <value>الوسوم (مفصولة بفواصل، مثال: ذكاء اصطناعي، رؤية 2030)</value>
+  </data>
+  <data name="CmsFldAuthorName" xml:space="preserve">
+    <value>اسم الكاتب</value>
+  </data>
+  <data name="CmsFldReadingTime" xml:space="preserve">
+    <value>مدة القراءة (دقائق)</value>
+  </data>
+  <data name="CmsFldPublishStatus" xml:space="preserve">
+    <value>حالة النشر</value>
+  </data>
+  <data name="CmsFldSchedulePublication" xml:space="preserve">
+    <value>موعد النشر المجدول (اختياري)</value>
+  </data>
+  <data name="CmsFldCoverImage" xml:space="preserve">
+    <value>صورة الغلاف</value>
+  </data>
+  <data name="CmsFldMetaTitleEn" xml:space="preserve">
+    <value>عنوان الميتا (بالإنجليزية، يُفضّل 50-60 حرفاً)</value>
+  </data>
+  <data name="CmsFldMetaTitleAr" xml:space="preserve">
+    <value>عنوان الميتا (بالعربية، يُفضّل 50-60 حرفاً)</value>
+  </data>
+  <data name="CmsFldMetaDescEn" xml:space="preserve">
+    <value>وصف الميتا (بالإنجليزية، يُفضّل 150-160 حرفاً)</value>
+  </data>
+  <data name="CmsFldMetaDescAr" xml:space="preserve">
+    <value>وصف الميتا (بالعربية، يُفضّل 150-160 حرفاً)</value>
+  </data>
+  <data name="CmsFldCanonicalUrl" xml:space="preserve">
+    <value>الرابط الأساسي (اختياري، يُستخدم الرابط الحالي افتراضياً)</value>
+  </data>
+  <data name="CmsFldBrandNameEn" xml:space="preserve">
+    <value>اسم العلامة التجارية (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldBrandNameAr" xml:space="preserve">
+    <value>اسم العلامة التجارية (بالعربية)</value>
+  </data>
+  <data name="CmsFldTaglineEn" xml:space="preserve">
+    <value>الشعار النصي (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldTaglineAr" xml:space="preserve">
+    <value>الشعار النصي (بالعربية)</value>
+  </data>
+  <data name="CmsFldAboutEn" xml:space="preserve">
+    <value>نبذة / الوصف (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldAboutAr" xml:space="preserve">
+    <value>نبذة / الوصف (بالعربية)</value>
+  </data>
+  <data name="CmsFldLogoLight" xml:space="preserve">
+    <value>الشعار (الوضع الفاتح / الرئيسي)</value>
+  </data>
+  <data name="CmsFldLogoDark" xml:space="preserve">
+    <value>الشعار (الوضع الداكن)</value>
+  </data>
+  <data name="CmsFldFaviconFile" xml:space="preserve">
+    <value>أيقونة الموقع (.ico أو .png)</value>
+  </data>
+  <data name="CmsFldPrimaryColor" xml:space="preserve">
+    <value>اللون الرئيسي للعلامة</value>
+  </data>
+  <data name="CmsFldSecondaryColor" xml:space="preserve">
+    <value>اللون الثانوي للعلامة</value>
+  </data>
+  <data name="CmsFldAccentColor" xml:space="preserve">
+    <value>لون التمييز</value>
+  </data>
+  <data name="CmsFldDefMetaTitleEn" xml:space="preserve">
+    <value>عنوان الميتا الافتراضي (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldDefMetaTitleAr" xml:space="preserve">
+    <value>عنوان الميتا الافتراضي (بالعربية)</value>
+  </data>
+  <data name="CmsFldDefMetaDescEn" xml:space="preserve">
+    <value>وصف الميتا الافتراضي (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldDefMetaDescAr" xml:space="preserve">
+    <value>وصف الميتا الافتراضي (بالعربية)</value>
+  </data>
+  <data name="CmsFldGoogleAnalytics" xml:space="preserve">
+    <value>معرف Google Analytics (مثال: G-XXXXXXXXXX)</value>
+  </data>
+  <data name="CmsFldLinkedInPage" xml:space="preserve">
+    <value>رابط صفحة لينكد إن</value>
+  </data>
+  <data name="CmsFldTwitterUrl" xml:space="preserve">
+    <value>رابط تويتر / إكس</value>
+  </data>
+  <data name="CmsFldFacebookUrl" xml:space="preserve">
+    <value>رابط صفحة فيسبوك</value>
+  </data>
+  <data name="CmsFldInstagramUrl" xml:space="preserve">
+    <value>رابط إنستغرام</value>
+  </data>
+  <data name="CmsFldContactEmail" xml:space="preserve">
+    <value>البريد الإلكتروني للتواصل</value>
+  </data>
+  <data name="CmsFldPhoneNumber" xml:space="preserve">
+    <value>رقم الهاتف</value>
+  </data>
+  <data name="CmsFldOfficeAddress" xml:space="preserve">
+    <value>عنوان المكتب</value>
+  </data>
+  <data name="CmsFldWebsiteUrl" xml:space="preserve">
+    <value>رابط الموقع الإلكتروني</value>
+  </data>
+  <data name="CmsFldIsPublished" xml:space="preserve">
+    <value>منشور</value>
+  </data>
+  <data name="CmsFldBrandCompany" xml:space="preserve">
+    <value>العلامة التجارية / الشركة</value>
+  </data>
+  <data name="CmsFldProjectNameEn" xml:space="preserve">
+    <value>اسم المشروع (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldProjectNameAr" xml:space="preserve">
+    <value>اسم المشروع (بالعربية)</value>
+  </data>
+  <data name="CmsFldShortSummaryEn" xml:space="preserve">
+    <value>ملخص موجز (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldShortSummaryAr" xml:space="preserve">
+    <value>ملخص موجز (بالعربية)</value>
+  </data>
+  <data name="CmsFldCaseStudyEn" xml:space="preserve">
+    <value>دراسة الحالة الكاملة / الوصف (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldCaseStudyAr" xml:space="preserve">
+    <value>دراسة الحالة الكاملة / الوصف (بالعربية)</value>
+  </data>
+  <data name="CmsFldClientNameEn" xml:space="preserve">
+    <value>اسم العميل (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldClientNameAr" xml:space="preserve">
+    <value>اسم العميل (بالعربية)</value>
+  </data>
+  <data name="CmsFldCompletionDate" xml:space="preserve">
+    <value>تاريخ الإنجاز</value>
+  </data>
+  <data name="CmsFldLiveDemoUrl" xml:space="preserve">
+    <value>رابط المشروع المباشر / العرض</value>
+  </data>
+  <data name="CmsFldProjectCover" xml:space="preserve">
+    <value>صورة غلاف المشروع</value>
+  </data>
+  <data name="CmsFldDisplayOrder" xml:space="preserve">
+    <value>ترتيب العرض</value>
+  </data>
+  <data name="CmsFldServiceNameEn" xml:space="preserve">
+    <value>اسم الخدمة (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldServiceNameAr" xml:space="preserve">
+    <value>اسم الخدمة (بالعربية)</value>
+  </data>
+  <data name="CmsFldFullDescEn" xml:space="preserve">
+    <value>الوصف الكامل (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldFullDescAr" xml:space="preserve">
+    <value>الوصف الكامل (بالعربية)</value>
+  </data>
+  <data name="CmsFldMaterialIcon" xml:space="preserve">
+    <value>اسم أيقونة Material</value>
+  </data>
+  <data name="CmsFldFeatureImage" xml:space="preserve">
+    <value>الصورة الرئيسية</value>
+  </data>
+  <data name="CmsFldFullNameEn" xml:space="preserve">
+    <value>الاسم الكامل (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldFullNameAr" xml:space="preserve">
+    <value>الاسم الكامل (بالعربية)</value>
+  </data>
+  <data name="CmsFldJobTitleEn" xml:space="preserve">
+    <value>المسمى الوظيفي (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldJobTitleAr" xml:space="preserve">
+    <value>المسمى الوظيفي (بالعربية)</value>
+  </data>
+  <data name="CmsFldBioEn" xml:space="preserve">
+    <value>النبذة (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldBioAr" xml:space="preserve">
+    <value>النبذة (بالعربية)</value>
+  </data>
+  <data name="CmsFldEmailAddress" xml:space="preserve">
+    <value>البريد الإلكتروني</value>
+  </data>
+  <data name="CmsFldLinkedInUrl" xml:space="preserve">
+    <value>رابط لينكد إن</value>
+  </data>
+  <data name="CmsFldProfilePhoto" xml:space="preserve">
+    <value>الصورة الشخصية</value>
+  </data>
+  <data name="CmsFldCustomerNameEn" xml:space="preserve">
+    <value>اسم العميل (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldCustomerNameAr" xml:space="preserve">
+    <value>اسم العميل (بالعربية)</value>
+  </data>
+  <data name="CmsFldCompanyNameEn" xml:space="preserve">
+    <value>اسم الشركة (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldCompanyNameAr" xml:space="preserve">
+    <value>اسم الشركة (بالعربية)</value>
+  </data>
+  <data name="CmsFldRoleTitleEn" xml:space="preserve">
+    <value>الدور / المسمى الوظيفي (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldRoleTitleAr" xml:space="preserve">
+    <value>الدور / المسمى الوظيفي (بالعربية)</value>
+  </data>
+  <data name="CmsFldQuoteEn" xml:space="preserve">
+    <value>نص الشهادة (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFldQuoteAr" xml:space="preserve">
+    <value>نص الشهادة (بالعربية)</value>
+  </data>
+  <data name="CmsFldRating" xml:space="preserve">
+    <value>التقييم (من 1 إلى 5 نجوم)</value>
+  </data>
+  <data name="CmsFldCustomerPhoto" xml:space="preserve">
+    <value>صورة العميل</value>
+  </data>
+  <data name="CmsTitleAddTeamMember" xml:space="preserve">
+    <value>إضافة عضو فريق</value>
+  </data>
+  <data name="CmsTitleAddTestimonial" xml:space="preserve">
+    <value>إضافة شهادة</value>
+  </data>
+  <data name="CmsTitleArticlesManagement" xml:space="preserve">
+    <value>إدارة المقالات</value>
+  </data>
+  <data name="CmsTitleCompanyBrandProfiles" xml:space="preserve">
+    <value>ملفات الشركات والعلامات التجارية</value>
+  </data>
+  <data name="CmsTitleContentDashboard" xml:space="preserve">
+    <value>لوحة تحكم المحتوى والمنصة</value>
+  </data>
+  <data name="CmsTitleCreateBrandProfile" xml:space="preserve">
+    <value>إنشاء ملف علامة تجارية</value>
+  </data>
+  <data name="CmsTitlePlatformServices" xml:space="preserve">
+    <value>خدمات المنصة</value>
+  </data>
+  <data name="CmsTitlePortfolioProjects" xml:space="preserve">
+    <value>الأعمال والمشاريع</value>
+  </data>
+  <data name="CmsTitleTestimonialsReviews" xml:space="preserve">
+    <value>الشهادات والتقييمات</value>
+  </data>
+  <data name="CmsTitleUserAccessManagement" xml:space="preserve">
+    <value>إدارة المستخدمين والصلاحيات</value>
+  </data>
+  <data name="CmsCancel" xml:space="preserve">
+    <value>إلغاء</value>
+  </data>
+  <data name="CmsFilter" xml:space="preserve">
+    <value>تصفية</value>
+  </data>
+  <data name="CmsManage" xml:space="preserve">
+    <value>إدارة</value>
+  </data>
+  <data name="CmsLive" xml:space="preserve">
+    <value>منشور</value>
+  </data>
+  <data name="CmsDemo" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="CmsPublishedWord" xml:space="preserve">
+    <value>منشور</value>
+  </data>
+  <data name="CmsOrderPrefix" xml:space="preserve">
+    <value>الترتيب:</value>
+  </data>
+  <data name="CmsUrlSlugIdentifier" xml:space="preserve">
+    <value>معرف الرابط</value>
+  </data>
+  <data name="CmsUrlSlug" xml:space="preserve">
+    <value>معرف الرابط</value>
+  </data>
+  <data name="CmsCompanyBrandProfile" xml:space="preserve">
+    <value>الشركة / العلامة التجارية</value>
+  </data>
+  <data name="CmsDisplayOrderLabel" xml:space="preserve">
+    <value>ترتيب العرض</value>
+  </data>
+  <data name="CmsPublishingStatus" xml:space="preserve">
+    <value>حالة النشر</value>
+  </data>
+  <data name="CmsPublishedStatus" xml:space="preserve">
+    <value>حالة النشر</value>
+  </data>
+  <data name="CmsEditPageHeaderDesc" xml:space="preserve">
+    <value>تعديل العناوين والأوصاف والأزرار وأقسام التنبيه ثنائية اللغة لهذه الصفحة.</value>
+  </data>
+  <data name="CmsArticlesMgmtDesc" xml:space="preserve">
+    <value>إنشاء وتعديل وترجمة ونشر الأخبار والمقالات.</value>
+  </data>
+  <data name="CmsArticleTitleEnLabel" xml:space="preserve">
+    <value>عنوان المقال (بالإنجليزية)</value>
+  </data>
+  <data name="CmsShortSummaryLeadEn" xml:space="preserve">
+    <value>الملخص / المقدمة (بالإنجليزية)</value>
+  </data>
+  <data name="CmsArticleBodyEn" xml:space="preserve">
+    <value>نص المقال (بالإنجليزية)</value>
+  </data>
+  <data name="CmsReadingTimeMin" xml:space="preserve">
+    <value>مدة القراءة (دقيقة)</value>
+  </data>
+  <data name="CmsTags" xml:space="preserve">
+    <value>الوسوم</value>
+  </data>
+  <data name="CmsAuthorName" xml:space="preserve">
+    <value>اسم الكاتب</value>
+  </data>
+  <data name="CmsScheduledPubUtc" xml:space="preserve">
+    <value>موعد النشر المجدول (اختياري - بالتوقيت العالمي)</value>
+  </data>
+  <data name="CmsCoverImageLabel" xml:space="preserve">
+    <value>صورة الغلاف</value>
+  </data>
+
+  <data name="CmsContentPlatformOverview" xml:space="preserve">
+    <value>نظرة عامة على المحتوى والمنصة</value>
+  </data>
+  <data name="CmsDashboardIntro" xml:space="preserve">
+    <value>إدارة مركزية لملفات العلامات التجارية المتعددة والمنشورات والمحتوى الديناميكي.</value>
+  </data>
+  <data name="CmsViewAll" xml:space="preserve">
+    <value>عرض الكل</value>
+  </data>
+  <data name="CmsCompanyBrandProfilesPlural" xml:space="preserve">
+    <value>ملفات الشركات / العلامات التجارية</value>
+  </data>
+  <data name="CmsArticlesBlogEngine" xml:space="preserve">
+    <value>محرك المقالات والمدونة</value>
+  </data>
+  <data name="CmsPageContentSections" xml:space="preserve">
+    <value>أقسام محتوى الصفحات</value>
+  </data>
+  <data name="CmsServicesCms" xml:space="preserve">
+    <value>إدارة الخدمات</value>
+  </data>
+  <data name="CmsDraft" xml:space="preserve">
+    <value>مسودة</value>
+  </data>
+  <data name="CmsScheduled" xml:space="preserve">
+    <value>مجدول</value>
+  </data>
+  <data name="CmsEditBrandPrefix" xml:space="preserve">
+    <value>تعديل العلامة التجارية:</value>
+  </data>
+  <data name="CmsBrandsIndexIntro" xml:space="preserve">
+    <value>إدارة الملفات التعريفية للعلامات التجارية التابعة لدليل وبيانات هويتها العامة.</value>
+  </data>
+  <data name="CmsCreateBrand" xml:space="preserve">
+    <value>إنشاء علامة تجارية</value>
+  </data>
+  <data name="CmsPublishing" xml:space="preserve">
+    <value>النشر</value>
+  </data>
+  <data name="CmsPrimaryLogoLight" xml:space="preserve">
+    <value>الشعار الرئيسي (فاتح)</value>
+  </data>
+  <data name="CmsLogoVariantDark" xml:space="preserve">
+    <value>نسخة الشعار (الوضع الداكن)</value>
+  </data>
+  <data name="CmsWebsiteFavicon" xml:space="preserve">
+    <value>أيقونة الموقع (.ico / .svg / .png)</value>
+  </data>
+  <data name="CmsGoogleAnalyticsTag" xml:space="preserve">
+    <value>معرف Google Analytics / Tag Manager</value>
+  </data>
+  <data name="CmsOfficialWebsiteUrl" xml:space="preserve">
+    <value>رابط الموقع الرسمي</value>
+  </data>
+  <data name="CmsPublicEmail" xml:space="preserve">
+    <value>البريد الإلكتروني العام</value>
+  </data>
+  <data name="CmsPublicPhone" xml:space="preserve">
+    <value>الهاتف العام</value>
+  </data>
+  <data name="CmsHeadquartersAddress" xml:space="preserve">
+    <value>عنوان المقر الرئيسي</value>
+  </data>
+  <data name="CmsFacebookUrlLabel" xml:space="preserve">
+    <value>رابط فيسبوك</value>
+  </data>
+  <data name="CmsDescAboutEn" xml:space="preserve">
+    <value>الوصف / نبذة (بالإنجليزية)</value>
+  </data>
+  <data name="CmsDescAboutAr" xml:space="preserve">
+    <value>الوصف / نبذة (بالعربية)</value>
+  </data>
+  <data name="CmsSaveBrandProfile" xml:space="preserve">
+    <value>حفظ ملف العلامة التجارية</value>
+  </data>
+  <data name="CmsMinRead" xml:space="preserve">
+    <value>دقيقة قراءة</value>
+  </data>
+  <data name="CmsChangeImageBelow" xml:space="preserve">
+    <value>تغيير الصورة أدناه</value>
+  </data>
+  <data name="CmsSeoHelpText" xml:space="preserve">
+    <value>خصّص طريقة ظهور هذا المقال على Google وBing وLinkedIn وTwitter. إذا تُرك فارغاً، سيتم استخدام العناوين والملخصات تلقائياً.</value>
+  </data>
+  <data name="CmsMetaTitleEnShort" xml:space="preserve">
+    <value>عنوان الميتا (إنجليزي)</value>
+  </data>
+  <data name="CmsMetaDescEnShort" xml:space="preserve">
+    <value>وصف الميتا (إنجليزي)</value>
+  </data>
+  <data name="CmsCanonicalUrlOptional" xml:space="preserve">
+    <value>الرابط الأساسي (اختياري)</value>
+  </data>
+  <data name="CmsEditPagePrefix" xml:space="preserve">
+    <value>تعديل الصفحة:</value>
+  </data>
+  <data name="CmsBackToPages" xml:space="preserve">
+    <value>العودة إلى الصفحات</value>
+  </data>
+  <data name="CmsAddSection" xml:space="preserve">
+    <value>إضافة قسم</value>
+  </data>
+  <data name="CmsDynamicPageSections" xml:space="preserve">
+    <value>أقسام الصفحات الديناميكية</value>
+  </data>
+  <data name="CmsPageSectionsIntro" xml:space="preserve">
+    <value>خصّص نصوص الواجهة والدعوات لاتخاذ إجراء والشارات والنصوص في جميع صفحات الموقع العام بالإنجليزية والعربية.</value>
+  </data>
+  <data name="CmsPageHome" xml:space="preserve">
+    <value>الصفحة الرئيسية</value>
+  </data>
+  <data name="CmsPageAbout" xml:space="preserve">
+    <value>صفحة من نحن</value>
+  </data>
+  <data name="CmsPagePlatforms" xml:space="preserve">
+    <value>صفحة المنصات</value>
+  </data>
+  <data name="CmsPageTrust" xml:space="preserve">
+    <value>صفحة الثقة والأمان</value>
+  </data>
+  <data name="CmsPagePricing" xml:space="preserve">
+    <value>صفحة الأسعار</value>
+  </data>
+  <data name="CmsPageSuffix" xml:space="preserve">
+    <value>صفحة</value>
+  </data>
+  <data name="CmsMediaIntro" xml:space="preserve">
+    <value>مستودع مركزي لجميع أصول العلامة التجارية وأغلفة المقالات وصور الفريق والوسائط.</value>
+  </data>
+  <data name="CmsAllFiles" xml:space="preserve">
+    <value>جميع الملفات</value>
+  </data>
+  <data name="CmsUpload" xml:space="preserve">
+    <value>رفع</value>
+  </data>
+  <data name="CmsMediaEmpty" xml:space="preserve">
+    <value>مجلد الوسائط فارغ حالياً. ارفع أول ملف.</value>
+  </data>
+  <data name="CmsCreatePlatformService" xml:space="preserve">
+    <value>إنشاء خدمة منصة</value>
+  </data>
+  <data name="CmsEditServicePrefix" xml:space="preserve">
+    <value>تعديل الخدمة:</value>
+  </data>
+  <data name="CmsServicesIntro" xml:space="preserve">
+    <value>إدارة خدمات ذكاء الأعمال والذكاء الاصطناعي والخدمات المؤسسية لكل علامة تجارية.</value>
+  </data>
+  <data name="CmsFeatureImageOptional" xml:space="preserve">
+    <value>الصورة التوضيحية (اختياري)</value>
+  </data>
+  <data name="CmsSaveService" xml:space="preserve">
+    <value>حفظ الخدمة</value>
+  </data>
+  <data name="CmsShowingServices" xml:space="preserve">
+    <value>عرض {0} إلى {1} من {2} خدمة</value>
+  </data>
+  <data name="CmsCreatePortfolioProject" xml:space="preserve">
+    <value>إنشاء مشروع</value>
+  </data>
+  <data name="CmsEditProjectPrefix" xml:space="preserve">
+    <value>تعديل المشروع:</value>
+  </data>
+  <data name="CmsProjectsIntro" xml:space="preserve">
+    <value>اعرض دراسات الحالة وتطبيقات العملاء والمخرجات التقنية لكل علامة تجارية.</value>
+  </data>
+  <data name="CmsCompletionLaunchDate" xml:space="preserve">
+    <value>تاريخ الإنجاز / الإطلاق</value>
+  </data>
+  <data name="CmsLiveDemoProjectUrl" xml:space="preserve">
+    <value>رابط العرض المباشر / المشروع</value>
+  </data>
+  <data name="CmsFullCaseStudyEn" xml:space="preserve">
+    <value>دراسة الحالة الكاملة (بالإنجليزية)</value>
+  </data>
+  <data name="CmsFullCaseStudyAr" xml:space="preserve">
+    <value>دراسة الحالة الكاملة (بالعربية)</value>
+  </data>
+  <data name="CmsCoverScreenshotOptional" xml:space="preserve">
+    <value>صورة الغلاف / لقطة الشاشة (اختياري)</value>
+  </data>
+  <data name="CmsSaveProject" xml:space="preserve">
+    <value>حفظ المشروع</value>
+  </data>
+  <data name="CmsShowingProjects" xml:space="preserve">
+    <value>عرض {0} إلى {1} من {2} مشروع</value>
+  </data>
+  <data name="CmsCreateUser" xml:space="preserve">
+    <value>إنشاء مستخدم</value>
+  </data>
+  <data name="CmsAdminsAndUsers" xml:space="preserve">
+    <value>مديرو ومستخدمو النظام</value>
+  </data>
+  <data name="CmsUsersIntro" xml:space="preserve">
+    <value>إدارة وصول الفريق وأدوار المستخدمين وبيانات الأمان.</value>
+  </data>
+  <data name="CmsNoUsersFound" xml:space="preserve">
+    <value>لا يوجد مستخدمون.</value>
+  </data>
+  <data name="CmsActive" xml:space="preserve">
+    <value>نشط</value>
+  </data>
+  <data name="CmsLocked" xml:space="preserve">
+    <value>مقفل</value>
+  </data>
+  <data name="CmsSetNewPasswordFor" xml:space="preserve">
+    <value>تعيين كلمة مرور جديدة آمنة لـ</value>
+  </data>
+  <data name="CmsUpdatePassword" xml:space="preserve">
+    <value>تحديث كلمة المرور</value>
+  </data>
+  <data name="CmsTeamIntro" xml:space="preserve">
+    <value>إدارة ملفات القيادة والفريق المعروضة على الموقع العام.</value>
+  </data>
+  <data name="CmsLinkedInProfileUrl" xml:space="preserve">
+    <value>رابط ملف لينكد إن</value>
+  </data>
+  <data name="CmsProfilePhotoOptional" xml:space="preserve">
+    <value>الصورة الشخصية (اختياري)</value>
+  </data>
+  <data name="CmsSaveMember" xml:space="preserve">
+    <value>حفظ العضو</value>
+  </data>
+  <data name="CmsShowingMembers" xml:space="preserve">
+    <value>عرض {0} إلى {1} من {2} عضو</value>
+  </data>
+  <data name="CmsEditTestimonialPrefix" xml:space="preserve">
+    <value>تعديل الشهادة:</value>
+  </data>
+  <data name="CmsTestimonialsIntro" xml:space="preserve">
+    <value>إدارة تقييمات العملاء والتوصيات المؤسسية وملاحظات الشركاء.</value>
+  </data>
+  <data name="CmsJobTitleRoleEn" xml:space="preserve">
+    <value>المسمى الوظيفي / الدور (بالإنجليزية)</value>
+  </data>
+  <data name="CmsJobTitleRoleAr" xml:space="preserve">
+    <value>المسمى الوظيفي / الدور (بالعربية)</value>
+  </data>
+  <data name="CmsTestimonialQuoteEn" xml:space="preserve">
+    <value>نص الشهادة (بالإنجليزية)</value>
+  </data>
+  <data name="CmsTestimonialQuoteAr" xml:space="preserve">
+    <value>نص الشهادة (بالعربية)</value>
+  </data>
+  <data name="CmsRatingStars" xml:space="preserve">
+    <value>التقييم (نجوم)</value>
+  </data>
+  <data name="CmsCustomerPhotoOptional" xml:space="preserve">
+    <value>صورة العميل (اختياري)</value>
+  </data>
+  <data name="CmsSaveTestimonial" xml:space="preserve">
+    <value>حفظ الشهادة</value>
+  </data>
+  <data name="CmsShowingTestimonials" xml:space="preserve">
+    <value>عرض {0} إلى {1} من {2} شهادة</value>
+  </data>
+  <data name="CmsPrevious" xml:space="preserve">
+    <value>السابق</value>
+  </data>
+  <data name="CmsNext" xml:space="preserve">
+    <value>التالي</value>
+  </data>
+
+  <data name="CmsPortfolioSlashProjects" xml:space="preserve">
+    <value>الأعمال / المشاريع</value>
+  </data>
+  <data name="CmsEditPrefix" xml:space="preserve">
+    <value>تعديل:</value>
+  </data>
+  <data name="CmsFilesCount" xml:space="preserve">
+    <value>{0} ملف ({1})</value>
+  </data>
+
+  <data name="CmsPageShop" xml:space="preserve">
+    <value>صفحة السوق العالمي</value>
+  </data>
+  <data name="CmsPageBlog" xml:space="preserve">
+    <value>صفحة المدونة والرؤى</value>
+  </data>
+  <data name="CmsPageContact" xml:space="preserve">
+    <value>صفحة تواصل معنا</value>
+  </data>
+  <data name="CmsPageSoon" xml:space="preserve">
+    <value>صفحة قريباً</value>
+  </data>
+
+  <data name="CmsNavigation" xml:space="preserve">
+    <value>إدارة الروابط والقوائم</value>
+  </data>
+  <data name="CmsNavigationTitle" xml:space="preserve">
+    <value>روابط القوائم والهيدر والفوتر</value>
+  </data>
+  <data name="CmsNavigationSubtitle" xml:space="preserve">
+    <value>إدارة روابط القائمة العلوية والفوتر والترتيب والمسارات باللغتين العربية والإنجليزية.</value>
+  </data>
+  <data name="CmsAddLink" xml:space="preserve">
+    <value>إضافة رابط</value>
+  </data>
+  <data name="CmsHeaderNav" xml:space="preserve">
+    <value>القائمة العلوية (الهيدر)</value>
+  </data>
+  <data name="CmsFooterPlatform" xml:space="preserve">
+    <value>الفوتر: المنصة (Platform)</value>
+  </data>
+  <data name="CmsFooterCompany" xml:space="preserve">
+    <value>الفوتر: الشركة (Company)</value>
+  </data>
+  <data name="CmsFooterStayInformed" xml:space="preserve">
+    <value>الفوتر: ابق على اطلاع (Stay Informed)</value>
+  </data>
+  <data name="CmsNoLinksFound" xml:space="preserve">
+    <value>لا توجد روابط في هذا القسم بعد</value>
+  </data>
+  <data name="CmsNoLinksDesc" xml:space="preserve">
+    <value>أضف أول رابط تنقل باستخدام الزر أعلاه.</value>
+  </data>
+  <data name="CmsEnglishLabel" xml:space="preserve">
+    <value>النص بالإنجليزية</value>
+  </data>
+  <data name="CmsArabicLabel" xml:space="preserve">
+    <value>النص بالعربية</value>
+  </data>
+  <data name="CmsUrlPath" xml:space="preserve">
+    <value>الرابط / المسار المستهدف</value>
+  </data>
+  <data name="CmsLocation" xml:space="preserve">
+    <value>الموضع</value>
+  </data>
+  <data name="CmsFooterSection" xml:space="preserve">
+    <value>عمود الفوتر</value>
+  </data>
+  <data name="CmsFooterNav" xml:space="preserve">
+    <value>عمود في الفوتر</value>
+  </data>
+  <data name="CmsSortOrder" xml:space="preserve">
+    <value>الترتيب</value>
+  </data>
+  <data name="CmsIsActive" xml:space="preserve">
+    <value>مفعّل (ظاهر)</value>
+  </data>
+  <data name="CmsOpenInNewTab" xml:space="preserve">
+    <value>فتح في علامة تبويب جديدة</value>
+  </data>
+  <data name="CmsConfirmDeleteLink" xml:space="preserve">
+    <value>هل أنت متأكد من رغبتك في حذف هذا الرابط؟</value>
+  </data>
+  <data name="CmsAddLinkTitle" xml:space="preserve">
+    <value>إضافة رابط تنقل</value>
+  </data>
+  <data name="CmsEditLinkTitle" xml:space="preserve">
+    <value>تعديل رابط التنقل</value>
+  </data>
+  <data name="CmsCreateLinkHeading" xml:space="preserve">
+    <value>إنشاء رابط تنقل جديد</value>
+  </data>
+  <data name="CmsEditLinkHeading" xml:space="preserve">
+    <value>تعديل رابط التنقل</value>
+  </data>
+  <data name="CmsQuickRouteSuggestions" xml:space="preserve">
+    <value>المسارات الشائعة</value>
+  </data>
+  <data name="CmsQuickSelect" xml:space="preserve">
+    <value>اختيار سريع</value>
+  </data>
+  <data name="CmsFileInUseWarning" xml:space="preserve">
+    <value>تحذير: الملف مستخدم حالياً</value>
+  </data>
+  <data name="CmsFileInUseDesc" xml:space="preserve">
+    <value>هذا الملف مستخدم ومربوط بكيانات في النظام. حذفه سيؤدي إلى ظهور صور مكسورة في الأماكن التالية:</value>
+  </data>
+  <data name="CmsForceDelete" xml:space="preserve">
+    <value>حذف إجباري (متابعة الحذف)</value>
+  </data>
+  <data name="CmsCancelKeepFile" xml:space="preserve">
+    <value>إلغاء (الاحتفاظ بالملف)</value>
+  </data>
+  <data name="CmsDeleteConfirmClean" xml:space="preserve">
+    <value>هل أنت متأكد من رغبتك في حذف هذا الملف نهائياً؟</value>
+  </data>
+  <data name="CmsCheckingUsage" xml:space="preserve">
+    <value>جاري فحص استخدامات الملف...</value>
+  </data>
+  <data name="CmsViewEntity" xml:space="preserve">
+    <value>عرض</value>
+  </data>
+  <data name="CmsFileCleanNotice" xml:space="preserve">
+    <value>هذا الملف غير مستخدم في أي كيان حالياً، وحذفه آمن تماماً.</value>
+  </data>
+  <data name="CmsFolderGeneral" xml:space="preserve">
+    <value>عام</value>
+  </data>
+  <data name="CmsFolderArticles" xml:space="preserve">
+    <value>المقالات</value>
+  </data>
+  <data name="CmsFolderBrands" xml:space="preserve">
+    <value>العلامات التجارية</value>
+  </data>
+  <data name="CmsFolderServices" xml:space="preserve">
+    <value>الخدمات</value>
+  </data>
+  <data name="CmsFolderProjects" xml:space="preserve">
+    <value>المشاريع</value>
+  </data>
+  <data name="CmsFolderTeam" xml:space="preserve">
+    <value>فريق العمل</value>
+  </data>
+  <data name="CmsFolderTestimonials" xml:space="preserve">
+    <value>آراء العملاء</value>
+  </data>
+<data name="CrmSalesPipeline" xml:space="preserve"><value>المبيعات وإدارة العلاقات</value></data><data name="CrmDashboard" xml:space="preserve"><value>لوحة التحكم</value></data><data name="CrmLeads" xml:space="preserve"><value>العملاء المحتملون</value></data><data name="CrmCompanies" xml:space="preserve"><value>الشركات</value></data><data name="CrmContacts" xml:space="preserve"><value>جهات الاتصال</value></data><data name="CrmDeals" xml:space="preserve"><value>الصفقات</value></data><data name="CrmTasks" xml:space="preserve"><value>المهام</value></data><data name="CrmContent" xml:space="preserve"><value>المحتوى</value></data><data name="CrmCmsContent" xml:space="preserve"><value>إدارة المحتوى (CMS)</value></data><data name="CrmBackToWebsite" xml:space="preserve"><value>العودة للموقع</value></data><data name="CrmSubtitle" xml:space="preserve"><value>نظام دليل لإدارة علاقات العملاء ومسار المبيعات</value></data><data name="CrmSalesAgent" xml:space="preserve"><value>أخصائي مبيعات</value></data><data name="CrmSignOut" xml:space="preserve"><value>تسجيل الخروج</value></data><data name="CrmToggleTheme" xml:space="preserve"><value>تبديل المظهر</value></data><data name="CrmToggleNavigation" xml:space="preserve"><value>تبديل القائمة</value></data><data name="CrmSwitchLanguage" xml:space="preserve"><value>تغيير اللغة</value></data><data name="CrmNew" xml:space="preserve"><value>جديد</value></data><data name="CrmEdit" xml:space="preserve"><value>تعديل</value></data><data name="CrmDelete" xml:space="preserve"><value>حذف</value></data><data name="CrmSave" xml:space="preserve"><value>حفظ</value></data><data name="CrmSaveChanges" xml:space="preserve"><value>حفظ التغييرات</value></data><data name="CrmCancel" xml:space="preserve"><value>إلغاء</value></data><data name="CrmActions" xml:space="preserve"><value>الإجراءات</value></data><data name="CrmSearch" xml:space="preserve"><value>بحث</value></data><data name="CrmApply" xml:space="preserve"><value>تطبيق</value></data><data name="CrmClear" xml:space="preserve"><value>مسح</value></data><data name="CrmClearFilters" xml:space="preserve"><value>إعادة ضبط التصفية</value></data><data name="CrmViewAll" xml:space="preserve"><value>عرض الكل</value></data><data name="CrmShowArchived" xml:space="preserve"><value>عرض المؤرشفة</value></data><data name="CrmArchive" xml:space="preserve"><value>أرشفة</value></data><data name="CrmRestore" xml:space="preserve"><value>استعادة</value></data><data name="CrmUnarchive" xml:space="preserve"><value>استعادة</value></data><data name="CrmConvert" xml:space="preserve"><value>تحويل</value></data><data name="CrmDetails" xml:space="preserve"><value>التفاصيل</value></data><data name="CrmCreated" xml:space="preserve"><value>تاريخ الإنشاء</value></data><data name="CrmUpdated" xml:space="preserve"><value>آخر تحديث</value></data><data name="CrmDue" xml:space="preserve"><value>الاستحقاق</value></data><data name="CrmOverdue" xml:space="preserve"><value>متأخرة</value></data><data name="CrmPriority" xml:space="preserve"><value>الأولوية</value></data><data name="CrmOpen" xml:space="preserve"><value>مفتوحة</value></data><data name="CrmTotal" xml:space="preserve"><value>الإجمالي</value></data><data name="CrmStatus" xml:space="preserve"><value>الحالة</value></data><data name="CrmSource" xml:space="preserve"><value>المصدر</value></data><data name="CrmAssignedTo" xml:space="preserve"><value>المسؤول</value></data><data name="CrmAllStatuses" xml:space="preserve"><value>جميع الحالات</value></data><data name="CrmAllSources" xml:space="preserve"><value>جميع المصادر</value></data><data name="CrmAnyone" xml:space="preserve"><value>أي مسؤول</value></data><data name="CrmAllOwners" xml:space="preserve"><value>جميع المسؤولين</value></data><data name="CrmAllStages" xml:space="preserve"><value>جميع المراحل</value></data><data name="CrmUnassigned" xml:space="preserve"><value>— غير محدد —</value></data><data name="CrmNotLinked" xml:space="preserve"><value>— غير مرتبط بسجل —</value></data><data name="CrmNoCompany" xml:space="preserve"><value>— بدون شركة —</value></data><data name="CrmNoContact" xml:space="preserve"><value>— بدون جهة اتصال —</value></data><data name="CrmDealStage_New" xml:space="preserve"><value>جديدة</value></data><data name="CrmDealStage_Qualified" xml:space="preserve"><value>مؤهلة</value></data><data name="CrmDealStage_Proposal" xml:space="preserve"><value>تقديم عرض</value></data><data name="CrmDealStage_Negotiation" xml:space="preserve"><value>تفاوض</value></data><data name="CrmDealStage_Won" xml:space="preserve"><value>تمت بنجاح</value></data><data name="CrmDealStage_Lost" xml:space="preserve"><value>خاسرة</value></data><data name="CrmLeadStatus_New" xml:space="preserve"><value>جديد</value></data><data name="CrmLeadStatus_Contacted" xml:space="preserve"><value>تم التواصل</value></data><data name="CrmLeadStatus_Qualified" xml:space="preserve"><value>مؤهل</value></data><data name="CrmLeadStatus_Unqualified" xml:space="preserve"><value>غير مؤهل</value></data><data name="CrmLeadStatus_Converted" xml:space="preserve"><value>تم تحويله</value></data><data name="CrmLeadSource_Website" xml:space="preserve"><value>الموقع الإلكتروني</value></data><data name="CrmLeadSource_ContactForm" xml:space="preserve"><value>نموذج التواصل</value></data><data name="CrmLeadSource_ScheduleDemo" xml:space="preserve"><value>طلب عرض تجريبي</value></data><data name="CrmLeadSource_PartnerInquiry" xml:space="preserve"><value>استفسار شراكة</value></data><data name="CrmLeadSource_Referral" xml:space="preserve"><value>إحالة / توصية</value></data><data name="CrmLeadSource_ColdCall" xml:space="preserve"><value>اتصال تسويقي</value></data><data name="CrmLeadSource_Event" xml:space="preserve"><value>فعالية أو مؤتمر</value></data><data name="CrmLeadSource_SocialMedia" xml:space="preserve"><value>منصات التواصل</value></data><data name="CrmLeadSource_Other" xml:space="preserve"><value>أخرى</value></data><data name="CrmRecordStatus_Active" xml:space="preserve"><value>نشط</value></data><data name="CrmRecordStatus_Archived" xml:space="preserve"><value>مؤرشف</value></data><data name="CrmRecordStatus_Inactive" xml:space="preserve"><value>غير نشط</value></data><data name="CrmTaskPriority_Low" xml:space="preserve"><value>منخفضة</value></data><data name="CrmTaskPriority_Medium" xml:space="preserve"><value>متوسطة</value></data><data name="CrmTaskPriority_High" xml:space="preserve"><value>مرتفعة</value></data><data name="CrmTaskStatus_Open" xml:space="preserve"><value>مفتوحة</value></data><data name="CrmTaskStatus_InProgress" xml:space="preserve"><value>قيد التنفيذ</value></data><data name="CrmTaskStatus_Done" xml:space="preserve"><value>مكتملة</value></data><data name="CrmActivityType_Call" xml:space="preserve"><value>مكالمة هاتفية</value></data><data name="CrmActivityType_Email" xml:space="preserve"><value>بريد إلكتروني</value></data><data name="CrmActivityType_Meeting" xml:space="preserve"><value>اجتماع</value></data><data name="CrmActivityType_Note" xml:space="preserve"><value>ملاحظة</value></data><data name="CrmEntityType_Lead" xml:space="preserve"><value>عميل محتمل</value></data><data name="CrmEntityType_Contact" xml:space="preserve"><value>جهة اتصال</value></data><data name="CrmEntityType_Company" xml:space="preserve"><value>شركة</value></data><data name="CrmEntityType_Deal" xml:space="preserve"><value>صفقة</value></data><data name="CrmDealSort_Newest" xml:space="preserve"><value>الأحدث أولاً</value></data><data name="CrmDealSort_Name" xml:space="preserve"><value>الاسم (أبجدياً)</value></data><data name="CrmDealSort_ValueHigh" xml:space="preserve"><value>القيمة (من الأعلى للأدنى)</value></data><data name="CrmDealSort_ValueLow" xml:space="preserve"><value>القيمة (من الأدنى للأعلى)</value></data><data name="CrmDealSort_CloseDate" xml:space="preserve"><value>الأقرب إغلاقاً</value></data><data name="CrmWelcomeBack" xml:space="preserve"><value>مرحباً بعودتك</value></data><data name="CrmDashboardSubtitle" xml:space="preserve"><value>نظرة شاملة وسريعة على سير المبيعات والأعمال حالياً.</value></data><data name="CrmTotalLeads" xml:space="preserve"><value>إجمالي العملاء المحتملين</value></data><data name="CrmOpenDeals" xml:space="preserve"><value>الصفقات المفتوحة</value></data><data name="CrmCustomers" xml:space="preserve"><value>العملاء</value></data><data name="CrmOpenTasks" xml:space="preserve"><value>المهام المفتوحة</value></data><data name="CrmNewLeads" xml:space="preserve"><value>عملاء محتملون جدد</value></data><data name="CrmQualifiedLeads" xml:space="preserve"><value>عملاء مؤهلون</value></data><data name="CrmWonDeals" xml:space="preserve"><value>صفقات رابحة</value></data><data name="CrmLostDeals" xml:space="preserve"><value>صفقات خاسرة</value></data><data name="CrmOpenPipelineValue" xml:space="preserve"><value>قيمة الصفقات المفتوحة</value></data><data name="CrmOpenThePipeline" xml:space="preserve"><value>عرض لوحة الصفقات</value></data><data name="CrmNoOpenDealsYet" xml:space="preserve"><value>لا توجد صفقات مفتوحة حالياً.</value></data><data name="CrmRecentLeads" xml:space="preserve"><value>أحدث العملاء المحتملين</value></data><data name="CrmNoLeadsYet" xml:space="preserve"><value>لا يوجد عملاء محتملون حتى الآن.</value></data><data name="CrmTasksNeedingAttention" xml:space="preserve"><value>مهام بحاجة للمتابعة</value></data><data name="CrmNoPendingTasks" xml:space="preserve"><value>لا توجد مهام معلقة.</value></data><data name="CrmRecentActivities" xml:space="preserve"><value>أحدث الأنشطة</value></data><data name="CrmNoRecentActivities" xml:space="preserve"><value>لا توجد أنشطة مسجلة مؤخراً.</value></data><data name="CrmByExpectedCloseDate" xml:space="preserve"><value>حسب تاريخ الإغلاق المتوقع</value></data><data name="CrmTasksTitle" xml:space="preserve"><value>المهام</value></data><data name="CrmFullForm" xml:space="preserve"><value>النموذج الكامل</value></data><data name="CrmQuickTaskPlaceholder" xml:space="preserve"><value>متابعة العرض الفني والمالي...</value></data><data name="CrmAdd" xml:space="preserve"><value>إضافة</value></data><data name="CrmNoTasksForRecord" xml:space="preserve"><value>لا توجد مهام مرتبطة بهذا السجل.</value></data><data name="CrmReopen" xml:space="preserve"><value>إعادة فتح</value></data><data name="CrmMarkDone" xml:space="preserve"><value>تعيين كمكتملة</value></data><data name="CrmActivityTitle" xml:space="preserve"><value>سجل الأنشطة</value></data><data name="CrmLogActivity" xml:space="preserve"><value>تسجيل نشاط</value></data><data name="CrmLogANewActivity" xml:space="preserve"><value>تسجيل نشاط جديد</value></data><data name="CrmSubjectPlaceholder" xml:space="preserve"><value>مكالمة تعريفية — مناقشة عروض الأسعار</value></data><data name="CrmNotesPlaceholder" xml:space="preserve"><value>ما تم الاتفاق عليه والخطوات التالية...</value></data><data name="CrmNothingLoggedYet" xml:space="preserve"><value>لم يتم تسجيل أي نشاط حتى الآن.</value></data><data name="CrmDeleteActivityConfirm" xml:space="preserve"><value>هل أنت متأكد من حذف هذا النشاط؟</value></data><data name="CrmDeleteActivity" xml:space="preserve"><value>حذف النشاط</value></data><data name="CrmType" xml:space="preserve"><value>النوع</value></data><data name="CrmSubject" xml:space="preserve"><value>الموضوع</value></data><data name="CrmNotes" xml:space="preserve"><value>الملاحظات</value></data><data name="CrmOccurredAt" xml:space="preserve"><value>وقت الحدوث</value></data><data name="CrmNewLead" xml:space="preserve"><value>عميل محتمل جديد</value></data><data name="CrmEditLead" xml:space="preserve"><value>تعديل العميل المحتمل</value></data><data name="CrmViewLead" xml:space="preserve"><value>عرض العميل المحتمل</value></data><data name="CrmBackToLeads" xml:space="preserve"><value>العودة للعملاء المحتملين</value></data><data name="CrmSearchPlaceholderLead" xml:space="preserve"><value>الاسم، البريد، الهاتف، الشركة...</value></data><data name="CrmNoMatchingLeads" xml:space="preserve"><value>لا يوجد عملاء محتملون يطابقون البحث</value></data><data name="CrmNoMatchingLeadsDesc" xml:space="preserve"><value>جرب كلمة بحث أخرى أو أزل الفلاتر المحددة.</value></data><data name="CrmNoLeadsYetDesc" xml:space="preserve"><value>أضف أول عميل محتمل للبدء في تتبعه وتحويله لعميل.</value></data><data name="CrmLeadArchivedNotice" xml:space="preserve"><value>هذا العميل المحتمل مؤرشف. تم إخفاؤه من القائمة الافتراضية دون حذف أي بيانات.</value></data><data name="CrmLeadConvertedToContact" xml:space="preserve"><value>تم تحويله إلى جهة اتصال</value></data><data name="CrmLeadConvertedDeletedContact" xml:space="preserve"><value>تم تحويل هذا العميل المحتمل مسبقاً، وقد تم حذف جهة الاتصال لاحقاً.</value></data><data name="CrmConvertLeadTitle" xml:space="preserve"><value>تحويل {0}</value></data><data name="CrmConvertLeadSubtitle" xml:space="preserve"><value>سيؤدي هذا إلى إنشاء جهة اتصال جديدة وتحديث حالة العميل المحتمل إلى محوّل مع الاحتفاظ ببياناته.</value></data><data name="CrmDuplicateContactFound" xml:space="preserve"><value>توجد جهة اتصال مسجلة مسبقاً بنفس هذا البريد الإلكتروني</value></data><data name="CrmLinkExistingContact" xml:space="preserve"><value>ربط العميل المحتمل بجهة الاتصال الحالية بدلاً من إنشاء جهة جديدة</value></data><data name="CrmCreateNewCompany" xml:space="preserve"><value>— إنشاء شركة جديدة —</value></data><data name="CrmNewCompanyName" xml:space="preserve"><value>اسم الشركة الجديدة</value></data><data name="CrmLinkNotice" xml:space="preserve"><value>ستبقى تفاصيل جهة الاتصال والشركة الحالية دون أي تعديل.</value></data><data name="CrmConvertLead" xml:space="preserve"><value>تحويل العميل المحتمل</value></data><data name="CrmBackToLead" xml:space="preserve"><value>العودة للعميل المحتمل</value></data><data name="CrmNewCompany" xml:space="preserve"><value>شركة جديدة</value></data><data name="CrmEditCompany" xml:space="preserve"><value>تعديل الشركة</value></data><data name="CrmDeleteCompany" xml:space="preserve"><value>حذف الشركة</value></data><data name="CrmBackToCompanies" xml:space="preserve"><value>العودة للشركات</value></data><data name="CrmSearchPlaceholderCompany" xml:space="preserve"><value>الاسم، المجال، البريد، الهاتف، المدينة...</value></data><data name="CrmNoMatchingCompanies" xml:space="preserve"><value>لا توجد شركات مطابقة للبحث</value></data><data name="CrmNoCompaniesYet" xml:space="preserve"><value>لا توجد شركات مسجلة حتى الآن</value></data><data name="CrmNoCompaniesYetDesc" xml:space="preserve"><value>أضف أول شركة للبدء في إدارة حسابات وعلاقات الشركات.</value></data><data name="CrmContactsAtCompany" xml:space="preserve"><value>جهات الاتصال التابعة لهذه الشركة</value></data><data name="CrmAddContact" xml:space="preserve"><value>إضافة جهة اتصال</value></data><data name="CrmNoContactsAtCompany" xml:space="preserve"><value>لا توجد جهات اتصال مرتبطة بهذه الشركة حتى الآن.</value></data><data name="CrmCompanyName" xml:space="preserve"><value>اسم الشركة</value></data><data name="CrmIndustry" xml:space="preserve"><value>مجال العمل / الصناعة</value></data><data name="CrmLocation" xml:space="preserve"><value>الموقع</value></data><data name="CrmWebsite" xml:space="preserve"><value>الموقع الإلكتروني</value></data><data name="CrmAddress" xml:space="preserve"><value>العنوان</value></data><data name="CrmCity" xml:space="preserve"><value>المدينة</value></data><data name="CrmCountry" xml:space="preserve"><value>الدولة</value></data><data name="CrmDescription" xml:space="preserve"><value>الوصف</value></data><data name="CrmEditingCompany" xml:space="preserve"><value>تعديل</value></data><data name="CrmCreateCompany" xml:space="preserve"><value>إنشاء شركة</value></data><data name="CrmNewContact" xml:space="preserve"><value>جهة اتصال جديدة</value></data><data name="CrmEditContact" xml:space="preserve"><value>تعديل جهة الاتصال</value></data><data name="CrmDeleteContact" xml:space="preserve"><value>حذف جهة الاتصال</value></data><data name="CrmBackToContacts" xml:space="preserve"><value>العودة لجهات الاتصال</value></data><data name="CrmSearchPlaceholderContact" xml:space="preserve"><value>الاسم، البريد، الهاتف، الشركة أو المسمى...</value></data><data name="CrmNoMatchingContacts" xml:space="preserve"><value>لا توجد جهات اتصال مطابقة للبحث</value></data><data name="CrmNoContactsYet" xml:space="preserve"><value>لا توجد جهات اتصال مسجلة حتى الآن</value></data><data name="CrmNoContactsYetDesc" xml:space="preserve"><value>أضف أول جهة اتصال لبدء التواصل وبناء العلاقات.</value></data><data name="CrmNotLinkedToCompany" xml:space="preserve"><value>غير مرتبطة بشركة</value></data><data name="CrmContactName" xml:space="preserve"><value>الاسم</value></data><data name="CrmFirstName" xml:space="preserve"><value>الاسم الأول</value></data><data name="CrmLastName" xml:space="preserve"><value>اسم العائلة</value></data><data name="CrmEmail" xml:space="preserve"><value>البريد الإلكتروني</value></data><data name="CrmPhone" xml:space="preserve"><value>الهاتف</value></data><data name="CrmJobTitle" xml:space="preserve"><value>المسمى الوظيفي</value></data><data name="CrmEditingContact" xml:space="preserve"><value>تعديل</value></data><data name="CrmCreateContact" xml:space="preserve"><value>إنشاء جهة اتصال</value></data><data name="CrmNewDeal" xml:space="preserve"><value>صفقة جديدة</value></data><data name="CrmEditDeal" xml:space="preserve"><value>تعديل الصفقة</value></data><data name="CrmDeleteDeal" xml:space="preserve"><value>حذف الصفقة</value></data><data name="CrmBackToDeals" xml:space="preserve"><value>العودة للصفقات</value></data><data name="CrmPipeline" xml:space="preserve"><value>لوحة الصفقات</value></data><data name="CrmListView" xml:space="preserve"><value>عرض القائمة</value></data><data name="CrmSearchPlaceholderDeal" xml:space="preserve"><value>اسم الصفقة، الشركة أو جهة الاتصال...</value></data><data name="CrmSortBy" xml:space="preserve"><value>ترتيب حسب</value></data><data name="CrmOpenDealsOnly" xml:space="preserve"><value>الصفقات المفتوحة فقط</value></data><data name="CrmNoMatchingDeals" xml:space="preserve"><value>لا توجد صفقات مطابقة للبحث</value></data><data name="CrmNoDealsYet" xml:space="preserve"><value>لا توجد صفقات حتى الآن</value></data><data name="CrmNoDealsYetDesc" xml:space="preserve"><value>أضف أول صفقة لبدء تتبع مسار مبيعاتك وأرباحك.</value></data><data name="CrmDealName" xml:space="preserve"><value>اسم الصفقة</value></data><data name="CrmDealValue" xml:space="preserve"><value>القيمة</value></data><data name="CrmCurrency" xml:space="preserve"><value>العملة</value></data><data name="CrmExpectedCloseDate" xml:space="preserve"><value>تاريخ الإغلاق المتوقع</value></data><data name="CrmPrimaryContact" xml:space="preserve"><value>جهة الاتصال الرئيسية</value></data><data name="CrmMoveToStage" xml:space="preserve"><value>نقل إلى مرحلة</value></data><data name="CrmDragCardHint" xml:space="preserve"><value>اسحب البطاقة إلى عمود آخر لتغيير مرحلة الصفقة، أو افتح الصفقة واستخدم أزرار تغيير المرحلة.</value></data><data name="CrmClosedAsStage" xml:space="preserve"><value>أغلقت بحالة {0}</value></data><data name="CrmStageProgress" xml:space="preserve"><value>المرحلة {0} من {1} — {2}</value></data><data name="CrmMixedCurrencyWarning" xml:space="preserve"><value>القيم الإجمالية تجمع عملات متعددة ولم يتم تحويلها.</value></data><data name="CrmFilter" xml:space="preserve"><value>تصفية</value></data><data name="CrmEditingDeal" xml:space="preserve"><value>تعديل</value></data><data name="CrmCreateDeal" xml:space="preserve"><value>إنشاء صفقة</value></data><data name="CrmNewTask" xml:space="preserve"><value>مهمة جديدة</value></data><data name="CrmEditTaskTitle" xml:space="preserve"><value>تعديل المهمة</value></data><data name="CrmDeleteTask" xml:space="preserve"><value>حذف المهمة</value></data><data name="CrmDeleteTaskConfirm" xml:space="preserve"><value>هل أنت متأكد من حذف هذه المهمة؟ لا يمكن التراجع عن هذا الإجراء.</value></data><data name="CrmBackToTasks" xml:space="preserve"><value>العودة للمهام</value></data><data name="CrmSearchPlaceholderTask" xml:space="preserve"><value>العنوان أو الوصف...</value></data><data name="CrmOverdueOnly" xml:space="preserve"><value>المتأخرة فقط</value></data><data name="CrmNoMatchingTasks" xml:space="preserve"><value>لا توجد مهام مطابقة للبحث</value></data><data name="CrmNoTasksYet" xml:space="preserve"><value>لا توجد مهام حتى الآن</value></data><data name="CrmNoTasksYetDesc" xml:space="preserve"><value>أضف مهمتك الأولى لتنظيم متابعاتك وأعمالك.</value></data><data name="CrmTaskTitle" xml:space="preserve"><value>عنوان المهمة</value></data><data name="CrmDueDate" xml:space="preserve"><value>تاريخ الاستحقاق</value></data><data name="CrmPriorityField" xml:space="preserve"><value>الأولوية</value></data><data name="CrmRelatedRecord" xml:space="preserve"><value>مرتبط بـ</value></data><data name="CrmRecord" xml:space="preserve"><value>السجل</value></data><data name="CrmChooseTypeFirst" xml:space="preserve"><value>— اختر نوع السجل أولاً —</value></data><data name="CrmChooseLead" xml:space="preserve"><value>— اختر عميلاً محتملاً —</value></data><data name="CrmChooseContact" xml:space="preserve"><value>— اختر جهة اتصال —</value></data><data name="CrmChooseCompany" xml:space="preserve"><value>— اختر شركة —</value></data><data name="CrmChooseDeal" xml:space="preserve"><value>— اختر صفقة —</value></data><data name="CrmCreateTask" xml:space="preserve"><value>إنشاء مهمة</value></data><data name="CrmEditingTask" xml:space="preserve"><value>تعديل</value></data><data name="CrmSignInTitle" xml:space="preserve"><value>تسجيل الدخول إلى دليل CRM</value></data><data name="CrmAuthorizedOnly" xml:space="preserve"><value>للموظفين المصرح لهم فقط.</value></data><data name="CrmEmailField" xml:space="preserve"><value>البريد الإلكتروني</value></data><data name="CrmPasswordField" xml:space="preserve"><value>كلمة المرور</value></data><data name="CrmRememberMe" xml:space="preserve"><value>تذكرني</value></data><data name="CrmSignInBtn" xml:space="preserve"><value>تسجيل الدخول</value></data><data name="CrmAccessDeniedTitle" xml:space="preserve"><value>تم رفض الوصول</value></data><data name="CrmAccessDeniedMessage" xml:space="preserve"><value>حسابك لا يمتلك الصلاحيات الكافية لعرض هذه الصفحة. إذا كنت تعتقد أن هذا خطأ، يرجى التواصل مع مدير النظام.</value></data><data name="CrmGoToDashboard" xml:space="preserve"><value>الذهاب للوحة التحكم</value></data><data name="First Name" xml:space="preserve"><value>الاسم الأول</value></data><data name="Last Name" xml:space="preserve"><value>اسم العائلة</value></data><data name="Job Title" xml:space="preserve"><value>المسمى الوظيفي</value></data><data name="Company Name" xml:space="preserve"><value>اسم الشركة</value></data><data name="Deal Name" xml:space="preserve"><value>اسم الصفقة</value></data><data name="Primary Contact" xml:space="preserve"><value>جهة الاتصال الرئيسية</value></data><data name="Value" xml:space="preserve"><value>القيمة</value></data><data name="Expected Close Date" xml:space="preserve"><value>تاريخ الإغلاق المتوقع</value></data><data name="Related To" xml:space="preserve"><value>مرتبط بـ</value></data><data name="When" xml:space="preserve"><value>التوقيت</value></data><data name="Title" xml:space="preserve"><value>العنوان</value></data><data name="Due Date" xml:space="preserve"><value>تاريخ الاستحقاق</value></data><data name="Notes" xml:space="preserve"><value>الملاحظات</value></data><data name="Description" xml:space="preserve"><value>الوصف</value></data><data name="Industry" xml:space="preserve"><value>مجال العمل</value></data><data name="Address" xml:space="preserve"><value>العنوان</value></data><data name="City" xml:space="preserve"><value>المدينة</value></data><data name="Country" xml:space="preserve"><value>الدولة</value></data><data name="Stage" xml:space="preserve"><value>المرحلة</value></data><data name="Priority" xml:space="preserve"><value>الأولوية</value></data><data name="Record" xml:space="preserve"><value>السجل</value></data><data name="CrmPage" xml:space="preserve"><value>صفحة</value></data><data name="CrmOf" xml:space="preserve"><value>من</value></data><data name="CrmRecords" xml:space="preserve"><value>سجلات</value></data><data name="CrmPrevious" xml:space="preserve"><value>السابق</value></data><data name="CrmNext" xml:space="preserve"><value>التالي</value></data><data name="CrmChooseRecord" xml:space="preserve"><value>اختر سجلاً</value></data><data name="CrmSignInSubtitle" xml:space="preserve"><value>للموظفين المصرح لهم فقط.</value></data><data name="CrmSignInButton" xml:space="preserve"><value>تسجيل الدخول</value></data><data name="CrmStage" xml:space="preserve"><value>المرحلة</value></data></root>

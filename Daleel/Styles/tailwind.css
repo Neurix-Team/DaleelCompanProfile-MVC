@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html.dark {
+    color-scheme: dark;
+  }
+
+  html:not(.dark) {
+    color-scheme: light;
+  }
+
+  .dark select,
+  html.dark select {
+    color-scheme: dark;
+    background-color: #0B1728;
+    color: #F8FAFC;
+  }
+
+  .dark select option,
+  html.dark select option,
+  .dark select optgroup,
+  html.dark select optgroup {
+    background-color: #0B1728 !important;
+    color: #F8FAFC !important;
+  }
+
+  .dark select:focus,
+  html.dark select:focus {
+    background-color: #0B1728;
+    color: #FFFFFF;
+  }
+
+  .dark input[type="date"],
+  .dark input[type="time"],
+  .dark input[type="datetime-local"],
+  html.dark input[type="date"],
+  html.dark input[type="time"],
+  html.dark input[type="datetime-local"] {
+    color-scheme: dark;
+  }
+}

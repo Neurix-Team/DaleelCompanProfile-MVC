@@ -1,0 +1,454 @@
+@model Daleel.Models.MediaLibraryViewModel
+@{
+    Layout = "_CmsLayout";
+    ViewData["Title"] = SharedLocalizer["CmsMediaLibrary"].Value;
+}
+
+@functions {
+    string GetFolderDisplayName(string folderName)
+    {
+        return folderName?.ToLowerInvariant() switch
+        {
+            "general" => SharedLocalizer["CmsFolderGeneral"]?.Value ?? "General",
+            "articles" => SharedLocalizer["CmsFolderArticles"]?.Value ?? "Articles",
+            "brands" => SharedLocalizer["CmsFolderBrands"]?.Value ?? "Brands",
+            "services" => SharedLocalizer["CmsFolderServices"]?.Value ?? "Services",
+            "projects" => SharedLocalizer["CmsFolderProjects"]?.Value ?? "Projects",
+            "team" => SharedLocalizer["CmsFolderTeam"]?.Value ?? "Team",
+            "testimonials" => SharedLocalizer["CmsFolderTestimonials"]?.Value ?? "Testimonials",
+            _ => folderName ?? string.Empty
+        };
+    }
+}
+
+<div class="space-y-6">
+
+    <!-- Top Action Bar -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h2 class="font-poppins text-2xl sm:text-3xl font-bold text-brand-navy dark:text-white">
+                @SharedLocalizer["CmsMediaLibrary"]
+            </h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                @SharedLocalizer["CmsMediaIntro"]
+            </p>
+        </div>
+        <div class="flex items-center gap-3">
+            <button type="button" onclick="document.getElementById('uploadModal').classList.remove('hidden')"
+                    class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02]">
+                <span class="material-symbols-outlined text-[20px]">cloud_upload</span>
+                <span>@SharedLocalizer["CmsUploadMedia"]</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Filter & Search Toolbar -->
+    <div class="bg-white dark:bg-[#0B1728] p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        
+        <!-- Folder Pills -->
+        <div class="flex items-center gap-1.5 overflow-x-auto w-full md:w-auto pb-2 md:pb-0 scrollbar-thin">
+            <a asp-controller="CmsMedia" asp-action="Index" asp-route-q="@Model.SearchTerm"
+               class="px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all @(string.IsNullOrEmpty(Model.SelectedFolder) ? "bg-[#00B2EC] text-white shadow-sm shadow-[#00B2EC]/30" : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10")">
+                @SharedLocalizer["CmsAllFiles"]
+            </a>
+            @foreach (var folder in Model.Folders)
+            {
+                <a asp-controller="CmsMedia" asp-action="Index" asp-route-folder="@folder" asp-route-q="@Model.SearchTerm"
+                   class="px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-all @(string.Equals(Model.SelectedFolder, folder, StringComparison.OrdinalIgnoreCase) ? "bg-[#00B2EC] text-white shadow-sm shadow-[#00B2EC]/30" : "bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10")">
+                    @GetFolderDisplayName(folder)
+                </a>
+            }
+        </div>
+
+        <!-- Search & Storage Stats -->
+        <div class="flex items-center gap-3 w-full md:w-auto justify-end">
+            <span class="text-xs text-slate-400 font-mono hidden lg:inline">
+                @SharedLocalizer["CmsFilesCount", Model.Files.Count, Model.TotalSizeFormatted]
+            </span>
+
+            <form method="get" asp-controller="CmsMedia" asp-action="Index" class="relative w-full sm:w-64">
+                <input type="hidden" name="folder" value="@Model.SelectedFolder" />
+                <input type="text" name="q" value="@Model.SearchTerm" placeholder="@SharedLocalizer["CmsSearchFilename"]"
+                       class="w-full ps-9 pe-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-xs text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                <span class="material-symbols-outlined absolute start-3 top-2.5 text-[16px] text-slate-400">search</span>
+            </form>
+        </div>
+    </div>
+
+    <!-- Media Grid -->
+    @if (Model.Files.Count == 0)
+    {
+        <div class="bg-white dark:bg-[#0B1728] p-16 rounded-2xl border border-slate-200/80 dark:border-white/10 text-center space-y-3">
+            <div class="w-16 h-16 rounded-2xl bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center mx-auto">
+                <span class="material-symbols-outlined text-[32px]">perm_media</span>
+            </div>
+            <h3 class="font-poppins font-bold text-lg text-slate-900 dark:text-white">@SharedLocalizer["CmsNoMediaFound"]</h3>
+            <p class="text-sm text-slate-500 max-w-sm mx-auto">
+                @(string.IsNullOrWhiteSpace(Model.SearchTerm) ? "Your media folder is currently empty. Upload your first asset." : "No files matched your search filter.")
+            </p>
+            <button type="button" onclick="document.getElementById('uploadModal').classList.remove('hidden')"
+                    class="mt-2 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00B2EC] text-white text-xs font-semibold hover:opacity-90">
+                <span class="material-symbols-outlined text-[16px]">cloud_upload</span>
+                <span>@SharedLocalizer["CmsUploadFile"]</span>
+            </button>
+        </div>
+    }
+    else
+    {
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            @foreach (var file in Model.Files)
+            {
+                <div class="bg-white dark:bg-[#0B1728] rounded-2xl border border-slate-200/80 dark:border-white/10 overflow-hidden group hover:border-[#00B2EC]/50 hover:shadow-md transition-all flex flex-col justify-between">
+                    
+                    <!-- Preview Area -->
+                    <div class="relative aspect-square bg-slate-100 dark:bg-black/20 flex items-center justify-center overflow-hidden">
+                        @if (file.IsImage)
+                        {
+                            <img src="@file.RelativeUrl" alt="@file.FileName"
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                 loading="lazy" />
+                        }
+                        else
+                        {
+                            <span class="material-symbols-outlined text-[48px] text-slate-400">description</span>
+                        }
+
+                        <!-- Hover Overlay Actions -->
+                        <div class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 p-2">
+                            <button type="button" onclick="copyToClipboard('@file.RelativeUrl', this)"
+                                    class="p-2 rounded-xl bg-white/90 text-slate-800 hover:bg-[#00B2EC] hover:text-white transition-colors" title="@SharedLocalizer["CmsCopyUrl"]">
+                                <span class="material-symbols-outlined text-[18px]">link</span>
+                            </button>
+                            <button type="button" onclick="previewImage('@file.RelativeUrl', '@file.FileName', '@file.SizeFormatted', '@file.LastModified.ToString("g")')"
+                                    class="p-2 rounded-xl bg-white/90 text-slate-800 hover:bg-[#00B2EC] hover:text-white transition-colors" title="@SharedLocalizer["CmsPreview"]">
+                                <span class="material-symbols-outlined text-[18px]">visibility</span>
+                            </button>
+                            <button type="button" onclick="openDeleteModal('@file.RelativeUrl', '@file.FileName', '@file.SizeFormatted', @(file.IsImage ? "true" : "false"))"
+                                    class="p-2 rounded-xl bg-white/90 text-red-600 hover:bg-red-600 hover:text-white transition-colors" title="@SharedLocalizer["CmsDelete"]">
+                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                            </button>
+                        </div>
+
+                        <!-- Folder Badge -->
+                        <span class="absolute top-2 start-2 px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider bg-black/60 text-white backdrop-blur-sm">
+                            @GetFolderDisplayName(file.Folder)
+                        </span>
+                    </div>
+
+                    <!-- File Details Footer -->
+                    <div class="p-3">
+                        <p class="font-semibold text-xs text-slate-800 dark:text-slate-200 truncate" title="@file.FileName">
+                            @file.FileName
+                        </p>
+                        <div class="flex items-center justify-between text-[10px] text-slate-400 mt-1 font-mono">
+                            <span>@file.SizeFormatted</span>
+                            <span>@file.Extension.ToUpperInvariant()</span>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>
+
+<!-- Upload Modal -->
+<div id="uploadModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#0B1728] rounded-3xl max-w-md w-full p-6 border border-slate-200 dark:border-white/10 shadow-2xl space-y-5">
+        <div class="flex items-center justify-between border-b border-slate-100 dark:border-white/10 pb-4">
+            <div class="flex items-center gap-2.5">
+                <div class="w-10 h-10 rounded-xl bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[22px]">cloud_upload</span>
+                </div>
+                <div>
+                    <h3 class="font-poppins font-bold text-base text-brand-navy dark:text-white">@SharedLocalizer["CmsUploadMedia"]</h3>
+                    <p class="text-xs text-slate-500">@SharedLocalizer["CmsMaxSizeHint"]</p>
+                </div>
+            </div>
+            <button type="button" onclick="document.getElementById('uploadModal').classList.add('hidden')"
+                    class="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-white/5">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+        </div>
+
+        <form method="post" asp-controller="CmsMedia" asp-action="Upload" enctype="multipart/form-data" class="space-y-4">
+            @Html.AntiForgeryToken()
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">@SharedLocalizer["CmsDestinationFolder"]</label>
+                <select name="Folder" class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-[#0B1728] text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                    <option value="general">@GetFolderDisplayName("general")</option>
+                    <option value="articles">@GetFolderDisplayName("articles")</option>
+                    <option value="brands">@GetFolderDisplayName("brands")</option>
+                    <option value="services">@GetFolderDisplayName("services")</option>
+                    <option value="projects">@GetFolderDisplayName("projects")</option>
+                    <option value="team">@GetFolderDisplayName("team")</option>
+                    <option value="testimonials">@GetFolderDisplayName("testimonials")</option>
+                </select>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">@SharedLocalizer["CmsSelectFile"]</label>
+                <input type="file" name="File" required accept=".jpg,.jpeg,.png,.webp,.gif,.svg"
+                       class="w-full text-xs text-slate-500 file:me-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#00B2EC]/10 file:text-[#00B2EC] hover:file:bg-[#00B2EC]/20 cursor-pointer" />
+            </div>
+
+            <div class="flex items-center justify-end gap-2 pt-2 border-t border-slate-100 dark:border-white/10">
+                <button type="button" onclick="document.getElementById('uploadModal').classList.add('hidden')"
+                        class="px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50">
+                    @SharedLocalizer["CmsCancel"]
+                </button>
+                <button type="submit"
+                        class="px-5 py-2 rounded-xl bg-[#00B2EC] text-white text-xs font-semibold hover:opacity-90 transition-all shadow-md shadow-[#00B2EC]/20">
+                    @SharedLocalizer["CmsUpload"]
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Image Preview Modal -->
+<div id="previewModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#0B1728] rounded-3xl max-w-2xl w-full overflow-hidden border border-slate-200 dark:border-white/10 shadow-2xl">
+        <div class="flex items-center justify-between p-4 border-b border-slate-100 dark:border-white/10">
+            <h4 id="previewTitle" class="font-poppins font-bold text-sm text-slate-900 dark:text-white truncate"></h4>
+            <button type="button" onclick="document.getElementById('previewModal').classList.add('hidden')"
+                    class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+        </div>
+        <div class="p-4 flex items-center justify-center bg-slate-900/50 max-h-[60vh]">
+            <img id="previewImg" src="" alt="" class="max-h-[55vh] max-w-full object-contain rounded-lg" />
+        </div>
+        <div class="p-4 flex items-center justify-between text-xs text-slate-500 border-t border-slate-100 dark:border-white/10">
+            <span id="previewMeta"></span>
+            <button type="button" id="previewCopyBtn" class="px-3 py-1.5 rounded-xl bg-[#00B2EC]/10 text-[#00B2EC] font-semibold hover:bg-[#00B2EC]/20 transition-colors">
+                @SharedLocalizer["CmsCopyUrl"]
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation & Usage Warning Modal -->
+<div id="deleteModal" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#0B1728] rounded-3xl max-w-lg w-full p-6 border border-slate-200 dark:border-white/10 shadow-2xl space-y-5">
+        
+        <!-- Header -->
+        <div class="flex items-center justify-between border-b border-slate-100 dark:border-white/10 pb-4">
+            <div class="flex items-center gap-3">
+                <div id="deleteModalIcon" class="w-10 h-10 rounded-2xl flex items-center justify-center bg-red-500/10 text-red-500">
+                    <span class="material-symbols-outlined text-[22px]">delete_forever</span>
+                </div>
+                <div>
+                    <h3 id="deleteModalHeading" class="font-poppins font-bold text-base text-brand-navy dark:text-white">
+                        @SharedLocalizer["CmsDelete"]
+                    </h3>
+                    <p id="deleteModalSubheading" class="text-xs text-slate-500 dark:text-slate-400">
+                        @SharedLocalizer["CmsDeleteConfirmClean"]
+                    </p>
+                </div>
+            </div>
+            <button type="button" onclick="closeDeleteModal()"
+                    class="p-2 rounded-xl text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-white/5">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+        </div>
+
+        <!-- File Brief Summary -->
+        <div class="flex items-center gap-3 p-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200/60 dark:border-white/10">
+            <div id="deleteFileThumb" class="w-12 h-12 rounded-xl bg-slate-200 dark:bg-black/40 overflow-hidden flex items-center justify-center shrink-0">
+                <span class="material-symbols-outlined text-slate-400">image</span>
+            </div>
+            <div class="min-w-0 flex-1">
+                <p id="deleteFileName" class="text-xs font-semibold text-slate-900 dark:text-white truncate"></p>
+                <p id="deleteFileSize" class="text-[11px] text-slate-400 font-mono"></p>
+            </div>
+        </div>
+
+        <!-- Dynamic Body Container -->
+        <div id="deleteModalBody" class="space-y-4">
+            <!-- Loading State -->
+            <div id="deleteLoadingState" class="py-6 flex flex-col items-center justify-center gap-2 text-slate-400">
+                <div class="w-7 h-7 border-2 border-[#00B2EC] border-t-transparent rounded-full animate-spin"></div>
+                <span class="text-xs">@SharedLocalizer["CmsCheckingUsage"]</span>
+            </div>
+
+            <!-- Clean / Safe to Delete State -->
+            <div id="deleteCleanState" class="hidden p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-[20px] shrink-0 text-emerald-500">check_circle</span>
+                <span>@SharedLocalizer["CmsFileCleanNotice"]</span>
+            </div>
+
+            <!-- In-Use Warning State -->
+            <div id="deleteWarningState" class="hidden space-y-3">
+                <div class="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-800 dark:text-amber-300 text-xs flex items-start gap-2.5">
+                    <span class="material-symbols-outlined text-[22px] shrink-0 text-amber-500 mt-0.5">warning</span>
+                    <div>
+                        <p class="font-bold">@SharedLocalizer["CmsFileInUseWarning"]</p>
+                        <p class="mt-0.5 text-slate-600 dark:text-slate-300">@SharedLocalizer["CmsFileInUseDesc"]</p>
+                    </div>
+                </div>
+
+                <!-- Usages List -->
+                <div class="space-y-1.5 max-h-48 overflow-y-auto pe-1 scrollbar-thin">
+                    <p class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider px-1">
+                        Active References (<span id="deleteUsageCount">0</span>)
+                    </p>
+                    <div id="deleteUsageList" class="space-y-1.5">
+                        <!-- Populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons Form -->
+        <form id="deleteFileForm" method="post" asp-controller="CmsMedia" asp-action="Delete">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="path" id="deleteFilePathInput" value="" />
+            <input type="hidden" name="folder" value="@Model.SelectedFolder" />
+            <input type="hidden" name="force" id="deleteFileForceInput" value="false" />
+
+            <div id="deleteModalButtons" class="flex items-center justify-end gap-2 pt-3 border-t border-slate-100 dark:border-white/10">
+                <button type="button" onclick="closeDeleteModal()"
+                        class="px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                    @SharedLocalizer["CmsCancel"]
+                </button>
+                <button type="submit" id="deleteSubmitBtn"
+                        class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-red-600 text-white text-xs font-semibold hover:bg-red-700 transition-all shadow-md shadow-red-600/20">
+                    <span class="material-symbols-outlined text-[16px]">delete</span>
+                    <span>@SharedLocalizer["CmsDelete"]</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function copyToClipboard(text, btn) {
+            navigator.clipboard.writeText(text).then(function() {
+                var originalHtml = btn.innerHTML;
+                btn.innerHTML = '<span class="material-symbols-outlined text-[18px] text-emerald-500">check</span>';
+                setTimeout(function() { btn.innerHTML = originalHtml; }, 2000);
+            });
+        }
+
+        function previewImage(url, title, size, modified) {
+            document.getElementById('previewTitle').innerText = title;
+            document.getElementById('previewImg').src = url;
+            document.getElementById('previewMeta').innerText = size + ' · ' + modified;
+            document.getElementById('previewCopyBtn').onclick = function() {
+                navigator.clipboard.writeText(url);
+                this.innerText = 'Copied!';
+                var b = this;
+                setTimeout(function() { b.innerText = 'Copy URL'; }, 2000);
+            };
+            document.getElementById('previewModal').classList.remove('hidden');
+        }
+
+        function closeDeleteModal() {
+            document.getElementById('deleteModal').classList.add('hidden');
+        }
+
+        function openDeleteModal(url, fileName, sizeFormatted, isImage) {
+            var modal = document.getElementById('deleteModal');
+            document.getElementById('deleteFileName').innerText = fileName;
+            document.getElementById('deleteFileSize').innerText = sizeFormatted;
+            document.getElementById('deleteFilePathInput').value = url;
+            document.getElementById('deleteFileForceInput').value = 'false';
+
+            var thumbContainer = document.getElementById('deleteFileThumb');
+            if (isImage) {
+                thumbContainer.innerHTML = '<img src="' + url + '" class="w-full h-full object-cover" />';
+            } else {
+                thumbContainer.innerHTML = '<span class="material-symbols-outlined text-slate-400">description</span>';
+            }
+
+            // Reset UI states
+            document.getElementById('deleteLoadingState').classList.remove('hidden');
+            document.getElementById('deleteCleanState').classList.add('hidden');
+            document.getElementById('deleteWarningState').classList.add('hidden');
+
+            var heading = document.getElementById('deleteModalHeading');
+            var subheading = document.getElementById('deleteModalSubheading');
+            var iconDiv = document.getElementById('deleteModalIcon');
+            var submitBtn = document.getElementById('deleteSubmitBtn');
+
+            heading.innerText = '@SharedLocalizer["CmsDelete"]';
+            subheading.innerText = '@SharedLocalizer["CmsDeleteConfirmClean"]';
+            iconDiv.className = 'w-10 h-10 rounded-2xl flex items-center justify-center bg-red-500/10 text-red-500';
+            submitBtn.className = 'inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-red-600 text-white text-xs font-semibold hover:bg-red-700 transition-all shadow-md shadow-red-600/20';
+            submitBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">delete</span><span>@SharedLocalizer["CmsDelete"]</span>';
+
+            modal.classList.remove('hidden');
+
+            // Fetch usage information
+            fetch('/cms/media/check-usage?path=' + encodeURIComponent(url))
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    document.getElementById('deleteLoadingState').classList.add('hidden');
+
+                    if (data && data.inUse && data.usages && data.usages.length > 0) {
+                        // File is in use
+                        document.getElementById('deleteWarningState').classList.remove('hidden');
+                        document.getElementById('deleteCleanState').classList.add('hidden');
+
+                        heading.innerText = '@SharedLocalizer["CmsFileInUseWarning"]';
+                        subheading.innerText = '@SharedLocalizer["CmsFileInUseDesc"]';
+                        iconDiv.className = 'w-10 h-10 rounded-2xl flex items-center justify-center bg-amber-500/10 text-amber-500';
+                        document.getElementById('deleteUsageCount').innerText = data.usages.length;
+
+                        // Render usages list
+                        var listHtml = '';
+                        data.usages.forEach(function(u) {
+                            var badgeColor = 'bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20';
+                            if (u.entityType === 'Brand') badgeColor = 'bg-purple-500/10 text-purple-600 dark:text-purple-400 border-purple-500/20';
+                            else if (u.entityType === 'Article') badgeColor = 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border-emerald-500/20';
+                            else if (u.entityType === 'Service') badgeColor = 'bg-sky-500/10 text-sky-600 dark:text-sky-400 border-sky-500/20';
+                            else if (u.entityType === 'Project') badgeColor = 'bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-500/20';
+                            else if (u.entityType === 'Team Member') badgeColor = 'bg-rose-500/10 text-rose-600 dark:text-rose-400 border-rose-500/20';
+                            else if (u.entityType === 'Testimonial') badgeColor = 'bg-amber-500/10 text-amber-600 dark:text-amber-400 border-amber-500/20';
+                            else if (u.entityType === 'Page Section') badgeColor = 'bg-teal-500/10 text-teal-600 dark:text-teal-400 border-teal-500/20';
+
+                            listHtml += '<div class="p-2.5 rounded-xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-white/10 flex items-center justify-between gap-3 text-xs">';
+                            listHtml += '  <div class="flex items-center gap-2 min-w-0">';
+                            listHtml += '    <span class="px-2 py-0.5 rounded-md text-[10px] font-bold uppercase tracking-wider border ' + badgeColor + '">' + escapeHtml(u.entityType) + '</span>';
+                            listHtml += '    <div class="truncate">';
+                            listHtml += '      <span class="font-semibold text-slate-800 dark:text-slate-200">' + escapeHtml(u.entityName) + '</span>';
+                            listHtml += '      <span class="text-[11px] text-slate-400 ms-1">(' + escapeHtml(u.propertyName) + ')</span>';
+                            listHtml += '    </div>';
+                            listHtml += '  </div>';
+                            if (u.editUrl) {
+                                listHtml += '  <a href="' + u.editUrl + '" target="_blank" class="inline-flex items-center gap-1 text-[11px] font-semibold text-[#00B2EC] hover:underline shrink-0">';
+                                listHtml += '    <span>@SharedLocalizer["CmsViewEntity"]</span>';
+                                listHtml += '    <span class="material-symbols-outlined text-[14px]">open_in_new</span>';
+                                listHtml += '  </a>';
+                            }
+                            listHtml += '</div>';
+                        });
+
+                        document.getElementById('deleteUsageList').innerHTML = listHtml;
+
+                        // Set force delete mode
+                        document.getElementById('deleteFileForceInput').value = 'true';
+                        submitBtn.className = 'inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-red-600 text-white text-xs font-semibold hover:bg-red-700 transition-all shadow-md shadow-red-600/20';
+                        submitBtn.innerHTML = '<span class="material-symbols-outlined text-[16px]">warning</span><span>@SharedLocalizer["CmsForceDelete"]</span>';
+                    } else {
+                        // Safe to delete
+                        document.getElementById('deleteCleanState').classList.remove('hidden');
+                        document.getElementById('deleteWarningState').classList.add('hidden');
+                        document.getElementById('deleteFileForceInput').value = 'false';
+                    }
+                })
+                .catch(function(err) {
+                    console.error(err);
+                    document.getElementById('deleteLoadingState').classList.add('hidden');
+                    document.getElementById('deleteCleanState').classList.remove('hidden');
+                });
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+        }
+    </script>
+}

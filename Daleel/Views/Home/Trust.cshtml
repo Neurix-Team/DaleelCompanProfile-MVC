@@ -1,0 +1,110 @@
+@{
+    ViewData["Title"] = "Trust & Governance";
+
+    // CMS-editable page sections. A blank value inherits the brand/built-in copy below.
+    var content = ViewData.PageContent();
+}
+
+@functions {
+    public string ToLocalNumerals(string input)
+    {
+        if (System.Threading.Thread.CurrentThread.CurrentCulture.Name.StartsWith("ar"))
+        {
+            string replaced = input.Replace("M", " مليون")
+                                   .Replace("K", " ألف")
+                                   .Replace("min", " دقائق")
+                                   .Replace("-in-", " في ")
+                                   .Replace('0', '٠')
+                                   .Replace('1', '١')
+                                   .Replace('2', '٢')
+                                   .Replace('3', '٣')
+                                   .Replace('4', '٤')
+                                   .Replace('5', '٥')
+                                   .Replace('6', '٦')
+                                   .Replace('7', '٧')
+                                   .Replace('8', '٨')
+                                   .Replace('9', '٩');
+                                   
+            if (replaced.EndsWith("+"))
+            {
+                replaced = "+" + replaced.TrimEnd('+');
+            }
+            
+            return replaced;
+        }
+        return input;
+    }
+}
+
+<section class="relative py-32 overflow-hidden transition-colors duration-300">
+    <!-- Ambient Background Glows -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute top-1/4 ltr:-right-40 rtl:-left-40 w-[600px] h-[600px] rounded-full bg-[#00B2EC]/10 blur-[120px]"></div>
+        <div class="absolute bottom-0 ltr:-left-20 rtl:-right-20 w-[500px] h-[500px] rounded-full bg-[#F9A01B]/5 blur-[100px]"></div>
+    </div>
+
+    <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8">
+
+        <!-- Page Header -->
+        <div class="text-center max-w-3xl mx-auto mb-20" data-animate="fade-up">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-navy/5 dark:bg-white/5 text-slate-900 dark:text-slate-300 font-['Inter'] text-xs font-semibold tracking-wide mb-6">
+                <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">shield_lock</span>
+                @SharedLocalizer["SecurityFirst"]
+            </div>
+            <h1 class="font-['Poppins'] text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 dark:text-white leading-tight mb-6">
+                @content.Section("trust_title", SharedLocalizer["TrustHeading"].Value)
+            </h1>
+            <p class="font-['Inter'] text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
+                @content.Section("trust_desc", SharedLocalizer["TrustDesc"].Value)
+            </p>
+        </div>
+
+        <!-- Core Pillars Grid -->
+        <div class="grid md:grid-cols-3 gap-8 mb-24">
+
+            <div class="glass-card rounded-2xl p-8 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(0,178,236,0.1)] transition-all duration-500" data-animate="fade-up" data-delay="1">
+                <div class="w-14 h-14 rounded-xl bg-[#00B2EC]/10 flex items-center justify-center mb-6">
+                    <span class="material-symbols-outlined text-[#00B2EC] text-[28px]" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+                </div>
+                <h3 class="font-['Poppins'] text-xl font-bold text-slate-900 dark:text-white mb-3">@SharedLocalizer["MilGradeEncryption"]</h3>
+                <p class="font-['Inter'] text-slate-600 dark:text-slate-400 text-sm leading-relaxed" dir="auto">
+                    @ToLocalNumerals(SharedLocalizer["MilGradeEncDesc"].Value)
+                </p>
+            </div>
+
+            <div class="glass-card rounded-2xl p-8 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(249,160,27,0.1)] transition-all duration-500" data-animate="fade-up" data-delay="2">
+                <div class="w-14 h-14 rounded-xl bg-[#F9A01B]/10 flex items-center justify-center mb-6">
+                    <span class="material-symbols-outlined text-[#F9A01B] text-[28px]" style="font-variation-settings: 'FILL' 1;">policy</span>
+                </div>
+                <h3 class="font-['Poppins'] text-xl font-bold text-slate-900 dark:text-white mb-3">@SharedLocalizer["GlobalCompliance"]</h3>
+                <p class="font-['Inter'] text-slate-600 dark:text-slate-400 text-sm leading-relaxed" dir="auto">
+                    @ToLocalNumerals(SharedLocalizer["GlobalComplianceDesc"].Value)
+                </p>
+            </div>
+
+            <div class="glass-card rounded-2xl p-8 hover:-translate-y-2 hover:shadow-[0_10px_30px_rgba(239,65,35,0.1)] transition-all duration-500" data-animate="fade-up" data-delay="3">
+                <div class="w-14 h-14 rounded-xl bg-[#10B981]/10 flex items-center justify-center mb-6">
+                    <span class="material-symbols-outlined text-[#10B981] text-[28px]" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+                </div>
+                <h3 class="font-['Poppins'] text-xl font-bold text-slate-900 dark:text-white mb-3">@SharedLocalizer["EthicalAIFramework"]</h3>
+                <p class="font-['Inter'] text-slate-600 dark:text-slate-400 text-sm leading-relaxed" dir="auto">
+                    @ToLocalNumerals(SharedLocalizer["EthicalAIDesc"].Value)
+                </p>
+            </div>
+        </div>
+
+        <!-- Stats row -->
+        <div class="glass-card rounded-2xl p-8 md:p-12 grid grid-cols-1 sm:grid-cols-3 gap-8 text-center" data-animate="scale-in" data-delay="4">
+            <div>
+                <p class="font-['Poppins'] text-4xl font-bold text-[#00B2EC]" dir="auto">@SharedLocalizer["Stat100Percent"]</p>
+            </div>
+            <div>
+                <p class="font-['Poppins'] text-4xl font-bold text-[#10B981]" dir="auto">@SharedLocalizer["Stat247"]</p>
+            </div>
+            <div>
+                <p class="font-['Poppins'] text-4xl font-bold text-slate-900 dark:text-white" dir="auto">@SharedLocalizer["Stat140Plus"]</p>
+            </div>
+        </div>
+
+    </div>
+</section>

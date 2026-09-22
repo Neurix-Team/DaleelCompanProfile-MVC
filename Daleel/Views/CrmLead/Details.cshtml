@@ -1,0 +1,204 @@
+@model Daleel.DAL.Entities.Lead
+@using Daleel.DAL.Entities
+@{
+    Layout = "_CrmLayout";
+    ViewData["Title"] = Model.FullName;
+}
+
+@functions {
+    string StatusBadge(LeadStatus s) => s switch
+    {
+        LeadStatus.New => "bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-400",
+        LeadStatus.Contacted => "bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
+        LeadStatus.Qualified => "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400",
+        LeadStatus.Unqualified => "bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-400",
+        LeadStatus.Converted => "bg-violet-50 text-violet-700 dark:bg-violet-500/10 dark:text-violet-400",
+        _ => "bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-400"
+    };
+}
+
+<div class="max-w-4xl">
+
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <a asp-action="Index" class="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors">
+            <span class="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_back</span>
+            @SharedLocalizer["CrmBackToLeads"]
+        </a>
+
+        <div class="flex items-center gap-2">
+            @if (Model.Status != LeadStatus.Converted && !Model.IsArchived)
+            {
+                <a asp-action="Convert" asp-route-id="@Model.Id"
+                   class="inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+                    @SharedLocalizer["CrmConvert"]
+                </a>
+            }
+
+            <a asp-action="Edit" asp-route-id="@Model.Id"
+               class="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">edit</span>
+                @SharedLocalizer["CrmEdit"]
+            </a>
+
+            @if (Model.IsArchived)
+            {
+                <form asp-action="Unarchive" asp-route-id="@Model.Id" method="post" class="inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit"
+                            class="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">unarchive</span>
+                        @SharedLocalizer["CrmRestore"]
+                    </button>
+                </form>
+            }
+            else
+            {
+                <form asp-action="Archive" asp-route-id="@Model.Id" method="post" class="inline">
+                    @Html.AntiForgeryToken()
+                    <button type="submit"
+                            class="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                        <span class="material-symbols-outlined text-[20px]">archive</span>
+                        @SharedLocalizer["CrmArchive"]
+                    </button>
+                </form>
+            }
+        </div>
+    </div>
+
+    @if (Model.IsArchived)
+    {
+        <div class="mb-6 flex items-start gap-3 rounded-lg border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 px-4 py-3 text-sm text-slate-600 dark:text-slate-400">
+            <span class="material-symbols-outlined text-[20px] shrink-0">archive</span>
+            <span>@SharedLocalizer["CrmLeadArchivedNotice"]</span>
+        </div>
+    }
+
+    @if (Model.Status == LeadStatus.Converted)
+    {
+        <div class="mb-6 flex items-start gap-3 rounded-lg border border-violet-200 dark:border-violet-500/25 bg-violet-50 dark:bg-violet-500/10 px-4 py-3 text-sm text-violet-800 dark:text-violet-300">
+            <span class="material-symbols-outlined text-[20px] shrink-0">check_circle</span>
+            <span>
+                @if (Model.ConvertedContact is not null)
+                {
+                    <span>@SharedLocalizer["CrmLeadConvertedToContact"] </span>
+                    <a asp-controller="CrmContact" asp-action="Details" asp-route-id="@Model.ConvertedContact.Id"
+                       class="font-semibold underline hover:no-underline">@Model.ConvertedContact.FullName</a>
+                }
+                else
+                {
+                    <span>@SharedLocalizer["CrmLeadConvertedDeletedContact"]</span>
+                }
+                @if (Model.ConvertedAt.HasValue)
+                {
+                    <span> on @Model.ConvertedAt.Value.ToString("dd MMM yyyy, HH:mm") UTC.</span>
+                }
+            </span>
+        </div>
+    }
+
+    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6 sm:p-8">
+
+        <div class="flex items-start justify-between gap-4 mb-6">
+            <div class="flex items-center gap-4 min-w-0">
+                <div class="w-12 h-12 shrink-0 rounded-full bg-[#00B2EC] text-white flex items-center justify-center font-semibold">
+                    @(Model.FirstName.Length > 0 ? Model.FirstName.Substring(0, 1).ToUpperInvariant() : "?")
+                </div>
+                <div class="min-w-0">
+                    <h2 class="font-poppins font-semibold text-xl text-brand-navy dark:text-white break-words">@Model.FullName</h2>
+                    @if (!string.IsNullOrWhiteSpace(Model.JobTitle) || !string.IsNullOrWhiteSpace(Model.CompanyName))
+                    {
+                        <p class="mt-0.5 text-sm text-slate-500 dark:text-slate-400">
+                            @Model.JobTitle@(!string.IsNullOrWhiteSpace(Model.JobTitle) && !string.IsNullOrWhiteSpace(Model.CompanyName) ? " · " : "")@Model.CompanyName
+                        </p>
+                    }
+                </div>
+            </div>
+            <span class="shrink-0 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium @StatusBadge(Model.Status)">
+                @SharedLocalizer[$"CrmLeadStatus_{Model.Status}"]
+            </span>
+        </div>
+
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5 text-sm">
+            <div>
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmEmail"]</dt>
+                <dd class="mt-1 text-slate-700 dark:text-slate-200 break-words">
+                    @if (string.IsNullOrWhiteSpace(Model.Email))
+                    {
+                        <span class="text-slate-400">—</span>
+                    }
+                    else
+                    {
+                        <a href="mailto:@Model.Email" class="hover:text-[#00B2EC] transition-colors">@Model.Email</a>
+                    }
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmPhone"]</dt>
+                <dd class="mt-1 text-slate-700 dark:text-slate-200">
+                    @if (string.IsNullOrWhiteSpace(Model.Phone))
+                    {
+                        <span class="text-slate-400">—</span>
+                    }
+                    else
+                    {
+                        <a href="tel:@Model.Phone" class="hover:text-[#00B2EC] transition-colors">@Model.Phone</a>
+                    }
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmSource"]</dt>
+                <dd class="mt-1 text-slate-700 dark:text-slate-200">@SharedLocalizer[$"CrmLeadSource_{Model.Source}"]</dd>
+            </div>
+
+            <div>
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmAssignedTo"]</dt>
+                <dd class="mt-1 text-slate-700 dark:text-slate-200">
+                    @if (Model.AssignedTo is null)
+                    {
+                        <span class="text-slate-400">@SharedLocalizer["CrmUnassigned"]</span>
+                    }
+                    else
+                    {
+                        @Model.AssignedTo.FullName
+                    }
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmCompanyName"]</dt>
+                <dd class="mt-1 text-slate-700 dark:text-slate-200 break-words">
+                    @(string.IsNullOrWhiteSpace(Model.CompanyName) ? "—" : Model.CompanyName)
+                </dd>
+            </div>
+
+            <div>
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmJobTitle"]</dt>
+                <dd class="mt-1 text-slate-700 dark:text-slate-200 break-words">
+                    @(string.IsNullOrWhiteSpace(Model.JobTitle) ? "—" : Model.JobTitle)
+                </dd>
+            </div>
+        </dl>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Notes))
+        {
+            <div class="mt-6 pt-6 border-t border-slate-200 dark:border-white/10">
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmNotes"]</dt>
+                <dd class="mt-2 text-sm text-slate-700 dark:text-slate-200 whitespace-pre-line">@Model.Notes</dd>
+            </div>
+        }
+
+        <div class="mt-6 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-wrap gap-x-8 gap-y-2 text-xs text-slate-400 dark:text-slate-500">
+            <span>@SharedLocalizer["CrmCreated"] @Model.CreatedAt.ToString("dd MMM yyyy, HH:mm") UTC</span>
+            <span>@SharedLocalizer["CrmUpdated"] @Model.UpdatedAt.ToString("dd MMM yyyy, HH:mm") UTC</span>
+        </div>
+    </div>
+
+    <div class="mt-6 space-y-6">
+        @await Component.InvokeAsync("RecordTasks", new { entityType = CrmEntityType.Lead, entityId = Model.Id })
+        @await Component.InvokeAsync("RecordActivity", new { entityType = CrmEntityType.Lead, entityId = Model.Id })
+    </div>
+</div>
+

@@ -1,0 +1,168 @@
+@model Daleel.Models.NavigationFormViewModel
+@using Daleel.DAL.Entities
+@{
+    Layout = "_CmsLayout";
+    ViewData["Title"] = SharedLocalizer["CmsEditLinkTitle"]?.Value ?? "Edit Navigation Link";
+}
+
+<div class="max-w-3xl mx-auto space-y-6">
+
+    <!-- Breadcrumb & Header -->
+    <div class="flex items-center gap-3 text-sm text-slate-500">
+        <a asp-controller="CmsNavigation" asp-action="Index" class="hover:text-[#00B2EC] transition-colors">
+            @(SharedLocalizer["CmsNavigationTitle"]?.Value ?? "Navigation Links")
+        </a>
+        <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        <span class="text-slate-900 dark:text-white font-medium">
+            @(SharedLocalizer["CmsEditLink"]?.Value ?? "Edit Link")
+        </span>
+    </div>
+
+    <div class="flex items-center justify-between">
+        <h2 class="font-poppins text-2xl font-bold text-brand-navy dark:text-white">
+            @(SharedLocalizer["CmsEditLinkHeading"]?.Value ?? "Edit Navigation Link")
+        </h2>
+    </div>
+
+    <form method="post" asp-controller="CmsNavigation" asp-action="Edit" asp-route-id="@Model.Id"
+          class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+
+        <div asp-validation-summary="ModelOnly" class="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 text-sm"></div>
+
+        <!-- Location & Section Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+                <label asp-for="Location" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
+                    @(SharedLocalizer["CmsLocation"]?.Value ?? "Location") *
+                </label>
+                <select asp-for="Location" id="nav-location"
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                    <option value="Header">@(SharedLocalizer["CmsHeaderNav"]?.Value ?? "Header Navigation")</option>
+                    <option value="Footer">@(SharedLocalizer["CmsFooterNav"]?.Value ?? "Footer Column")</option>
+                </select>
+                <span asp-validation-for="Location" class="text-rose-500 text-xs mt-1 block"></span>
+            </div>
+
+            <div id="footer-section-wrapper" class="@(Model.Location == NavigationLocation.Footer ? "" : "hidden")">
+                <label asp-for="Section" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
+                    @(SharedLocalizer["CmsFooterSection"]?.Value ?? "Footer Column / Section") *
+                </label>
+                <select asp-for="Section"
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                    <option value="Platform">@(SharedLocalizer["CmsFooterPlatform"]?.Value ?? "Platform")</option>
+                    <option value="Company">@(SharedLocalizer["CmsFooterCompany"]?.Value ?? "Company")</option>
+                    <option value="StayInformed">@(SharedLocalizer["CmsFooterStayInformed"]?.Value ?? "Stay Informed")</option>
+                </select>
+                <span asp-validation-for="Section" class="text-rose-500 text-xs mt-1 block"></span>
+            </div>
+        </div>
+
+        <!-- Labels (EN & AR) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div>
+                <label asp-for="LabelEn" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
+                    @(SharedLocalizer["CmsEnglishLabel"]?.Value ?? "English Label") *
+                </label>
+                <input asp-for="LabelEn" placeholder="e.g. Services"
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                <span asp-validation-for="LabelEn" class="text-rose-500 text-xs mt-1 block"></span>
+            </div>
+
+            <div>
+                <label asp-for="LabelAr" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
+                    @(SharedLocalizer["CmsArabicLabel"]?.Value ?? "Arabic Label") *
+                </label>
+                <input asp-for="LabelAr" placeholder="مثال: الخدمات" dir="rtl"
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC] font-['Cairo']" />
+                <span asp-validation-for="LabelAr" class="text-rose-500 text-xs mt-1 block"></span>
+            </div>
+        </div>
+
+        <!-- URL / Path -->
+        <div>
+            <label asp-for="Url" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
+                @(SharedLocalizer["CmsUrlPath"]?.Value ?? "Target URL / Relative Path") *
+            </label>
+            <input asp-for="Url" id="nav-url" placeholder="e.g. /about or https://example.com"
+                   class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+            <span asp-validation-for="Url" class="text-rose-500 text-xs mt-1 block"></span>
+
+            <!-- Quick Path Buttons -->
+            <div class="mt-2 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+                <span class="me-1">@(SharedLocalizer["CmsQuickSelect"]?.Value ?? "Quick select:"):</span>
+                <button type="button" onclick="setUrl('/')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/</button>
+                <button type="button" onclick="setUrl('/Home/Platforms')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/Platforms</button>
+                <button type="button" onclick="setUrl('/Home/Shop')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/Shop</button>
+                <button type="button" onclick="setUrl('/Home/Trust')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/Trust</button>
+                <button type="button" onclick="setUrl('/Home/About')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/About</button>
+                <button type="button" onclick="setUrl('/Home/Blog')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/Blog</button>
+                <button type="button" onclick="setUrl('/Home/Contact')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/Contact</button>
+                <button type="button" onclick="setUrl('/Home/Soon')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/Soon</button>
+            </div>
+        </div>
+
+        <!-- SortOrder & Flags -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2 border-t border-slate-200 dark:border-white/10">
+            <div>
+                <label asp-for="SortOrder" class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">
+                    @(SharedLocalizer["CmsSortOrder"]?.Value ?? "Sort Order")
+                </label>
+                <input asp-for="SortOrder" type="number" min="0"
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+            </div>
+
+            <div class="flex items-center gap-3 pt-6">
+                <input asp-for="IsActive" type="checkbox"
+                       class="w-5 h-5 rounded border-slate-300 text-[#00B2EC] focus:ring-[#00B2EC]" />
+                <label asp-for="IsActive" class="text-sm font-semibold text-slate-800 dark:text-slate-200 cursor-pointer">
+                    @(SharedLocalizer["CmsIsActive"]?.Value ?? "Active (Visible)")
+                </label>
+            </div>
+
+            <div class="flex items-center gap-3 pt-6">
+                <input asp-for="OpenInNewTab" type="checkbox"
+                       class="w-5 h-5 rounded border-slate-300 text-[#00B2EC] focus:ring-[#00B2EC]" />
+                <label asp-for="OpenInNewTab" class="text-sm font-semibold text-slate-800 dark:text-slate-200 cursor-pointer">
+                    @(SharedLocalizer["CmsOpenInNewTab"]?.Value ?? "Open in New Tab")
+                </label>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-white/10">
+            <a asp-controller="CmsNavigation" asp-action="Index"
+               class="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 text-sm font-medium hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                @(SharedLocalizer["CmsCancel"]?.Value ?? "Cancel")
+            </a>
+            <button type="submit"
+                    class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02] transition-all">
+                @(SharedLocalizer["CmsUpdate"]?.Value ?? "Update Link")
+            </button>
+        </div>
+
+    </form>
+
+</div>
+
+@section Scripts {
+    <script>
+        const locationSelect = document.getElementById('nav-location');
+        const footerSectionWrapper = document.getElementById('footer-section-wrapper');
+
+        function updateSectionVisibility() {
+            if (locationSelect.value === 'Footer' || locationSelect.value === '2') {
+                footerSectionWrapper.classList.remove('hidden');
+            } else {
+                footerSectionWrapper.classList.add('hidden');
+            }
+        }
+
+        locationSelect.addEventListener('change', updateSectionVisibility);
+
+        function setUrl(path) {
+            document.getElementById('nav-url').value = path;
+        }
+    </script>
+}

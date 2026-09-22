@@ -1,0 +1,37 @@
+@{
+    // CMS-editable copy (Page Sections -> "shop", shown as Global Marketplace).
+    var content = ViewData.PageContent();
+    ViewData["Title"] = content.Section("shop_badge", SharedLocalizer["DaleelShop"].Value);
+}
+
+<!-- Coming Soon Section -->
+<section class="relative bg-white dark:bg-[#0A192F] py-32 sm:py-48 min-h-[80vh] flex items-center justify-center overflow-hidden transition-colors duration-300">
+    <!-- Ambient Background Glows -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute top-1/4 ltr:-right-40 rtl:-left-40 w-[600px] h-[600px] rounded-full bg-[#00B2EC]/5 blur-[120px]"></div>
+        <div class="absolute bottom-0 ltr:-left-20 rtl:-right-20 w-[500px] h-[500px] rounded-full bg-[#10B981]/5 blur-[100px]"></div>
+    </div>
+
+    <div class="relative z-10 max-w-3xl mx-auto px-6 text-center" data-animate="fade-up">
+         <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#00B2EC]/10 via-[#10B981]/10 to-[#fdc70c]/10 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-300 font-['Inter'] text-xs font-semibold tracking-wide mb-6">
+                 <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">storefront</span>
+                @content.Section("shop_badge", SharedLocalizer["DaleelShop"].Value)
+            </div>
+
+        <h1 class="font-['Poppins'] text-4xl sm:text-6xl font-bold text-slate-900 dark:text-white leading-tight mb-6">
+            @content.Section("shop_title", SharedLocalizer["ComingSoon"].Value)
+        </h1>
+
+        <p class="font-['Inter'] text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10 max-w-2xl mx-auto">
+            @content.Section("shop_desc", SharedLocalizer["ShopDesc"].Value)
+        </p>
+
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a asp-controller="Home" asp-action="Index"
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#00B2EC] text-white px-8 py-4 rounded-xl font-['Inter'] font-semibold text-base shadow-lg shadow-[#00B2EC]/20 hover:shadow-xl hover:shadow-[#00B2EC]/30 active:scale-95 transition-all duration-300">
+                <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+                @content.Section("shop_cta", SharedLocalizer["ReturnHome"].Value)
+            </a>
+        </div>
+    </div>
+</section>

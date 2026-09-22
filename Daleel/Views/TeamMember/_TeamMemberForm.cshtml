@@ -1,0 +1,192 @@
+@model Daleel.Models.TeamMemberFormViewModel
+
+<div class="space-y-6">
+    <div asp-validation-summary="ModelOnly" class="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-sm"></div>
+
+    <!-- Brand & Identity -->
+    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+        <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
+            <span class="material-symbols-outlined text-[#00B2EC] text-[24px]">person</span>
+            <div>
+                <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CmsMemberIdentityBrand"]</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsCompanyAssignmentHint"]</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-1.5">
+                <label asp-for="BrandId" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsFldBrandCompany"] <span class="text-red-500">*</span>
+                </label>
+                <select asp-for="BrandId" asp-items="Model.BrandOptions"
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                </select>
+                <span asp-validation-for="BrandId" class="text-xs text-red-500 block"></span>
+            </div>
+
+            <div class="space-y-1.5">
+                <label asp-for="Slug" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsUrlSlug"]
+                </label>
+                <input asp-for="Slug" placeholder="@SharedLocalizer["CmsEgMemberSlug"]"
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                <span asp-validation-for="Slug" class="text-xs text-red-500 block"></span>
+            </div>
+
+            <div class="space-y-1.5">
+                <label asp-for="NameEn" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsFldFullNameEn"] <span class="text-red-500">*</span>
+                </label>
+                <input asp-for="NameEn" placeholder="@SharedLocalizer["CmsEgMemberName"]"
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                <span asp-validation-for="NameEn" class="text-xs text-red-500 block"></span>
+            </div>
+
+            <div class="space-y-1.5">
+                <label asp-for="NameAr" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsFldFullNameAr"] <span class="text-red-500">*</span>
+                </label>
+                <input asp-for="NameAr" dir="rtl" placeholder="مثال: أحمد الراشد"
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                <span asp-validation-for="NameAr" class="text-xs text-red-500 block"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Role & Bio -->
+    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+        <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
+            <span class="material-symbols-outlined text-[#F9A01B] text-[24px]">badge</span>
+            <div>
+                <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CmsRoleBiography"]</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsRoleBiographyDesc"]</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-1.5">
+                <label asp-for="TitleEn" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsFldJobTitleEn"]
+                </label>
+                <input asp-for="TitleEn" placeholder="@SharedLocalizer["CmsEgJobTitle"]"
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#F9A01B]" />
+                <span asp-validation-for="TitleEn" class="text-xs text-red-500 block"></span>
+            </div>
+
+            <div class="space-y-1.5">
+                <label asp-for="TitleAr" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsFldJobTitleAr"]
+                </label>
+                <input asp-for="TitleAr" dir="rtl" placeholder="مثال: مدير التقنية"
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#F9A01B]" />
+                <span asp-validation-for="TitleAr" class="text-xs text-red-500 block"></span>
+            </div>
+
+            <div class="space-y-1.5">
+                <label asp-for="BioEn" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsFldBioEn"]
+                </label>
+                <textarea asp-for="BioEn" rows="3" placeholder="@SharedLocalizer["CmsBioEnPlaceholder"]"
+                          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#F9A01B]"></textarea>
+                <span asp-validation-for="BioEn" class="text-xs text-red-500 block"></span>
+            </div>
+
+            <div class="space-y-1.5">
+                <label asp-for="BioAr" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsFldBioAr"]
+                </label>
+                <textarea asp-for="BioAr" dir="rtl" rows="3" placeholder="نبذة مختصرة بالعربية..."
+                          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#F9A01B]"></textarea>
+                <span asp-validation-for="BioAr" class="text-xs text-red-500 block"></span>
+            </div>
+
+            <div class="space-y-1.5">
+                <label asp-for="Email" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsFldEmailAddress"]
+                </label>
+                <input asp-for="Email" type="email" placeholder="e.g. ahmed@aidaleel.com"
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#F9A01B]" />
+                <span asp-validation-for="Email" class="text-xs text-red-500 block"></span>
+            </div>
+
+            <div class="space-y-1.5">
+                <label asp-for="LinkedInUrl" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsLinkedInProfileUrl"]
+                </label>
+                <input asp-for="LinkedInUrl" placeholder="https://linkedin.com/in/username"
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#F9A01B]" />
+                <span asp-validation-for="LinkedInUrl" class="text-xs text-red-500 block"></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo & Publishing -->
+    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+        <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
+            <span class="material-symbols-outlined text-[#8B5CF6] text-[24px]">photo_camera</span>
+            <div>
+                <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CmsPhotoPublishing"]</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsHeadshotOrderingDesc"]</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-1.5">
+                <label asp-for="DisplayOrder" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsDisplayOrderLabel"]
+                </label>
+                <input asp-for="DisplayOrder" type="number"
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#8B5CF6]" />
+                <span asp-validation-for="DisplayOrder" class="text-xs text-red-500 block"></span>
+                <p class="text-[11px] text-slate-400">@SharedLocalizer["CmsOrderHint"]</p>
+            </div>
+
+            <div class="space-y-1.5 flex flex-col justify-center">
+                <label class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300 mb-2">
+                    @SharedLocalizer["CmsPublishingStatus"]
+                </label>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" asp-for="IsPublished" class="sr-only peer">
+                    <div class="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer dark:bg-white/10 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                    <span class="ms-3 text-sm font-medium text-slate-700 dark:text-slate-300">@SharedLocalizer["CmsPublishedLive"]</span>
+                </label>
+            </div>
+
+            <div class="space-y-2 md:col-span-2 pt-2">
+                <label asp-for="PhotoFile" class="block text-xs font-semibold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsProfilePhotoOptional"]
+                </label>
+                <input type="file" asp-for="PhotoFile" accept="image/*"
+                       class="w-full text-sm text-slate-500 file:me-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#00B2EC]/10 file:text-[#00B2EC] hover:file:bg-[#00B2EC]/20 cursor-pointer" />
+                <span asp-validation-for="PhotoFile" class="text-xs text-red-500 block"></span>
+
+                @if (!string.IsNullOrWhiteSpace(Model.ExistingPhotoPath))
+                {
+                    <div id="teamExistingPhotoContainer" class="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 mt-2">
+                        <div class="flex items-center gap-3 min-w-0">
+                            <input type="hidden" asp-for="ExistingPhotoPath" id="teamExistingPhotoInput" />
+                            <img src="@Model.ExistingPhotoPath" alt="@SharedLocalizer["CmsCurrentPhoto"]" class="h-14 w-14 object-cover rounded-full shrink-0" onerror="this.style.display='none'" />
+                            <span class="text-xs text-slate-500 truncate max-w-xs">@Model.ExistingPhotoPath</span>
+                        </div>
+                        <button type="button" onclick="document.getElementById('teamExistingPhotoInput').value=''; document.getElementById('teamExistingPhotoContainer').remove();" class="text-xs text-red-500 hover:text-red-600 font-medium px-2.5 py-1.5 rounded-lg hover:bg-red-500/10 transition-colors flex items-center gap-1 shrink-0">
+                            <span class="material-symbols-outlined text-[16px]">delete</span>
+                            <span>@SharedLocalizer["CmsDelete"]</span>
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="flex items-center justify-end gap-3 pt-4">
+        <a asp-controller="TeamMember" asp-action="Index"
+           class="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 font-medium text-sm transition-colors">
+            @SharedLocalizer["CmsCancel"]
+        </a>
+        <button type="submit"
+                class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02]">
+            @SharedLocalizer["CmsSaveMember"]
+        </button>
+    </div>
+</div>

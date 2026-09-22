@@ -1,0 +1,72 @@
+@model Daleel.Models.PagerViewModel
+@{
+    // Stays generic across every CRM list page by reusing whichever controller is active.
+    var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+
+    // Carry every active filter across pages — only "page" itself is replaced. Reading
+    // the query string keeps this working for any list page without the partial having
+    // to know that page's filter names.
+    var activeFilters = ViewContext.HttpContext.Request.Query
+        .Where(kv => !string.Equals(kv.Key, "page", StringComparison.OrdinalIgnoreCase)
+                     && kv.Value.Count > 0
+                     && !string.IsNullOrEmpty(kv.Value[0]))
+        .ToDictionary(kv => kv.Key, kv => kv.Value[0]!, StringComparer.OrdinalIgnoreCase);
+}
+
+@functions {
+    Dictionary<string, string> LinkTo(Dictionary<string, string> filters, int page)
+    {
+        var values = new Dictionary<string, string>(filters, StringComparer.OrdinalIgnoreCase)
+        {
+            ["page"] = page.ToString()
+        };
+        return values;
+    }
+}
+
+@if (Model.TotalPages > 1)
+{
+    <nav class="mt-6 flex items-center justify-between gap-4 text-sm">
+        <p class="text-slate-500 dark:text-slate-400">
+            @SharedLocalizer["CrmPage"] @Model.Page @SharedLocalizer["CrmOf"] @Model.TotalPages
+            <span class="hidden sm:inline">· @Model.TotalCount @SharedLocalizer["CrmRecords"]</span>
+        </p>
+
+        <div class="flex items-center gap-2">
+            @if (Model.Page > 1)
+            {
+                <a asp-controller="@controller" asp-action="Index"
+                   asp-all-route-data="LinkTo(activeFilters, Model.Page - 1)"
+                   class="inline-flex items-center gap-1 rounded-lg border border-slate-300 dark:border-white/15 px-3 py-2 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                    <span class="material-symbols-outlined text-[18px] rtl:rotate-180">chevron_left</span>
+                    @SharedLocalizer["CrmPrevious"]
+                </a>
+            }
+            else
+            {
+                <span class="inline-flex items-center gap-1 rounded-lg border border-slate-200 dark:border-white/10 px-3 py-2 text-slate-300 dark:text-slate-600 cursor-not-allowed">
+                    <span class="material-symbols-outlined text-[18px] rtl:rotate-180">chevron_left</span>
+                    @SharedLocalizer["CrmPrevious"]
+                </span>
+            }
+
+            @if (Model.Page < Model.TotalPages)
+            {
+                <a asp-controller="@controller" asp-action="Index"
+                   asp-all-route-data="LinkTo(activeFilters, Model.Page + 1)"
+                   class="inline-flex items-center gap-1 rounded-lg border border-slate-300 dark:border-white/15 px-3 py-2 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                    @SharedLocalizer["CrmNext"]
+                    <span class="material-symbols-outlined text-[18px] rtl:rotate-180">chevron_right</span>
+                </a>
+            }
+            else
+            {
+                <span class="inline-flex items-center gap-1 rounded-lg border border-slate-200 dark:border-white/10 px-3 py-2 text-slate-300 dark:text-slate-600 cursor-not-allowed">
+                    @SharedLocalizer["CrmNext"]
+                    <span class="material-symbols-outlined text-[18px] rtl:rotate-180">chevron_right</span>
+                </span>
+            }
+        </div>
+    </nav>
+}
+

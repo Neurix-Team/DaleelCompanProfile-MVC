@@ -1,0 +1,37 @@
+name: Deploy to Production
+
+on:
+  push:
+    branches:
+      - prod
+
+jobs:
+  build-and-deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Login to GitHub Container Registry
+        run: |
+          echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io \
+            -u ${{ github.actor }} --password-stdin
+
+      - name: Build Docker image
+        run: |
+          docker build -t ghcr.io/neurix-org/daleel-mvc:${{ github.sha }} .
+          docker tag ghcr.io/neurix-org/daleel-mvc:${{ github.sha }} \
+                     ghcr.io/neurix-org/daleel-mvc:latest
+
+      - name: Push Docker image
+        run: |
+          docker push ghcr.io/neurix-org/daleel-mvc:${{ github.sha }}
+          docker push ghcr.io/neurix-org/daleel-mvc:latest
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl set image deployment/daleel-mvc \
+            daleel-mvc=ghcr.io/neurix-org/daleel-mvc:${{ github.sha }} \
+            -n daleel
+          kubectl rollout status deployment/daleel-mvc -n daleel

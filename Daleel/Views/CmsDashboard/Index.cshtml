@@ -1,0 +1,423 @@
+@model Daleel.BAL.Models.CmsDashboardStats
+@{
+    Layout = "_CmsLayout";
+    ViewData["Title"] = SharedLocalizer["CmsTitleContentDashboard"].Value;
+}
+
+<div class="space-y-8">
+
+    <!-- Top Action Bar -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h2 class="font-poppins text-2xl sm:text-3xl font-bold text-brand-navy dark:text-white">
+                @SharedLocalizer["CmsContentPlatformOverview"]
+            </h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                @SharedLocalizer["CmsDashboardIntro"]
+            </p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+            <a asp-controller="CmsBrand" asp-action="Index"
+               class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border border-slate-300 dark:border-white/15 bg-white dark:bg-white/5 hover:bg-slate-50 dark:hover:bg-white/10 text-slate-700 dark:text-slate-200 font-medium text-sm transition-all shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">corporate_fare</span>
+                <span>@SharedLocalizer["CmsManageBrands"]</span>
+            </a>
+            <a asp-controller="CmsArticle" asp-action="Create"
+               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02]">
+                <span class="material-symbols-outlined text-[20px]">add</span>
+                <span>@SharedLocalizer["CmsNewArticle"]</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Metric Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+
+        <!-- Company / Brand Profiles -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden group hover:border-[#00B2EC]/40 transition-all">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsBrandProfiles"]</p>
+                    <p class="font-poppins text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-1.5">@Model.TotalBrands</p>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[24px]">domain</span>
+                </div>
+            </div>
+            <div class="mt-3.5 pt-2.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                <span class="text-emerald-600 dark:text-emerald-400 font-medium">@Model.PublishedBrands @SharedLocalizer["CmsActive"]</span>
+                <a asp-controller="CmsBrand" asp-action="Index" class="text-[#00B2EC] font-semibold hover:underline flex items-center gap-1">
+                    @SharedLocalizer["CmsManage"] <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Services -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden group hover:border-blue-500/40 transition-all">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsServices"]</p>
+                    <p class="font-poppins text-2xl sm:text-3xl font-bold text-blue-600 dark:text-blue-400 mt-1.5">@Model.TotalServices</p>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-blue-500/10 text-blue-500 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[24px]">design_services</span>
+                </div>
+            </div>
+            <div class="mt-3.5 pt-2.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                <span class="text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsOfferingsSolutions"]</span>
+                <a asp-controller="CmsService" asp-action="Index" class="text-blue-600 dark:text-blue-400 font-semibold hover:underline flex items-center gap-1">
+                    @SharedLocalizer["CmsManage"] <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Portfolio Projects -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden group hover:border-purple-500/40 transition-all">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsPortfolioProjects"]</p>
+                    <p class="font-poppins text-2xl sm:text-3xl font-bold text-purple-600 dark:text-purple-400 mt-1.5">@Model.TotalProjects</p>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-purple-500/10 text-purple-500 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[24px]">folder_open</span>
+                </div>
+            </div>
+            <div class="mt-3.5 pt-2.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                <span class="text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsCaseStudies"]</span>
+                <a asp-controller="CmsProject" asp-action="Index" class="text-purple-600 dark:text-purple-400 font-semibold hover:underline flex items-center gap-1">
+                    @SharedLocalizer["CmsManage"] <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Team Members -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden group hover:border-teal-500/40 transition-all">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsTeamMembers"]</p>
+                    <p class="font-poppins text-2xl sm:text-3xl font-bold text-teal-600 dark:text-teal-400 mt-1.5">@Model.TotalTeamMembers</p>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-teal-500/10 text-teal-500 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[24px]">groups</span>
+                </div>
+            </div>
+            <div class="mt-3.5 pt-2.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                <span class="text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsLeadershipStaff"]</span>
+                <a asp-controller="TeamMember" asp-action="Index" class="text-teal-600 dark:text-teal-400 font-semibold hover:underline flex items-center gap-1">
+                    @SharedLocalizer["CmsManage"] <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Testimonials -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden group hover:border-amber-500/40 transition-all">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsTestimonials"]</p>
+                    <p class="font-poppins text-2xl sm:text-3xl font-bold text-amber-600 dark:text-amber-400 mt-1.5">@Model.TotalTestimonials</p>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-amber-500/10 text-amber-500 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[24px]">rate_review</span>
+                </div>
+            </div>
+            <div class="mt-3.5 pt-2.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                <span class="text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsClientEndorsements"]</span>
+                <a asp-controller="Testimonial" asp-action="Index" class="text-amber-600 dark:text-amber-400 font-semibold hover:underline flex items-center gap-1">
+                    @SharedLocalizer["CmsManage"] <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Total Articles -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden group hover:border-[#00B2EC]/40 transition-all">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsArticlesBlog"]</p>
+                    <p class="font-poppins text-2xl sm:text-3xl font-bold text-slate-900 dark:text-white mt-1.5">@Model.TotalArticles</p>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[24px]">library_books</span>
+                </div>
+            </div>
+            <div class="mt-3.5 pt-2.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                <a asp-controller="CmsArticle" asp-action="Index" class="text-[#00B2EC] font-semibold hover:underline flex items-center gap-1">
+                    @SharedLocalizer["CmsViewAll"] <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Published Articles -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden group hover:border-emerald-500/40 transition-all">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsLiveArticles"]</p>
+                    <p class="font-poppins text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400 mt-1.5">@Model.PublishedArticles</p>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-emerald-500/10 text-emerald-500 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[24px]">check_circle</span>
+                </div>
+            </div>
+            <div class="mt-3.5 pt-2.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                <a asp-controller="CmsArticle" asp-action="Index" asp-route-isPublished="true" class="text-emerald-600 dark:text-emerald-400 font-semibold hover:underline flex items-center gap-1">
+                    @SharedLocalizer["CmsPublishedWord"] <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Page Sections -->
+        <div class="p-5 rounded-2xl bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 shadow-sm relative overflow-hidden group hover:border-indigo-500/40 transition-all">
+            <div class="flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsPageSections"]</p>
+                    <p class="font-poppins text-2xl sm:text-3xl font-bold text-indigo-600 dark:text-indigo-400 mt-1.5">@Model.TotalPageSections</p>
+                </div>
+                <div class="w-11 h-11 rounded-xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-[24px]">view_quilt</span>
+                </div>
+            </div>
+            <div class="mt-3.5 pt-2.5 border-t border-slate-100 dark:border-white/5 flex items-center justify-between text-xs">
+                <a asp-controller="CmsPage" asp-action="Index" class="text-indigo-600 dark:text-indigo-400 font-semibold hover:underline flex items-center gap-1">
+                    @SharedLocalizer["CmsManage"] <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main 2-Column Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+        <!-- Left Column: Recent Articles (8 cols) -->
+        <div class="lg:col-span-8 bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-sm overflow-hidden">
+            <div class="px-6 py-5 border-b border-slate-100 dark:border-white/10 flex items-center justify-between">
+                <div>
+                    <h3 class="font-poppins font-bold text-lg text-slate-900 dark:text-white">@SharedLocalizer["CmsRecentArticles"]</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsRecentArticlesDesc"]</p>
+                </div>
+                <a asp-controller="CmsArticle" asp-action="Index"
+                   class="text-xs font-semibold text-[#00B2EC] hover:underline flex items-center gap-1">
+                    @SharedLocalizer["CmsViewAll"] <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                </a>
+            </div>
+
+            @if (Model.RecentArticles.Count == 0)
+            {
+                <div class="p-12 text-center">
+                    <div class="w-16 h-16 rounded-2xl bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center mx-auto mb-4">
+                        <span class="material-symbols-outlined text-[32px]">post_add</span>
+                    </div>
+                    <h4 class="font-poppins font-semibold text-base text-slate-800 dark:text-slate-200">@SharedLocalizer["CmsNoArticlesYet"]</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">@SharedLocalizer["CmsNoArticlesYetDesc"]</p>
+                    <a asp-controller="CmsArticle" asp-action="Create"
+                       class="inline-flex items-center gap-2 mt-5 px-4 py-2 rounded-xl bg-[#00B2EC] text-white font-medium text-sm hover:opacity-90">
+                        <span class="material-symbols-outlined text-[18px]">add</span>
+                        <span>@SharedLocalizer["CmsCreateArticle"]</span>
+                    </a>
+                </div>
+            }
+            else
+            {
+                <div class="overflow-x-auto">
+                    <table class="w-full text-start text-sm">
+                        <thead class="bg-slate-50 dark:bg-white/[0.02] text-xs font-semibold uppercase text-slate-500 dark:text-slate-400 border-b border-slate-100 dark:border-white/5">
+                            <tr>
+                                <th class="px-6 py-3.5 text-start">@SharedLocalizer["CmsArticle"]</th>
+                                <th class="px-6 py-3.5 text-start">@SharedLocalizer["CmsCategory"]</th>
+                                <th class="px-6 py-3.5 text-start">@SharedLocalizer["CmsStatus"]</th>
+                                <th class="px-6 py-3.5 text-start">@SharedLocalizer["CmsDate"]</th>
+                                <th class="px-6 py-3.5 text-end">@SharedLocalizer["CmsActions"]</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 dark:divide-white/5">
+                            @foreach (var article in Model.RecentArticles)
+                            {
+                                <tr class="hover:bg-slate-50/70 dark:hover:bg-white/[0.02] transition-colors">
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-3">
+                                            @if (!string.IsNullOrWhiteSpace(article.CoverImagePath))
+                                            {
+                                                <img src="@article.CoverImagePath" alt="" class="w-10 h-10 rounded-xl object-cover shrink-0 border border-slate-200 dark:border-white/10" />
+                                            }
+                                            else
+                                            {
+                                                <div class="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/5 flex items-center justify-center shrink-0 text-slate-400">
+                                                    <span class="material-symbols-outlined text-[18px]">image</span>
+                                                </div>
+                                            }
+                                            <div class="min-w-0">
+                                                <a asp-controller="CmsArticle" asp-action="Edit" asp-route-id="@article.Id"
+                                                   class="font-semibold text-slate-900 dark:text-white hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors line-clamp-1">
+                                                    @article.TitleEn
+                                                </a>
+                                                <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-1" dir="rtl">@article.TitleAr</p>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-medium bg-slate-100 dark:bg-white/10 text-slate-700 dark:text-slate-300">
+                                            @(string.IsNullOrWhiteSpace(article.Category) ? "General" : article.Category)
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        @if (article.IsPublished)
+                                        {
+                                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                                                @SharedLocalizer["CmsPublishedWord"]
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>
+                                                @SharedLocalizer["CmsDraft"]
+                                            </span>
+                                        }
+                                    </td>
+                                    <td class="px-6 py-4 text-xs text-slate-500 dark:text-slate-400">
+                                        @(article.PublishedAt?.ToString("MMM dd, yyyy") ?? article.CreatedAt.ToString("MMM dd, yyyy"))
+                                    </td>
+                                    <td class="px-6 py-4 text-end">
+                                        <div class="flex items-center justify-end gap-2">
+                                            <a asp-controller="Home" asp-action="Article" asp-route-slug="@article.Slug" target="_blank"
+                                               class="p-2 rounded-lg text-slate-400 hover:text-[#00B2EC] hover:bg-[#00B2EC]/10 transition-colors" title="@SharedLocalizer["CmsViewLive"]">
+                                                <span class="material-symbols-outlined text-[18px]">visibility</span>
+                                            </a>
+                                            <a asp-controller="CmsArticle" asp-action="Edit" asp-route-id="@article.Id"
+                                               class="p-2 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors" title="@SharedLocalizer["CmsEdit"]">
+                                                <span class="material-symbols-outlined text-[18px]">edit</span>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+        </div>
+
+        <!-- Right Column: Brand Profiles & Roadmap (4 cols) -->
+        <div class="lg:col-span-4 space-y-6">
+
+            <!-- Active Brands Widget -->
+            <div class="bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 rounded-2xl p-6 shadow-sm">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-[#00B2EC] text-[20px]">corporate_fare</span>
+                        <h3 class="font-poppins font-bold text-base text-slate-900 dark:text-white">@SharedLocalizer["CmsActiveBrands"]</h3>
+                    </div>
+                    <a asp-controller="CmsBrand" asp-action="Index" class="text-xs font-semibold text-[#00B2EC] hover:underline">
+                        @SharedLocalizer["CmsManage"]
+                    </a>
+                </div>
+
+                @if (Model.Brands.Count == 0)
+                {
+                    <p class="text-xs text-slate-500">@SharedLocalizer["CmsNoBrandsInitialized"]</p>
+                }
+                else
+                {
+                    <div class="space-y-3">
+                        @foreach (var brand in Model.Brands)
+                        {
+                            <div class="p-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-between gap-3">
+                                <div class="flex items-center gap-3 min-w-0">
+                                    <div class="w-10 h-10 rounded-lg bg-white dark:bg-white/10 border border-slate-200 dark:border-white/10 flex items-center justify-center p-1.5 shrink-0">
+                                        @if (!string.IsNullOrWhiteSpace(brand.LogoPath))
+                                        {
+                                            <img src="@brand.LogoPath" alt="@brand.NameEn" class="max-h-full max-w-full object-contain" />
+                                        }
+                                        else
+                                        {
+                                            <span class="material-symbols-outlined text-[#00B2EC] text-[20px]">domain</span>
+                                        }
+                                    </div>
+                                    <div class="min-w-0">
+                                        <p class="font-semibold text-sm text-slate-900 dark:text-white truncate">@brand.NameEn</p>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400 font-mono">/@brand.Slug</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-1.5 shrink-0">
+                                    <span class="w-2 h-2 rounded-full @(brand.IsPublished ? "bg-emerald-500" : "bg-amber-500")"></span>
+                                    <a asp-controller="CmsBrand" asp-action="Edit" asp-route-id="@brand.Id"
+                                       class="p-1.5 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-200 dark:hover:bg-white/10 transition-colors" title="@SharedLocalizer["CmsEditBrand"]">
+                                        <span class="material-symbols-outlined text-[16px]">edit</span>
+                                    </a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+            <!-- Platform Modules Progress -->
+            <div class="bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 rounded-2xl p-6 shadow-sm">
+                <div class="flex items-center gap-2 mb-4">
+                    <span class="material-symbols-outlined text-[#10B981] text-[20px]">tune</span>
+                    <h3 class="font-poppins font-bold text-base text-slate-900 dark:text-white">@SharedLocalizer["CmsModules"]</h3>
+                </div>
+
+                <div class="space-y-3 text-xs">
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-white/5">
+                        <span class="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-500">check_circle</span>
+                            @SharedLocalizer["CmsCompanyBrandProfilesPlural"]
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">@Model.TotalBrands @SharedLocalizer["CmsLive"]</span>
+                    </div>
+
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-white/5">
+                        <span class="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-500">check_circle</span>
+                            @SharedLocalizer["CmsArticlesBlogEngine"]
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">@Model.TotalArticles @SharedLocalizer["CmsLive"]</span>
+                    </div>
+
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-white/5">
+                        <span class="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-500">check_circle</span>
+                            @SharedLocalizer["CmsPageContentSections"]
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">@Model.TotalPageSections @SharedLocalizer["CmsLive"]</span>
+                    </div>
+
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-white/5">
+                        <span class="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-500">check_circle</span>
+                            @SharedLocalizer["CmsServicesCms"]
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">@Model.TotalServices @SharedLocalizer["CmsLive"]</span>
+                    </div>
+
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-white/5">
+                        <span class="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-500">check_circle</span>
+                            @SharedLocalizer["CmsPortfolioSlashProjects"]
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">@Model.TotalProjects @SharedLocalizer["CmsLive"]</span>
+                    </div>
+
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-white/5">
+                        <span class="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-500">check_circle</span>
+                            @SharedLocalizer["CmsTeamMembers"]
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">@Model.TotalTeamMembers @SharedLocalizer["CmsLive"]</span>
+                    </div>
+
+                    <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-50 dark:bg-white/5">
+                        <span class="font-medium text-slate-700 dark:text-slate-300 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-500">check_circle</span>
+                            @SharedLocalizer["CmsTestimonials"]
+                        </span>
+                        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold uppercase bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">@Model.TotalTestimonials @SharedLocalizer["CmsLive"]</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

@@ -1,0 +1,2571 @@
+<?xml version='1.0' encoding='utf-8'?>
+<root xmlns:ns1="urn:schemas-microsoft-com:xml-msdata" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:schema id="root">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xs:element name="root" ns1:IsDataSet="true">
+      <xs:complexType>
+        <xs:choice maxOccurs="unbounded">
+          <xs:element name="metadata">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" />
+              </xs:sequence>
+              <xs:attribute name="name" use="required" type="xsd:string" />
+              <xs:attribute name="type" type="xsd:string" />
+              <xs:attribute name="mimetype" type="xsd:string" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="assembly">
+            <xs:complexType>
+              <xs:attribute name="alias" type="xsd:string" />
+              <xs:attribute name="name" type="xsd:string" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="data">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+                <xs:element name="comment" type="xsd:string" minOccurs="0" ns1:Ordinal="2" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" ns1:Ordinal="1" />
+              <xs:attribute name="type" type="xsd:string" ns1:Ordinal="3" />
+              <xs:attribute name="mimetype" type="xsd:string" ns1:Ordinal="4" />
+              <xs:attribute ref="xml:space" />
+            </xs:complexType>
+          </xs:element>
+          <xs:element name="resheader">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="value" type="xsd:string" minOccurs="0" ns1:Ordinal="1" />
+              </xs:sequence>
+              <xs:attribute name="name" type="xsd:string" use="required" />
+            </xs:complexType>
+          </xs:element>
+        </xs:choice>
+      </xs:complexType>
+    </xs:element>
+  </xs:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="SharedRoleAdministrator" xml:space="preserve"><value>Administrator</value></data>
+  <data name="SharedRoleStaff" xml:space="preserve"><value>Staff</value></data>
+  <data name="SharedRoleUser" xml:space="preserve"><value>User</value></data>
+  <data name="CmsEditLink" xml:space="preserve"><value>Edit Link</value></data>
+  <data name="CmsInactive" xml:space="preserve"><value>Inactive</value></data>
+  <data name="CmsNewLink" xml:space="preserve"><value>New Link</value></data>
+  <data name="CmsNoTeamMembersFound" xml:space="preserve"><value>No team members found</value></data>
+  <data name="CmsSave" xml:space="preserve"><value>Save Link</value></data>
+  <data name="CmsUpdate" xml:space="preserve"><value>Update Link</value></data>
+  <data name="CrmEditTask" xml:space="preserve"><value>Edit Task</value></data>
+  <data name="CrmLeadAssignedTo" xml:space="preserve"><value>Assigned To</value></data>
+  <data name="CrmLeadCompany" xml:space="preserve"><value>Company</value></data>
+  <data name="CrmLeadName" xml:space="preserve"><value>Lead</value></data>
+  <data name="CrmLeadSource" xml:space="preserve"><value>Source</value></data>
+  <data name="CrmLeadStatus" xml:space="preserve"><value>Status</value></data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="Platforms" xml:space="preserve">
+    <value>Platforms</value>
+  </data>
+  <data name="Shop" xml:space="preserve">
+    <value>Global Marketplace</value>
+  </data>
+  <data name="TrustGovernance" xml:space="preserve">
+    <value>Trust &amp; Governance</value>
+  </data>
+  <data name="Partners" xml:space="preserve">
+    <value>Partners</value>
+  </data>
+  <data name="AboutUs" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="ContactUs" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>عربي</value>
+  </data>
+  <data name="Company" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="Platform" xml:space="preserve">
+    <value>Platform</value>
+  </data>
+  <data name="Solutions" xml:space="preserve">
+    <value>Solutions</value>
+  </data>
+  <data name="IntelligenceFeed" xml:space="preserve">
+    <value>Strategic Insights</value>
+  </data>
+  <data name="RiskDashboard" xml:space="preserve">
+    <value>Risk Dashboard</value>
+  </data>
+  <data name="APIAccess" xml:space="preserve">
+    <value>API Access</value>
+  </data>
+  <data name="Integrations" xml:space="preserve">
+    <value>Integrations</value>
+  </data>
+  <data name="StayInformed" xml:space="preserve">
+    <value>Stay Informed</value>
+  </data>
+  <data name="Subscribe" xml:space="preserve">
+    <value>Subscribe</value>
+  </data>
+  <data name="GetStarted" xml:space="preserve">
+    <value>Get Started</value>
+  </data>
+  <data name="FooterDescription" xml:space="preserve">
+    <value>Empowering life decisions through verified information, global commerce, and purposeful media. Navigate modern life with clarity and purpose.</value>
+  </data>
+  <data name="StayInformedDescription" xml:space="preserve">
+    <value>Weekly strategic briefing delivered to your inbox.</value>
+  </data>
+  <data name="EnterYourEmail" xml:space="preserve">
+    <value>Enter your email</value>
+  </data>
+  <data name="NoSpam" xml:space="preserve">
+    <value>No spam. Unsubscribe anytime.</value>
+  </data>
+  <data name="AllRightsReserved" xml:space="preserve">
+    <value>All rights reserved.</value>
+  </data>
+  <data name="WelcomeToDaleel" xml:space="preserve">
+    <value>Welcome to Daleel</value>
+  </data>
+  <data name="GlobalVision" xml:space="preserve">
+    <value>Move forward with in a rapidly </value>
+  </data>
+  <data name="LocalPrecision" xml:space="preserve">
+    <value>changing world.</value>
+  </data>
+  <data name="HeroDescription" xml:space="preserve">
+    <value>Daleel delivers trusted information, global coverage, and meaningful economic and humanitarian insight through a modern media platform powered by Neurix AI — enabling fast, accurate, and reliable reporting 24/7.
+
+Daleel… A clearer perspective on the world.</value>
+  </data>
+  <data name="ScrollToExplore" xml:space="preserve">
+    <value>Scroll to explore</value>
+  </data>
+  <data name="DataIntelligence" xml:space="preserve">
+    <value>Data Strategy</value>
+  </data>
+  <data name="TenMillionSources" xml:space="preserve">
+    <value>Information.</value>
+  </data>
+  <data name="OneTruth" xml:space="preserve">
+    <value>Smarter Decisions.</value>
+  </data>
+  <data name="HarvestDescription" xml:space="preserve">
+    <value>Trusted data, intelligent analysis, and continuous global coverage — all within a unified platform designed to help individuals and organizations understand the world and make decisions driven by knowledge, not noise.</value>
+  </data>
+  <data name="Countries" xml:space="preserve">
+    <value>Countries</value>
+  </data>
+  <data name="Monitoring" xml:space="preserve">
+    <value>Monitoring</value>
+  </data>
+  <data name="Verified" xml:space="preserve">
+    <value>Context</value>
+  </data>
+  <data name="NeuralFusionEngine" xml:space="preserve">
+    <value>Analytical Engine</value>
+  </data>
+  <data name="AIThatSees" xml:space="preserve">
+    <value>Analysis That Sees</value>
+  </data>
+  <data name="WhatYouCant" xml:space="preserve">
+    <value>What You Can't.</value>
+  </data>
+  <data name="AIDescription" xml:space="preserve">
+    <value>Our proprietary Neural Fusion Engine cross-correlates geopolitical events with trade flows, sentiment shifts, and macro indicators — uncovering hidden patterns invisible to the human eye.</value>
+  </data>
+  <data name="PatternRecognition" xml:space="preserve">
+    <value>Pattern Recognition</value>
+  </data>
+  <data name="SentimentAnalysis" xml:space="preserve">
+    <value>Sentiment and trend analysis</value>
+  </data>
+  <data name="RiskCorrelation" xml:space="preserve">
+    <value>Risk Correlation</value>
+  </data>
+  <data name="StrategicCommand" xml:space="preserve">
+    <value>Strategic Command</value>
+  </data>
+  <data name="ClarityFrom" xml:space="preserve">
+    <value>Clarity From</value>
+  </data>
+  <data name="Complexity" xml:space="preserve">
+    <value>Complexity.</value>
+  </data>
+  <data name="DashboardDescription" xml:space="preserve">
+    <value>From Information to Informed Decisions. Daleel follows a rigorous two-step process: first, gathering and verifying information from a comprehensive, centralized repository, then applying smart analytical tools to help you make the best decisions in every domain of life.</value>
+  </data>
+  <data name="OpportunityScore" xml:space="preserve">
+    <value>Opportunity Score</value>
+  </data>
+  <data name="RiskExposure" xml:space="preserve">
+    <value>Risk Exposure</value>
+  </data>
+  <data name="ReadyToLead" xml:space="preserve">
+    <value>Ready to Navigate With Clarity?</value>
+  </data>
+  <data name="ReadyToLeadDesc" xml:space="preserve">
+    <value>Join a global community that trusts Daleel for reliable information, deep economic insight, and meaningful media — within a modern digital ecosystem built on human values, transparency, and ethical responsibility</value>
+  </data>
+  <data name="ExploreSolutions" xml:space="preserve">
+    <value>Explore Platforms</value>
+  </data>
+  <data name="DownloadBriefing" xml:space="preserve">
+    <value>Download Briefing</value>
+  </data>
+  <data name="EnterpriseGradeIntelligence" xml:space="preserve">
+    <value>Enterprise Strategy</value>
+  </data>
+  <data name="PrecisionStrategy" xml:space="preserve">
+    <value>Precision Strategy</value>
+  </data>
+  <data name="ForTheGlobalMarket" xml:space="preserve">
+    <value>for the Global Market.</value>
+  </data>
+  <data name="PrecisionStrategyDesc" xml:space="preserve">
+    <value>Daleel Global Vision provides the navigational clarity required to manage complex international landscapes through data-driven precision.</value>
+  </data>
+  <data name="WatchBriefing" xml:space="preserve">
+    <value>Watch Briefing</value>
+  </data>
+  <data name="GlobalInsightAI" xml:space="preserve">
+    <value>Global Insight</value>
+  </data>
+  <data name="Online" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="AnalyzeTradeCorridors" xml:space="preserve">
+    <value>Analyze trade corridors...</value>
+  </data>
+  <data name="MarketVolatility" xml:space="preserve">
+    <value>Market Volatility</value>
+  </data>
+  <data name="SupplyChain" xml:space="preserve">
+    <value>Supply Chain</value>
+  </data>
+  <data name="VerifiedArticles" xml:space="preserve">
+    <value>Articles</value>
+  </data>
+  <data name="TradePartners" xml:space="preserve">
+    <value>Trade Partners</value>
+  </data>
+  <data name="TrustScore" xml:space="preserve">
+    <value>Assessment</value>
+  </data>
+  <data name="AIMonitoring" xml:space="preserve">
+    <value>Monitoring</value>
+  </data>
+  <data name="OurCorePillars" xml:space="preserve">
+    <value>Our Core Pillars</value>
+  </data>
+  <data name="TheDaleel" xml:space="preserve">
+    <value>The Daleel</value>
+  </data>
+  <data name="Framework" xml:space="preserve">
+    <value>Framework</value>
+  </data>
+  <data name="FrameworkDesc" xml:space="preserve">
+    <value>Three interconnected pillars powering global strategic insights.</value>
+  </data>
+  <data name="GlobalInformation" xml:space="preserve">
+    <value>Global Information</value>
+  </data>
+  <data name="GlobalInformationDesc" xml:space="preserve">
+    <value>A comprehensive ecosystem for gathering and analyzing strategic insights across global markets and industries — providing a trusted source of insight for decision-makers and institutions.</value>
+  </data>
+  <data name="RealTimeNews" xml:space="preserve">
+    <value>Real-time news and global event monitoring</value>
+  </data>
+  <data name="RegulatoryFiling" xml:space="preserve">
+    <value>Regulatory filing and compliance tracking</value>
+  </data>
+  <data name="MultiLanguageProcessing" xml:space="preserve">
+    <value>Multilingual information processing</value>
+  </data>
+  <data name="GlobalTrade" xml:space="preserve">
+    <value>Global Trade</value>
+  </data>
+  <data name="GlobalTradeDesc" xml:space="preserve">
+    <value>Intelligent solutions for analyzing and optimizing cross-border trade operations, powered by logistics insights and AI-driven geopolitical risk modeling.</value>
+  </data>
+  <data name="SupplyChainOpt" xml:space="preserve">
+    <value>Supply chain optimization</value>
+  </data>
+  <data name="TariffCompliance" xml:space="preserve">
+    <value>Tariff planning and compliance strategy</value>
+  </data>
+  <data name="RiskCorridor" xml:space="preserve">
+    <value>Trade corridor and risk analysis</value>
+  </data>
+  <data name="PurposefulMedia" xml:space="preserve">
+    <value>Purposeful Media</value>
+  </data>
+  <data name="PurposefulMediaDesc" xml:space="preserve">
+    <value>Strategic media and communication solutions designed to help organizations and brands deliver clear, impactful narratives across the global digital landscape.</value>
+  </data>
+  <data name="NarrativeIntelligence" xml:space="preserve">
+    <value>Narrative analysis and messaging strategy</value>
+  </data>
+  <data name="DigitalReputation" xml:space="preserve">
+    <value>Digital reputation planning and media positioning</value>
+  </data>
+  <data name="WhatSetsUsApart" xml:space="preserve">
+    <value>What Sets Us Apart</value>
+  </data>
+  <data name="WhyDaleelIsDifferent" xml:space="preserve">
+    <value>Why DALEEL is Different</value>
+  </data>
+  <data name="WhyDaleelDesc" xml:space="preserve">
+    <value>While others react to the market, we anticipate it. Our strategic infrastructure is built for the speed and complexity of the modern global economy.</value>
+  </data>
+  <data name="RealTimeIntelligence" xml:space="preserve">
+    <value>Strategic Insights</value>
+  </data>
+  <data name="RealTimeIntDesc" xml:space="preserve">
+    <value>Our global network delivers actionable insights.</value>
+  </data>
+  <data name="AvgInsightDelivery" xml:space="preserve">
+    <value>Insight Delivery</value>
+  </data>
+  <data name="TrustFirstArchitecture" xml:space="preserve">
+    <value>Strategic Architecture</value>
+  </data>
+  <data name="TrustFirstDesc" xml:space="preserve">
+    <value>Every data point is evaluated through our systems. No noise. Only verified insights you can stake decisions on.</value>
+  </data>
+  <data name="VerifiedTrustScore" xml:space="preserve">
+    <value>Evaluation Score</value>
+  </data>
+  <data name="CrossDomainFusion" xml:space="preserve">
+    <value>Integrated Strategic Insights:</value>
+  </data>
+  <data name="CrossDomainDesc" xml:space="preserve">
+    <value>The most meaningful insights are not found within isolated systems, but at the intersection of trade, media, data, and global context</value>
+  </data>
+  <data name="InfoTradeMedia" xml:space="preserve">
+    <value>Information · Trade · Media</value>
+  </data>
+  <data name="TrueGlobalCoverage" xml:space="preserve">
+    <value>Global Coverage</value>
+  </data>
+  <data name="GlobalCoverageDesc" xml:space="preserve">
+    <value>From MENA corridors to Southeast Asian supply chains — our strategic network spans every major trade region with local expertise and cultural context.</value>
+  </data>
+  <data name="JurisdictionsCovered" xml:space="preserve">
+    <value>Jurisdictions Covered</value>
+  </data>
+  <data name="PredictiveNotReactive" xml:space="preserve">
+    <value>Proactive Insights</value>
+  </data>
+  <data name="PredictiveDesc" xml:space="preserve">
+    <value>Our systems analyze market trends and geopolitical shifts, identifying emerging patterns to give you a strategic advantage.</value>
+  </data>
+  <data name="EarlyWarningAdvantage" xml:space="preserve">
+    <value>Continuous Analysis</value>
+  </data>
+  <data name="EnterpriseSecurity" xml:space="preserve">
+    <value>Enterprise-Grade Governance</value>
+  </data>
+  <data name="EnterpriseSecurityDesc" xml:space="preserve">
+    <value>Built for transparency, auditability, and role-based access. Your data stays yours.</value>
+  </data>
+  <data name="CertifiedEncrypted" xml:space="preserve">
+    <value>Transparent</value>
+  </data>
+  <data name="ReadyToExperience" xml:space="preserve">
+    <value>Ready to experience the difference?</value>
+  </data>
+  <data name="ScheduleDemo" xml:space="preserve">
+    <value>Schedule a Demo</value>
+  </data>
+  <data name="ViewPricingPlans" xml:space="preserve">
+    <value>View Pricing Plans</value>
+  </data>
+  <data name="GlobalPerspectives" xml:space="preserve">
+    <value>Global Perspectives</value>
+  </data>
+  <data name="StrategicInsightsDesc" xml:space="preserve">
+    <value>Strategic insights from our analysts.</value>
+  </data>
+  <data name="ViewAllInsights" xml:space="preserve">
+    <value>View All Insights</value>
+  </data>
+  <data name="WhitePaper" xml:space="preserve">
+    <value>White Paper</value>
+  </data>
+  <data name="WhitePaperTitle" xml:space="preserve">
+    <value>The 2025 Global Economic Pivot: Navigation Strategies</value>
+  </data>
+  <data name="WhitePaperDesc" xml:space="preserve">
+    <value>How emerging economies are reshaping trade corridors and what it means for institutional investors.</value>
+  </data>
+  <data name="MinRead12" xml:space="preserve">
+    <value>read</value>
+  </data>
+  <data name="May152024" xml:space="preserve">
+    <value>May 15, 2024</value>
+  </data>
+  <data name="Report" xml:space="preserve">
+    <value>Report</value>
+  </data>
+  <data name="May122024" xml:space="preserve">
+    <value>May 12, 2024</value>
+  </data>
+  <data name="ReportTitle" xml:space="preserve">
+    <value>Supply Chain Resiliency: Mapping New Routes in South East Asia</value>
+  </data>
+  <data name="ReportDesc" xml:space="preserve">
+    <value>How shifting geopolitical dynamics are creating new logistics corridors and what enterprises need to prepare for.</value>
+  </data>
+  <data name="MinRead8" xml:space="preserve">
+    <value>read</value>
+  </data>
+  <data name="Analysis" xml:space="preserve">
+    <value>Analysis</value>
+  </data>
+  <data name="May082024" xml:space="preserve">
+    <value>May 08, 2024</value>
+  </data>
+  <data name="AnalysisTitle" xml:space="preserve">
+    <value>The Digital Economy: Balancing Growth Opportunities and the Challenges of Transformation</value>
+  </data>
+  <data name="AnalysisDesc" xml:space="preserve">
+    <value>Digitalization and technological advancement are no longer merely tools for improving efficiency or accelerating processes. Over the past few decades, they have evolved into some of the most influential forces shaping modern economies and determining their ability to compete and grow. In a world witnessing unprecedented adoption of artificial intelligence, cloud computing, big data analytics, and automation, technology has become an integral component of the economic infrastructure of both developed and emerging nations.</value>
+  </data>
+  <data name="MinRead6" xml:space="preserve">
+    <value>read</value>
+  </data>
+  <data name="TradeAlert" xml:space="preserve">
+    <value>Trade Alert</value>
+  </data>
+  <data name="TradeAlertTitle" xml:space="preserve">
+    <value>MENA Trade Volumes in Q1 2024</value>
+  </data>
+  <data name="RiskAlert" xml:space="preserve">
+    <value>Risk Alert</value>
+  </data>
+  <data name="RiskAlertTitle" xml:space="preserve">
+    <value>Emerging Sanctions Impact on Commodity Flows</value>
+  </data>
+  <data name="MediaWatch" xml:space="preserve">
+    <value>Media Watch</value>
+  </data>
+  <data name="MediaWatchTitle" xml:space="preserve">
+    <value>Digital Narrative Shifts in Global ESG Reporting</value>
+  </data>
+  <data name="Opportunity" xml:space="preserve">
+    <value>Opportunity</value>
+  </data>
+  <data name="OpportunityTitle" xml:space="preserve">
+    <value>New Free Trade Zones Creating Investment Corridors</value>
+  </data>
+  <data name="AboutOurStory" xml:space="preserve">
+    <value>Our Story</value>
+  </data>
+  <data name="AboutHeading" xml:space="preserve">
+    <value>Mapping the </value>
+  </data>
+  <data name="AboutTagline" xml:space="preserve">
+    <value>Future</value>
+  </data>
+  <data name="AboutDesc" xml:space="preserve">
+    <value>Daleel was founded on a comprehensive civilizational vision: to deliver universal human services through a lens of ethical and strategic purpose. We integrate cutting-edge technology with fundamental human values to ensure that progress remains subservient to the human spirit.</value>
+  </data>
+  <data name="AboutFounded" xml:space="preserve">
+    <value>Founded</value>
+  </data>
+  <data name="AboutJurisdictions" xml:space="preserve">
+    <value>Jurisdictions</value>
+  </data>
+  <data name="AboutDailySignals" xml:space="preserve">
+    <value>Daily Signals</value>
+  </data>
+  <data name="OurMission" xml:space="preserve">
+    <value>Our Mission</value>
+  </data>
+  <data name="MissionStatement" xml:space="preserve">
+    <value>To bridge the gap between technological advancement and human progress. Daleel provides universal services driven by a clear ethical strategy, ensuring that cutting-edge innovations remain rooted in fundamental human values.</value>
+  </data>
+  <data name="GetInTouch" xml:space="preserve">
+    <value>Get in Touch</value>
+  </data>
+  <data name="ContactHeading" xml:space="preserve">
+    <value>Contact </value>
+  </data>
+  <data name="ContactDesc" xml:space="preserve">
+    <value>Ready to elevate your strategic and analytical capabilities? Our global team is available to discuss your strategic needs.</value>
+  </data>
+  <data name="ReachOutDirectly" xml:space="preserve">
+    <value>Reach Out Directly</value>
+  </data>
+  <data name="GlobalHeadquarters" xml:space="preserve">
+    <value>Global Headquarters</value>
+  </data>
+  <data name="HQAddress" xml:space="preserve">
+    <value>167-169 Great Portland Street, Fifth Floor, London, United Kingdom</value>
+  </data>
+  <data name="EmailUs" xml:space="preserve">
+    <value>Email Us</value>
+  </data>
+  <data name="CallUs" xml:space="preserve">
+    <value>Call Us</value>
+  </data>
+  <data name="HQPhone" xml:space="preserve">
+    <value>+1 (302) 602 4695</value>
+  </data>
+  <data name="FirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="LastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="WorkEmail" xml:space="preserve">
+    <value>Work Email</value>
+  </data>
+  <data name="Subject" xml:space="preserve">
+    <value>Subject</value>
+  </data>
+  <data name="SubjectPlatformDemo" xml:space="preserve">
+    <value>Platform Demo</value>
+  </data>
+  <data name="SubjectPartnership" xml:space="preserve">
+    <value>Partnership Inquiry</value>
+  </data>
+  <data name="SubjectSupport" xml:space="preserve">
+    <value>Support</value>
+  </data>
+  <data name="Message" xml:space="preserve">
+    <value>Message</value>
+  </data>
+  <data name="MessagePlaceholder" xml:space="preserve">
+    <value>How can we help you?</value>
+  </data>
+  <data name="SendMessage" xml:space="preserve">
+    <value>Send Message</value>
+  </data>
+  <data name="PartnersGlobalNetwork" xml:space="preserve">
+    <value>Global Network</value>
+  </data>
+  <data name="PartnersHeading" xml:space="preserve">
+    <value>Our Trusted Partners</value>
+  </data>
+  <data name="PartnersDesc" xml:space="preserve">
+    <value>Daleel collaborates with research institutions, financial institutions, and technology providers to deliver strategic advantages.</value>
+  </data>
+  <data name="PartnersEcosystemCTA" xml:space="preserve">
+    <value>Become a part of our strategic ecosystem.</value>
+  </data>
+  <data name="BecomePartner" xml:space="preserve">
+    <value>Become a Partner</value>
+  </data>
+  <data name="CorePlatforms" xml:space="preserve">
+    <value>Core Platforms</value>
+  </data>
+  <data name="PlatformsHeading" xml:space="preserve">
+    <value>The Daleel Ecosystem</value>
+  </data>
+  <data name="PlatformsDesc" xml:space="preserve">
+    <value>The Daleel Ecosystem develops interconnected intelligent platforms that unify economic, scientific, and cultural knowledge within an integrated digital infrastructure designed to serve people and support sustainable progress.
+
+The ecosystem is built on a vision that believes the true value of technology is not measured solely by economic return, but by its ability to create meaningful human impact while advancing knowledge and innovation.</value>
+  </data>
+  <data name="TabInformation" xml:space="preserve">
+    <value>Information &amp; Decision Support</value>
+  </data>
+  <data name="TabTrade" xml:space="preserve">
+    <value>Global Trade</value>
+  </data>
+  <data name="TabMedia" xml:space="preserve">
+    <value>Media &amp; Communications</value>
+  </data>
+  <data name="InfoPlatformTitle" xml:space="preserve">
+    <value>01 — Information &amp; Decision Support</value>
+  </data>
+  <data name="InfoPlatformDesc" xml:space="preserve">
+    <value>A comprehensive ecosystem for gathering and analyzing strategic insights across global markets and industries — providing a trusted source of insight for decision-makers and institutions.</value>
+  </data>
+  <data name="InfoFeature1" xml:space="preserve">
+    <value>Real-time news and global event monitoring</value>
+  </data>
+  <data name="InfoFeature2" xml:space="preserve">
+    <value>Regulatory filing and compliance tracking</value>
+  </data>
+  <data name="InfoFeature3" xml:space="preserve">
+    <value>Multilingual information processing</value>
+  </data>
+  <data name="ExploreInfoPlatform" xml:space="preserve">
+    <value>Explore Information Platform</value>
+  </data>
+  <data name="TradePlatformTitle" xml:space="preserve">
+    <value>02 — Global Trade</value>
+  </data>
+  <data name="TradePlatformDesc" xml:space="preserve">
+    <value>Intelligent solutions for analyzing and optimizing cross-border trade operations, powered by logistics insights and AI-driven geopolitical risk modeling.</value>
+  </data>
+  <data name="TradeFeature1" xml:space="preserve">
+    <value>Supply chain optimization</value>
+  </data>
+  <data name="TradeFeature2" xml:space="preserve">
+    <value>Tariff planning and compliance strategy</value>
+  </data>
+  <data name="TradeFeature3" xml:space="preserve">
+    <value>Trade corridor and risk analysis</value>
+  </data>
+  <data name="ExploreTradePlatform" xml:space="preserve">
+    <value>Explore Trade Platform</value>
+  </data>
+  <data name="MediaPlatformTitle" xml:space="preserve">
+    <value>03 — Media &amp; Communications</value>
+  </data>
+  <data name="MediaPlatformDesc" xml:space="preserve">
+    <value>Strategic media and communication solutions designed to help organizations and brands deliver clear, impactful narratives across the global digital landscape.</value>
+  </data>
+  <data name="MediaFeature1" xml:space="preserve">
+    <value>Sentiment and trend analysis</value>
+  </data>
+  <data name="MediaFeature2" xml:space="preserve">
+    <value>Narrative analysis and messaging strategy</value>
+  </data>
+  <data name="MediaFeature3" xml:space="preserve">
+    <value>Digital reputation planning and media positioning</value>
+  </data>
+  <data name="ExploreMediaPlatform" xml:space="preserve">
+    <value>Explore Media Platform</value>
+  </data>
+  <data name="DaleelShop" xml:space="preserve">
+    <value>Global Marketplace</value>
+  </data>
+  <data name="ComingSoon" xml:space="preserve">
+    <value>Coming Soon</value>
+  </data>
+  <data name="ShopDesc" xml:space="preserve">
+    <value>We are building a global marketplace encompassing the full spectrum of human trade with specialized sub-platforms for Agriculture, Industry, Real Estate, Automotive, and Heavy Machinery &amp; Equipment, designed to facilitate international commerce using future-oriented technologies.</value>
+  </data>
+  <data name="ReturnHome" xml:space="preserve">
+    <value>Return Home</value>
+  </data>
+  <data name="UnderConstruction" xml:space="preserve">
+    <value>Under Construction</value>
+  </data>
+  <data name="SoonDesc" xml:space="preserve">
+    <value>We are currently crafting something extraordinary. This feature is being built and will be available shortly.</value>
+  </data>
+  <data name="SecurityFirst" xml:space="preserve">
+    <value>Security First</value>
+  </data>
+  <data name="TrustHeading" xml:space="preserve">
+    <value>Trust &amp; Governance</value>
+  </data>
+  <data name="TrustDesc" xml:space="preserve">
+    <value>Daleel is built on a foundation of ethical governance and strict regulatory standards. Every aspect of our platform - from information to commerce to media - operates under clear rules and conditions designed to preserve the integrity of human interaction and decision-making.</value>
+  </data>
+  <data name="MilGradeEncryption" xml:space="preserve">
+    <value>Ethical Data Sovereignty</value>
+  </data>
+  <data name="MilGradeEncDesc" xml:space="preserve">
+    <value>Ensuring that all data processed on Daleel adheres to standards of privacy and regional sovereignty.</value>
+  </data>
+  <data name="GlobalCompliance" xml:space="preserve">
+    <value>Governance &amp; Transparency</value>
+  </data>
+  <data name="GlobalComplianceDesc" xml:space="preserve">
+    <value>Our platform is governed by protocols that ensure narrative integrity and cross-border alignment.</value>
+  </data>
+  <data name="EthicalAIFramework" xml:space="preserve">
+    <value>Human-Centric</value>
+  </data>
+  <data name="EthicalAIDesc" xml:space="preserve">
+    <value>Our models are built to empower human decisions, focusing on qualitative insights and ethical impact.</value>
+  </data>
+  <data name="AESEncryption" xml:space="preserve">
+    <value>Governance</value>
+  </data>
+  <data name="Compliant" xml:space="preserve">
+    <value>Verified</value>
+  </data>
+  <data name="TypeIICertified" xml:space="preserve">
+    <value>Ethical</value>
+  </data>
+  <data name="UptimeSLA" xml:space="preserve">
+    <value>Human-Centric</value>
+  </data>
+  <data name="Daleel" xml:space="preserve">
+    <value>Daleel</value>
+  </data>
+  <data name="ExpectedResponseTime" xml:space="preserve">
+    <value>We respond promptly.</value>
+  </data>
+  <data name="DemoTitle" xml:space="preserve">
+    <value>Schedule a Demo</value>
+  </data>
+  <data name="DemoHeading" xml:space="preserve">
+    <value>See Daleel in Action</value>
+  </data>
+  <data name="DemoDesc" xml:space="preserve">
+    <value>Book a session with our strategic experts. We'll show you how our platform can provide clarity and strategic advantage for your use cases.</value>
+  </data>
+  <data name="RequestDemo" xml:space="preserve">
+    <value>Request Demo</value>
+  </data>
+  <data name="JobTitle" xml:space="preserve">
+    <value>Job Title</value>
+  </data>
+  <data name="PricingTitle" xml:space="preserve">
+    <value>Pricing Plans</value>
+  </data>
+  <data name="PricingHeading" xml:space="preserve">
+    <value>Pricing for Global Strategic Insights</value>
+  </data>
+  <data name="PricingDesc" xml:space="preserve">
+    <value>Choose the tier that best fits your organizational needs. From emerging enterprises to powerhouses, we have a plan for you.</value>
+  </data>
+  <data name="PlanProfessional" xml:space="preserve">
+    <value>Professional</value>
+  </data>
+  <data name="PlanProfDesc" xml:space="preserve">
+    <value>Essential insights for teams.</value>
+  </data>
+  <data name="PlanProfPrice" xml:space="preserve">
+    <value>Contact Us</value>
+  </data>
+  <data name="PlanEnterprise" xml:space="preserve">
+    <value>Enterprise</value>
+  </data>
+  <data name="PlanEntDesc" xml:space="preserve">
+    <value>Advanced capabilities for global organizations.</value>
+  </data>
+  <data name="PlanEntPrice" xml:space="preserve">
+    <value>Custom Pricing</value>
+  </data>
+  <data name="GetStartedNow" xml:space="preserve">
+    <value>Get Started Now</value>
+  </data>
+  <data name="ArticleTitle" xml:space="preserve">
+    <value>Global Strategic Insight</value>
+  </data>
+  <data name="ArticleHeading" xml:space="preserve">
+    <value>AI-Driven Governance</value>
+  </data>
+  <data name="ArticleContent1" xml:space="preserve">
+    <value>Machine learning models are transforming how governments anticipate policy impact, strengthen regulatory compliance, and manage risk at scale.</value>
+  </data>
+  <data name="ArticleContent2" xml:space="preserve">
+    <value>Our analysis indicates that supply chain vulnerabilities are no longer just logistical challenges; they are weaponized in trade negotiations. Organizations must pivot from reactive supply chain management to risk modeling.</value>
+  </data>
+  <data name="ArticleContent3" xml:space="preserve">
+    <value>The Daleel global network has tracked data points this quarter, revealing a shift in cross-border trade correlations. These indicators suggest that mid-tier economies are forming new trade blocs.</value>
+  </data>
+  <data name="ArticleAuthor" xml:space="preserve">
+    <value>Daleel Research Unit</value>
+  </data>
+  <data name="ArticleDate" xml:space="preserve">
+    <value>May 15, 2024</value>
+  </data>
+  <data name="ArticleReadTime" xml:space="preserve">
+    <value>Read</value>
+  </data>
+  <data name="ArticleTag" xml:space="preserve">
+    <value>Geopolitics</value>
+  </data>
+  <data name="ArticleQuote" xml:space="preserve">
+    <value>"The ability to foresee trade disruptions is the baseline for global competitiveness."</value>
+  </data>
+  <data name="ArticleContent4" xml:space="preserve">
+    <value>Using the Daleel ecosystem, decision-makers can overlay sentiment analysis on physical trade routes, exposing correlations. For example, a shift in media sentiment in a key mineral-exporting region often precedes a tightening of export quotas.</value>
+  </data>
+  <data name="Fig1" xml:space="preserve">
+    <value>Figure 1. Trade Correlation</value>
+  </data>
+  <data name="Fig2" xml:space="preserve">
+    <value>Figure 2. Sentiment Shift</value>
+  </data>
+  <data name="StrategicImperatives" xml:space="preserve">
+    <value>Strategic Imperatives</value>
+  </data>
+  <data name="MonitoringDesc" xml:space="preserve">
+    <value>Static reports are obsolete. Analysis must be continuous.</value>
+  </data>
+  <data name="Synthesis" xml:space="preserve">
+    <value>Integrated Intelligence:</value>
+  </data>
+  <data name="SynthesisDesc" xml:space="preserve">
+    <value>The real value lies not in analyzing trade, media, and data in isolation, but in understanding the connections that bind them.</value>
+  </data>
+  <data name="ArticleConclusion" xml:space="preserve">
+    <value>The next global shift won't announce itself with a headline; it will emerge in the data. Are you listening?</value>
+  </data>
+  <data name="ShareInsight" xml:space="preserve">
+    <value>Share this insight:</value>
+  </data>
+  <data name="BackToFeed" xml:space="preserve">
+    <value>Back to Feed</value>
+  </data>
+  <data name="Stat5Min" xml:space="preserve">
+    <value>Strategic</value>
+  </data>
+  <data name="Stat100Percent" xml:space="preserve">
+    <value>Verified</value>
+  </data>
+  <data name="Stat3In1" xml:space="preserve">
+    <value>3-Pillar</value>
+  </data>
+  <data name="Stat140Plus" xml:space="preserve">
+    <value>Global</value>
+  </data>
+  <data name="Stat247" xml:space="preserve">
+    <value>Always-on</value>
+  </data>
+  <data name="StatSOC2" xml:space="preserve">
+    <value>Secure</value>
+  </data>
+  <data name="StartConversation" xml:space="preserve">
+    <value>Start Conversation</value>
+  </data>
+  <data name="SectorAgriculture" xml:space="preserve">
+    <value>Agriculture</value>
+  </data>
+  <data name="SectorIndustry" xml:space="preserve">
+    <value>Industry</value>
+  </data>
+  <data name="SectorRealEstate" xml:space="preserve">
+    <value>Real Estate</value>
+  </data>
+  <data name="SectorAutomotive" xml:space="preserve">
+    <value>Automotive</value>
+  </data>
+  <data name="SectorHeavyMachinery" xml:space="preserve">
+    <value>Heavy Machinery</value>
+  </data>
+  <data name="AdvHumanitarian" xml:space="preserve">
+    <value>Designed around a deep understanding of the human experience.</value>
+  </data>
+  <data name="AdvGovernance" xml:space="preserve">
+    <value>Ethical Governance</value>
+  </data>
+  <data name="AdvTruth" xml:space="preserve">
+    <value>Verified Information. Clearer Perspective.</value>
+  </data>
+  <data name="AdvBridge" xml:space="preserve">
+    <value>Global Reach</value>
+  </data>
+  <data name="AdvIntegrity" xml:space="preserve">
+    <value>Smart Decision Support</value>
+  </data>
+  <data name="AdvForesight" xml:space="preserve">
+    <value>Enterprise-Grade Security</value>
+  </data>
+  <data name="AdvHumanitarianDesc" xml:space="preserve">
+    <value>Prioritizing human impact in every data-driven decision.</value>
+  </data>
+  <data name="AdvGovernanceDesc" xml:space="preserve">
+    <value>Built on a foundation of transparency and ethical oversight.</value>
+  </data>
+  <data name="AdvTruthDesc" xml:space="preserve">
+    <value>Eliminating noise to deliver documented, cross-referenced truth.</value>
+  </data>
+  <data name="AdvBridgeDesc" xml:space="preserve">
+    <value>Connecting markets with purpose and shared prosperity.</value>
+  </data>
+  <data name="AdvIntegrityDesc" xml:space="preserve">
+    <value>Ensuring strategic communication remains honest and impactful.</value>
+  </data>
+  <data name="AdvForesightDesc" xml:space="preserve">
+    <value>Anticipating global shifts through deep qualitative analysis.</value>
+  </data>
+  <data name="PartnerRegistrationHeading" xml:space="preserve">
+    <value>Partner Registration</value>
+  </data>
+  <data name="PartnerRegistrationDesc" xml:space="preserve">
+    <value>Join our global strategic ecosystem. Tell us about your organization and how we can create strategic value together.</value>
+  </data>
+  <data name="CompanyName" xml:space="preserve">
+    <value>Company Name</value>
+  </data>
+  <data name="PartnershipType" xml:space="preserve">
+    <value>Partnership Type</value>
+  </data>
+  <data name="TechnologyPartner" xml:space="preserve">
+    <value>Technology Partner</value>
+  </data>
+  <data name="IntelligencePartner" xml:space="preserve">
+    <value>Knowledge &amp; Research Partner</value>
+  </data>
+  <data name="StrategicPartner" xml:space="preserve">
+    <value>Strategic Partner</value>
+  </data>
+  <data name="OtherPartner" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="SubmitApplication" xml:space="preserve">
+    <value>Submit Application</value>
+  </data>
+  <data name="ApplicationSuccess" xml:space="preserve">
+    <value>Application submitted successfully.</value>
+  </data>
+  <data name="StarterPlan" xml:space="preserve">
+    <value>Starter</value>
+  </data>
+  <data name="StarterDesc" xml:space="preserve">
+    <value>Essential intelligence for small teams and startups.</value>
+  </data>
+  <data name="ProPlan" xml:space="preserve">
+    <value>Professional</value>
+  </data>
+  <data name="ProDesc" xml:space="preserve">
+    <value>Advanced features for growing organizations.</value>
+  </data>
+  <data name="EnterprisePlan" xml:space="preserve">
+    <value>Enterprise</value>
+  </data>
+  <data name="EnterpriseDesc" xml:space="preserve">
+    <value>Custom solutions for global enterprises.</value>
+  </data>
+  <data name="MostPopular" xml:space="preserve">
+    <value>Most Popular</value>
+  </data>
+  <data name="ContactSales" xml:space="preserve">
+    <value>Contact Sales</value>
+  </data>
+  <data name="CustomPricing" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="Feature1" xml:space="preserve">
+    <value>Real-time News Monitoring</value>
+  </data>
+  <data name="Feature2" xml:space="preserve">
+    <value>Basic Risk Scoring</value>
+  </data>
+  <data name="Feature3" xml:space="preserve">
+    <value>Cross-Domain Analysis</value>
+  </data>
+  <data name="Feature4" xml:space="preserve">
+    <value>Predictive AI Modeling</value>
+  </data>
+  <data name="Feature5" xml:space="preserve">
+    <value>Dedicated Support Manager</value>
+  </data>
+  <data name="StrategyCard1Title" xml:space="preserve">
+    <value>100% Verified</value>
+  </data>
+  <data name="StrategyCard1Subtitle" xml:space="preserve">
+    <value>INFORMATION</value>
+  </data>
+  <data name="StrategyCard1Desc" xml:space="preserve">
+    <value>Every data point is documented and thoroughly verified before it reaches you.</value>
+  </data>
+  <data name="StrategyCard2Title" xml:space="preserve">
+    <value>All Life</value>
+  </data>
+  <data name="StrategyCard2Subtitle" xml:space="preserve">
+    <value>SECTORS</value>
+  </data>
+  <data name="StrategyCard2Desc" xml:space="preserve">
+    <value>Comprehensive coverage across medical, scientific, professional, and commercial domains.</value>
+  </data>
+  <data name="StrategyCard3Title" xml:space="preserve">
+    <value>AI-Powered</value>
+  </data>
+  <data name="StrategyCard3Subtitle" xml:space="preserve">
+    <value>ANALYSIS</value>
+  </data>
+  <data name="StrategyCard3Desc" xml:space="preserve">
+    <value>Advanced tools process complex data to help you make scientifically backed decisions.</value>
+  </data>
+  <data name="StrategyCard4Title" xml:space="preserve">
+    <value>Continuous</value>
+  </data>
+  <data name="StrategyCard4Subtitle" xml:space="preserve">
+    <value>SUPPORT</value>
+  </data>
+  <data name="StrategyCard4Desc" xml:space="preserve">
+    <value>Ongoing, reliable assistance to help you navigate modern life with clarity and purpose.</value>
+  </data>
+<data name="AnalysisP2" xml:space="preserve"><value>The impact of digital transformation presents a dual reality. On one hand, it offers significant opportunities for economic growth, productivity gains, and innovation. On the other, it introduces challenges related to labor markets, economic inclusion, cybersecurity, and regulatory adaptation. As a result, technology has emerged as a powerful force capable of driving prosperity while simultaneously creating new complexities that require thoughtful and balanced governance.</value></data><data name="AnalysisP3" xml:space="preserve"><value>From an economic perspective, digitalization has enhanced the efficiency of both productive and service-oriented sectors by reducing operational costs, streamlining supply chains, and accelerating decision-making processes. At the same time, data has become one of the most valuable economic assets of the modern era, enabling governments and businesses to better understand markets, improve services, and allocate resources more effectively.</value></data><data name="AnalysisP4" xml:space="preserve"><value>Technology has also facilitated the emergence of entirely new economic models that were virtually nonexistent only a few years ago. Digital commerce, online marketplaces, freelance work platforms, and digital financial services have expanded opportunities for businesses and individuals alike, allowing them to access broader markets beyond traditional geographic boundaries.</value></data><data name="AnalysisP5" xml:space="preserve"><value>Meanwhile, digital infrastructure has become a critical factor in attracting foreign investment. Investors increasingly view a country’s level of digital readiness as a key indicator of its ability to support modern industries, foster innovation, and provide a stable and competitive business environment.</value></data><data name="AnalysisP6" xml:space="preserve"><value>Technological progress has further accelerated entrepreneurship and innovation by lowering barriers to entry and reducing the costs associated with launching new ventures. Startups now have access to advanced tools, platforms, and resources that were once available only to large corporations, creating new pathways for economic activity and fostering the growth of knowledge-based industries.</value></data><data name="AnalysisP7" xml:space="preserve"><value>At the same time, digital transformation has raised important questions regarding the concentration of economic power among a relatively small number of global technology companies that control vast amounts of data, infrastructure, and digital platforms. This reality has prompted governments and regulators worldwide to explore new frameworks aimed at balancing innovation with fair competition.</value></data><data name="AnalysisP8" xml:space="preserve"><value>Cybersecurity and data protection have also become fundamental pillars of the digital economy. As economic activity becomes increasingly dependent on digital systems, organizations and governments face growing pressure to invest in resilient infrastructure capable of protecting critical assets from cyber threats and maintaining confidence in digital markets.</value></data><data name="AnalysisP9" xml:space="preserve"><value>The ability of nations to benefit from digital transformation ultimately depends on the strength of their infrastructure, the quality of their education systems, and their commitment to research, innovation, and workforce development. Technology alone does not guarantee economic success; rather, its impact is shaped by how effectively it is integrated into broader development strategies designed to enhance productivity, expand opportunities, and support sustainable growth.</value></data><data name="AnalysisP10" xml:space="preserve"><value>As global economies continue to evolve, digitalization is no longer a developmental option but a defining feature of modern economic systems. While technology offers unprecedented opportunities for growth, innovation, and improved quality of life, maximizing its benefits will require a careful balance between technological advancement and economic, social, and regulatory considerations. The ultimate challenge lies in ensuring that the digital revolution serves as a catalyst for inclusive and sustainable development rather than a source of new economic and social divides</value></data>
+  <data name="CmsContentManagement" xml:space="preserve">
+    <value>Content Management</value>
+  </data>
+  <data name="CmsBrandModules" xml:space="preserve">
+    <value>Brand Modules</value>
+  </data>
+  <data name="CmsAdministration" xml:space="preserve">
+    <value>Administration</value>
+  </data>
+  <data name="CmsQuickSwitch" xml:space="preserve">
+    <value>Quick Switch</value>
+  </data>
+  <data name="CmsDashboard" xml:space="preserve">
+    <value>Dashboard</value>
+  </data>
+  <data name="CmsCompaniesBrands" xml:space="preserve">
+    <value>Companies / Brands</value>
+  </data>
+  <data name="CmsArticlesBlog" xml:space="preserve">
+    <value>Articles &amp; Blog</value>
+  </data>
+  <data name="CmsPageSections" xml:space="preserve">
+    <value>Page Sections</value>
+  </data>
+  <data name="CmsMediaLibrary" xml:space="preserve">
+    <value>Media Library</value>
+  </data>
+  <data name="CmsServices" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="CmsProjects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="CmsTeam" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="CmsTestimonials" xml:space="preserve">
+    <value>Testimonials</value>
+  </data>
+  <data name="CmsUsersAccess" xml:space="preserve">
+    <value>Users &amp; Access</value>
+  </data>
+  <data name="CmsCrmPipeline" xml:space="preserve">
+    <value>CRM Pipeline</value>
+  </data>
+  <data name="CmsViewPublicBlog" xml:space="preserve">
+    <value>View Public Blog</value>
+  </data>
+  <data name="CmsVisitLiveWebsite" xml:space="preserve">
+    <value>Visit Live Website</value>
+  </data>
+  <data name="CmsSubtitle" xml:space="preserve">
+    <value>Daleel Content &amp; Media Management</value>
+  </data>
+  <data name="CmsAdministrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="CmsSignOut" xml:space="preserve">
+    <value>Sign out</value>
+  </data>
+  <data name="CmsToggleNavigation" xml:space="preserve">
+    <value>Toggle navigation</value>
+  </data>
+  <data name="CmsToggleTheme" xml:space="preserve">
+    <value>Toggle theme</value>
+  </data>
+  <data name="CmsSwitchToArabic" xml:space="preserve">
+    <value>عربي</value>
+  </data>
+  <data name="CmsSwitchToEnglish" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="CmsSwitchLanguage" xml:space="preserve">
+    <value>Switch language</value>
+  </data>
+  <data name="CmsEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="CmsNew" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="CmsDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="CmsStatus" xml:space="preserve">
+    <value>Status</value>
+  </data>
+  <data name="CmsActions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="CmsCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="CmsDate" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="CmsAuthor" xml:space="preserve">
+    <value>Author</value>
+  </data>
+  <data name="CmsOptional" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="CmsPreview" xml:space="preserve">
+    <value>Preview</value>
+  </data>
+  <data name="CmsCopyUrl" xml:space="preserve">
+    <value>Copy URL</value>
+  </data>
+  <data name="CmsViewLive" xml:space="preserve">
+    <value>View live</value>
+  </data>
+  <data name="CmsViewLiveCap" xml:space="preserve">
+    <value>View Live</value>
+  </data>
+  <data name="CmsResetPassword" xml:space="preserve">
+    <value>Reset Password</value>
+  </data>
+  <data name="CmsClearFilters" xml:space="preserve">
+    <value>Clear filters</value>
+  </data>
+  <data name="CmsAllStatuses" xml:space="preserve">
+    <value>All Statuses</value>
+  </data>
+  <data name="CmsPublishedOnly" xml:space="preserve">
+    <value>Published Only</value>
+  </data>
+  <data name="CmsDraftsOnly" xml:space="preserve">
+    <value>Drafts Only</value>
+  </data>
+  <data name="CmsPublishedLive" xml:space="preserve">
+    <value>Published Live</value>
+  </data>
+  <data name="CmsPublishedVisible" xml:space="preserve">
+    <value>Published (Visible publicly)</value>
+  </data>
+  <data name="CmsMoveToDraft" xml:space="preserve">
+    <value>Move to Draft</value>
+  </data>
+  <data name="CmsPublishLiveAction" xml:space="preserve">
+    <value>Publish Live</value>
+  </data>
+  <data name="CmsClickToUnpublish" xml:space="preserve">
+    <value>Click to unpublish</value>
+  </data>
+  <data name="CmsClickToPublish" xml:space="preserve">
+    <value>Click to publish</value>
+  </data>
+  <data name="CmsOrderHint" xml:space="preserve">
+    <value>Lower numbers appear first.</value>
+  </data>
+  <data name="CmsAllBrands" xml:space="preserve">
+    <value>All Brands</value>
+  </data>
+  <data name="CmsOngoing" xml:space="preserve">
+    <value>Ongoing</value>
+  </data>
+  <data name="CmsSaveChanges" xml:space="preserve">
+    <value>Save Changes</value>
+  </data>
+  <data name="CmsCurrentImage" xml:space="preserve">
+    <value>Current Image</value>
+  </data>
+  <data name="CmsManageBrands" xml:space="preserve">
+    <value>Manage Brands</value>
+  </data>
+  <data name="CmsBrandProfiles" xml:space="preserve">
+    <value>Brand Profiles</value>
+  </data>
+  <data name="CmsOfferingsSolutions" xml:space="preserve">
+    <value>Offerings &amp; Solutions</value>
+  </data>
+  <data name="CmsPortfolioProjects" xml:space="preserve">
+    <value>Portfolio Projects</value>
+  </data>
+  <data name="CmsCaseStudies" xml:space="preserve">
+    <value>Case Studies</value>
+  </data>
+  <data name="CmsTeamMembers" xml:space="preserve">
+    <value>Team Members</value>
+  </data>
+  <data name="CmsLeadershipStaff" xml:space="preserve">
+    <value>Leadership &amp; Staff</value>
+  </data>
+  <data name="CmsClientEndorsements" xml:space="preserve">
+    <value>Client Endorsements</value>
+  </data>
+  <data name="CmsLiveArticles" xml:space="preserve">
+    <value>Live Articles</value>
+  </data>
+  <data name="CmsRecentArticles" xml:space="preserve">
+    <value>Recent Articles</value>
+  </data>
+  <data name="CmsRecentArticlesDesc" xml:space="preserve">
+    <value>Recently published and updated content pieces</value>
+  </data>
+  <data name="CmsNoArticlesYet" xml:space="preserve">
+    <value>No articles yet</value>
+  </data>
+  <data name="CmsNoArticlesYetDesc" xml:space="preserve">
+    <value>Create your first blog post or company announcement to populate the CMS.</value>
+  </data>
+  <data name="CmsArticle" xml:space="preserve">
+    <value>Article</value>
+  </data>
+  <data name="CmsActiveBrands" xml:space="preserve">
+    <value>Active Brands</value>
+  </data>
+  <data name="CmsNoBrandsInitialized" xml:space="preserve">
+    <value>No brands initialized yet.</value>
+  </data>
+  <data name="CmsModules" xml:space="preserve">
+    <value>CMS Modules</value>
+  </data>
+  <data name="CmsAddBrandProfile" xml:space="preserve">
+    <value>Add Brand Profile</value>
+  </data>
+  <data name="CmsAllBrandProfiles" xml:space="preserve">
+    <value>All Brand Profiles</value>
+  </data>
+  <data name="CmsNoBrandProfilesFound" xml:space="preserve">
+    <value>No Brand Profiles Found</value>
+  </data>
+  <data name="CmsNoBrandProfilesDesc" xml:space="preserve">
+    <value>Get started by adding your first company profile.</value>
+  </data>
+  <data name="CmsBrands" xml:space="preserve">
+    <value>Brands</value>
+  </data>
+  <data name="CmsBackToBrands" xml:space="preserve">
+    <value>Back to Brands</value>
+  </data>
+  <data name="CmsEditBrand" xml:space="preserve">
+    <value>Edit brand</value>
+  </data>
+  <data name="CmsDeleteBrandProfile" xml:space="preserve">
+    <value>Delete brand profile</value>
+  </data>
+  <data name="CmsPalette" xml:space="preserve">
+    <value>Palette:</value>
+  </data>
+  <data name="CmsFaviconConfigured" xml:space="preserve">
+    <value>Favicon configured</value>
+  </data>
+  <data name="CmsDarkLogoConfigured" xml:space="preserve">
+    <value>Dark logo variant configured</value>
+  </data>
+  <data name="CmsBrandProfileIdentity" xml:space="preserve">
+    <value>Brand &amp; Profile Identity</value>
+  </data>
+  <data name="CmsBrandIdentityDesc" xml:space="preserve">
+    <value>Core company naming, slug, and status</value>
+  </data>
+  <data name="CmsEgDaleelNeurix" xml:space="preserve">
+    <value>e.g. Daleel or Neurix</value>
+  </data>
+  <data name="CmsEgDaleelSlug" xml:space="preserve">
+    <value>e.g. daleel (auto-generated if empty)</value>
+  </data>
+  <data name="CmsSlugUrlHint" xml:space="preserve">
+    <value>Used in URLs and multi-brand routing scoping.</value>
+  </data>
+  <data name="CmsVisualIdentityTheme" xml:space="preserve">
+    <value>Visual Identity &amp; Color Theme</value>
+  </data>
+  <data name="CmsVisualIdentityDesc" xml:space="preserve">
+    <value>Configure brand theme colors for headers, buttons, and accents</value>
+  </data>
+  <data name="CmsPrimaryColorHint" xml:space="preserve">
+    <value>Main brand color (buttons, primary highlights).</value>
+  </data>
+  <data name="CmsSecondaryColorHint" xml:space="preserve">
+    <value>Secondary gradient &amp; supporting tone.</value>
+  </data>
+  <data name="CmsAccentColorHint" xml:space="preserve">
+    <value>Badges, alerts, and special CTA elements.</value>
+  </data>
+  <data name="CmsBrandLogosFavicon" xml:space="preserve">
+    <value>Brand Logos &amp; Favicon</value>
+  </data>
+  <data name="CmsBrandLogosDesc" xml:space="preserve">
+    <value>Primary logo, dark-mode variant, and browser favicon</value>
+  </data>
+  <data name="CmsPrimaryLogo" xml:space="preserve">
+    <value>Primary Logo</value>
+  </data>
+  <data name="CmsCurrentLogo" xml:space="preserve">
+    <value>Current Logo</value>
+  </data>
+  <data name="CmsDarkModeVariant" xml:space="preserve">
+    <value>Dark Mode Variant</value>
+  </data>
+  <data name="CmsDarkLogo" xml:space="preserve">
+    <value>Dark Logo</value>
+  </data>
+  <data name="CmsFavicon" xml:space="preserve">
+    <value>Favicon</value>
+  </data>
+  <data name="CmsCurrentFavicon" xml:space="preserve">
+    <value>Current Favicon</value>
+  </data>
+  <data name="CmsTaglinesOverview" xml:space="preserve">
+    <value>Taglines &amp; Overview</value>
+  </data>
+  <data name="CmsTaglinesDesc" xml:space="preserve">
+    <value>Bilingual marketing summary and mission</value>
+  </data>
+  <data name="CmsEgTagline" xml:space="preserve">
+    <value>e.g. Next-Gen Enterprise AI Platform</value>
+  </data>
+  <data name="CmsFullDescEnPlaceholder" xml:space="preserve">
+    <value>Full brand description in English...</value>
+  </data>
+  <data name="CmsSeoAnalyticsDefaults" xml:space="preserve">
+    <value>SEO &amp; Web Analytics Defaults</value>
+  </data>
+  <data name="CmsSeoAnalyticsDesc" xml:space="preserve">
+    <value>Default search engine meta tags and tracking configurations</value>
+  </data>
+  <data name="CmsEgMetaTitle" xml:space="preserve">
+    <value>e.g. Daleel - Enterprise AI &amp; Digital Solutions</value>
+  </data>
+  <data name="CmsSeoDescEnPlaceholder" xml:space="preserve">
+    <value>Default SEO description in English for search previews...</value>
+  </data>
+  <data name="CmsAnalyticsIdHint" xml:space="preserve">
+    <value>Measurement ID inserted into web traffic analytics.</value>
+  </data>
+  <data name="CmsPublicContactInfo" xml:space="preserve">
+    <value>Public Contact Information</value>
+  </data>
+  <data name="CmsPublicContactDesc" xml:space="preserve">
+    <value>Public communication channels and official domain</value>
+  </data>
+  <data name="CmsEgAddress" xml:space="preserve">
+    <value>e.g. King Fahd Road, Riyadh, Saudi Arabia</value>
+  </data>
+  <data name="CmsSocialChannels" xml:space="preserve">
+    <value>Social Media Channels</value>
+  </data>
+  <data name="CmsSocialChannelsDesc" xml:space="preserve">
+    <value>Official profile URLs linked in header, footer, and brand touchpoints</value>
+  </data>
+  <data name="CmsNewArticle" xml:space="preserve">
+    <value>New Article</value>
+  </data>
+  <data name="CmsCreateArticle" xml:space="preserve">
+    <value>Create Article</value>
+  </data>
+  <data name="CmsCreateNewArticle" xml:space="preserve">
+    <value>Create New Article</value>
+  </data>
+  <data name="CmsCreateArticleDesc" xml:space="preserve">
+    <value>Publish bilingual news, announcements, or thought leadership</value>
+  </data>
+  <data name="CmsEditArticle" xml:space="preserve">
+    <value>Edit Article</value>
+  </data>
+  <data name="CmsEditArticleDesc" xml:space="preserve">
+    <value>Update content, translations, or publishing status</value>
+  </data>
+  <data name="CmsSearchArticles" xml:space="preserve">
+    <value>Search by title, category, author...</value>
+  </data>
+  <data name="CmsNoArticlesMatch" xml:space="preserve">
+    <value>No articles match your criteria</value>
+  </data>
+  <data name="CmsNoArticlesMatchDesc" xml:space="preserve">
+    <value>Try resetting the search filters or creating a new post.</value>
+  </data>
+  <data name="CmsArticleTitle" xml:space="preserve">
+    <value>Article Title</value>
+  </data>
+  <data name="CmsEnglishContent" xml:space="preserve">
+    <value>English Content</value>
+  </data>
+  <data name="CmsEgArticleTitle" xml:space="preserve">
+    <value>e.g. Accelerating Enterprise AI in Saudi Arabia</value>
+  </data>
+  <data name="CmsSummaryPlaceholder" xml:space="preserve">
+    <value>A brief teaser for the article card and meta description...</value>
+  </data>
+  <data name="CmsSlugAutoHint" xml:space="preserve">
+    <value>Leave empty to automatically generate from English title.</value>
+  </data>
+  <data name="CmsEgCategory" xml:space="preserve">
+    <value>e.g. Technology, AI, CRM</value>
+  </data>
+  <data name="CmsEgTags" xml:space="preserve">
+    <value>e.g. AI, Enterprise Tech, Saudi Vision 2030</value>
+  </data>
+  <data name="CmsTagsHint" xml:space="preserve">
+    <value>Separate tags with commas.</value>
+  </data>
+  <data name="CmsScheduledHint" xml:space="preserve">
+    <value>When checked, article will be visible once scheduled date is reached.</value>
+  </data>
+  <data name="CmsScheduleEmptyHint" xml:space="preserve">
+    <value>Leave empty to publish immediately upon checking Published.</value>
+  </data>
+  <data name="CmsCover" xml:space="preserve">
+    <value>Cover</value>
+  </data>
+  <data name="CmsNoCoverImage" xml:space="preserve">
+    <value>No cover image uploaded</value>
+  </data>
+  <data name="CmsSupportedFormats" xml:space="preserve">
+    <value>Supported: JPG, PNG, WEBP (Max 5MB)</value>
+  </data>
+  <data name="CmsSeoSocialSharing" xml:space="preserve">
+    <value>Search Engine Optimization (SEO) &amp; Social Sharing</value>
+  </data>
+  <data name="CmsEnglishSeoMeta" xml:space="preserve">
+    <value>English SEO Meta</value>
+  </data>
+  <data name="CmsMetaTitlePlaceholder" xml:space="preserve">
+    <value>Custom page title for search engines...</value>
+  </data>
+  <data name="CmsMetaDescPlaceholder" xml:space="preserve">
+    <value>Search snippet description (150-160 chars recommended)...</value>
+  </data>
+  <data name="CmsEditPageDesc" xml:space="preserve">
+    <value>Edit bilingual copy and section values for this page</value>
+  </data>
+  <data name="CmsAddNewSectionKey" xml:space="preserve">
+    <value>Add New Section Key</value>
+  </data>
+  <data name="CmsNoSectionsFound" xml:space="preserve">
+    <value>No sections found for this page yet. Click "Add New Section Key" above to create one.</value>
+  </data>
+  <data name="CmsDeleteSection" xml:space="preserve">
+    <value>Delete section</value>
+  </data>
+  <data name="CmsSaveAllSections" xml:space="preserve">
+    <value>Save All Sections</value>
+  </data>
+  <data name="CmsAddSectionKey" xml:space="preserve">
+    <value>Add Section Key</value>
+  </data>
+  <data name="CmsSectionKeySlug" xml:space="preserve">
+    <value>Section Key (slug)</value>
+  </data>
+  <data name="CmsEgSectionKey" xml:space="preserve">
+    <value>e.g. cta_banner_text</value>
+  </data>
+  <data name="CmsDataType" xml:space="preserve">
+    <value>Data Type</value>
+  </data>
+  <data name="CmsTextSingleLine" xml:space="preserve">
+    <value>Text (Single Line)</value>
+  </data>
+  <data name="CmsHtmlMultiline" xml:space="preserve">
+    <value>Html / Multiline Text</value>
+  </data>
+  <data name="CmsImagePathUrl" xml:space="preserve">
+    <value>ImagePath (URL)</value>
+  </data>
+  <data name="CmsEnglishCopyPlaceholder" xml:space="preserve">
+    <value>English copy...</value>
+  </data>
+  <data name="CmsEnglishValue" xml:space="preserve">
+    <value>English Value</value>
+  </data>
+  <data name="CmsEditContent" xml:space="preserve">
+    <value>Edit Content</value>
+  </data>
+  <data name="CmsSearchFilename" xml:space="preserve">
+    <value>Search filename...</value>
+  </data>
+  <data name="CmsNoMediaFound" xml:space="preserve">
+    <value>No media files found</value>
+  </data>
+  <data name="CmsUploadFile" xml:space="preserve">
+    <value>Upload File</value>
+  </data>
+  <data name="CmsUploadMedia" xml:space="preserve">
+    <value>Upload Media</value>
+  </data>
+  <data name="CmsMaxSizeHint" xml:space="preserve">
+    <value>Max size 10MB (JPG, PNG, WEBP, GIF, SVG)</value>
+  </data>
+  <data name="CmsDestinationFolder" xml:space="preserve">
+    <value>Destination Folder</value>
+  </data>
+  <data name="CmsSelectFile" xml:space="preserve">
+    <value>Select File</value>
+  </data>
+  <data name="CmsNewService" xml:space="preserve">
+    <value>New Service</value>
+  </data>
+  <data name="CmsCreateService" xml:space="preserve">
+    <value>Create Service</value>
+  </data>
+  <data name="CmsEditService" xml:space="preserve">
+    <value>Edit Service</value>
+  </data>
+  <data name="CmsDeleteService" xml:space="preserve">
+    <value>Delete Service</value>
+  </data>
+  <data name="CmsBackToServices" xml:space="preserve">
+    <value>Back to Services</value>
+  </data>
+  <data name="CmsSearchServices" xml:space="preserve">
+    <value>Search by service name or description...</value>
+  </data>
+  <data name="CmsNoServicesFound" xml:space="preserve">
+    <value>No Services Found</value>
+  </data>
+  <data name="CmsNoServicesDesc" xml:space="preserve">
+    <value>Get started by creating your first platform service.</value>
+  </data>
+  <data name="CmsServiceIdentityBrand" xml:space="preserve">
+    <value>Service Identity &amp; Brand</value>
+  </data>
+  <data name="CmsTargetBrandHint" xml:space="preserve">
+    <value>Target brand profile, naming, and slug</value>
+  </data>
+  <data name="CmsEgServiceSlug" xml:space="preserve">
+    <value>e.g. enterprise-intelligence (auto-generated if empty)</value>
+  </data>
+  <data name="CmsUniquePerBrand" xml:space="preserve">
+    <value>Unique per brand profile.</value>
+  </data>
+  <data name="CmsEgServiceName" xml:space="preserve">
+    <value>e.g. Enterprise Intelligence &amp; Analytics</value>
+  </data>
+  <data name="CmsServiceContent" xml:space="preserve">
+    <value>Service Content</value>
+  </data>
+  <data name="CmsServiceContentDesc" xml:space="preserve">
+    <value>Short overview and in-depth description</value>
+  </data>
+  <data name="CmsBriefCardEnPlaceholder" xml:space="preserve">
+    <value>Brief card summary in English...</value>
+  </data>
+  <data name="CmsServiceDetailEnPlaceholder" xml:space="preserve">
+    <value>Detailed service features and architecture in English...</value>
+  </data>
+  <data name="CmsIconMediaOrdering" xml:space="preserve">
+    <value>Icon, Media &amp; Ordering</value>
+  </data>
+  <data name="CmsIconMediaDesc" xml:space="preserve">
+    <value>Visual elements, icon glyph, and publishing state</value>
+  </data>
+  <data name="CmsEgIconNames" xml:space="preserve">
+    <value>e.g. insights, hub, psychology</value>
+  </data>
+  <data name="CmsIconHint" xml:space="preserve">
+    <value>Standard Google Material Symbols icon name.</value>
+  </data>
+  <data name="CmsNewProject" xml:space="preserve">
+    <value>New Project</value>
+  </data>
+  <data name="CmsCreateProject" xml:space="preserve">
+    <value>Create Project</value>
+  </data>
+  <data name="CmsEditProject" xml:space="preserve">
+    <value>Edit Project</value>
+  </data>
+  <data name="CmsDeleteProject" xml:space="preserve">
+    <value>Delete Project</value>
+  </data>
+  <data name="CmsBackToProjects" xml:space="preserve">
+    <value>Back to Projects</value>
+  </data>
+  <data name="CmsSearchProjects" xml:space="preserve">
+    <value>Search by project name, client, or description...</value>
+  </data>
+  <data name="CmsNoProjectsFound" xml:space="preserve">
+    <value>No Projects Found</value>
+  </data>
+  <data name="CmsNoProjectsDesc" xml:space="preserve">
+    <value>Get started by adding your first showcase case study or client project.</value>
+  </data>
+  <data name="CmsProjectIdentityBrand" xml:space="preserve">
+    <value>Project Identity &amp; Brand</value>
+  </data>
+  <data name="CmsEgProjectSlug" xml:space="preserve">
+    <value>e.g. saudi-telemetry-hub (auto-generated if empty)</value>
+  </data>
+  <data name="CmsEgProjectName" xml:space="preserve">
+    <value>e.g. National Enterprise Telemetry Hub</value>
+  </data>
+  <data name="CmsClientCaseMetadata" xml:space="preserve">
+    <value>Client &amp; Case Study Metadata</value>
+  </data>
+  <data name="CmsClientCaseDesc" xml:space="preserve">
+    <value>Client details, completion date, and live demo URL</value>
+  </data>
+  <data name="CmsEgClientName" xml:space="preserve">
+    <value>e.g. Riyadh Logistics Group</value>
+  </data>
+  <data name="CmsProjectCaseContent" xml:space="preserve">
+    <value>Project Case Study Content</value>
+  </data>
+  <data name="CmsProjectCaseContentDesc" xml:space="preserve">
+    <value>Card summary and in-depth case study writeup</value>
+  </data>
+  <data name="CmsBriefPortfolioEnPlaceholder" xml:space="preserve">
+    <value>Brief portfolio card summary in English...</value>
+  </data>
+  <data name="CmsProjectDetailEnPlaceholder" xml:space="preserve">
+    <value>Detailed project implementation, architecture, and business outcomes in English...</value>
+  </data>
+  <data name="CmsMediaPublishing" xml:space="preserve">
+    <value>Media &amp; Publishing</value>
+  </data>
+  <data name="CmsMediaPublishingDesc" xml:space="preserve">
+    <value>Cover image, display ordering, and visibility</value>
+  </data>
+  <data name="CmsCreateNewCmsUser" xml:space="preserve">
+    <value>Create New CMS User</value>
+  </data>
+  <data name="CmsCreateUserDesc" xml:space="preserve">
+    <value>Add an administrator or staff member with backend access.</value>
+  </data>
+  <data name="CmsFirstName" xml:space="preserve">
+    <value>First Name</value>
+  </data>
+  <data name="CmsLastName" xml:space="preserve">
+    <value>Last Name</value>
+  </data>
+  <data name="CmsWorkEmail" xml:space="preserve">
+    <value>Work Email Address</value>
+  </data>
+  <data name="CmsAccessRole" xml:space="preserve">
+    <value>Access Role</value>
+  </data>
+  <data name="CmsRoleAdminFull" xml:space="preserve">
+    <value>Admin (Full Access to CMS, Brand Settings &amp; CRM)</value>
+  </data>
+  <data name="CmsRoleStaff" xml:space="preserve">
+    <value>Staff (Standard CRM &amp; Content Access)</value>
+  </data>
+  <data name="CmsInitialPassword" xml:space="preserve">
+    <value>Initial Password</value>
+  </data>
+  <data name="CmsConfirmPassword" xml:space="preserve">
+    <value>Confirm Password</value>
+  </data>
+  <data name="CmsAccountActiveLogin" xml:space="preserve">
+    <value>Account is Active and enabled for login</value>
+  </data>
+  <data name="CmsEditCmsUser" xml:space="preserve">
+    <value>Edit CMS User</value>
+  </data>
+  <data name="CmsEditUserDesc" xml:space="preserve">
+    <value>Update account details, role permissions, and access status.</value>
+  </data>
+  <data name="CmsAccountActive" xml:space="preserve">
+    <value>Account is Active</value>
+  </data>
+  <data name="CmsCreateNewUser" xml:space="preserve">
+    <value>Create New User</value>
+  </data>
+  <data name="CmsUser" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="CmsRole" xml:space="preserve">
+    <value>Role</value>
+  </data>
+  <data name="CmsCreated" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="CmsEditUser" xml:space="preserve">
+    <value>Edit User</value>
+  </data>
+  <data name="CmsUserLabel" xml:space="preserve">
+    <value>User:</value>
+  </data>
+  <data name="CmsEmailLabel" xml:space="preserve">
+    <value>Email:</value>
+  </data>
+  <data name="CmsNewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="CmsConfirmNewPassword" xml:space="preserve">
+    <value>Confirm New Password</value>
+  </data>
+  <data name="CmsAddMember" xml:space="preserve">
+    <value>Add Member</value>
+  </data>
+  <data name="CmsBackToTeam" xml:space="preserve">
+    <value>Back to Team</value>
+  </data>
+  <data name="CmsSearchTeam" xml:space="preserve">
+    <value>Search by name or job title...</value>
+  </data>
+  <data name="CmsNoTeamFound" xml:space="preserve">
+    <value>No Team Members Found</value>
+  </data>
+  <data name="CmsNoTeamDesc" xml:space="preserve">
+    <value>Add your first team member to showcase leadership on the public website.</value>
+  </data>
+  <data name="CmsLinkedIn" xml:space="preserve">
+    <value>LinkedIn</value>
+  </data>
+  <data name="CmsMemberIdentityBrand" xml:space="preserve">
+    <value>Member Identity &amp; Brand</value>
+  </data>
+  <data name="CmsCompanyAssignmentHint" xml:space="preserve">
+    <value>Company assignment, name, and slug</value>
+  </data>
+  <data name="CmsEgMemberSlug" xml:space="preserve">
+    <value>e.g. ahmed-al-rashid (auto-generated if empty)</value>
+  </data>
+  <data name="CmsEgMemberName" xml:space="preserve">
+    <value>e.g. Ahmed Al-Rashid</value>
+  </data>
+  <data name="CmsRoleBiography" xml:space="preserve">
+    <value>Role &amp; Biography</value>
+  </data>
+  <data name="CmsRoleBiographyDesc" xml:space="preserve">
+    <value>Job title, bio, and professional links</value>
+  </data>
+  <data name="CmsEgJobTitle" xml:space="preserve">
+    <value>e.g. Chief Technology Officer</value>
+  </data>
+  <data name="CmsBioEnPlaceholder" xml:space="preserve">
+    <value>Brief professional biography in English...</value>
+  </data>
+  <data name="CmsPhotoPublishing" xml:space="preserve">
+    <value>Photo &amp; Publishing</value>
+  </data>
+  <data name="CmsHeadshotOrderingDesc" xml:space="preserve">
+    <value>Headshot, display ordering, and visibility</value>
+  </data>
+  <data name="CmsCurrentPhoto" xml:space="preserve">
+    <value>Current Photo</value>
+  </data>
+  <data name="CmsNewTestimonial" xml:space="preserve">
+    <value>New Testimonial</value>
+  </data>
+  <data name="CmsEditTestimonial" xml:space="preserve">
+    <value>Edit Testimonial</value>
+  </data>
+  <data name="CmsDeleteTestimonial" xml:space="preserve">
+    <value>Delete Testimonial</value>
+  </data>
+  <data name="CmsBackToTestimonials" xml:space="preserve">
+    <value>Back to Testimonials</value>
+  </data>
+  <data name="CmsSearchTestimonials" xml:space="preserve">
+    <value>Search by customer name, company, or quote...</value>
+  </data>
+  <data name="CmsNoTestimonialsFound" xml:space="preserve">
+    <value>No Testimonials Found</value>
+  </data>
+  <data name="CmsNoTestimonialsDesc" xml:space="preserve">
+    <value>Create client reviews and enterprise testimonials to build social proof on the website.</value>
+  </data>
+  <data name="CmsCustomerCompanyInfo" xml:space="preserve">
+    <value>Customer &amp; Company Information</value>
+  </data>
+  <data name="CmsReviewerProfileDesc" xml:space="preserve">
+    <value>Reviewer profile and company affiliation</value>
+  </data>
+  <data name="CmsEgCustomerName" xml:space="preserve">
+    <value>e.g. Fahad Al-Husseini</value>
+  </data>
+  <data name="CmsEgCompanyName" xml:space="preserve">
+    <value>e.g. Riyadh Logistics Co.</value>
+  </data>
+  <data name="CmsEgRoleTitle" xml:space="preserve">
+    <value>e.g. VP of Operations</value>
+  </data>
+  <data name="CmsReviewRating" xml:space="preserve">
+    <value>Review &amp; Rating</value>
+  </data>
+  <data name="CmsReviewRatingDesc" xml:space="preserve">
+    <value>Testimonial feedback text and star rating</value>
+  </data>
+  <data name="CmsStars5" xml:space="preserve">
+    <value>⭐⭐⭐⭐⭐ (5 Stars - Exceptional)</value>
+  </data>
+  <data name="CmsStars4" xml:space="preserve">
+    <value>⭐⭐⭐⭐ (4 Stars - Very Good)</value>
+  </data>
+  <data name="CmsStars3" xml:space="preserve">
+    <value>⭐⭐⭐ (3 Stars - Good)</value>
+  </data>
+  <data name="CmsStars2" xml:space="preserve">
+    <value>⭐⭐ (2 Stars - Fair)</value>
+  </data>
+  <data name="CmsStars1" xml:space="preserve">
+    <value>⭐ (1 Star - Poor)</value>
+  </data>
+  <data name="CmsQuoteEnPlaceholder" xml:space="preserve">
+    <value>Client feedback quote in English...</value>
+  </data>
+  <data name="CmsCustomerHeadshotDesc" xml:space="preserve">
+    <value>Customer headshot, ordering and live status</value>
+  </data>
+
+  <data name="CmsUnpublishToDraft" xml:space="preserve">
+    <value>Unpublish to draft</value>
+  </data>
+  <data name="CmsPublishLiveTitle" xml:space="preserve">
+    <value>Publish live</value>
+  </data>
+  <data name="CmsDeactivateUser" xml:space="preserve">
+    <value>Deactivate User</value>
+  </data>
+  <data name="CmsActivateUser" xml:space="preserve">
+    <value>Activate User</value>
+  </data>
+  <data name="CmsUnpublish" xml:space="preserve">
+    <value>Unpublish</value>
+  </data>
+  <data name="CmsPublish" xml:space="preserve">
+    <value>Publish</value>
+  </data>
+
+  <data name="CmsFldEnglishTitle" xml:space="preserve">
+    <value>English Title</value>
+  </data>
+  <data name="CmsFldArabicTitle" xml:space="preserve">
+    <value>Arabic Title</value>
+  </data>
+  <data name="CmsFldSlugOptional" xml:space="preserve">
+    <value>URL Slug (optional, auto-generated if left blank)</value>
+  </data>
+  <data name="CmsFldEnglishSummary" xml:space="preserve">
+    <value>English Summary</value>
+  </data>
+  <data name="CmsFldArabicSummary" xml:space="preserve">
+    <value>Arabic Summary</value>
+  </data>
+  <data name="CmsFldEnglishContentHtml" xml:space="preserve">
+    <value>English Content (HTML)</value>
+  </data>
+  <data name="CmsFldArabicContentHtml" xml:space="preserve">
+    <value>Arabic Content (HTML)</value>
+  </data>
+  <data name="CmsFldCategory" xml:space="preserve">
+    <value>Category</value>
+  </data>
+  <data name="CmsFldTags" xml:space="preserve">
+    <value>Tags (comma-separated, e.g. AI, Saudi Vision 2030, Enterprise)</value>
+  </data>
+  <data name="CmsFldAuthorName" xml:space="preserve">
+    <value>Author Name</value>
+  </data>
+  <data name="CmsFldReadingTime" xml:space="preserve">
+    <value>Reading Time (Minutes)</value>
+  </data>
+  <data name="CmsFldPublishStatus" xml:space="preserve">
+    <value>Publish Status</value>
+  </data>
+  <data name="CmsFldSchedulePublication" xml:space="preserve">
+    <value>Schedule Publication Date &amp; Time (Optional)</value>
+  </data>
+  <data name="CmsFldCoverImage" xml:space="preserve">
+    <value>Cover Image</value>
+  </data>
+  <data name="CmsFldMetaTitleEn" xml:space="preserve">
+    <value>Meta Title (English, recommended 50-60 chars)</value>
+  </data>
+  <data name="CmsFldMetaTitleAr" xml:space="preserve">
+    <value>Meta Title (Arabic, recommended 50-60 chars)</value>
+  </data>
+  <data name="CmsFldMetaDescEn" xml:space="preserve">
+    <value>Meta Description (English, recommended 150-160 chars)</value>
+  </data>
+  <data name="CmsFldMetaDescAr" xml:space="preserve">
+    <value>Meta Description (Arabic, recommended 150-160 chars)</value>
+  </data>
+  <data name="CmsFldCanonicalUrl" xml:space="preserve">
+    <value>Canonical URL (optional, defaults to current URL)</value>
+  </data>
+  <data name="CmsFldBrandNameEn" xml:space="preserve">
+    <value>Brand Name (English)</value>
+  </data>
+  <data name="CmsFldBrandNameAr" xml:space="preserve">
+    <value>Brand Name (Arabic)</value>
+  </data>
+  <data name="CmsFldTaglineEn" xml:space="preserve">
+    <value>Tagline (English)</value>
+  </data>
+  <data name="CmsFldTaglineAr" xml:space="preserve">
+    <value>Tagline (Arabic)</value>
+  </data>
+  <data name="CmsFldAboutEn" xml:space="preserve">
+    <value>About / Description (English)</value>
+  </data>
+  <data name="CmsFldAboutAr" xml:space="preserve">
+    <value>About / Description (Arabic)</value>
+  </data>
+  <data name="CmsFldLogoLight" xml:space="preserve">
+    <value>Logo Image (Light / Primary)</value>
+  </data>
+  <data name="CmsFldLogoDark" xml:space="preserve">
+    <value>Logo Image (Dark Mode)</value>
+  </data>
+  <data name="CmsFldFaviconFile" xml:space="preserve">
+    <value>Favicon (.ico or .png)</value>
+  </data>
+  <data name="CmsFldPrimaryColor" xml:space="preserve">
+    <value>Primary Brand Color</value>
+  </data>
+  <data name="CmsFldSecondaryColor" xml:space="preserve">
+    <value>Secondary Brand Color</value>
+  </data>
+  <data name="CmsFldAccentColor" xml:space="preserve">
+    <value>Accent Color</value>
+  </data>
+  <data name="CmsFldDefMetaTitleEn" xml:space="preserve">
+    <value>Default Meta Title (English)</value>
+  </data>
+  <data name="CmsFldDefMetaTitleAr" xml:space="preserve">
+    <value>Default Meta Title (Arabic)</value>
+  </data>
+  <data name="CmsFldDefMetaDescEn" xml:space="preserve">
+    <value>Default Meta Description (English)</value>
+  </data>
+  <data name="CmsFldDefMetaDescAr" xml:space="preserve">
+    <value>Default Meta Description (Arabic)</value>
+  </data>
+  <data name="CmsFldGoogleAnalytics" xml:space="preserve">
+    <value>Google Analytics ID (e.g. G-XXXXXXXXXX)</value>
+  </data>
+  <data name="CmsFldLinkedInPage" xml:space="preserve">
+    <value>LinkedIn Page URL</value>
+  </data>
+  <data name="CmsFldTwitterUrl" xml:space="preserve">
+    <value>Twitter / X URL</value>
+  </data>
+  <data name="CmsFldFacebookUrl" xml:space="preserve">
+    <value>Facebook Page URL</value>
+  </data>
+  <data name="CmsFldInstagramUrl" xml:space="preserve">
+    <value>Instagram URL</value>
+  </data>
+  <data name="CmsFldContactEmail" xml:space="preserve">
+    <value>Contact Email</value>
+  </data>
+  <data name="CmsFldPhoneNumber" xml:space="preserve">
+    <value>Phone Number</value>
+  </data>
+  <data name="CmsFldOfficeAddress" xml:space="preserve">
+    <value>Office Address</value>
+  </data>
+  <data name="CmsFldWebsiteUrl" xml:space="preserve">
+    <value>Website URL</value>
+  </data>
+  <data name="CmsFldIsPublished" xml:space="preserve">
+    <value>Is Published</value>
+  </data>
+  <data name="CmsFldBrandCompany" xml:space="preserve">
+    <value>Brand / Company</value>
+  </data>
+  <data name="CmsFldProjectNameEn" xml:space="preserve">
+    <value>Project Name (English)</value>
+  </data>
+  <data name="CmsFldProjectNameAr" xml:space="preserve">
+    <value>Project Name (Arabic)</value>
+  </data>
+  <data name="CmsFldShortSummaryEn" xml:space="preserve">
+    <value>Short Summary (English)</value>
+  </data>
+  <data name="CmsFldShortSummaryAr" xml:space="preserve">
+    <value>Short Summary (Arabic)</value>
+  </data>
+  <data name="CmsFldCaseStudyEn" xml:space="preserve">
+    <value>Full Case Study / Description (English)</value>
+  </data>
+  <data name="CmsFldCaseStudyAr" xml:space="preserve">
+    <value>Full Case Study / Description (Arabic)</value>
+  </data>
+  <data name="CmsFldClientNameEn" xml:space="preserve">
+    <value>Client Name (English)</value>
+  </data>
+  <data name="CmsFldClientNameAr" xml:space="preserve">
+    <value>Client Name (Arabic)</value>
+  </data>
+  <data name="CmsFldCompletionDate" xml:space="preserve">
+    <value>Completion Date</value>
+  </data>
+  <data name="CmsFldLiveDemoUrl" xml:space="preserve">
+    <value>Live Project / Demo URL</value>
+  </data>
+  <data name="CmsFldProjectCover" xml:space="preserve">
+    <value>Project Cover Image</value>
+  </data>
+  <data name="CmsFldDisplayOrder" xml:space="preserve">
+    <value>Display Order</value>
+  </data>
+  <data name="CmsFldServiceNameEn" xml:space="preserve">
+    <value>Service Name (English)</value>
+  </data>
+  <data name="CmsFldServiceNameAr" xml:space="preserve">
+    <value>Service Name (Arabic)</value>
+  </data>
+  <data name="CmsFldFullDescEn" xml:space="preserve">
+    <value>Full Description (English)</value>
+  </data>
+  <data name="CmsFldFullDescAr" xml:space="preserve">
+    <value>Full Description (Arabic)</value>
+  </data>
+  <data name="CmsFldMaterialIcon" xml:space="preserve">
+    <value>Material Icon Name</value>
+  </data>
+  <data name="CmsFldFeatureImage" xml:space="preserve">
+    <value>Feature Image</value>
+  </data>
+  <data name="CmsFldFullNameEn" xml:space="preserve">
+    <value>Full Name (English)</value>
+  </data>
+  <data name="CmsFldFullNameAr" xml:space="preserve">
+    <value>Full Name (Arabic)</value>
+  </data>
+  <data name="CmsFldJobTitleEn" xml:space="preserve">
+    <value>Job Title (English)</value>
+  </data>
+  <data name="CmsFldJobTitleAr" xml:space="preserve">
+    <value>Job Title (Arabic)</value>
+  </data>
+  <data name="CmsFldBioEn" xml:space="preserve">
+    <value>Bio / About (English)</value>
+  </data>
+  <data name="CmsFldBioAr" xml:space="preserve">
+    <value>Bio / About (Arabic)</value>
+  </data>
+  <data name="CmsFldEmailAddress" xml:space="preserve">
+    <value>Email Address</value>
+  </data>
+  <data name="CmsFldLinkedInUrl" xml:space="preserve">
+    <value>LinkedIn URL</value>
+  </data>
+  <data name="CmsFldProfilePhoto" xml:space="preserve">
+    <value>Profile Photo</value>
+  </data>
+  <data name="CmsFldCustomerNameEn" xml:space="preserve">
+    <value>Customer Name (English)</value>
+  </data>
+  <data name="CmsFldCustomerNameAr" xml:space="preserve">
+    <value>Customer Name (Arabic)</value>
+  </data>
+  <data name="CmsFldCompanyNameEn" xml:space="preserve">
+    <value>Company Name (English)</value>
+  </data>
+  <data name="CmsFldCompanyNameAr" xml:space="preserve">
+    <value>Company Name (Arabic)</value>
+  </data>
+  <data name="CmsFldRoleTitleEn" xml:space="preserve">
+    <value>Role / Job Title (English)</value>
+  </data>
+  <data name="CmsFldRoleTitleAr" xml:space="preserve">
+    <value>Role / Job Title (Arabic)</value>
+  </data>
+  <data name="CmsFldQuoteEn" xml:space="preserve">
+    <value>Quote / Content (English)</value>
+  </data>
+  <data name="CmsFldQuoteAr" xml:space="preserve">
+    <value>Quote / Content (Arabic)</value>
+  </data>
+  <data name="CmsFldRating" xml:space="preserve">
+    <value>Rating (1 to 5 Stars)</value>
+  </data>
+  <data name="CmsFldCustomerPhoto" xml:space="preserve">
+    <value>Customer Photo / Avatar</value>
+  </data>
+  <data name="CmsTitleAddTeamMember" xml:space="preserve">
+    <value>Add Team Member</value>
+  </data>
+  <data name="CmsTitleAddTestimonial" xml:space="preserve">
+    <value>Add Testimonial</value>
+  </data>
+  <data name="CmsTitleArticlesManagement" xml:space="preserve">
+    <value>Articles Management</value>
+  </data>
+  <data name="CmsTitleCompanyBrandProfiles" xml:space="preserve">
+    <value>Company &amp; Brand Profiles</value>
+  </data>
+  <data name="CmsTitleContentDashboard" xml:space="preserve">
+    <value>Content &amp; Platform Dashboard</value>
+  </data>
+  <data name="CmsTitleCreateBrandProfile" xml:space="preserve">
+    <value>Create Brand Profile</value>
+  </data>
+  <data name="CmsTitlePlatformServices" xml:space="preserve">
+    <value>Platform Services</value>
+  </data>
+  <data name="CmsTitlePortfolioProjects" xml:space="preserve">
+    <value>Portfolio &amp; Projects</value>
+  </data>
+  <data name="CmsTitleTestimonialsReviews" xml:space="preserve">
+    <value>Testimonials &amp; Reviews</value>
+  </data>
+  <data name="CmsTitleUserAccessManagement" xml:space="preserve">
+    <value>User &amp; Access Management</value>
+  </data>
+  <data name="CmsCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="CmsFilter" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="CmsManage" xml:space="preserve">
+    <value>Manage</value>
+  </data>
+  <data name="CmsLive" xml:space="preserve">
+    <value>Live</value>
+  </data>
+  <data name="CmsDemo" xml:space="preserve">
+    <value>Demo</value>
+  </data>
+  <data name="CmsPublishedWord" xml:space="preserve">
+    <value>Published</value>
+  </data>
+  <data name="CmsOrderPrefix" xml:space="preserve">
+    <value>Order:</value>
+  </data>
+  <data name="CmsUrlSlugIdentifier" xml:space="preserve">
+    <value>URL Slug (Identifier)</value>
+  </data>
+  <data name="CmsUrlSlug" xml:space="preserve">
+    <value>URL Slug</value>
+  </data>
+  <data name="CmsCompanyBrandProfile" xml:space="preserve">
+    <value>Company / Brand Profile</value>
+  </data>
+  <data name="CmsDisplayOrderLabel" xml:space="preserve">
+    <value>Display Order</value>
+  </data>
+  <data name="CmsPublishingStatus" xml:space="preserve">
+    <value>Publishing Status</value>
+  </data>
+  <data name="CmsPublishedStatus" xml:space="preserve">
+    <value>Published Status</value>
+  </data>
+  <data name="CmsEditPageHeaderDesc" xml:space="preserve">
+    <value>Edit bilingual headers, descriptions, buttons, and callout sections for this page.</value>
+  </data>
+  <data name="CmsArticlesMgmtDesc" xml:space="preserve">
+    <value>Create, edit, translate, and publish news and articles.</value>
+  </data>
+  <data name="CmsArticleTitleEnLabel" xml:space="preserve">
+    <value>Article Title (English)</value>
+  </data>
+  <data name="CmsShortSummaryLeadEn" xml:space="preserve">
+    <value>Short Summary / Lead (English)</value>
+  </data>
+  <data name="CmsArticleBodyEn" xml:space="preserve">
+    <value>Article Body (English)</value>
+  </data>
+  <data name="CmsReadingTimeMin" xml:space="preserve">
+    <value>Reading Time (min)</value>
+  </data>
+  <data name="CmsTags" xml:space="preserve">
+    <value>Tags</value>
+  </data>
+  <data name="CmsAuthorName" xml:space="preserve">
+    <value>Author Name</value>
+  </data>
+  <data name="CmsScheduledPubUtc" xml:space="preserve">
+    <value>Scheduled Publication Time (Optional - UTC)</value>
+  </data>
+  <data name="CmsCoverImageLabel" xml:space="preserve">
+    <value>Cover Image</value>
+  </data>
+
+  <data name="CmsContentPlatformOverview" xml:space="preserve">
+    <value>Content &amp; Platform Overview</value>
+  </data>
+  <data name="CmsDashboardIntro" xml:space="preserve">
+    <value>Central management for multi-brand profiles, publications, and dynamic content.</value>
+  </data>
+  <data name="CmsViewAll" xml:space="preserve">
+    <value>View all</value>
+  </data>
+  <data name="CmsCompanyBrandProfilesPlural" xml:space="preserve">
+    <value>Company / Brand Profiles</value>
+  </data>
+  <data name="CmsArticlesBlogEngine" xml:space="preserve">
+    <value>Articles &amp; Blog Engine</value>
+  </data>
+  <data name="CmsPageContentSections" xml:space="preserve">
+    <value>Page Content Sections</value>
+  </data>
+  <data name="CmsServicesCms" xml:space="preserve">
+    <value>Services CMS</value>
+  </data>
+  <data name="CmsDraft" xml:space="preserve">
+    <value>Draft</value>
+  </data>
+  <data name="CmsScheduled" xml:space="preserve">
+    <value>Scheduled</value>
+  </data>
+  <data name="CmsEditBrandPrefix" xml:space="preserve">
+    <value>Edit Brand:</value>
+  </data>
+  <data name="CmsBrandsIndexIntro" xml:space="preserve">
+    <value>Manage Daleel brand profiles and their public identity data.</value>
+  </data>
+  <data name="CmsCreateBrand" xml:space="preserve">
+    <value>Create Brand</value>
+  </data>
+  <data name="CmsPublishing" xml:space="preserve">
+    <value>Publishing</value>
+  </data>
+  <data name="CmsPrimaryLogoLight" xml:space="preserve">
+    <value>Primary Logo (Light)</value>
+  </data>
+  <data name="CmsLogoVariantDark" xml:space="preserve">
+    <value>Logo Variant (Dark Mode)</value>
+  </data>
+  <data name="CmsWebsiteFavicon" xml:space="preserve">
+    <value>Website Favicon (.ico / .svg / .png)</value>
+  </data>
+  <data name="CmsGoogleAnalyticsTag" xml:space="preserve">
+    <value>Google Analytics ID / Tag Manager</value>
+  </data>
+  <data name="CmsOfficialWebsiteUrl" xml:space="preserve">
+    <value>Official Website URL</value>
+  </data>
+  <data name="CmsPublicEmail" xml:space="preserve">
+    <value>Public Email</value>
+  </data>
+  <data name="CmsPublicPhone" xml:space="preserve">
+    <value>Public Phone</value>
+  </data>
+  <data name="CmsHeadquartersAddress" xml:space="preserve">
+    <value>Headquarters Address</value>
+  </data>
+  <data name="CmsFacebookUrlLabel" xml:space="preserve">
+    <value>Facebook URL</value>
+  </data>
+  <data name="CmsDescAboutEn" xml:space="preserve">
+    <value>Description / About (English)</value>
+  </data>
+  <data name="CmsDescAboutAr" xml:space="preserve">
+    <value>Description / About (Arabic)</value>
+  </data>
+  <data name="CmsSaveBrandProfile" xml:space="preserve">
+    <value>Save Brand Profile</value>
+  </data>
+  <data name="CmsMinRead" xml:space="preserve">
+    <value>min read</value>
+  </data>
+  <data name="CmsChangeImageBelow" xml:space="preserve">
+    <value>Change image below</value>
+  </data>
+  <data name="CmsSeoHelpText" xml:space="preserve">
+    <value>Customize how this article appears on Google, Bing, LinkedIn, and Twitter. If left blank, titles and summaries will be used automatically.</value>
+  </data>
+  <data name="CmsMetaTitleEnShort" xml:space="preserve">
+    <value>Meta Title (EN)</value>
+  </data>
+  <data name="CmsMetaDescEnShort" xml:space="preserve">
+    <value>Meta Description (EN)</value>
+  </data>
+  <data name="CmsCanonicalUrlOptional" xml:space="preserve">
+    <value>Canonical URL (Optional)</value>
+  </data>
+  <data name="CmsEditPagePrefix" xml:space="preserve">
+    <value>Edit Page:</value>
+  </data>
+  <data name="CmsBackToPages" xml:space="preserve">
+    <value>Back to Pages</value>
+  </data>
+  <data name="CmsAddSection" xml:space="preserve">
+    <value>Add Section</value>
+  </data>
+  <data name="CmsDynamicPageSections" xml:space="preserve">
+    <value>Dynamic Page Sections</value>
+  </data>
+  <data name="CmsPageSectionsIntro" xml:space="preserve">
+    <value>Customize hero text, call-to-actions, badges, and copy across all public site pages in English and Arabic.</value>
+  </data>
+  <data name="CmsPageHome" xml:space="preserve">
+    <value>Home Page</value>
+  </data>
+  <data name="CmsPageAbout" xml:space="preserve">
+    <value>About Us Page</value>
+  </data>
+  <data name="CmsPagePlatforms" xml:space="preserve">
+    <value>Platforms Page</value>
+  </data>
+  <data name="CmsPageTrust" xml:space="preserve">
+    <value>Trust &amp; Security Page</value>
+  </data>
+  <data name="CmsPagePricing" xml:space="preserve">
+    <value>Pricing Page</value>
+  </data>
+  <data name="CmsPageSuffix" xml:space="preserve">
+    <value>Page</value>
+  </data>
+  <data name="CmsMediaIntro" xml:space="preserve">
+    <value>Central repository for all uploaded brand assets, article covers, team photos, and media.</value>
+  </data>
+  <data name="CmsAllFiles" xml:space="preserve">
+    <value>All Files</value>
+  </data>
+  <data name="CmsUpload" xml:space="preserve">
+    <value>Upload</value>
+  </data>
+  <data name="CmsMediaEmpty" xml:space="preserve">
+    <value>Your media folder is currently empty. Upload your first asset.</value>
+  </data>
+  <data name="CmsCreatePlatformService" xml:space="preserve">
+    <value>Create Platform Service</value>
+  </data>
+  <data name="CmsEditServicePrefix" xml:space="preserve">
+    <value>Edit Service:</value>
+  </data>
+  <data name="CmsServicesIntro" xml:space="preserve">
+    <value>Manage business intelligence, AI, and enterprise service offerings per brand.</value>
+  </data>
+  <data name="CmsFeatureImageOptional" xml:space="preserve">
+    <value>Feature / Illustration Image (Optional)</value>
+  </data>
+  <data name="CmsSaveService" xml:space="preserve">
+    <value>Save Service</value>
+  </data>
+  <data name="CmsShowingServices" xml:space="preserve">
+    <value>Showing {0} to {1} of {2} services</value>
+  </data>
+  <data name="CmsCreatePortfolioProject" xml:space="preserve">
+    <value>Create Portfolio Project</value>
+  </data>
+  <data name="CmsEditProjectPrefix" xml:space="preserve">
+    <value>Edit Project:</value>
+  </data>
+  <data name="CmsProjectsIntro" xml:space="preserve">
+    <value>Showcase case studies, client implementations, and technical deliverables per brand.</value>
+  </data>
+  <data name="CmsCompletionLaunchDate" xml:space="preserve">
+    <value>Completion / Launch Date</value>
+  </data>
+  <data name="CmsLiveDemoProjectUrl" xml:space="preserve">
+    <value>Live Demo / Project URL</value>
+  </data>
+  <data name="CmsFullCaseStudyEn" xml:space="preserve">
+    <value>Full Case Study (English)</value>
+  </data>
+  <data name="CmsFullCaseStudyAr" xml:space="preserve">
+    <value>Full Case Study (Arabic)</value>
+  </data>
+  <data name="CmsCoverScreenshotOptional" xml:space="preserve">
+    <value>Cover / Screenshot Image (Optional)</value>
+  </data>
+  <data name="CmsSaveProject" xml:space="preserve">
+    <value>Save Project</value>
+  </data>
+  <data name="CmsShowingProjects" xml:space="preserve">
+    <value>Showing {0} to {1} of {2} projects</value>
+  </data>
+  <data name="CmsCreateUser" xml:space="preserve">
+    <value>Create User</value>
+  </data>
+  <data name="CmsAdminsAndUsers" xml:space="preserve">
+    <value>CMS Administrators &amp; Users</value>
+  </data>
+  <data name="CmsUsersIntro" xml:space="preserve">
+    <value>Manage backend team access, user roles, and security credentials.</value>
+  </data>
+  <data name="CmsNoUsersFound" xml:space="preserve">
+    <value>No users found.</value>
+  </data>
+  <data name="CmsActive" xml:space="preserve">
+    <value>Active</value>
+  </data>
+  <data name="CmsLocked" xml:space="preserve">
+    <value>Locked</value>
+  </data>
+  <data name="CmsSetNewPasswordFor" xml:space="preserve">
+    <value>Set a new secure password for</value>
+  </data>
+  <data name="CmsUpdatePassword" xml:space="preserve">
+    <value>Update Password</value>
+  </data>
+  <data name="CmsTeamIntro" xml:space="preserve">
+    <value>Manage leadership and team profiles displayed on the public website.</value>
+  </data>
+  <data name="CmsLinkedInProfileUrl" xml:space="preserve">
+    <value>LinkedIn Profile URL</value>
+  </data>
+  <data name="CmsProfilePhotoOptional" xml:space="preserve">
+    <value>Profile Photo (Optional)</value>
+  </data>
+  <data name="CmsSaveMember" xml:space="preserve">
+    <value>Save Member</value>
+  </data>
+  <data name="CmsShowingMembers" xml:space="preserve">
+    <value>Showing {0} to {1} of {2} members</value>
+  </data>
+  <data name="CmsEditTestimonialPrefix" xml:space="preserve">
+    <value>Edit Testimonial:</value>
+  </data>
+  <data name="CmsTestimonialsIntro" xml:space="preserve">
+    <value>Manage client reviews, enterprise endorsements, and partner feedback.</value>
+  </data>
+  <data name="CmsJobTitleRoleEn" xml:space="preserve">
+    <value>Job Title / Role (English)</value>
+  </data>
+  <data name="CmsJobTitleRoleAr" xml:space="preserve">
+    <value>Job Title / Role (Arabic)</value>
+  </data>
+  <data name="CmsTestimonialQuoteEn" xml:space="preserve">
+    <value>Testimonial Quote (English)</value>
+  </data>
+  <data name="CmsTestimonialQuoteAr" xml:space="preserve">
+    <value>Testimonial Quote (Arabic)</value>
+  </data>
+  <data name="CmsRatingStars" xml:space="preserve">
+    <value>Rating (Stars)</value>
+  </data>
+  <data name="CmsCustomerPhotoOptional" xml:space="preserve">
+    <value>Customer Photo / Avatar (Optional)</value>
+  </data>
+  <data name="CmsSaveTestimonial" xml:space="preserve">
+    <value>Save Testimonial</value>
+  </data>
+  <data name="CmsShowingTestimonials" xml:space="preserve">
+    <value>Showing {0} to {1} of {2} testimonials</value>
+  </data>
+  <data name="CmsPrevious" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="CmsNext" xml:space="preserve">
+    <value>Next</value>
+  </data>
+
+  <data name="CmsPortfolioSlashProjects" xml:space="preserve">
+    <value>Portfolio / Projects</value>
+  </data>
+  <data name="CmsEditPrefix" xml:space="preserve">
+    <value>Edit:</value>
+  </data>
+  <data name="CmsFilesCount" xml:space="preserve">
+    <value>{0} files ({1})</value>
+  </data>
+
+  <data name="CmsPageShop" xml:space="preserve">
+    <value>Global Marketplace Page</value>
+  </data>
+  <data name="CmsPageBlog" xml:space="preserve">
+    <value>Blog &amp; Insights Page</value>
+  </data>
+  <data name="CmsPageContact" xml:space="preserve">
+    <value>Contact Us Page</value>
+  </data>
+  <data name="CmsPageSoon" xml:space="preserve">
+    <value>Coming Soon Page</value>
+  </data>
+
+  <data name="CmsNavigation" xml:space="preserve">
+    <value>Navigation &amp; Menu</value>
+  </data>
+  <data name="CmsNavigationTitle" xml:space="preserve">
+    <value>Navigation &amp; Menu Links</value>
+  </data>
+  <data name="CmsNavigationSubtitle" xml:space="preserve">
+    <value>Manage Header and Footer navigation links, ordering, URLs, and multi-language labels.</value>
+  </data>
+  <data name="CmsAddLink" xml:space="preserve">
+    <value>Add Link</value>
+  </data>
+  <data name="CmsHeaderNav" xml:space="preserve">
+    <value>Header Navigation</value>
+  </data>
+  <data name="CmsFooterPlatform" xml:space="preserve">
+    <value>Footer: Platform</value>
+  </data>
+  <data name="CmsFooterCompany" xml:space="preserve">
+    <value>Footer: Company</value>
+  </data>
+  <data name="CmsFooterStayInformed" xml:space="preserve">
+    <value>Footer: Stay Informed</value>
+  </data>
+  <data name="CmsNoLinksFound" xml:space="preserve">
+    <value>No links in this section yet</value>
+  </data>
+  <data name="CmsNoLinksDesc" xml:space="preserve">
+    <value>Add your first navigation link using the button above.</value>
+  </data>
+  <data name="CmsEnglishLabel" xml:space="preserve">
+    <value>English Label</value>
+  </data>
+  <data name="CmsArabicLabel" xml:space="preserve">
+    <value>Arabic Label</value>
+  </data>
+  <data name="CmsUrlPath" xml:space="preserve">
+    <value>Target URL / Path</value>
+  </data>
+  <data name="CmsLocation" xml:space="preserve">
+    <value>Location</value>
+  </data>
+  <data name="CmsFooterSection" xml:space="preserve">
+    <value>Footer Column / Section</value>
+  </data>
+  <data name="CmsFooterNav" xml:space="preserve">
+    <value>Footer Column</value>
+  </data>
+  <data name="CmsSortOrder" xml:space="preserve">
+    <value>Sort Order</value>
+  </data>
+  <data name="CmsIsActive" xml:space="preserve">
+    <value>Active (Visible)</value>
+  </data>
+  <data name="CmsOpenInNewTab" xml:space="preserve">
+    <value>Open in New Tab</value>
+  </data>
+  <data name="CmsConfirmDeleteLink" xml:space="preserve">
+    <value>Are you sure you want to delete this navigation link?</value>
+  </data>
+  <data name="CmsAddLinkTitle" xml:space="preserve">
+    <value>Add Navigation Link</value>
+  </data>
+  <data name="CmsEditLinkTitle" xml:space="preserve">
+    <value>Edit Navigation Link</value>
+  </data>
+  <data name="CmsCreateLinkHeading" xml:space="preserve">
+    <value>Create Navigation Link</value>
+  </data>
+  <data name="CmsEditLinkHeading" xml:space="preserve">
+    <value>Edit Navigation Link</value>
+  </data>
+  <data name="CmsQuickRouteSuggestions" xml:space="preserve">
+    <value>Common Target URLs</value>
+  </data>
+  <data name="CmsQuickSelect" xml:space="preserve">
+    <value>Quick select</value>
+  </data>
+  <data name="CmsFileInUseWarning" xml:space="preserve">
+    <value>Warning: File In Use</value>
+  </data>
+  <data name="CmsFileInUseDesc" xml:space="preserve">
+    <value>This file is currently referenced across the application. Deleting it will result in broken images in the following locations:</value>
+  </data>
+  <data name="CmsForceDelete" xml:space="preserve">
+    <value>Force Delete (Delete Anyway)</value>
+  </data>
+  <data name="CmsCancelKeepFile" xml:space="preserve">
+    <value>Cancel (Keep File)</value>
+  </data>
+  <data name="CmsDeleteConfirmClean" xml:space="preserve">
+    <value>Are you sure you want to permanently delete this media file?</value>
+  </data>
+  <data name="CmsCheckingUsage" xml:space="preserve">
+    <value>Checking file usages...</value>
+  </data>
+  <data name="CmsViewEntity" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="CmsFileCleanNotice" xml:space="preserve">
+    <value>This file is not currently in use by any entity. It is safe to delete.</value>
+  </data>
+  <data name="CmsFolderGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="CmsFolderArticles" xml:space="preserve">
+    <value>Articles</value>
+  </data>
+  <data name="CmsFolderBrands" xml:space="preserve">
+    <value>Brands</value>
+  </data>
+  <data name="CmsFolderServices" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="CmsFolderProjects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="CmsFolderTeam" xml:space="preserve">
+    <value>Team</value>
+  </data>
+  <data name="CmsFolderTestimonials" xml:space="preserve">
+    <value>Testimonials</value>
+  </data>
+<data name="CrmSalesPipeline" xml:space="preserve"><value>Sales &amp; Pipeline</value></data><data name="CrmDashboard" xml:space="preserve"><value>Dashboard</value></data><data name="CrmLeads" xml:space="preserve"><value>Leads</value></data><data name="CrmCompanies" xml:space="preserve"><value>Companies</value></data><data name="CrmContacts" xml:space="preserve"><value>Contacts</value></data><data name="CrmDeals" xml:space="preserve"><value>Deals</value></data><data name="CrmTasks" xml:space="preserve"><value>Tasks</value></data><data name="CrmContent" xml:space="preserve"><value>Content</value></data><data name="CrmCmsContent" xml:space="preserve"><value>CMS Content</value></data><data name="CrmBackToWebsite" xml:space="preserve"><value>Back to website</value></data><data name="CrmSubtitle" xml:space="preserve"><value>Daleel CRM &amp; Sales Pipeline</value></data><data name="CrmSalesAgent" xml:space="preserve"><value>Sales Specialist</value></data><data name="CrmSignOut" xml:space="preserve"><value>Sign out</value></data><data name="CrmToggleTheme" xml:space="preserve"><value>Toggle theme</value></data><data name="CrmToggleNavigation" xml:space="preserve"><value>Toggle navigation</value></data><data name="CrmSwitchLanguage" xml:space="preserve"><value>Switch language</value></data><data name="CrmNew" xml:space="preserve"><value>New</value></data><data name="CrmEdit" xml:space="preserve"><value>Edit</value></data><data name="CrmDelete" xml:space="preserve"><value>Delete</value></data><data name="CrmSave" xml:space="preserve"><value>Save</value></data><data name="CrmSaveChanges" xml:space="preserve"><value>Save changes</value></data><data name="CrmCancel" xml:space="preserve"><value>Cancel</value></data><data name="CrmActions" xml:space="preserve"><value>Actions</value></data><data name="CrmSearch" xml:space="preserve"><value>Search</value></data><data name="CrmApply" xml:space="preserve"><value>Apply</value></data><data name="CrmClear" xml:space="preserve"><value>Clear</value></data><data name="CrmClearFilters" xml:space="preserve"><value>Clear filters</value></data><data name="CrmViewAll" xml:space="preserve"><value>View all</value></data><data name="CrmShowArchived" xml:space="preserve"><value>Show archived</value></data><data name="CrmArchive" xml:space="preserve"><value>Archive</value></data><data name="CrmRestore" xml:space="preserve"><value>Restore</value></data><data name="CrmUnarchive" xml:space="preserve"><value>Restore</value></data><data name="CrmConvert" xml:space="preserve"><value>Convert</value></data><data name="CrmDetails" xml:space="preserve"><value>Details</value></data><data name="CrmCreated" xml:space="preserve"><value>Created</value></data><data name="CrmUpdated" xml:space="preserve"><value>Updated</value></data><data name="CrmDue" xml:space="preserve"><value>Due</value></data><data name="CrmOverdue" xml:space="preserve"><value>overdue</value></data><data name="CrmPriority" xml:space="preserve"><value>priority</value></data><data name="CrmOpen" xml:space="preserve"><value>open</value></data><data name="CrmTotal" xml:space="preserve"><value>Total</value></data><data name="CrmStatus" xml:space="preserve"><value>Status</value></data><data name="CrmSource" xml:space="preserve"><value>Source</value></data><data name="CrmAssignedTo" xml:space="preserve"><value>Assigned to</value></data><data name="CrmAllStatuses" xml:space="preserve"><value>All statuses</value></data><data name="CrmAllSources" xml:space="preserve"><value>All sources</value></data><data name="CrmAnyone" xml:space="preserve"><value>Anyone</value></data><data name="CrmAllOwners" xml:space="preserve"><value>All owners</value></data><data name="CrmAllStages" xml:space="preserve"><value>All stages</value></data><data name="CrmUnassigned" xml:space="preserve"><value>— Unassigned —</value></data><data name="CrmNotLinked" xml:space="preserve"><value>— Not linked —</value></data><data name="CrmNoCompany" xml:space="preserve"><value>— No company —</value></data><data name="CrmNoContact" xml:space="preserve"><value>— No contact —</value></data><data name="CrmDealStage_New" xml:space="preserve"><value>New</value></data><data name="CrmDealStage_Qualified" xml:space="preserve"><value>Qualified</value></data><data name="CrmDealStage_Proposal" xml:space="preserve"><value>Proposal</value></data><data name="CrmDealStage_Negotiation" xml:space="preserve"><value>Negotiation</value></data><data name="CrmDealStage_Won" xml:space="preserve"><value>Won</value></data><data name="CrmDealStage_Lost" xml:space="preserve"><value>Lost</value></data><data name="CrmLeadStatus_New" xml:space="preserve"><value>New</value></data><data name="CrmLeadStatus_Contacted" xml:space="preserve"><value>Contacted</value></data><data name="CrmLeadStatus_Qualified" xml:space="preserve"><value>Qualified</value></data><data name="CrmLeadStatus_Unqualified" xml:space="preserve"><value>Unqualified</value></data><data name="CrmLeadStatus_Converted" xml:space="preserve"><value>Converted</value></data><data name="CrmLeadSource_Website" xml:space="preserve"><value>Website</value></data><data name="CrmLeadSource_ContactForm" xml:space="preserve"><value>Contact Form</value></data><data name="CrmLeadSource_ScheduleDemo" xml:space="preserve"><value>Demo Request</value></data><data name="CrmLeadSource_PartnerInquiry" xml:space="preserve"><value>Partner Inquiry</value></data><data name="CrmLeadSource_Referral" xml:space="preserve"><value>Referral</value></data><data name="CrmLeadSource_ColdCall" xml:space="preserve"><value>Cold Call</value></data><data name="CrmLeadSource_Event" xml:space="preserve"><value>Event</value></data><data name="CrmLeadSource_SocialMedia" xml:space="preserve"><value>Social Media</value></data><data name="CrmLeadSource_Other" xml:space="preserve"><value>Other</value></data><data name="CrmRecordStatus_Active" xml:space="preserve"><value>Active</value></data><data name="CrmRecordStatus_Archived" xml:space="preserve"><value>Archived</value></data><data name="CrmRecordStatus_Inactive" xml:space="preserve"><value>Inactive</value></data><data name="CrmTaskPriority_Low" xml:space="preserve"><value>Low</value></data><data name="CrmTaskPriority_Medium" xml:space="preserve"><value>Medium</value></data><data name="CrmTaskPriority_High" xml:space="preserve"><value>High</value></data><data name="CrmTaskStatus_Open" xml:space="preserve"><value>Open</value></data><data name="CrmTaskStatus_InProgress" xml:space="preserve"><value>In Progress</value></data><data name="CrmTaskStatus_Done" xml:space="preserve"><value>Done</value></data><data name="CrmActivityType_Call" xml:space="preserve"><value>Call</value></data><data name="CrmActivityType_Email" xml:space="preserve"><value>Email</value></data><data name="CrmActivityType_Meeting" xml:space="preserve"><value>Meeting</value></data><data name="CrmActivityType_Note" xml:space="preserve"><value>Note</value></data><data name="CrmEntityType_Lead" xml:space="preserve"><value>Lead</value></data><data name="CrmEntityType_Contact" xml:space="preserve"><value>Contact</value></data><data name="CrmEntityType_Company" xml:space="preserve"><value>Company</value></data><data name="CrmEntityType_Deal" xml:space="preserve"><value>Deal</value></data><data name="CrmDealSort_Newest" xml:space="preserve"><value>Newest first</value></data><data name="CrmDealSort_Name" xml:space="preserve"><value>Name (A–Z)</value></data><data name="CrmDealSort_ValueHigh" xml:space="preserve"><value>Value (high → low)</value></data><data name="CrmDealSort_ValueLow" xml:space="preserve"><value>Value (low → high)</value></data><data name="CrmDealSort_CloseDate" xml:space="preserve"><value>Closing soonest</value></data><data name="CrmWelcomeBack" xml:space="preserve"><value>Welcome back</value></data><data name="CrmDashboardSubtitle" xml:space="preserve"><value>Here is where things stand right now.</value></data><data name="CrmTotalLeads" xml:space="preserve"><value>Total leads</value></data><data name="CrmOpenDeals" xml:space="preserve"><value>Open deals</value></data><data name="CrmCustomers" xml:space="preserve"><value>Customers</value></data><data name="CrmOpenTasks" xml:space="preserve"><value>Open tasks</value></data><data name="CrmNewLeads" xml:space="preserve"><value>New leads</value></data><data name="CrmQualifiedLeads" xml:space="preserve"><value>Qualified leads</value></data><data name="CrmWonDeals" xml:space="preserve"><value>Won deals</value></data><data name="CrmLostDeals" xml:space="preserve"><value>Lost deals</value></data><data name="CrmOpenPipelineValue" xml:space="preserve"><value>Open pipeline value</value></data><data name="CrmOpenThePipeline" xml:space="preserve"><value>Open the pipeline</value></data><data name="CrmNoOpenDealsYet" xml:space="preserve"><value>No open deals yet.</value></data><data name="CrmRecentLeads" xml:space="preserve"><value>Recent leads</value></data><data name="CrmNoLeadsYet" xml:space="preserve"><value>No leads yet.</value></data><data name="CrmTasksNeedingAttention" xml:space="preserve"><value>Tasks needing attention</value></data><data name="CrmNoPendingTasks" xml:space="preserve"><value>No pending tasks.</value></data><data name="CrmRecentActivities" xml:space="preserve"><value>Recent activities</value></data><data name="CrmNoRecentActivities" xml:space="preserve"><value>No recent activities.</value></data><data name="CrmByExpectedCloseDate" xml:space="preserve"><value>by expected close date</value></data><data name="CrmTasksTitle" xml:space="preserve"><value>Tasks</value></data><data name="CrmFullForm" xml:space="preserve"><value>Full form</value></data><data name="CrmQuickTaskPlaceholder" xml:space="preserve"><value>Follow up on the proposal…</value></data><data name="CrmAdd" xml:space="preserve"><value>Add</value></data><data name="CrmNoTasksForRecord" xml:space="preserve"><value>No tasks for this record.</value></data><data name="CrmReopen" xml:space="preserve"><value>Reopen</value></data><data name="CrmMarkDone" xml:space="preserve"><value>Mark done</value></data><data name="CrmActivityTitle" xml:space="preserve"><value>Activity</value></data><data name="CrmLogActivity" xml:space="preserve"><value>Log activity</value></data><data name="CrmLogANewActivity" xml:space="preserve"><value>Log a new activity</value></data><data name="CrmSubjectPlaceholder" xml:space="preserve"><value>Intro call — discussed pricing</value></data><data name="CrmNotesPlaceholder" xml:space="preserve"><value>What was said, what happens next…</value></data><data name="CrmNothingLoggedYet" xml:space="preserve"><value>Nothing logged yet.</value></data><data name="CrmDeleteActivityConfirm" xml:space="preserve"><value>Delete this activity?</value></data><data name="CrmDeleteActivity" xml:space="preserve"><value>Delete activity</value></data><data name="CrmType" xml:space="preserve"><value>Type</value></data><data name="CrmSubject" xml:space="preserve"><value>Subject</value></data><data name="CrmNotes" xml:space="preserve"><value>Notes</value></data><data name="CrmOccurredAt" xml:space="preserve"><value>Occurred At</value></data><data name="CrmNewLead" xml:space="preserve"><value>New lead</value></data><data name="CrmEditLead" xml:space="preserve"><value>Edit lead</value></data><data name="CrmViewLead" xml:space="preserve"><value>View lead</value></data><data name="CrmBackToLeads" xml:space="preserve"><value>Back to leads</value></data><data name="CrmSearchPlaceholderLead" xml:space="preserve"><value>Name, email, phone, company…</value></data><data name="CrmNoMatchingLeads" xml:space="preserve"><value>No matching leads</value></data><data name="CrmNoMatchingLeadsDesc" xml:space="preserve"><value>Try a different search term or clear the filters.</value></data><data name="CrmNoLeadsYetDesc" xml:space="preserve"><value>Create your first lead to get started.</value></data><data name="CrmLeadArchivedNotice" xml:space="preserve"><value>This lead is archived. It is hidden from the default list but nothing has been deleted.</value></data><data name="CrmLeadConvertedToContact" xml:space="preserve"><value>Converted to contact</value></data><data name="CrmLeadConvertedDeletedContact" xml:space="preserve"><value>This lead was converted. The contact it created has since been deleted.</value></data><data name="CrmConvertLeadTitle" xml:space="preserve"><value>Convert {0}</value></data><data name="CrmConvertLeadSubtitle" xml:space="preserve"><value>This creates a contact record and marks the lead as converted. The lead itself is kept.</value></data><data name="CrmDuplicateContactFound" xml:space="preserve"><value>A contact already uses this email address</value></data><data name="CrmLinkExistingContact" xml:space="preserve"><value>Link the lead to this contact instead of creating a new one</value></data><data name="CrmCreateNewCompany" xml:space="preserve"><value>— Create a new company —</value></data><data name="CrmNewCompanyName" xml:space="preserve"><value>New company name</value></data><data name="CrmLinkNotice" xml:space="preserve"><value>The existing contact's details and company will be left exactly as they are.</value></data><data name="CrmConvertLead" xml:space="preserve"><value>Convert lead</value></data><data name="CrmBackToLead" xml:space="preserve"><value>Back to lead</value></data><data name="CrmNewCompany" xml:space="preserve"><value>New company</value></data><data name="CrmEditCompany" xml:space="preserve"><value>Edit company</value></data><data name="CrmDeleteCompany" xml:space="preserve"><value>Delete company</value></data><data name="CrmBackToCompanies" xml:space="preserve"><value>Back to companies</value></data><data name="CrmSearchPlaceholderCompany" xml:space="preserve"><value>Name, industry, email, phone, city…</value></data><data name="CrmNoMatchingCompanies" xml:space="preserve"><value>No matching companies</value></data><data name="CrmNoCompaniesYet" xml:space="preserve"><value>No companies yet</value></data><data name="CrmNoCompaniesYetDesc" xml:space="preserve"><value>Create your first company to get started.</value></data><data name="CrmContactsAtCompany" xml:space="preserve"><value>Contacts at this company</value></data><data name="CrmAddContact" xml:space="preserve"><value>Add contact</value></data><data name="CrmNoContactsAtCompany" xml:space="preserve"><value>No contacts linked to this company yet.</value></data><data name="CrmCompanyName" xml:space="preserve"><value>Company Name</value></data><data name="CrmIndustry" xml:space="preserve"><value>Industry</value></data><data name="CrmLocation" xml:space="preserve"><value>Location</value></data><data name="CrmWebsite" xml:space="preserve"><value>Website</value></data><data name="CrmAddress" xml:space="preserve"><value>Address</value></data><data name="CrmCity" xml:space="preserve"><value>City</value></data><data name="CrmCountry" xml:space="preserve"><value>Country</value></data><data name="CrmDescription" xml:space="preserve"><value>Description</value></data><data name="CrmEditingCompany" xml:space="preserve"><value>Editing</value></data><data name="CrmCreateCompany" xml:space="preserve"><value>Create company</value></data><data name="CrmNewContact" xml:space="preserve"><value>New contact</value></data><data name="CrmEditContact" xml:space="preserve"><value>Edit contact</value></data><data name="CrmDeleteContact" xml:space="preserve"><value>Delete contact</value></data><data name="CrmBackToContacts" xml:space="preserve"><value>Back to contacts</value></data><data name="CrmSearchPlaceholderContact" xml:space="preserve"><value>Name, email, phone, company or title…</value></data><data name="CrmNoMatchingContacts" xml:space="preserve"><value>No matching contacts</value></data><data name="CrmNoContactsYet" xml:space="preserve"><value>No contacts yet</value></data><data name="CrmNoContactsYetDesc" xml:space="preserve"><value>Create your first contact to get started.</value></data><data name="CrmNotLinkedToCompany" xml:space="preserve"><value>Not linked to a company</value></data><data name="CrmContactName" xml:space="preserve"><value>Name</value></data><data name="CrmFirstName" xml:space="preserve"><value>First Name</value></data><data name="CrmLastName" xml:space="preserve"><value>Last Name</value></data><data name="CrmEmail" xml:space="preserve"><value>Email</value></data><data name="CrmPhone" xml:space="preserve"><value>Phone</value></data><data name="CrmJobTitle" xml:space="preserve"><value>Job Title</value></data><data name="CrmEditingContact" xml:space="preserve"><value>Editing</value></data><data name="CrmCreateContact" xml:space="preserve"><value>Create contact</value></data><data name="CrmNewDeal" xml:space="preserve"><value>New deal</value></data><data name="CrmEditDeal" xml:space="preserve"><value>Edit deal</value></data><data name="CrmDeleteDeal" xml:space="preserve"><value>Delete deal</value></data><data name="CrmBackToDeals" xml:space="preserve"><value>Back to deals</value></data><data name="CrmPipeline" xml:space="preserve"><value>Pipeline</value></data><data name="CrmListView" xml:space="preserve"><value>List</value></data><data name="CrmSearchPlaceholderDeal" xml:space="preserve"><value>Deal, company or contact…</value></data><data name="CrmSortBy" xml:space="preserve"><value>Sort by</value></data><data name="CrmOpenDealsOnly" xml:space="preserve"><value>Open deals only</value></data><data name="CrmNoMatchingDeals" xml:space="preserve"><value>No matching deals</value></data><data name="CrmNoDealsYet" xml:space="preserve"><value>No deals yet</value></data><data name="CrmNoDealsYetDesc" xml:space="preserve"><value>Create your first deal to track your sales pipeline.</value></data><data name="CrmDealName" xml:space="preserve"><value>Deal Name</value></data><data name="CrmDealValue" xml:space="preserve"><value>Value</value></data><data name="CrmCurrency" xml:space="preserve"><value>Currency</value></data><data name="CrmExpectedCloseDate" xml:space="preserve"><value>Expected close date</value></data><data name="CrmPrimaryContact" xml:space="preserve"><value>Primary contact</value></data><data name="CrmMoveToStage" xml:space="preserve"><value>Move to stage</value></data><data name="CrmDragCardHint" xml:space="preserve"><value>Drag a card to another column to change its stage. On touch devices, open the deal and use the stage buttons.</value></data><data name="CrmClosedAsStage" xml:space="preserve"><value>Closed as {0}</value></data><data name="CrmStageProgress" xml:space="preserve"><value>Stage {0} of {1} — {2}</value></data><data name="CrmMixedCurrencyWarning" xml:space="preserve"><value>Totals mix multiple currencies and are not converted.</value></data><data name="CrmFilter" xml:space="preserve"><value>Filter</value></data><data name="CrmEditingDeal" xml:space="preserve"><value>Editing</value></data><data name="CrmCreateDeal" xml:space="preserve"><value>Create deal</value></data><data name="CrmNewTask" xml:space="preserve"><value>New task</value></data><data name="CrmEditTaskTitle" xml:space="preserve"><value>Edit task</value></data><data name="CrmDeleteTask" xml:space="preserve"><value>Delete task</value></data><data name="CrmDeleteTaskConfirm" xml:space="preserve"><value>Delete this task? This cannot be undone.</value></data><data name="CrmBackToTasks" xml:space="preserve"><value>Back to tasks</value></data><data name="CrmSearchPlaceholderTask" xml:space="preserve"><value>Title or description…</value></data><data name="CrmOverdueOnly" xml:space="preserve"><value>Overdue only</value></data><data name="CrmNoMatchingTasks" xml:space="preserve"><value>No matching tasks</value></data><data name="CrmNoTasksYet" xml:space="preserve"><value>No tasks yet</value></data><data name="CrmNoTasksYetDesc" xml:space="preserve"><value>Create your first task to stay organized.</value></data><data name="CrmTaskTitle" xml:space="preserve"><value>Title</value></data><data name="CrmDueDate" xml:space="preserve"><value>Due Date</value></data><data name="CrmPriorityField" xml:space="preserve"><value>Priority</value></data><data name="CrmRelatedRecord" xml:space="preserve"><value>Related To</value></data><data name="CrmRecord" xml:space="preserve"><value>Record</value></data><data name="CrmChooseTypeFirst" xml:space="preserve"><value>— Choose a type first —</value></data><data name="CrmChooseLead" xml:space="preserve"><value>— Choose a lead —</value></data><data name="CrmChooseContact" xml:space="preserve"><value>— Choose a contact —</value></data><data name="CrmChooseCompany" xml:space="preserve"><value>— Choose a company —</value></data><data name="CrmChooseDeal" xml:space="preserve"><value>— Choose a deal —</value></data><data name="CrmCreateTask" xml:space="preserve"><value>Create task</value></data><data name="CrmEditingTask" xml:space="preserve"><value>Editing</value></data><data name="CrmSignInTitle" xml:space="preserve"><value>Sign in to Daleel CRM</value></data><data name="CrmAuthorizedOnly" xml:space="preserve"><value>Authorized employees only.</value></data><data name="CrmEmailField" xml:space="preserve"><value>Email</value></data><data name="CrmPasswordField" xml:space="preserve"><value>Password</value></data><data name="CrmRememberMe" xml:space="preserve"><value>Remember me</value></data><data name="CrmSignInBtn" xml:space="preserve"><value>Sign in</value></data><data name="CrmAccessDeniedTitle" xml:space="preserve"><value>Access denied</value></data><data name="CrmAccessDeniedMessage" xml:space="preserve"><value>Your account does not have permission to view this page. If you believe this is a mistake, please contact your CRM administrator.</value></data><data name="CrmGoToDashboard" xml:space="preserve"><value>Go to dashboard</value></data><data name="First Name" xml:space="preserve"><value>First Name</value></data><data name="Last Name" xml:space="preserve"><value>Last Name</value></data><data name="Job Title" xml:space="preserve"><value>Job Title</value></data><data name="Company Name" xml:space="preserve"><value>Company Name</value></data><data name="Deal Name" xml:space="preserve"><value>Deal Name</value></data><data name="Primary Contact" xml:space="preserve"><value>Primary Contact</value></data><data name="Value" xml:space="preserve"><value>Value</value></data><data name="Expected Close Date" xml:space="preserve"><value>Expected Close Date</value></data><data name="Related To" xml:space="preserve"><value>Related To</value></data><data name="When" xml:space="preserve"><value>When</value></data><data name="Title" xml:space="preserve"><value>Title</value></data><data name="Due Date" xml:space="preserve"><value>Due Date</value></data><data name="Notes" xml:space="preserve"><value>Notes</value></data><data name="Description" xml:space="preserve"><value>Description</value></data><data name="Industry" xml:space="preserve"><value>Industry</value></data><data name="Address" xml:space="preserve"><value>Address</value></data><data name="City" xml:space="preserve"><value>City</value></data><data name="Country" xml:space="preserve"><value>Country</value></data><data name="Stage" xml:space="preserve"><value>Stage</value></data><data name="Priority" xml:space="preserve"><value>Priority</value></data><data name="Record" xml:space="preserve"><value>Record</value></data><data name="CrmPage" xml:space="preserve"><value>Page</value></data><data name="CrmOf" xml:space="preserve"><value>of</value></data><data name="CrmRecords" xml:space="preserve"><value>records</value></data><data name="CrmPrevious" xml:space="preserve"><value>Previous</value></data><data name="CrmNext" xml:space="preserve"><value>Next</value></data><data name="CrmChooseRecord" xml:space="preserve"><value>Choose a record</value></data><data name="CrmSignInSubtitle" xml:space="preserve"><value>Authorized employees only.</value></data><data name="CrmSignInButton" xml:space="preserve"><value>Sign in</value></data><data name="CrmStage" xml:space="preserve"><value>Stage</value></data></root>

@@ -1,0 +1,167 @@
+@model Daleel.DAL.Entities.Company
+@using Daleel.DAL.Entities
+@{
+    Layout = "_CrmLayout";
+    ViewData["Title"] = Model.Name;
+    var confirmText = System.Text.Encodings.Web.JavaScriptEncoder.Default.Encode(
+        Model.Contacts.Count > 0
+            ? $"Delete {Model.Name}? {Model.Contacts.Count} contact(s) will no longer be linked to a company."
+            : $"Delete {Model.Name}? This cannot be undone.");
+}
+
+<div class="max-w-5xl">
+
+    <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <a asp-action="Index" class="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors">
+            <span class="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_back</span>
+            @SharedLocalizer["CrmBackToCompanies"]
+        </a>
+
+        <div class="flex items-center gap-2">
+            <a asp-action="Edit" asp-route-id="@Model.Id"
+               class="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">edit</span>
+                @SharedLocalizer["CrmEdit"]
+            </a>
+            <form asp-action="Delete" asp-route-id="@Model.Id" method="post" class="inline"
+                  onsubmit="return confirm('@Html.Raw(confirmText)');">
+                @Html.AntiForgeryToken()
+                <button type="submit"
+                        class="inline-flex items-center gap-2 rounded-lg border border-red-200 dark:border-red-500/25 text-red-600 dark:text-red-400 text-sm px-4 py-2.5 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors">
+                    <span class="material-symbols-outlined text-[20px]">delete</span>
+                    @SharedLocalizer["CrmDelete"]
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Company details -->
+    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6 sm:p-8 mb-6">
+        <div class="flex items-start justify-between gap-4 mb-6">
+            <div class="min-w-0">
+                <h2 class="font-poppins font-semibold text-xl text-brand-navy dark:text-white break-words">@Model.Name</h2>
+                @if (!string.IsNullOrWhiteSpace(Model.Industry))
+                {
+                    <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">@Model.Industry</p>
+                }
+            </div>
+            <span class="shrink-0 inline-flex items-center rounded-full px-3 py-1 text-xs font-medium @(Model.Status == RecordStatus.Active ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400" : "bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-400")">
+                @SharedLocalizer[$"CrmRecordStatus_{Model.Status}"]
+            </span>
+        </div>
+
+        <dl class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5 text-sm">
+            @{
+                var fields = new (string Key, string Label, string? Value)[]
+                {
+                    ("CrmEmail", "Email", Model.Email),
+                    ("CrmPhone", "Phone", Model.Phone),
+                    ("CrmWebsite", "Website", Model.Website),
+                    ("CrmAddress", "Address", Model.Address),
+                    ("CrmCity", "City", Model.City),
+                    ("CrmCountry", "Country", Model.Country),
+                };
+            }
+            @foreach (var f in fields)
+            {
+                <div>
+                    <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer[f.Key]</dt>
+                    <dd class="mt-1 text-slate-700 dark:text-slate-200 break-words">
+                        @if (string.IsNullOrWhiteSpace(f.Value))
+                        {
+                            <span class="text-slate-400">—</span>
+                        }
+                        else if (f.Label == "Email")
+                        {
+                            <a href="mailto:@f.Value" class="hover:text-[#00B2EC] transition-colors">@f.Value</a>
+                        }
+                        else if (f.Label == "Website")
+                        {
+                            <a href="@(f.Value!.StartsWith("http") ? f.Value : "https://" + f.Value)" target="_blank" rel="noopener noreferrer"
+                               class="hover:text-[#00B2EC] transition-colors">@f.Value</a>
+                        }
+                        else
+                        {
+                            @f.Value
+                        }
+                    </dd>
+                </div>
+            }
+        </dl>
+
+        @if (!string.IsNullOrWhiteSpace(Model.Description))
+        {
+            <div class="mt-6 pt-6 border-t border-slate-200 dark:border-white/10">
+                <dt class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmDescription"]</dt>
+                <dd class="mt-2 text-sm text-slate-700 dark:text-slate-200 whitespace-pre-line">@Model.Description</dd>
+            </div>
+        }
+
+        <div class="mt-6 pt-6 border-t border-slate-200 dark:border-white/10 flex flex-wrap gap-x-8 gap-y-2 text-xs text-slate-400 dark:text-slate-500">
+            <span>@SharedLocalizer["CrmCreated"] @Model.CreatedAt.ToString("dd MMM yyyy, HH:mm") UTC</span>
+            <span>@SharedLocalizer["CrmUpdated"] @Model.UpdatedAt.ToString("dd MMM yyyy, HH:mm") UTC</span>
+        </div>
+    </div>
+
+    <!-- Contacts at this company -->
+    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden">
+        <div class="flex items-center justify-between gap-3 px-6 py-4 border-b border-slate-200 dark:border-white/10">
+            <h3 class="font-poppins font-semibold text-base text-brand-navy dark:text-white">
+                @SharedLocalizer["CrmContactsAtCompany"] <span class="text-slate-400 font-normal">(@Model.Contacts.Count)</span>
+            </h3>
+            <a asp-controller="CrmContact" asp-action="Create" asp-route-companyId="@Model.Id"
+               class="inline-flex items-center gap-1.5 text-sm text-[#00B2EC] hover:text-[#0096c7] font-medium transition-colors">
+                <span class="material-symbols-outlined text-[18px]">add</span>
+                @SharedLocalizer["CrmAddContact"]
+            </a>
+        </div>
+
+        @if (!Model.Contacts.Any())
+        {
+            <p class="px-6 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
+                @SharedLocalizer["CrmNoContactsAtCompany"]
+            </p>
+        }
+        else
+        {
+            <div class="overflow-x-auto">
+                <table class="w-full text-sm">
+                    <thead class="bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400">
+                        <tr>
+                            <th class="px-6 py-3 font-medium text-start">@SharedLocalizer["CrmContactName"]</th>
+                            <th class="px-6 py-3 font-medium text-start hidden sm:table-cell">@SharedLocalizer["CrmJobTitle"]</th>
+                            <th class="px-6 py-3 font-medium text-start hidden md:table-cell">@SharedLocalizer["CrmEmail"]</th>
+                            <th class="px-6 py-3 font-medium text-start">@SharedLocalizer["CrmStatus"]</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 dark:divide-white/10">
+                        @foreach (var contact in Model.Contacts)
+                        {
+                            <tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
+                                <td class="px-6 py-3.5">
+                                    <a asp-controller="CrmContact" asp-action="Details" asp-route-id="@contact.Id"
+                                       class="font-medium text-brand-navy dark:text-white hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors">
+                                        @contact.FullName
+                                    </a>
+                                </td>
+                                <td class="px-6 py-3.5 text-slate-600 dark:text-slate-300 hidden sm:table-cell">@(contact.JobTitle ?? "—")</td>
+                                <td class="px-6 py-3.5 text-slate-600 dark:text-slate-300 hidden md:table-cell">@(contact.Email ?? "—")</td>
+                                <td class="px-6 py-3.5">
+                                    <span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium @(contact.Status == RecordStatus.Active ? "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400" : "bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-400")">
+                                        @SharedLocalizer[$"CrmRecordStatus_{contact.Status}"]
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+
+    <div class="mt-6 space-y-6">
+        @await Component.InvokeAsync("RecordTasks", new { entityType = CrmEntityType.Company, entityId = Model.Id })
+        @await Component.InvokeAsync("RecordActivity", new { entityType = CrmEntityType.Company, entityId = Model.Id })
+    </div>
+</div>
+

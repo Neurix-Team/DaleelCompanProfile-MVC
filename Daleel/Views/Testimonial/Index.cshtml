@@ -1,0 +1,274 @@
+@using System.Globalization
+@model Daleel.BAL.Models.PagedResult<Daleel.BAL.Models.TestimonialListItemDto>
+@{
+    Layout = "_CmsLayout";
+    ViewData["Title"] = SharedLocalizer["CmsTitleTestimonialsReviews"].Value;
+    var isRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+    var brands = ViewData["Brands"] as IReadOnlyList<Daleel.BAL.Models.BrandProfileListItemDto> ?? Array.Empty<Daleel.BAL.Models.BrandProfileListItemDto>();
+    var currentBrandId = ViewData["CurrentBrandId"] as int?;
+    var currentQ = ViewData["CurrentQ"]?.ToString();
+    var currentIsPublished = ViewData["CurrentIsPublished"] as bool?;
+}
+
+<div class="space-y-6">
+
+    <!-- Header & Action Button -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h2 class="font-poppins text-2xl font-bold text-brand-navy dark:text-white">
+                @SharedLocalizer["CmsTitleTestimonialsReviews"]
+            </h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+                @SharedLocalizer["CmsTestimonialsIntro"]
+            </p>
+        </div>
+        <a asp-controller="Testimonial" asp-action="Create" asp-route-brandId="@currentBrandId"
+           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02] self-start sm:self-auto">
+            <span class="material-symbols-outlined text-[20px]">add_comment</span>
+            <span>@SharedLocalizer["CmsNewTestimonial"]</span>
+        </a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm flex items-center gap-2">
+            <span class="material-symbols-outlined text-[20px]">check_circle</span>
+            <span>@TempData["Success"]</span>
+        </div>
+    }
+
+    <!-- Filters & Search Bar -->
+    <form method="get" asp-controller="Testimonial" asp-action="Index"
+          class="bg-white dark:bg-[#0B1728] p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col md:flex-row items-center gap-3">
+
+        <!-- Brand Selector Filter -->
+        <div class="w-full md:w-64">
+            <select name="brandId"
+                    class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-[#0B1728] text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                <option value="">@SharedLocalizer["CmsAllBrands"]</option>
+                @foreach (var b in brands)
+                {
+                    var bName = isRtl && !string.IsNullOrWhiteSpace(b.NameAr) ? $"{b.NameAr} ({b.NameEn})" : $"{b.NameEn} ({b.NameAr})";
+                    <option value="@b.Id" selected="@(currentBrandId == b.Id ? "selected" : null)">@bName</option>
+                }
+            </select>
+        </div>
+
+        <!-- Search Input -->
+        <div class="relative flex-1 w-full">
+            <span class="material-symbols-outlined absolute start-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
+            <input type="text" name="q" value="@currentQ" placeholder="@SharedLocalizer["CmsSearchTestimonials"]"
+                   class="w-full ps-10 pe-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+        </div>
+
+        <!-- Status Filter -->
+        <div class="w-full md:w-44">
+            <select name="isPublished"
+                    class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-[#0B1728] text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                <option value="">@SharedLocalizer["CmsAllStatuses"]</option>
+                <option value="true" selected="@(currentIsPublished == true ? "selected" : null)">@SharedLocalizer["CmsPublishedOnly"]</option>
+                <option value="false" selected="@(currentIsPublished == false ? "selected" : null)">@SharedLocalizer["CmsDraftsOnly"]</option>
+            </select>
+        </div>
+
+        <!-- Filter Submit & Reset -->
+        <div class="flex items-center gap-2 w-full md:w-auto">
+            <button type="submit"
+                    class="flex-1 md:flex-none px-4 py-2 rounded-xl bg-slate-900 dark:bg-white dark:text-slate-900 text-white font-medium text-sm hover:opacity-90 transition-all">
+                @SharedLocalizer["CmsFilter"]
+            </button>
+            @if (currentBrandId.HasValue || !string.IsNullOrWhiteSpace(currentQ) || currentIsPublished.HasValue)
+            {
+                <a asp-controller="Testimonial" asp-action="Index"
+                   class="p-2 rounded-xl border border-slate-200 dark:border-white/10 text-slate-500 hover:text-slate-900 dark:hover:text-white transition-colors" title="@SharedLocalizer["CmsClearFilters"]">
+                    <span class="material-symbols-outlined text-[20px]">restart_alt</span>
+                </a>
+            }
+        </div>
+    </form>
+
+    <!-- Testimonials Grid -->
+    @if (Model.Items.Count == 0)
+    {
+        <div class="bg-white dark:bg-[#0B1728] p-12 text-center rounded-2xl border border-slate-200/80 dark:border-white/10">
+            <div class="w-16 h-16 rounded-2xl bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center mx-auto mb-4">
+                <span class="material-symbols-outlined text-[32px]">reviews</span>
+            </div>
+            <h3 class="font-poppins font-bold text-lg text-slate-800 dark:text-slate-200">@SharedLocalizer["CmsNoTestimonialsFound"]</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">@SharedLocalizer["CmsNoTestimonialsDesc"]</p>
+            <a asp-controller="Testimonial" asp-action="Create" asp-route-brandId="@currentBrandId"
+               class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00B2EC] text-white text-sm font-semibold hover:opacity-90">
+                <span class="material-symbols-outlined text-[18px]">add_comment</span>
+                <span>@SharedLocalizer["CmsNewTestimonial"]</span>
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            @foreach (var t in Model.Items)
+            {
+                var displayCustomer = isRtl && !string.IsNullOrWhiteSpace(t.CustomerNameAr) ? t.CustomerNameAr : t.CustomerNameEn;
+                var secondaryCustomer = isRtl ? t.CustomerNameEn : t.CustomerNameAr;
+                var brandName = isRtl && !string.IsNullOrWhiteSpace(t.BrandNameAr) ? t.BrandNameAr : t.BrandNameEn;
+                var roleTitle = isRtl && !string.IsNullOrWhiteSpace(t.RoleTitleAr) ? t.RoleTitleAr : t.RoleTitleEn;
+                var companyName = isRtl && !string.IsNullOrWhiteSpace(t.CompanyNameAr) ? t.CompanyNameAr : t.CompanyNameEn;
+                var quoteContent = isRtl && !string.IsNullOrWhiteSpace(t.ContentAr) ? t.ContentAr : t.ContentEn;
+                var secondaryQuote = isRtl ? t.ContentEn : t.ContentAr;
+
+                <div class="bg-white dark:bg-[#0B1728] rounded-2xl border border-slate-200/80 dark:border-white/10 overflow-hidden shadow-sm hover:border-[#00B2EC]/40 transition-all flex flex-col justify-between group">
+                    <div class="p-6">
+                        <!-- Top Bar: Brand, Stars & Status -->
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300">
+                                @brandName
+                            </span>
+
+                            <div class="flex items-center gap-2">
+                                <!-- Star Rating -->
+                                <div class="flex items-center text-amber-400 text-sm">
+                                    @for (var i = 1; i <= 5; i++)
+                                    {
+                                        if (i <= t.Rating)
+                                        {
+                                            <span class="material-symbols-outlined text-[16px] fill-current">star</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="material-symbols-outlined text-[16px] text-slate-300 dark:text-slate-600">star</span>
+                                        }
+                                    }
+                                </div>
+
+                                @if (t.IsPublished)
+                                {
+                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>@SharedLocalizer["CmsLive"]
+                                    </span>
+                                }
+                                else
+                                {
+                                    <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-500/10 text-amber-600 dark:text-amber-400">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span>@SharedLocalizer["CmsDraft"]
+                                    </span>
+                                }
+                            </div>
+                        </div>
+
+                        <!-- Quote content -->
+                        <div class="relative mb-6">
+                            <span class="material-symbols-outlined text-slate-200 dark:text-white/10 text-[36px] absolute -top-2 -start-1 select-none pointer-events-none">format_quote</span>
+                            <p class="text-sm text-slate-700 dark:text-slate-300 relative z-10 ps-6 leading-relaxed italic line-clamp-4 mb-2">
+                                "@quoteContent"
+                            </p>
+                            @if (!string.IsNullOrWhiteSpace(secondaryQuote))
+                            {
+                                <p class="text-xs text-slate-400 @(isRtl ? "font-sans" : "font-cairo") leading-relaxed line-clamp-2" dir="@(isRtl ? "ltr" : "rtl")">
+                                    @secondaryQuote
+                                </p>
+                            }
+                        </div>
+
+                        <!-- Author profile -->
+                        <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-white/5">
+                            @if (!string.IsNullOrWhiteSpace(t.PhotoPath))
+                            {
+                                <img src="@t.PhotoPath" alt="@displayCustomer" class="w-11 h-11 rounded-full object-cover border-2 border-slate-200 dark:border-white/10 shadow-sm" />
+                            }
+                            else
+                            {
+                                <div class="w-11 h-11 rounded-full bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center font-bold text-sm border-2 border-[#00B2EC]/20 shadow-sm">
+                                    @(displayCustomer.Length > 0 ? displayCustomer[0].ToString().ToUpper() : "U")
+                                </div>
+                            }
+
+                            <div class="min-w-0 flex-1">
+                                <h4 class="font-poppins font-bold text-sm text-brand-navy dark:text-white truncate">
+                                    @displayCustomer
+                                </h4>
+                                @if (!string.IsNullOrWhiteSpace(secondaryCustomer))
+                                {
+                                    <p class="text-xs text-slate-400 @(isRtl ? "font-sans" : "font-cairo") truncate" dir="@(isRtl ? "ltr" : "rtl")">@secondaryCustomer</p>
+                                }
+                                @if (!string.IsNullOrWhiteSpace(roleTitle) || !string.IsNullOrWhiteSpace(companyName))
+                                {
+                                    <p class="text-xs text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                                        @roleTitle @(!string.IsNullOrWhiteSpace(roleTitle) && !string.IsNullOrWhiteSpace(companyName) ? "• " : "")@companyName
+                                    </p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Footer: Order & Action Buttons -->
+                    <div class="px-6 py-3 bg-slate-50/50 dark:bg-white/[0.02] border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+                        <span class="text-[11px] font-mono text-slate-400">
+                            @SharedLocalizer["CmsOrderPrefix"] #@t.DisplayOrder
+                        </span>
+
+                        <div class="flex items-center gap-1.5">
+                            <!-- Toggle Publish -->
+                            <form asp-controller="Testimonial" asp-action="TogglePublish" asp-route-id="@t.Id" method="post" class="inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10 transition-colors"
+                                        title="@(t.IsPublished ? SharedLocalizer["CmsUnpublishToDraft"].Value : SharedLocalizer["CmsPublishLiveTitle"].Value)">
+                                    <span class="material-symbols-outlined text-[18px]">@(t.IsPublished ? "visibility_off" : "visibility")</span>
+                                </button>
+                            </form>
+
+                            <!-- Edit -->
+                            <a asp-controller="Testimonial" asp-action="Edit" asp-route-id="@t.Id"
+                               class="p-1.5 rounded-lg text-slate-400 hover:text-[#00B2EC] hover:bg-[#00B2EC]/10 transition-colors" title="@SharedLocalizer["CmsEditTestimonial"]">
+                                <span class="material-symbols-outlined text-[18px]">edit</span>
+                            </a>
+
+                            <!-- Delete -->
+                            <form asp-controller="Testimonial" asp-action="Delete" asp-route-id="@t.Id" method="post"
+                                  onsubmit="return confirm('Are you sure you want to remove this testimonial?');" class="inline">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors" title="@SharedLocalizer["CmsDeleteTestimonial"]">
+                                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- Pagination -->
+        @if (Model.TotalPages > 1)
+        {
+            <div class="flex items-center justify-between pt-4">
+                <p class="text-xs text-slate-500">
+                    @SharedLocalizer["CmsShowingTestimonials", (Model.Page - 1) * Model.PageSize + 1, Math.Min(Model.Page * Model.PageSize, Model.TotalCount), Model.TotalCount]
+                </p>
+
+                <div class="flex items-center gap-1">
+                    @if (Model.HasPrevious)
+                    {
+                        <a asp-controller="Testimonial" asp-action="Index"
+                           asp-route-page="@(Model.Page - 1)"
+                           asp-route-brandId="@currentBrandId"
+                           asp-route-q="@currentQ"
+                           asp-route-isPublished="@currentIsPublished"
+                           class="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5">
+                            @SharedLocalizer["CmsPrevious"]
+                        </a>
+                    }
+                    @if (Model.HasNext)
+                    {
+                        <a asp-controller="Testimonial" asp-action="Index"
+                           asp-route-page="@(Model.Page + 1)"
+                           asp-route-brandId="@currentBrandId"
+                           asp-route-q="@currentQ"
+                           asp-route-isPublished="@currentIsPublished"
+                           class="px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5">
+                            @SharedLocalizer["CmsNext"]
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+    }
+</div>

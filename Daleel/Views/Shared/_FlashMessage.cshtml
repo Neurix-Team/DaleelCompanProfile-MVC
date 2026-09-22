@@ -1,0 +1,20 @@
+@{
+    var success = TempData["Success"] as string;
+    var error = TempData["Error"] as string;
+}
+
+@if (!string.IsNullOrEmpty(success))
+{
+    <div class="mb-6 flex items-start gap-3 rounded-lg border border-emerald-200 dark:border-emerald-500/25 bg-emerald-50 dark:bg-emerald-500/10 px-4 py-3 text-sm text-emerald-800 dark:text-emerald-300">
+        <span class="material-symbols-outlined text-[20px] shrink-0">check_circle</span>
+        <span>@success</span>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(error))
+{
+    <div class="mb-6 flex items-start gap-3 rounded-lg border border-red-200 dark:border-red-500/25 bg-red-50 dark:bg-red-500/10 px-4 py-3 text-sm text-red-700 dark:text-red-400">
+        <span class="material-symbols-outlined text-[20px] shrink-0">error</span>
+        <span>@error</span>
+    </div>
+}

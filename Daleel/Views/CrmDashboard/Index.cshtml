@@ -1,0 +1,207 @@
+@model Daleel.Models.DashboardViewModel
+@using Daleel.DAL.Entities
+@{
+    Layout = "_CrmLayout";
+    ViewData["Title"] = SharedLocalizer["CrmDashboard"].Value;
+    var k = Model.Kpis;
+
+    string EntityController(CrmEntityType type) => type switch
+    {
+        CrmEntityType.Lead => "CrmLead",
+        CrmEntityType.Contact => "CrmContact",
+        CrmEntityType.Company => "CrmCompany",
+        _ => "CrmDeal"
+    };
+
+    string ActivityIcon(ActivityType type) => type switch
+    {
+        ActivityType.Call => "call",
+        ActivityType.Email => "mail",
+        ActivityType.Meeting => "groups",
+        _ => "sticky_note_2"
+    };
+}
+
+<div class="max-w-6xl">
+
+    <div class="mb-8">
+        <h2 class="font-poppins font-semibold text-xl text-brand-navy dark:text-white">
+            @SharedLocalizer["CrmWelcomeBack"]@(string.IsNullOrEmpty(User.Identity?.Name) ? "" : ", " + User.Identity!.Name)
+        </h2>
+        <p class="mt-1.5 text-sm text-slate-500 dark:text-slate-400">
+            @SharedLocalizer["CrmDashboardSubtitle"]
+        </p>
+    </div>
+
+    <!-- Headline KPIs -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        @{
+            var headline = new (string Label, int Value, string Icon, string Tone, string Href)[]
+            {
+                (SharedLocalizer["CrmTotalLeads"].Value, k.TotalLeads, "groups", "text-[#00B2EC] bg-[#00B2EC]/10",
+                    Url.Action("Index", "CrmLead")!),
+                (SharedLocalizer["CrmOpenDeals"].Value, k.OpenDeals, "handshake", "text-indigo-500 bg-indigo-500/10",
+                    Url.Action("Index", "CrmDeal", new { openOnly = true })!),
+                (SharedLocalizer["CrmCustomers"].Value, k.TotalCustomers, "contacts", "text-emerald-500 bg-emerald-500/10",
+                    Url.Action("Index", "CrmContact")!),
+                (SharedLocalizer["CrmOpenTasks"].Value, k.OpenTasks, "task_alt", "text-amber-500 bg-amber-500/10",
+                    Url.Action("Index", "CrmTask", new { status = CrmTaskStatus.Open })!)
+            };
+        }
+        @foreach (var card in headline)
+        {
+            <a href="@card.Href"
+               class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-5 hover:border-[#00B2EC] transition-colors">
+                <div class="flex items-start justify-between gap-3">
+                    <p class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@card.Label</p>
+                    <span class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 @card.Tone">
+                        <span class="material-symbols-outlined text-[18px]">@card.Icon</span>
+                    </span>
+                </div>
+                <p class="mt-2 font-poppins font-semibold text-2xl text-brand-navy dark:text-white">@card.Value</p>
+            </a>
+        }
+    </div>
+
+    <!-- Secondary counts -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+        @foreach (var card in new (string Label, int Value, string Tone)[]
+        {
+            (SharedLocalizer["CrmNewLeads"].Value, k.NewLeads, "text-slate-500"),
+            (SharedLocalizer["CrmQualifiedLeads"].Value, k.QualifiedLeads, "text-sky-500"),
+            (SharedLocalizer["CrmWonDeals"].Value, k.WonDeals, "text-emerald-500"),
+            (SharedLocalizer["CrmLostDeals"].Value, k.LostDeals, "text-red-500")
+        })
+        {
+            <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-5">
+                <p class="text-xs font-medium uppercase tracking-wide text-slate-400 dark:text-slate-500">@card.Label</p>
+                <p class="mt-2 font-poppins font-semibold text-2xl @card.Tone">@card.Value</p>
+            </div>
+        }
+    </div>
+
+    <!-- Open pipeline value -->
+    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6 mb-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+            <h3 class="font-poppins font-semibold text-base text-brand-navy dark:text-white">@SharedLocalizer["CrmOpenPipelineValue"]</h3>
+            <a asp-controller="CrmDeal" asp-action="Pipeline" class="text-sm text-[#00B2EC] hover:underline">
+                @SharedLocalizer["CrmOpenThePipeline"]
+            </a>
+        </div>
+
+        @if (!Model.Pipeline.Any())
+        {
+            <p class="text-sm text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmNoOpenDealsYet"]</p>
+        }
+        else
+        {
+            <div class="flex flex-wrap gap-x-10 gap-y-4">
+                @foreach (var row in Model.Pipeline)
+                {
+                    <div>
+                        <p class="font-poppins font-semibold text-2xl text-[#00B2EC]">
+                            @row.Total.ToString("N2") <span class="text-base text-slate-400">@row.Currency</span>
+                        </p>
+                        <p class="mt-1 text-xs text-slate-400 dark:text-slate-500">
+                            @row.Count @(row.Count == 1 ? SharedLocalizer["CrmEntityType_Deal"].Value : SharedLocalizer["CrmDeals"].Value)
+                        </p>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+
+        <!-- Upcoming tasks -->
+        <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6">
+            <div class="flex items-center justify-between gap-3 mb-5">
+                <h3 class="font-poppins font-semibold text-base text-brand-navy dark:text-white">
+                    @SharedLocalizer["CrmTasksNeedingAttention"]
+                    @if (k.OverdueTasks > 0)
+                    {
+                        <span class="ms-1.5 inline-flex items-center rounded-full bg-red-500/10 px-2 py-0.5 text-xs font-medium text-red-600 dark:text-red-400">
+                            @k.OverdueTasks @SharedLocalizer["CrmOverdue"]
+                        </span>
+                    }
+                </h3>
+                <a asp-controller="CrmTask" asp-action="Index" class="text-sm text-[#00B2EC] hover:underline">@SharedLocalizer["CrmViewAll"]</a>
+            </div>
+
+            @if (!Model.UpcomingTasks.Any())
+            {
+                <p class="text-sm text-slate-400 dark:text-slate-500">@SharedLocalizer["CrmNoPendingTasks"]</p>
+            }
+            else
+            {
+                <ul class="space-y-3">
+                    @foreach (var t in Model.UpcomingTasks)
+                    {
+                        <li class="flex items-start gap-3">
+                            <span class="material-symbols-outlined text-[20px] shrink-0 mt-0.5 @(t.IsOverdue ? "text-red-500" : "text-slate-300 dark:text-slate-600")">
+                                radio_button_unchecked
+                            </span>
+                            <div class="min-w-0 flex-1">
+                                <a asp-controller="CrmTask" asp-action="Edit" asp-route-id="@t.Id"
+                                   class="text-sm text-slate-800 dark:text-slate-100 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors break-words">
+                                    @t.Title
+                                </a>
+                                <p class="mt-0.5 text-xs text-slate-400 dark:text-slate-500">
+                                    @if (t.DueDate.HasValue)
+                                    {
+                                        <span class="@(t.IsOverdue ? "text-red-600 dark:text-red-400 font-medium" : "")">
+                                            @SharedLocalizer["CrmDue"] @t.DueDate.Value.ToString("dd MMM")
+                                        </span>
+                                    }
+                                    @if (!string.IsNullOrWhiteSpace(t.EntityLabel))
+                                    {
+                                        <span>· @t.EntityLabel</span>
+                                    }
+                                </p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+
+        <!-- Recent activity -->
+        <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6">
+            <h3 class="font-poppins font-semibold text-base text-brand-navy dark:text-white mb-5">@SharedLocalizer["CrmRecentActivities"]</h3>
+
+            @if (!Model.RecentActivities.Any())
+            {
+                <p class="text-sm text-slate-400 dark:text-slate-500">
+                    @SharedLocalizer["CrmNoRecentActivities"]
+                </p>
+            }
+            else
+            {
+                <ul class="space-y-4">
+                    @foreach (var a in Model.RecentActivities)
+                    {
+                        <li class="flex gap-3">
+                            <span class="w-8 h-8 shrink-0 rounded-full bg-slate-500/10 text-slate-500 dark:text-slate-400 flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[16px]">@ActivityIcon(a.Type)</span>
+                            </span>
+                            <div class="min-w-0 flex-1">
+                                <a asp-controller="@EntityController(a.EntityType)" asp-action="Details" asp-route-id="@a.EntityId"
+                                   class="text-sm text-slate-800 dark:text-slate-100 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors break-words">
+                                    @a.Subject
+                                </a>
+                                <p class="mt-0.5 text-xs text-slate-400 dark:text-slate-500">
+                                    @SharedLocalizer[$"CrmActivityType_{a.Type}"] · @a.OccurredAt.ToString("dd MMM, HH:mm")
+                                    @if (!string.IsNullOrWhiteSpace(a.CreatedByName))
+                                    {
+                                        <span>· @a.CreatedByName</span>
+                                    }
+                                </p>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>
+

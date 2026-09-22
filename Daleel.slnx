@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Daleel.BAL/Daleel.BAL.csproj" />
+  <Project Path="Daleel.DAL/Daleel.DAL.csproj" />
+  <Project Path="Daleel.Tests/Daleel.Tests.csproj" />
+  <Project Path="Daleel/Daleel.csproj" />
+</Solution>

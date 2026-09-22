@@ -1,0 +1,544 @@
+@model Daleel.Models.PageSectionsEditViewModel
+@{
+    Layout = "_CmsLayout";
+    ViewData["Title"] = $"Edit {Model.PageKey.ToUpperInvariant()} Sections";
+}
+
+<div class="space-y-6 max-w-5xl mx-auto">
+    <!-- Header -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <a asp-controller="CmsPage" asp-action="Index"
+               class="p-2 rounded-xl border border-slate-200 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/5 text-slate-500 transition-colors">
+                <span class="material-symbols-outlined text-[20px] rtl:rotate-180">arrow_back</span>
+            </a>
+            <div>
+                <h2 class="font-poppins text-2xl font-bold text-brand-navy dark:text-white">
+                    @SharedLocalizer["CmsEditPagePrefix"] <span class="text-[#00B2EC]">@Model.PageKey</span>
+                </h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsEditPageDesc"]</p>
+            </div>
+        </div>
+
+        <button type="button" onclick="openAddSectionModal()"
+                class="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-white dark:bg-white/5 text-slate-700 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-white/10 text-xs font-semibold transition-all">
+            <span class="material-symbols-outlined text-[18px]">add</span>
+            <span>@SharedLocalizer["CmsAddNewSectionKey"]</span>
+        </button>
+    </div>
+
+    <!-- Edit Form -->
+    <form method="post" asp-controller="CmsPage" asp-action="Edit" asp-route-pageKey="@Model.PageKey" class="space-y-6">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="PageKey" />
+
+        @if (Model.Sections.Count == 0)
+        {
+            <div class="bg-white dark:bg-[#0B1728] p-12 rounded-2xl border border-slate-200/80 dark:border-white/10 text-center">
+                <p class="text-slate-500">@SharedLocalizer["CmsNoSectionsFound"]</p>
+            </div>
+        }
+        else
+        {
+            <div class="space-y-4">
+                @for (int i = 0; i < Model.Sections.Count; i++)
+                {
+                    var isImage = (Model.Sections[i].DataType ?? "").Equals("ImagePath", StringComparison.OrdinalIgnoreCase);
+                    var isHtml = (Model.Sections[i].DataType ?? "").Equals("Html", StringComparison.OrdinalIgnoreCase);
+                    var hasEnImg = isImage && !string.IsNullOrWhiteSpace(Model.Sections[i].ValueEn);
+                    var hasArImg = isImage && !string.IsNullOrWhiteSpace(Model.Sections[i].ValueAr);
+
+                    <div class="bg-white dark:bg-[#0B1728] p-6 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-4">
+                        <input type="hidden" name="Sections[@i].PageKey" value="@Model.Sections[i].PageKey" />
+                        <input type="hidden" name="Sections[@i].SectionKey" value="@Model.Sections[i].SectionKey" />
+                        <input type="hidden" name="Sections[@i].DataType" value="@Model.Sections[i].DataType" />
+
+                        <div class="flex items-center justify-between border-b border-slate-100 dark:border-white/5 pb-3">
+                            <div class="flex items-center gap-2">
+                                <span class="font-mono text-sm font-bold text-slate-900 dark:text-white">
+                                    @Model.Sections[i].SectionKey
+                                </span>
+                                <span class="text-[10px] px-2 py-0.5 rounded uppercase font-semibold @(isImage ? "bg-[#F9A01B]/10 text-[#F9A01B]" : isHtml ? "bg-[#8B5CF6]/10 text-[#8B5CF6]" : "bg-[#00B2EC]/10 text-[#00B2EC]")">
+                                    @Model.Sections[i].DataType
+                                </span>
+                            </div>
+                            <button type="button" onclick="confirmDeleteSection('@Model.Sections[i].SectionKey')"
+                                    class="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors"
+                                    title="@SharedLocalizer["CmsDeleteSection"]">
+                                <span class="material-symbols-outlined text-[18px]">delete</span>
+                            </button>
+                        </div>
+
+                        @if (isImage)
+                        {
+                            <!-- Image Upload Component for ImagePath -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- English Image -->
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                                            @SharedLocalizer["CmsEnglishValue"]
+                                        </label>
+                                    </div>
+                                    
+                                    <input type="hidden" name="Sections[@i].ValueEn" id="valEn_@i" value="@Model.Sections[i].ValueEn" />
+                                    <input type="file" id="fileEn_@i" accept="image/*" class="hidden"
+                                           onchange="handleSectionFileUpload(this, 'valEn_@i', 'previewEn_@i', 'containerEn_@i', 'emptyEn_@i', 'spinnerEn_@i', 'labelEn_@i', 'valAr_@i', @i)" />
+
+                                    <!-- Spinner State -->
+                                    <div id="spinnerEn_@i" class="hidden p-6 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 flex flex-col items-center justify-center gap-2 text-slate-400">
+                                        <div class="w-6 h-6 border-2 border-[#00B2EC] border-t-transparent rounded-full animate-spin"></div>
+                                        <span class="text-xs">Uploading image...</span>
+                                    </div>
+
+                                    <!-- Empty Upload Box -->
+                                    <div id="emptyEn_@i" class="@(hasEnImg ? "hidden" : "")">
+                                        <button type="button" onclick="document.getElementById('fileEn_@i').click()"
+                                                class="w-full py-6 px-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-white/10 hover:border-[#00B2EC] bg-slate-50/50 dark:bg-white/5 flex flex-col items-center justify-center gap-2 text-slate-500 hover:text-[#00B2EC] transition-all cursor-pointer">
+                                            <span class="material-symbols-outlined text-[28px]">cloud_upload</span>
+                                            <span class="text-xs font-semibold">@SharedLocalizer["CmsUploadMedia"]</span>
+                                            <span class="text-[10px] text-slate-400">PNG, JPG, WebP, SVG</span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Populated Container with Preview -->
+                                    <div id="containerEn_@i" class="@(hasEnImg ? "" : "hidden") space-y-2">
+                                        <div class="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5">
+                                            <div class="flex items-center gap-3 min-w-0">
+                                                <img id="previewEn_@i" src="@Model.Sections[i].ValueEn" alt="Preview"
+                                                     class="h-14 w-20 object-cover rounded-lg shrink-0 border border-slate-200 dark:border-white/10"
+                                                     onerror="this.src='/favicon.svg'" />
+                                                <span id="labelEn_@i" class="text-xs font-mono text-slate-600 dark:text-slate-300 truncate max-w-[180px] block">
+                                                    @Model.Sections[i].ValueEn
+                                                </span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5 shrink-0">
+                                                <button type="button" onclick="document.getElementById('fileEn_@i').click()"
+                                                        class="px-2.5 py-1.5 rounded-lg bg-[#00B2EC]/10 text-[#00B2EC] hover:bg-[#00B2EC]/20 text-xs font-semibold transition-colors flex items-center gap-1">
+                                                    <span class="material-symbols-outlined text-[16px]">swap_horiz</span>
+                                                    <span>Replace</span>
+                                                </button>
+                                                <button type="button" onclick="clearSectionImage('valEn_@i', 'previewEn_@i', 'containerEn_@i', 'emptyEn_@i', 'labelEn_@i')"
+                                                        class="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-colors"
+                                                        title="@SharedLocalizer["CmsDelete"]">
+                                                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Arabic Image -->
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between">
+                                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 font-cairo">
+                                            القيمة بالعربية
+                                        </label>
+                                        <button type="button" onclick="copyImageToAr(@i)"
+                                                class="text-[11px] text-[#00B2EC] hover:underline font-semibold flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[14px]">content_copy</span>
+                                            <span>استخدام نفس الصورة الإنجليزية</span>
+                                        </button>
+                                    </div>
+
+                                    <input type="hidden" name="Sections[@i].ValueAr" id="valAr_@i" value="@Model.Sections[i].ValueAr" />
+                                    <input type="file" id="fileAr_@i" accept="image/*" class="hidden"
+                                           onchange="handleSectionFileUpload(this, 'valAr_@i', 'previewAr_@i', 'containerAr_@i', 'emptyAr_@i', 'spinnerAr_@i', 'labelAr_@i')" />
+
+                                    <!-- Spinner State -->
+                                    <div id="spinnerAr_@i" class="hidden p-6 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 flex flex-col items-center justify-center gap-2 text-slate-400">
+                                        <div class="w-6 h-6 border-2 border-[#00B2EC] border-t-transparent rounded-full animate-spin"></div>
+                                        <span class="text-xs">Uploading image...</span>
+                                    </div>
+
+                                    <!-- Empty Upload Box -->
+                                    <div id="emptyAr_@i" class="@(hasArImg ? "hidden" : "")">
+                                        <button type="button" onclick="document.getElementById('fileAr_@i').click()"
+                                                class="w-full py-6 px-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-white/10 hover:border-[#00B2EC] bg-slate-50/50 dark:bg-white/5 flex flex-col items-center justify-center gap-2 text-slate-500 hover:text-[#00B2EC] transition-all cursor-pointer">
+                                            <span class="material-symbols-outlined text-[28px]">cloud_upload</span>
+                                            <span class="text-xs font-semibold">@SharedLocalizer["CmsUploadMedia"]</span>
+                                            <span class="text-[10px] text-slate-400">PNG, JPG, WebP, SVG</span>
+                                        </button>
+                                    </div>
+
+                                    <!-- Populated Container with Preview -->
+                                    <div id="containerAr_@i" class="@(hasArImg ? "" : "hidden") space-y-2">
+                                        <div class="flex items-center justify-between gap-3 p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5">
+                                            <div class="flex items-center gap-3 min-w-0">
+                                                <img id="previewAr_@i" src="@Model.Sections[i].ValueAr" alt="Preview"
+                                                     class="h-14 w-20 object-cover rounded-lg shrink-0 border border-slate-200 dark:border-white/10"
+                                                     onerror="this.src='/favicon.svg'" />
+                                                <span id="labelAr_@i" class="text-xs font-mono text-slate-600 dark:text-slate-300 truncate max-w-[180px] block">
+                                                    @Model.Sections[i].ValueAr
+                                                </span>
+                                            </div>
+                                            <div class="flex items-center gap-1.5 shrink-0">
+                                                <button type="button" onclick="document.getElementById('fileAr_@i').click()"
+                                                        class="px-2.5 py-1.5 rounded-lg bg-[#00B2EC]/10 text-[#00B2EC] hover:bg-[#00B2EC]/20 text-xs font-semibold transition-colors flex items-center gap-1">
+                                                    <span class="material-symbols-outlined text-[16px]">swap_horiz</span>
+                                                    <span>Replace</span>
+                                                </button>
+                                                <button type="button" onclick="clearSectionImage('valAr_@i', 'previewAr_@i', 'containerAr_@i', 'emptyAr_@i', 'labelAr_@i')"
+                                                        class="p-1.5 rounded-lg text-slate-400 hover:text-red-500 hover:bg-red-500/10 transition-colors"
+                                                        title="@SharedLocalizer["CmsDelete"]">
+                                                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <!-- English Value -->
+                                <div>
+                                    <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1">@SharedLocalizer["CmsEnglishValue"]</label>
+                                    @if (isHtml || (Model.Sections[i].ValueEn ?? string.Empty).Length > 100)
+                                    {
+                                        <textarea name="Sections[@i].ValueEn" rows="3"
+                                                  class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">@Model.Sections[i].ValueEn</textarea>
+                                    }
+                                    else
+                                    {
+                                        <input type="text" name="Sections[@i].ValueEn" value="@Model.Sections[i].ValueEn"
+                                               class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                                    }
+                                </div>
+
+                                <!-- Arabic Value -->
+                                <div dir="rtl">
+                                    <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 mb-1 font-cairo">القيمة باللغة العربية</label>
+                                    @if (isHtml || (Model.Sections[i].ValueAr ?? string.Empty).Length > 100)
+                                    {
+                                        <textarea name="Sections[@i].ValueAr" rows="3"
+                                                  class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC] font-cairo text-right">@Model.Sections[i].ValueAr</textarea>
+                                    }
+                                    else
+                                    {
+                                        <input type="text" name="Sections[@i].ValueAr" value="@Model.Sections[i].ValueAr"
+                                               class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC] font-cairo text-right" />
+                                    }
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+
+            <div class="flex items-center justify-between pt-4">
+                <a asp-controller="CmsPage" asp-action="Index"
+                   class="px-5 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 font-medium text-sm transition-colors">
+                    @SharedLocalizer["CmsBackToPages"]
+                </a>
+                <button type="submit"
+                        class="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02]">
+                    <span class="material-symbols-outlined text-[20px]">save</span>
+                    <span>@SharedLocalizer["CmsSaveAllSections"]</span>
+                </button>
+            </div>
+        }
+    </form>
+</div>
+
+<!-- Modal: Add New Section -->
+<div id="addSectionModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#0F2542] rounded-2xl border border-slate-200 dark:border-white/15 max-w-md w-full p-6 shadow-2xl space-y-4">
+        <div class="flex items-center justify-between">
+            <h3 class="font-poppins font-bold text-lg text-slate-900 dark:text-white">@SharedLocalizer["CmsAddSectionKey"]</h3>
+            <button type="button" onclick="closeAddSectionModal()"
+                    class="p-1 text-slate-400 hover:text-slate-600 dark:hover:text-white">
+                <span class="material-symbols-outlined text-[20px]">close</span>
+            </button>
+        </div>
+
+        <form method="post" asp-controller="CmsPage" asp-action="AddSection" asp-route-pageKey="@Model.PageKey" class="space-y-4">
+            @Html.AntiForgeryToken()
+            <div>
+                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">@SharedLocalizer["CmsSectionKeySlug"]</label>
+                <input type="text" name="SectionKey" required placeholder="@SharedLocalizer["CmsEgSectionKey"]"
+                       class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-sm font-mono text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">@SharedLocalizer["CmsDataType"]</label>
+                <select name="DataType" id="modalDataTypeSelect" onchange="toggleModalDataType(this.value)" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                    <option value="Text">@SharedLocalizer["CmsTextSingleLine"]</option>
+                    <option value="Html">@SharedLocalizer["CmsHtmlMultiline"]</option>
+                    <option value="ImagePath">@SharedLocalizer["CmsImagePathUrl"]</option>
+                </select>
+            </div>
+
+            <!-- Standard Text Inputs (For Text & Html) -->
+            <div id="modalTextInputs" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">@SharedLocalizer["CmsEnglishValue"]</label>
+                    <input type="text" id="modalTextValEn" name="ValueEn" placeholder="@SharedLocalizer["CmsEnglishCopyPlaceholder"]"
+                           class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                </div>
+
+                <div dir="rtl">
+                    <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1 font-cairo">القيمة بالعربية</label>
+                    <input type="text" id="modalTextValAr" name="ValueAr" placeholder="النص بالعربية..."
+                           class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC] font-cairo text-right" />
+                </div>
+            </div>
+
+            <!-- Image Upload Component (For ImagePath in Modal) -->
+            <div id="modalImageInputs" class="hidden space-y-3">
+                <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                    @SharedLocalizer["CmsUploadMedia"]
+                </label>
+                
+                <input type="file" id="modalFileInput" accept="image/*" class="hidden" onchange="handleModalFileUpload(this)" />
+
+                <!-- Modal Spinner -->
+                <div id="modalSpinner" class="hidden p-6 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 flex flex-col items-center justify-center gap-2 text-slate-400">
+                    <div class="w-6 h-6 border-2 border-[#00B2EC] border-t-transparent rounded-full animate-spin"></div>
+                    <span class="text-xs">Uploading image...</span>
+                </div>
+
+                <!-- Modal Empty Dropzone -->
+                <div id="modalEmptyDropzone">
+                    <button type="button" onclick="document.getElementById('modalFileInput').click()"
+                            class="w-full py-6 px-4 rounded-xl border-2 border-dashed border-slate-200 dark:border-white/10 hover:border-[#00B2EC] bg-slate-50/50 dark:bg-white/5 flex flex-col items-center justify-center gap-2 text-slate-500 hover:text-[#00B2EC] transition-all cursor-pointer">
+                        <span class="material-symbols-outlined text-[28px]">cloud_upload</span>
+                        <span class="text-xs font-semibold">@SharedLocalizer["CmsUploadMedia"]</span>
+                        <span class="text-[10px] text-slate-400">PNG, JPG, WebP, SVG</span>
+                    </button>
+                </div>
+
+                <!-- Modal Preview -->
+                <div id="modalImagePreviewContainer" class="hidden p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/5 flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <img id="modalPreviewImg" src="" alt="Preview" class="h-14 w-20 object-cover rounded-lg shrink-0 border border-slate-200 dark:border-white/10" />
+                        <span id="modalPreviewLabel" class="text-xs font-mono text-slate-600 dark:text-slate-300 truncate max-w-[180px] block"></span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                        <button type="button" onclick="document.getElementById('modalFileInput').click()" class="px-2 py-1 bg-[#00B2EC]/10 text-[#00B2EC] text-xs font-semibold rounded-lg hover:bg-[#00B2EC]/20">Replace</button>
+                        <button type="button" onclick="clearModalImage()" class="p-1 text-slate-400 hover:text-red-500 rounded-lg"><span class="material-symbols-outlined text-[18px]">delete</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-end gap-2 pt-2">
+                <button type="button" onclick="closeAddSectionModal()"
+                        class="px-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 text-xs font-medium text-slate-600 dark:text-slate-300">
+                    @SharedLocalizer["CmsCancel"]
+                </button>
+                <button type="submit"
+                        class="px-4 py-2 rounded-xl bg-[#00B2EC] text-white text-xs font-semibold hover:opacity-90">
+                    @SharedLocalizer["CmsAddSection"]
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Hidden Delete Form -->
+<form id="deleteSectionForm" method="post" asp-controller="CmsPage" asp-action="DeleteSection" asp-route-pageKey="@Model.PageKey">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="sectionKey" id="deleteSectionKey" value="" />
+</form>
+
+@section Scripts {
+    <script>
+        function confirmDeleteSection(sectionKey) {
+            if (confirm('Are you sure you want to delete the section "' + sectionKey + '"? This will remove it from this page.')) {
+                document.getElementById('deleteSectionKey').value = sectionKey;
+                document.getElementById('deleteSectionForm').submit();
+            }
+        }
+
+        function openAddSectionModal() {
+            document.getElementById('addSectionModal').classList.remove('hidden');
+        }
+
+        function closeAddSectionModal() {
+            document.getElementById('addSectionModal').classList.add('hidden');
+        }
+
+        function toggleModalDataType(type) {
+            const textDiv = document.getElementById('modalTextInputs');
+            const imgDiv = document.getElementById('modalImageInputs');
+
+            if (type === 'ImagePath') {
+                if (textDiv) textDiv.classList.add('hidden');
+                if (imgDiv) imgDiv.classList.remove('hidden');
+            } else {
+                if (textDiv) textDiv.classList.remove('hidden');
+                if (imgDiv) imgDiv.classList.add('hidden');
+            }
+        }
+
+        async function handleSectionFileUpload(fileInput, valInputId, previewImgId, containerId, emptyId, spinnerId, labelId, syncValId, i) {
+            if (!fileInput.files || fileInput.files.length === 0) return;
+            const file = fileInput.files[0];
+
+            const spinner = document.getElementById(spinnerId);
+            const empty = document.getElementById(emptyId);
+            const container = document.getElementById(containerId);
+
+            if (spinner) spinner.classList.remove('hidden');
+            if (empty) empty.classList.add('hidden');
+            if (container) container.classList.add('hidden');
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('folder', 'pages');
+
+            const tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
+            if (tokenInput) {
+                formData.append('__RequestVerificationToken', tokenInput.value);
+            }
+
+            try {
+                const response = await fetch('/cms/media/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                if (result.success && result.url) {
+                    const valInput = document.getElementById(valInputId);
+                    if (valInput) valInput.value = result.url;
+
+                    const previewImg = document.getElementById(previewImgId);
+                    if (previewImg) previewImg.src = result.url;
+
+                    const label = document.getElementById(labelId);
+                    if (label) label.innerText = result.url;
+
+                    if (spinner) spinner.classList.add('hidden');
+                    if (container) container.classList.remove('hidden');
+
+                    // If uploading English and Arabic is currently empty, sync to Arabic automatically
+                    if (syncValId && i !== undefined) {
+                        const syncVal = document.getElementById(syncValId);
+                        if (syncVal && !syncVal.value) {
+                            copyImageToAr(i);
+                        }
+                    }
+                } else {
+                    alert(result.message || 'Failed to upload image.');
+                    if (spinner) spinner.classList.add('hidden');
+                    const valInput = document.getElementById(valInputId);
+                    if (valInput && valInput.value) {
+                        if (container) container.classList.remove('hidden');
+                    } else {
+                        if (empty) empty.classList.remove('hidden');
+                    }
+                }
+            } catch (err) {
+                console.error(err);
+                alert('An error occurred while uploading image.');
+                if (spinner) spinner.classList.add('hidden');
+                if (empty) empty.classList.remove('hidden');
+            }
+        }
+
+        function clearSectionImage(valInputId, previewImgId, containerId, emptyId, labelId) {
+            const valInput = document.getElementById(valInputId);
+            if (valInput) valInput.value = '';
+
+            const previewImg = document.getElementById(previewImgId);
+            if (previewImg) previewImg.src = '';
+
+            const label = document.getElementById(labelId);
+            if (label) label.innerText = '';
+
+            const container = document.getElementById(containerId);
+            if (container) container.classList.add('hidden');
+
+            const empty = document.getElementById(emptyId);
+            if (empty) empty.classList.remove('hidden');
+        }
+
+        function copyImageToAr(i) {
+            const valEn = document.getElementById('valEn_' + i);
+            if (!valEn || !valEn.value) return;
+
+            const valAr = document.getElementById('valAr_' + i);
+            const previewAr = document.getElementById('previewAr_' + i);
+            const labelAr = document.getElementById('labelAr_' + i);
+            const containerAr = document.getElementById('containerAr_' + i);
+            const emptyAr = document.getElementById('emptyAr_' + i);
+
+            if (valAr) valAr.value = valEn.value;
+            if (previewAr) previewAr.src = valEn.value;
+            if (labelAr) labelAr.innerText = valEn.value;
+            if (containerAr) containerAr.classList.remove('hidden');
+            if (emptyAr) emptyAr.classList.add('hidden');
+        }
+
+        async function handleModalFileUpload(fileInput) {
+            if (!fileInput.files || fileInput.files.length === 0) return;
+            const file = fileInput.files[0];
+
+            const spinner = document.getElementById('modalSpinner');
+            const dropzone = document.getElementById('modalEmptyDropzone');
+            const previewContainer = document.getElementById('modalImagePreviewContainer');
+
+            if (spinner) spinner.classList.remove('hidden');
+            if (dropzone) dropzone.classList.add('hidden');
+            if (previewContainer) previewContainer.classList.add('hidden');
+
+            const formData = new FormData();
+            formData.append('file', file);
+            formData.append('folder', 'pages');
+
+            const tokenInput = document.querySelector('input[name="__RequestVerificationToken"]');
+            if (tokenInput) {
+                formData.append('__RequestVerificationToken', tokenInput.value);
+            }
+
+            try {
+                const response = await fetch('/cms/media/api/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                if (result.success && result.url) {
+                    const textValEn = document.getElementById('modalTextValEn');
+                    const textValAr = document.getElementById('modalTextValAr');
+                    if (textValEn) textValEn.value = result.url;
+                    if (textValAr) textValAr.value = result.url;
+
+                    const previewImg = document.getElementById('modalPreviewImg');
+                    if (previewImg) previewImg.src = result.url;
+
+                    const previewLabel = document.getElementById('modalPreviewLabel');
+                    if (previewLabel) previewLabel.innerText = result.url;
+
+                    if (spinner) spinner.classList.add('hidden');
+                    if (previewContainer) previewContainer.classList.remove('hidden');
+                } else {
+                    alert(result.message || 'Failed to upload image.');
+                    if (spinner) spinner.classList.add('hidden');
+                    if (dropzone) dropzone.classList.remove('hidden');
+                }
+            } catch (err) {
+                console.error(err);
+                alert('An error occurred while uploading image.');
+                if (spinner) spinner.classList.add('hidden');
+                if (dropzone) dropzone.classList.remove('hidden');
+            }
+        }
+
+        function clearModalImage() {
+            const textValEn = document.getElementById('modalTextValEn');
+            const textValAr = document.getElementById('modalTextValAr');
+            if (textValEn) textValEn.value = '';
+            if (textValAr) textValAr.value = '';
+
+            const previewImg = document.getElementById('modalPreviewImg');
+            if (previewImg) previewImg.src = '';
+
+            const previewContainer = document.getElementById('modalImagePreviewContainer');
+            if (previewContainer) previewContainer.classList.add('hidden');
+
+            const dropzone = document.getElementById('modalEmptyDropzone');
+            if (dropzone) dropzone.classList.remove('hidden');
+        }
+    </script>
+}

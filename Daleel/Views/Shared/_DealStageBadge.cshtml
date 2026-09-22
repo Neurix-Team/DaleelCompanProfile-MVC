@@ -1,0 +1,17 @@
+@model Daleel.DAL.Entities.DealStage
+@using Daleel.DAL.Entities
+@{
+    // Open stages warm up as they approach closing; Won/Lost get their own colours.
+    var classes = Model switch
+    {
+        DealStage.New => "bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-300",
+        DealStage.Qualified => "bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-400",
+        DealStage.Proposal => "bg-indigo-50 text-indigo-700 dark:bg-indigo-500/10 dark:text-indigo-400",
+        DealStage.Negotiation => "bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
+        DealStage.Won => "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400",
+        DealStage.Lost => "bg-red-50 text-red-700 dark:bg-red-500/10 dark:text-red-400",
+        _ => "bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-300"
+    };
+}
+<span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium @classes">@SharedLocalizer[$"CrmDealStage_{Model}"]</span>
+

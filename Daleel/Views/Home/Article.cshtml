@@ -1,0 +1,226 @@
+@model Daleel.BAL.Models.ArticleDetailDto?
+@using System.Globalization
+@{
+    var isAr = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+    var hasModel = Model != null;
+    
+    var title = hasModel 
+        ? (isAr ? (string.IsNullOrEmpty(Model!.TitleAr) ? Model.TitleEn : Model.TitleAr) : (string.IsNullOrEmpty(Model!.TitleEn) ? Model.TitleAr : Model.TitleEn))
+        : SharedLocalizer["AnalysisTitle"].Value;
+
+    var summary = hasModel
+        ? (isAr ? (string.IsNullOrEmpty(Model!.SummaryAr) ? Model.SummaryEn : Model.SummaryAr) : (string.IsNullOrEmpty(Model!.SummaryEn) ? Model.SummaryAr : Model.SummaryEn))
+        : SharedLocalizer["AnalysisDesc"].Value;
+
+    var bodyHtml = hasModel
+        ? (isAr ? (string.IsNullOrEmpty(Model!.BodyHtmlAr) ? Model.BodyHtmlEn : Model.BodyHtmlAr) : (string.IsNullOrEmpty(Model!.BodyHtmlEn) ? Model.BodyHtmlAr : Model.BodyHtmlEn))
+        : null;
+
+    var category = hasModel && !string.IsNullOrWhiteSpace(Model!.Category) ? Model.Category : SharedLocalizer["Analysis"].Value;
+    var author = hasModel ? Model!.AuthorName : SharedLocalizer["ArticleAuthor"].Value;
+    var readingTime = hasModel ? $"{Model!.ReadingMinutes} {(isAr ? "دقائق" : "min read")}" : SharedLocalizer["MinRead6"].Value;
+    var dateString = hasModel ? (Model!.PublishedAt?.ToString("MMM dd, yyyy") ?? Model!.CreatedAt.ToString("MMM dd, yyyy")) : SharedLocalizer["ArticleDate"].Value;
+    var coverImage = hasModel && !string.IsNullOrWhiteSpace(Model!.CoverImagePath) 
+        ? Model.CoverImagePath 
+        : "https://lh3.googleusercontent.com/aida-public/AB6AXuBYvt_umU7PQEKKpALP6ubUKpQGILOmQ-JUgeEf9D2X8QcOWVHA9msHxUOWvLJ45rK1Zf-PATGkErd67lGkqP1MamDwvN-r85ninbUfzndrqVDs-hhLmAdAb6z3Sghc-rwbxjhd6-IalHKRq04WO7Fg9gPdGtNDvYJy-Gwb4o4y41VIGt1gQ1D7xshfcMERwwqSk6HS06Kt7Q1Y69C6paBPW7hWlt2yEIi4JQFAkbgInSnUyfSNDlgZkKlAaL4aWMt6PJTVRS1bej0";
+
+    var relatedArticles = ViewData["RelatedArticles"] as IReadOnlyList<Daleel.BAL.Models.ArticleListItem>;
+
+    if (hasModel)
+    {
+        var metaTitle = isAr 
+            ? (!string.IsNullOrWhiteSpace(Model!.MetaTitleAr) ? Model.MetaTitleAr : title)
+            : (!string.IsNullOrWhiteSpace(Model!.MetaTitleEn) ? Model.MetaTitleEn : title);
+
+        var metaDesc = isAr 
+            ? (!string.IsNullOrWhiteSpace(Model!.MetaDescriptionAr) ? Model.MetaDescriptionAr : summary)
+            : (!string.IsNullOrWhiteSpace(Model!.MetaDescriptionEn) ? Model.MetaDescriptionEn : summary);
+
+        ViewData["Title"] = metaTitle;
+        ViewData["MetaDescription"] = metaDesc;
+        if (!string.IsNullOrWhiteSpace(Model!.Tags))
+        {
+            ViewData["MetaKeywords"] = Model.Tags;
+        }
+        if (!string.IsNullOrWhiteSpace(Model!.CanonicalUrl))
+        {
+            ViewData["CanonicalUrl"] = Model.CanonicalUrl;
+        }
+        ViewData["OgImage"] = coverImage;
+        ViewData["OgType"] = "article";
+    }
+    else
+    {
+        ViewData["Title"] = title;
+    }
+}
+
+@functions {
+    public string ToLocalNumerals(string input)
+    {
+        if (string.IsNullOrEmpty(input)) return string.Empty;
+        if (System.Threading.Thread.CurrentThread.CurrentCulture.Name.StartsWith("ar"))
+        {
+            string replaced = input.Replace("M", " مليون")
+                                   .Replace("K", " ألف")
+                                   .Replace("min", " دقائق")
+                                   .Replace("-in-", " في ")
+                                   .Replace('0', '٠')
+                                   .Replace('1', '١')
+                                   .Replace('2', '٢')
+                                   .Replace('3', '٣')
+                                   .Replace('4', '٤')
+                                   .Replace('5', '٥')
+                                   .Replace('6', '٦')
+                                   .Replace('7', '٧')
+                                   .Replace('8', '٨')
+                                   .Replace('9', '٩');
+                                   
+            if (replaced.EndsWith("+"))
+            {
+                replaced = "+" + replaced.TrimEnd('+');
+            }
+            
+            return replaced;
+        }
+        return input;
+    }
+}
+
+<section class="relative py-32 bg-white dark:bg-[#0B1220] transition-colors duration-300 min-h-screen">
+    <!-- Header Background -->
+    <div class="absolute top-0 inset-x-0 h-[480px] bg-slate-950 overflow-hidden">
+        <img class="absolute inset-0 w-full h-full object-cover opacity-35 mix-blend-overlay"
+             alt="@title"
+             src="@coverImage" />
+        <div class="absolute inset-0 bg-gradient-to-t from-white dark:from-[#0B1220] via-slate-950/70 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 max-w-4xl mx-auto px-6 sm:px-8 pt-20">
+        
+        <!-- Article Header -->
+        <div class="mb-12" data-animate="fade-up">
+            <div class="flex flex-wrap items-center gap-4 mb-6">
+                <span class="bg-[#00B2EC] text-white px-3 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider shadow-lg shadow-[#00B2EC]/20">
+                    @category
+                </span>
+                <div class="flex items-center gap-2 text-slate-300 text-xs font-['Inter']">
+                    <span class="material-symbols-outlined text-[16px]">schedule</span>
+                    <span dir="auto">@ToLocalNumerals(readingTime)</span>
+                </div>
+            </div>
+            
+            <h1 class="font-['Poppins'] text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 dark:text-white leading-tight mb-8" dir="auto">
+                @ToLocalNumerals(title)
+            </h1>
+            
+            <div class="flex items-center gap-4 border-t border-slate-200/20 dark:border-white/10 pt-6">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-[#00B2EC] to-[#10B981] p-0.5 shadow-md">
+                    <div class="w-full h-full bg-slate-900 rounded-full flex items-center justify-center">
+                        <span class="material-symbols-outlined text-white text-[20px]">psychology</span>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-slate-800 dark:text-white font-['Inter'] font-semibold text-sm">@author</p>
+                    <p class="text-slate-500 dark:text-slate-400 font-['Inter'] text-xs" dir="auto">@ToLocalNumerals(dateString)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Article Content -->
+        <div class="glass-card rounded-[2rem] p-8 sm:p-12 shadow-2xl bg-white/90 dark:bg-[#0F2542]/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10" data-animate="fade-up" data-delay="1">
+            <div class="prose prose-lg dark:prose-invert max-w-none font-['Inter'] text-slate-700 dark:text-slate-300 leading-loose text-start">
+                @if (!string.IsNullOrWhiteSpace(summary))
+                {
+                    <p class="text-xl sm:text-2xl font-medium text-slate-900 dark:text-white mb-8 leading-relaxed font-poppins" dir="auto">
+                        @ToLocalNumerals(summary)
+                    </p>
+                }
+
+                @if (!string.IsNullOrWhiteSpace(bodyHtml))
+                {
+                    <div class="article-body-content space-y-6" dir="auto">
+                        @Html.Raw(bodyHtml)
+                    </div>
+                }
+                else
+                {
+                    <!-- Static Fallback Paragraphs -->
+                    <p class="mb-6" dir="auto">@ToLocalNumerals(SharedLocalizer["AnalysisP2"].Value)</p>
+                    <p class="mb-6" dir="auto">@ToLocalNumerals(SharedLocalizer["AnalysisP3"].Value)</p>
+                    <p class="mb-6" dir="auto">@ToLocalNumerals(SharedLocalizer["AnalysisP4"].Value)</p>
+                    <p class="mb-6" dir="auto">@ToLocalNumerals(SharedLocalizer["AnalysisP5"].Value)</p>
+                    <p class="mb-6" dir="auto">@ToLocalNumerals(SharedLocalizer["AnalysisP6"].Value)</p>
+                    <p class="mb-6" dir="auto">@ToLocalNumerals(SharedLocalizer["AnalysisP7"].Value)</p>
+                    <p class="mb-6" dir="auto">@ToLocalNumerals(SharedLocalizer["AnalysisP8"].Value)</p>
+                    <p class="mb-6" dir="auto">@ToLocalNumerals(SharedLocalizer["AnalysisP9"].Value)</p>
+                    <p class="mb-6" dir="auto">@ToLocalNumerals(SharedLocalizer["AnalysisP10"].Value)</p>
+                }
+            </div>
+
+            <!-- Tags List -->
+            @if (hasModel && Model!.TagsList.Count > 0)
+            {
+                <div class="mt-8 pt-6 border-t border-slate-200/50 dark:border-white/5 flex items-center gap-2 flex-wrap">
+                    <span class="text-xs text-slate-400 flex items-center gap-1 font-semibold">
+                        <span class="material-symbols-outlined text-[16px]">label</span>
+                        @(isAr ? "الوسوم:" : "Tags:")
+                    </span>
+                    @foreach (var tag in Model.TagsList)
+                    {
+                        <a asp-controller="Home" asp-action="Blog" asp-route-tag="@tag"
+                           class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-[#00B2EC]/10 text-[#00B2EC] hover:bg-[#00B2EC]/20 transition-colors">
+                            #@tag
+                        </a>
+                    }
+                </div>
+            }
+
+            <!-- Share & Back Links -->
+            <div class="mt-8 pt-6 border-t border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-4">
+                <a asp-controller="Home" asp-action="Blog" class="inline-flex items-center gap-2 text-sm font-semibold text-[#00B2EC] hover:text-[#008dbb] transition-colors">
+                    <span class="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_back</span>
+                    @(isAr ? "العودة إلى المدونة والأخبار" : "Back to Blog & News")
+                </a>
+
+                @if (User.Identity?.IsAuthenticated == true && hasModel)
+                {
+                    <a asp-controller="CmsArticle" asp-action="Edit" asp-route-id="@Model!.Id"
+                       class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#00B2EC]/30 text-xs font-semibold text-[#00B2EC] hover:bg-[#00B2EC]/10">
+                        <span class="material-symbols-outlined text-[16px]">edit</span>
+                        Edit in CMS
+                    </a>
+                }
+            </div>
+        </div>
+
+        <!-- Related Articles (if available) -->
+        @if (relatedArticles != null && relatedArticles.Count > 0)
+        {
+            <div class="mt-16 space-y-6">
+                <h3 class="font-poppins font-bold text-2xl text-slate-900 dark:text-white">
+                    @(isAr ? "مقالات ذات صلة" : "Related Articles")
+                </h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    @foreach (var rel in relatedArticles)
+                    {
+                        var relTitle = isAr ? (string.IsNullOrEmpty(rel.TitleAr) ? rel.TitleEn : rel.TitleAr) : (string.IsNullOrEmpty(rel.TitleEn) ? rel.TitleAr : rel.TitleEn);
+                        var relSummary = isAr ? (string.IsNullOrEmpty(rel.SummaryAr) ? rel.SummaryEn : rel.SummaryAr) : (string.IsNullOrEmpty(rel.SummaryEn) ? rel.SummaryAr : rel.SummaryEn);
+
+                        <a asp-controller="Home" asp-action="Article" asp-route-slug="@rel.Slug"
+                           class="p-6 rounded-2xl bg-white dark:bg-[#0F2542]/60 border border-slate-200 dark:border-white/10 hover:border-[#00B2EC]/50 shadow-sm transition-all group block">
+                            <span class="text-[11px] font-bold text-[#00B2EC] uppercase tracking-wider">@rel.Category</span>
+                            <h4 class="font-poppins font-bold text-lg text-slate-900 dark:text-white mt-1 group-hover:text-[#00B2EC] transition-colors line-clamp-2">
+                                @relTitle
+                            </h4>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">
+                                @relSummary
+                            </p>
+                        </a>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+</section>

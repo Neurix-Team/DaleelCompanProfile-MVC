@@ -1,0 +1,158 @@
+@model Daleel.Models.ContactPageViewModel
+@{
+    var isRtl = System.Threading.Thread.CurrentThread.CurrentCulture.Name.StartsWith("ar");
+    var brandName = isRtl ? (Model.Brand?.NameAr ?? "دليل") : (Model.Brand?.NameEn ?? "Daleel");
+    ViewData["Title"] = isRtl ? $"اتصل بنا - {brandName}" : $"Contact Us - {brandName}";
+    bool isSuccess = TempData["ContactSuccess"] != null && (bool)TempData["ContactSuccess"]!;
+
+    // CMS-editable copy (Page Sections -> "contact"). Headings and intro only — the enquiry
+    // form below keeps its own view model, validation and lead capture.
+    var content = ViewData.PageContent();
+}
+
+<section class="relative py-32 overflow-hidden transition-colors duration-300">
+    <!-- Ambient Background Glows -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute top-10 left-10 w-[600px] h-[600px] rounded-[100%] bg-[#F9A01B]/10 blur-[120px] dark:bg-[#F9A01B]/5"></div>
+    </div>
+
+    <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8">
+
+        <!-- Page Header -->
+        <div class="text-center max-w-3xl mx-auto mb-20" data-animate="fade-up">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#00B2EC]/10 via-[#10B981]/10 to-[#fdc70c]/10 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-300 font-['Inter'] text-xs font-semibold tracking-wide mb-6">
+                <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">mail</span>
+                @content.Section("contact_badge", SharedLocalizer["GetInTouch"].Value)
+            </div>
+            <h1 class="font-['Poppins'] text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 dark:text-white leading-tight mb-6">
+                @content.Section("contact_title", SharedLocalizer["ContactHeading"].Value) <span class="text-gradient">@brandName</span>
+            </h1>
+            <p class="font-['Inter'] text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
+                @content.Section("contact_desc", SharedLocalizer["ContactDesc"].Value)
+            </p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-12 lg:gap-20 max-w-6xl mx-auto">
+
+            <!-- Contact Info from Dynamic Brand Profile -->
+            <div class="space-y-8 text-start" data-animate="fade-up" data-delay="1">
+                <h2 class="font-['Poppins'] text-3xl font-bold text-slate-900 dark:text-white mb-8">@content.Section("contact_direct_title", SharedLocalizer["ReachOutDirectly"].Value)</h2>
+
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-[#00B2EC]/10 flex items-center justify-center shrink-0 mt-1">
+                        <span class="material-symbols-outlined text-[#00B2EC]">location_on</span>
+                    </div>
+                    <div>
+                        <h3 class="font-['Inter'] font-semibold text-slate-900 dark:text-white text-lg">@SharedLocalizer["GlobalHeadquarters"]</h3>
+                        <p class="font-['Inter'] text-slate-600 dark:text-slate-400 mt-2">
+                            @(!string.IsNullOrWhiteSpace(Model.Brand?.Address) ? Model.Brand.Address : SharedLocalizer["HQAddress"].Value)
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-[#10B981]/10 flex items-center justify-center shrink-0 mt-1">
+                        <span class="material-symbols-outlined text-[#10B981]">mail</span>
+                    </div>
+                    <div>
+                        <h3 class="font-['Inter'] font-semibold text-slate-900 dark:text-white text-lg">@SharedLocalizer["EmailUs"]</h3>
+                        @{
+                            var email = !string.IsNullOrWhiteSpace(Model.Brand?.Email) ? Model.Brand.Email : "info@aidaleel.com";
+                        }
+                        <a href="mailto:@email" class="font-['Inter'] text-[#10B981] hover:underline mt-2 inline-block">@email</a>
+                    </div>
+                </div>
+
+                <div class="flex items-start gap-4">
+                    <div class="w-12 h-12 rounded-xl bg-[#F9A01B]/10 flex items-center justify-center shrink-0 mt-1">
+                        <span class="material-symbols-outlined text-[#F9A01B]">phone_in_talk</span>
+                    </div>
+                    <div>
+                        <h3 class="font-['Inter'] font-semibold text-slate-900 dark:text-white text-lg">@SharedLocalizer["CallUs"]</h3>
+                        @{
+                            var phone = !string.IsNullOrWhiteSpace(Model.Brand?.Phone) ? Model.Brand.Phone : "+1 (302) 602 4695";
+                        }
+                        <a href="tel:@phone" class="font-['Inter'] text-[#F9A01B] hover:underline mt-2 inline-block" dir="ltr">@phone</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="glass-card rounded-[2rem] p-8 sm:p-10 text-start" data-animate="scale-in" data-delay="2">
+                @* Success banner (shown after successful PRG redirect) *@
+                @if (isSuccess)
+                {
+                    <div id="contact-success-banner"
+                         class="mb-6 flex items-start gap-3 rounded-xl border border-[#10B981]/25 bg-[#10B981]/10 px-5 py-4"
+                         role="alert" aria-live="polite">
+                        <span class="material-symbols-outlined text-[22px] text-[#10B981] mt-0.5"
+                              style="font-variation-settings:'FILL' 1;">check_circle</span>
+                        <div>
+                            <p class="font-['Inter'] font-semibold text-[#10B981] text-sm">Message sent successfully!</p>
+                            <p class="font-['Inter'] text-slate-600 dark:text-slate-400 text-xs mt-1">
+                                Our team will get back to you within one business day.
+                            </p>
+                        </div>
+                    </div>
+                }
+
+                @* Server-side model errors *@
+                <div asp-validation-summary="ModelOnly"
+                     class="mb-6 rounded-xl border border-red-300 bg-red-50 dark:bg-red-950/30 dark:border-red-800 px-4 py-3 text-sm text-red-700 dark:text-red-400 font-['Inter']">
+                </div>
+
+                <form asp-action="Contact" asp-controller="Home" method="post" id="contact-form" class="space-y-6" novalidate>
+                    @Html.AntiForgeryToken()
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="col-span-2 sm:col-span-1">
+                            <label asp-for="Form.FirstName" class="block font-['Inter'] text-sm font-medium text-slate-900 dark:text-slate-300 mb-2">@SharedLocalizer["FirstName"] <span class="text-red-500">*</span></label>
+                            <input asp-for="Form.FirstName" id="contact-first-name" autocomplete="given-name" type="text" class="w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" placeholder="John" />
+                            <span asp-validation-for="Form.FirstName" class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
+                            <p id="contact-first-name-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Must be at least 3 characters and contain only letters.</p>
+                        </div>
+                        <div class="col-span-2 sm:col-span-1">
+                            <label asp-for="Form.LastName" class="block font-['Inter'] text-sm font-medium text-slate-900 dark:text-slate-300 mb-2">@SharedLocalizer["LastName"] <span class="text-red-500">*</span></label>
+                            <input asp-for="Form.LastName" id="contact-last-name" autocomplete="family-name" type="text" class="w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" placeholder="Doe" />
+                            <span asp-validation-for="Form.LastName" class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
+                            <p id="contact-last-name-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Must be at least 3 characters and contain only letters.</p>
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="Form.Email" class="block font-['Inter'] text-sm font-medium text-slate-900 dark:text-slate-300 mb-2">@SharedLocalizer["WorkEmail"] <span class="text-red-500">*</span></label>
+                        <input asp-for="Form.Email" id="contact-email" autocomplete="email" type="email" class="w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" placeholder="john@company.com" />
+                        <span asp-validation-for="Form.Email" class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
+                        <p id="contact-email-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Please enter a valid email address (e.g., name@domain.com).</p>
+                    </div>
+                    <div>
+                        <label asp-for="Form.Subject" class="block font-['Inter'] text-sm font-medium text-slate-900 dark:text-slate-300 mb-2">@SharedLocalizer["Subject"] <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <select asp-for="Form.Subject" id="contact-subject" class="w-full appearance-none !bg-none bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 pe-12 text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all">
+                                <option value="Platform Demo">@SharedLocalizer["SubjectPlatformDemo"]</option>
+                                <option value="Partnership">@SharedLocalizer["SubjectPartnership"]</option>
+                                <option value="Support">@SharedLocalizer["SubjectSupport"]</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 end-0 flex items-center pe-4 text-slate-500 dark:text-slate-400">
+                                <span class="material-symbols-outlined">expand_more</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <label asp-for="Form.Message" class="block font-['Inter'] text-sm font-medium text-slate-900 dark:text-slate-300 mb-2">@SharedLocalizer["Message"] <span class="text-red-500">*</span></label>
+                        <textarea asp-for="Form.Message" id="contact-message" rows="4" class="w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all resize-none" placeholder="@SharedLocalizer["MessagePlaceholder"]"></textarea>
+                        <span asp-validation-for="Form.Message" class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
+                        <p id="contact-message-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Message must be at least 3 characters.</p>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-[#00B2EC] text-white px-8 py-4 rounded-xl font-['Inter'] font-semibold text-base shadow-lg shadow-[#00B2EC]/20 hover:shadow-xl hover:shadow-[#00B2EC]/30 active:scale-95 transition-all duration-300">
+                        @SharedLocalizer["SendMessage"]
+                    </button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

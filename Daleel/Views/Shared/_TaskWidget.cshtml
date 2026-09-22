@@ -1,0 +1,97 @@
+@model Daleel.Models.TaskFormViewModel
+@using Daleel.BAL.Models
+@using Daleel.DAL.Entities
+@{
+    // Tasks are passed alongside the quick-add model so the detail page makes one
+    // service call and this partial stays purely presentational.
+    var tasks = ViewData["Tasks"] as IReadOnlyList<TaskListItem> ?? Array.Empty<TaskListItem>();
+    var returnUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString;
+
+    var inputClass = "w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition";
+
+    var openCount = tasks.Count(t => t.Status != CrmTaskStatus.Done);
+}
+
+<div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6">
+    <div class="flex items-center justify-between gap-3 mb-5">
+        <h3 class="font-poppins font-semibold text-base text-brand-navy dark:text-white">
+            @SharedLocalizer["CrmTasksTitle"]
+            <span class="ms-1 text-sm font-normal text-slate-400">@openCount @SharedLocalizer["CrmOpen"]</span>
+        </h3>
+        <a asp-controller="CrmTask" asp-action="Create"
+           asp-route-entityType="@Model.EntityType" asp-route-entityId="@Model.EntityId"
+           class="text-sm text-[#00B2EC] hover:underline">
+            @SharedLocalizer["CrmFullForm"]
+        </a>
+    </div>
+
+    <!-- Quick add: title and due date only; anything more goes through the full form. -->
+    <form asp-controller="CrmTask" asp-action="Create" method="post" class="mb-5 flex flex-wrap gap-3" novalidate>
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="EntityType" />
+        <input type="hidden" asp-for="EntityId" />
+        <input type="hidden" name="ReturnUrl" value="@returnUrl" />
+
+        <input asp-for="Title" class="@inputClass flex-1 min-w-[12rem]" placeholder="@SharedLocalizer["CrmQuickTaskPlaceholder"]" required />
+        <input asp-for="DueDate" type="date" class="@inputClass w-auto" />
+
+        <button type="submit"
+                class="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-white/5 hover:border-[#00B2EC] transition-colors">
+            <span class="material-symbols-outlined text-[20px]">add_task</span>
+            @SharedLocalizer["CrmAdd"]
+        </button>
+    </form>
+
+    @if (!tasks.Any())
+    {
+        <p class="border-t border-slate-200 dark:border-white/10 pt-5 text-sm text-slate-400 dark:text-slate-500">
+            @SharedLocalizer["CrmNoTasksForRecord"]
+        </p>
+    }
+    else
+    {
+        <ul class="border-t border-slate-200 dark:border-white/10 pt-5 space-y-3">
+            @foreach (var task in tasks)
+            {
+                var done = task.Status == CrmTaskStatus.Done;
+                <li class="flex items-start gap-3">
+                    <form asp-controller="CrmTask" asp-action="@(done ? "Reopen" : "Complete")" asp-route-id="@task.Id"
+                          method="post" class="shrink-0 pt-0.5">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="returnUrl" value="@returnUrl" />
+                        <button type="submit" title="@(done ? SharedLocalizer["CrmReopen"].Value : SharedLocalizer["CrmMarkDone"].Value)"
+                                class="p-1 rounded-full text-slate-400 hover:text-emerald-600 transition-colors">
+                            <span class="material-symbols-outlined text-[20px] @(done ? "text-emerald-500" : "")">
+                                @(done ? "check_circle" : "radio_button_unchecked")
+                            </span>
+                        </button>
+                    </form>
+
+                    <div class="min-w-0 flex-1">
+                        <p class="text-sm break-words @(done ? "line-through text-slate-400 dark:text-slate-500" : "text-slate-800 dark:text-slate-100")">
+                            @task.Title
+                        </p>
+                        <p class="mt-0.5 text-xs text-slate-400 dark:text-slate-500 flex flex-wrap gap-x-2">
+                            @if (task.DueDate.HasValue)
+                            {
+                                <span class="@(task.IsOverdue ? "text-red-600 dark:text-red-400 font-medium" : "")">
+                                    @SharedLocalizer["CrmDue"] @task.DueDate.Value.ToString("dd MMM yyyy")@(task.IsOverdue ? $" · {SharedLocalizer["CrmOverdue"].Value}" : "")
+                                </span>
+                            }
+                            <span>@SharedLocalizer[$"CrmTaskPriority_{task.Priority}"] @SharedLocalizer["CrmPriority"]</span>
+                            @if (!string.IsNullOrWhiteSpace(task.AssignedToName))
+                            {
+                                <span>· @task.AssignedToName</span>
+                            }
+                        </p>
+                    </div>
+
+                    <a asp-controller="CrmTask" asp-action="Edit" asp-route-id="@task.Id" title="@SharedLocalizer["CrmEditTask"]"
+                       class="shrink-0 p-1.5 rounded-lg text-slate-400 hover:text-[#00B2EC] hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                    </a>
+                </li>
+            }
+        </ul>
+    }
+</div>

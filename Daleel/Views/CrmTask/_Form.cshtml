@@ -1,0 +1,131 @@
+@model Daleel.Models.TaskFormViewModel
+@using Daleel.DAL.Entities
+@{
+    var inputClass = "w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition";
+    var labelClass = "block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2";
+    var errorClass = "mt-1.5 block text-xs text-red-600 dark:text-red-400";
+}
+
+<div asp-validation-summary="ModelOnly"
+     class="mb-6 rounded-lg bg-red-50 dark:bg-red-500/10 border border-red-200 dark:border-red-500/25 px-4 py-3 text-sm text-red-700 dark:text-red-400 [&_ul]:list-none [&_ul]:m-0 [&_ul]:p-0">
+</div>
+
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+
+    <div class="sm:col-span-2">
+        <label asp-for="Title" class="@labelClass"></label>
+        <input asp-for="Title" class="@inputClass" placeholder="Send the revised proposal" autofocus />
+        <span asp-validation-for="Title" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="DueDate" class="@labelClass"></label>
+        <input asp-for="DueDate" type="date" class="@inputClass" />
+        <span asp-validation-for="DueDate" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="AssignedToId" class="@labelClass"></label>
+        <select asp-for="AssignedToId" asp-items="Model.AssignedToOptions" class="@inputClass">
+            <option value="">— @SharedLocalizer["CrmUnassigned"] —</option>
+        </select>
+        <span asp-validation-for="AssignedToId" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="Priority" class="@labelClass"></label>
+        <select asp-for="Priority" class="@inputClass">
+            @foreach (var p in Enum.GetValues<TaskPriority>())
+            {
+                <option value="@p" selected="@(Model.Priority == p)">@SharedLocalizer[$"CrmTaskPriority_{p}"]</option>
+            }
+        </select>
+        <span asp-validation-for="Priority" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="Status" class="@labelClass"></label>
+        <select asp-for="Status" class="@inputClass">
+            @foreach (var s in Enum.GetValues<CrmTaskStatus>())
+            {
+                <option value="@s" selected="@(Model.Status == s)">@SharedLocalizer[$"CrmTaskStatus_{s}"]</option>
+            }
+        </select>
+        <span asp-validation-for="Status" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="EntityType" class="@labelClass"></label>
+        <select asp-for="EntityType" id="task-entity-type" class="@inputClass">
+            <option value="">— @SharedLocalizer["CrmNotLinked"] —</option>
+            @foreach (var type in Enum.GetValues<CrmEntityType>())
+            {
+                <option value="@type" selected="@(Model.EntityType == type)">@SharedLocalizer[$"CrmEntityType_{type}"]</option>
+            }
+        </select>
+        <span asp-validation-for="EntityType" class="@errorClass"></span>
+    </div>
+
+    <div>
+        <label asp-for="EntityId" class="@labelClass"></label>
+        @* One select per entity type, all rendered and all but the active one hidden and
+           disabled. Disabled controls are not posted, so only the visible list ever binds
+           to EntityId — no AJAX and no duplicate-name collisions. *@
+        <select id="task-entity-id-none" name="EntityId" class="@inputClass"
+                disabled="@(Model.EntityType != null)" hidden="@(Model.EntityType != null)">
+            <option value="">— @SharedLocalizer["CrmChooseTypeFirst"] —</option>
+        </select>
+
+        @foreach (var type in Enum.GetValues<CrmEntityType>())
+        {
+            var active = Model.EntityType == type;
+            var options = Model.EntityOptions.TryGetValue(type, out var list)
+                ? list
+                : Enumerable.Empty<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>();
+
+            <select id="task-entity-id-@type" name="EntityId" class="@inputClass"
+                    data-entity-type="@type" disabled="@(!active)" hidden="@(!active)">
+                <option value="">— @SharedLocalizer["CrmChooseRecord"] (@SharedLocalizer[$"CrmEntityType_{type}"]) —</option>
+                @foreach (var option in options)
+                {
+                    <option value="@option.Value" selected="@(active && Model.EntityId?.ToString() == option.Value)">
+                        @option.Text
+                    </option>
+                }
+            </select>
+        }
+        <span asp-validation-for="EntityId" class="@errorClass"></span>
+    </div>
+
+    <div class="sm:col-span-2">
+        <label asp-for="Description" class="@labelClass"></label>
+        <textarea asp-for="Description" rows="4" class="@inputClass" placeholder="@SharedLocalizer["CrmNotesPlaceholder"]"></textarea>
+        <span asp-validation-for="Description" class="@errorClass"></span>
+    </div>
+</div>
+
+@* Inline rather than in a Scripts section: partials cannot define sections, and the
+   markup this touches is already parsed by the time it runs. *@
+<script>
+        (function () {
+            var typeSelect = document.getElementById('task-entity-type');
+            if (!typeSelect) return;
+
+            // Show only the record list matching the chosen type, and disable the rest so
+            // exactly one EntityId value is ever posted.
+            function sync() {
+                var chosen = typeSelect.value;
+
+                document.querySelectorAll('select[name="EntityId"]').forEach(function (select) {
+                    var owner = select.getAttribute('data-entity-type') || '';
+                    var active = owner === chosen;
+                    select.disabled = !active;
+                    select.hidden = !active;
+                    if (!active) select.value = '';
+                });
+            }
+
+            typeSelect.addEventListener('change', sync);
+        })();
+</script>
+

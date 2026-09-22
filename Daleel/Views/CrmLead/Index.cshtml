@@ -1,0 +1,205 @@
+@model Daleel.BAL.Models.PagedResult<Daleel.BAL.Models.LeadListItem>
+@using Daleel.DAL.Entities
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    Layout = "_CrmLayout";
+    ViewData["Title"] = SharedLocalizer["CrmLeads"].Value;
+    var q = ViewData["Q"] as string;
+    var status = ViewData["Status"] as LeadStatus?;
+    var source = ViewData["Source"] as LeadSource?;
+    var assignedToId = ViewData["AssignedToId"] as string;
+    var showArchived = ViewData["ShowArchived"] as bool? ?? false;
+    var userOptions = ViewData["AssignedToOptions"] as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
+    var hasFilters = !string.IsNullOrWhiteSpace(q) || status.HasValue || source.HasValue
+                     || !string.IsNullOrWhiteSpace(assignedToId) || showArchived;
+
+    var fieldClass = "w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm placeholder:text-slate-400 focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition";
+}
+
+@functions {
+    string StatusBadge(LeadStatus s) => s switch
+    {
+        LeadStatus.New => "bg-sky-50 text-sky-700 dark:bg-sky-500/10 dark:text-sky-400",
+        LeadStatus.Contacted => "bg-amber-50 text-amber-700 dark:bg-amber-500/10 dark:text-amber-400",
+        LeadStatus.Qualified => "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400",
+        LeadStatus.Unqualified => "bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-400",
+        LeadStatus.Converted => "bg-violet-50 text-violet-700 dark:bg-violet-500/10 dark:text-violet-400",
+        _ => "bg-slate-100 text-slate-600 dark:bg-white/5 dark:text-slate-400"
+    };
+}
+
+<div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+    <p class="text-sm text-slate-500 dark:text-slate-400">
+        @Model.TotalCount @(Model.TotalCount == 1 ? SharedLocalizer["CrmEntityType_Lead"].Value : SharedLocalizer["CrmLeads"].Value)@(showArchived ? $" ({SharedLocalizer["CrmShowArchived"].Value})" : "")
+    </p>
+    <a asp-action="Create"
+       class="inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+        <span class="material-symbols-outlined text-[20px]">add</span>
+        @SharedLocalizer["CrmNewLead"]
+    </a>
+</div>
+
+<!-- Search & filters -->
+<form asp-action="Index" method="get" class="mb-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 items-end">
+    <div class="lg:col-span-2">
+        <label for="q" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">@SharedLocalizer["CrmSearch"]</label>
+        <input type="search" id="q" name="q" value="@q" placeholder="@SharedLocalizer["CrmSearchPlaceholderLead"]" class="@fieldClass" />
+    </div>
+
+    <div>
+        <label for="status" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">@SharedLocalizer["CrmStatus"]</label>
+        <select id="status" name="status" class="@fieldClass">
+            <option value="">@SharedLocalizer["CrmAllStatuses"]</option>
+            @foreach (var s in Enum.GetValues<LeadStatus>())
+            {
+                <option value="@s" selected="@(status == s)">@SharedLocalizer[$"CrmLeadStatus_{s}"]</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="source" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">@SharedLocalizer["CrmSource"]</label>
+        <select id="source" name="source" class="@fieldClass">
+            <option value="">@SharedLocalizer["CrmAllSources"]</option>
+            @foreach (var s in Enum.GetValues<LeadSource>())
+            {
+                <option value="@s" selected="@(source == s)">@SharedLocalizer[$"CrmLeadSource_{s}"]</option>
+            }
+        </select>
+    </div>
+
+    <div>
+        <label for="assignedToId" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">@SharedLocalizer["CrmAssignedTo"]</label>
+        <select id="assignedToId" name="assignedToId" class="@fieldClass">
+            <option value="">@SharedLocalizer["CrmAnyone"]</option>
+            @foreach (var u in userOptions)
+            {
+                <option value="@u.Value" selected="@(assignedToId == u.Value)">@u.Text</option>
+            }
+        </select>
+    </div>
+
+    <div class="sm:col-span-2 lg:col-span-5 flex flex-wrap items-center gap-4">
+        <label class="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 select-none">
+            <input type="checkbox" name="showArchived" value="true" checked="@showArchived"
+                   class="rounded border-slate-300 dark:border-white/20 text-[#00B2EC] focus:ring-[#00B2EC]/30" />
+            @SharedLocalizer["CrmShowArchived"]
+        </label>
+
+        <button type="submit"
+                class="rounded-lg border border-slate-300 dark:border-white/15 px-4 py-2.5 text-sm font-medium hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+            @SharedLocalizer["CrmApply"]
+        </button>
+
+        @if (hasFilters)
+        {
+            <a asp-action="Index"
+               class="text-sm text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors">
+                @SharedLocalizer["CrmClearFilters"]
+            </a>
+        }
+    </div>
+</form>
+
+@if (!Model.Items.Any())
+{
+    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-10 text-center">
+        <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center">
+            <span class="material-symbols-outlined text-slate-400 text-[28px]">groups</span>
+        </div>
+        @if (hasFilters)
+        {
+            <h3 class="mt-5 font-poppins font-semibold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CrmNoMatchingLeads"]</h3>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">@SharedLocalizer["CrmNoMatchingLeadsDesc"]</p>
+        }
+        else
+        {
+            <h3 class="mt-5 font-poppins font-semibold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CrmNoLeadsYet"]</h3>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
+                @SharedLocalizer["CrmNoLeadsYetDesc"]
+            </p>
+            <a asp-action="Create"
+               class="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">add</span>
+                @SharedLocalizer["CrmNewLead"]
+            </a>
+        }
+    </div>
+}
+else
+{
+    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="w-full text-sm">
+                <thead class="bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400">
+                    <tr>
+                        <th class="px-5 py-3 font-medium text-start">@SharedLocalizer["CrmLeadName"]</th>
+                        <th class="px-5 py-3 font-medium text-start hidden md:table-cell">@SharedLocalizer["CrmLeadCompany"]</th>
+                        <th class="px-5 py-3 font-medium text-start">@SharedLocalizer["CrmLeadStatus"]</th>
+                        <th class="px-5 py-3 font-medium text-start hidden lg:table-cell">@SharedLocalizer["CrmLeadSource"]</th>
+                        <th class="px-5 py-3 font-medium text-start hidden lg:table-cell">@SharedLocalizer["CrmLeadAssignedTo"]</th>
+                        <th class="px-5 py-3 font-medium text-end">@SharedLocalizer["CrmActions"]</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-200 dark:divide-white/10">
+                    @foreach (var l in Model.Items)
+                    {
+                        <tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors @(l.IsArchived ? "opacity-60" : "")">
+                            <td class="px-5 py-3.5">
+                                <div class="flex items-center gap-2">
+                                    <a asp-action="Details" asp-route-id="@l.Id"
+                                       class="font-medium text-brand-navy dark:text-white hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors">
+                                        @l.FullName
+                                    </a>
+                                    @if (l.IsArchived)
+                                    {
+                                        <span class="inline-flex items-center rounded px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide bg-slate-100 text-slate-500 dark:bg-white/5 dark:text-slate-400">
+                                            @SharedLocalizer["CrmRecordStatus_Archived"]
+                                        </span>
+                                    }
+                                </div>
+                                @if (!string.IsNullOrWhiteSpace(l.Email))
+                                {
+                                    <span class="block text-xs text-slate-400 mt-0.5">@l.Email</span>
+                                }
+                            </td>
+                            <td class="px-5 py-3.5 text-slate-600 dark:text-slate-300 hidden md:table-cell">@(l.CompanyName ?? "—")</td>
+                            <td class="px-5 py-3.5">
+                                <span class="inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium @StatusBadge(l.Status)">
+                                    @SharedLocalizer[$"CrmLeadStatus_{l.Status}"]
+                                </span>
+                            </td>
+                            <td class="px-5 py-3.5 text-slate-600 dark:text-slate-300 hidden lg:table-cell">@SharedLocalizer[$"CrmLeadSource_{l.Source}"]</td>
+                            <td class="px-5 py-3.5 text-slate-600 dark:text-slate-300 hidden lg:table-cell">
+                                @(string.IsNullOrWhiteSpace(l.AssignedToName) ? "—" : l.AssignedToName)
+                            </td>
+                            <td class="px-5 py-3.5">
+                                <div class="flex items-center justify-end gap-1">
+                                    <a asp-action="Edit" asp-route-id="@l.Id" title="@SharedLocalizer["CrmEdit"]"
+                                       class="p-2 rounded-lg text-slate-500 hover:text-[#00B2EC] hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                                        <span class="material-symbols-outlined text-[20px]">edit</span>
+                                    </a>
+                                    <form asp-action="@(l.IsArchived ? "Unarchive" : "Archive")" asp-route-id="@l.Id" method="post" class="inline">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" title="@(l.IsArchived ? SharedLocalizer["CrmRestore"].Value : SharedLocalizer["CrmArchive"].Value)"
+                                                class="p-2 rounded-lg text-slate-500 hover:text-[#00B2EC] hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                                            <span class="material-symbols-outlined text-[20px]">@(l.IsArchived ? "unarchive" : "archive")</span>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @await Html.PartialAsync("_Pager", new Daleel.Models.PagerViewModel
+    {
+        Page = Model.Page,
+        TotalPages = Model.TotalPages,
+        TotalCount = Model.TotalCount
+    })
+}
+

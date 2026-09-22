@@ -1,0 +1,120 @@
+@{
+    ViewData["Title"] = SharedLocalizer["PricingTitle"];
+}
+
+<section class="relative py-32 overflow-hidden bg-[#F8F9FA] dark:bg-[#060D1A] transition-colors duration-300 min-h-screen">
+    <!-- Ambient Background Glows -->
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div class="absolute -top-20 right-0 w-[500px] h-[500px] rounded-[100%] bg-[#00B2EC]/10 blur-[120px]"></div>
+        <div class="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-[100%] bg-[#10B981]/5 blur-[120px]"></div>
+    </div>
+
+    <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8">
+        
+        <div class="text-center max-w-3xl mx-auto mb-20" data-animate="fade-up">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#10B981]/10 border border-[#10B981]/20 text-[#10B981] font-['Inter'] text-xs font-semibold tracking-wide mb-6">
+                <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">payments</span>
+                @SharedLocalizer["PricingTitle"]
+            </div>
+            <h1 class="font-['Poppins'] text-4xl sm:text-5xl md:text-6xl font-bold text-slate-900 dark:text-white leading-tight mb-6">
+                @SharedLocalizer["PricingHeading"]
+            </h1>
+            <p class="font-['Inter'] text-lg sm:text-xl text-slate-600 dark:text-slate-400 leading-relaxed">
+                @SharedLocalizer["PricingDesc"]
+            </p>
+        </div>
+            
+            <div class="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-center relative z-20">
+                
+                <!-- Starter Plan -->
+                <div class="glass-card rounded-[2rem] p-8 border border-slate-200 dark:border-slate-800 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#10B981]/10 transition-all duration-300 bg-white/70 dark:bg-[#0A192F]/70 backdrop-blur-xl" data-animate="fade-up" data-delay="1">
+                    <h3 class="font-['Poppins'] text-2xl font-bold text-slate-900 dark:text-white mb-2">@SharedLocalizer["StarterPlan"]</h3>
+                    <p class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 mb-6">@SharedLocalizer["StarterDesc"]</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-extrabold text-slate-900 dark:text-white">$99</span>
+                        <span class="text-slate-500 dark:text-slate-400">/mo</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-['Inter'] text-sm">
+                            <span class="material-symbols-outlined text-[#10B981] text-[20px]">check_circle</span>
+                            @SharedLocalizer["Feature1"]
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-['Inter'] text-sm">
+                            <span class="material-symbols-outlined text-[#10B981] text-[20px]">check_circle</span>
+                            @SharedLocalizer["Feature2"]
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-['Inter'] text-sm opacity-50">
+                            <span class="material-symbols-outlined text-slate-400 text-[20px]">cancel</span>
+                            @SharedLocalizer["Feature3"]
+                        </li>
+                    </ul>
+                    <a asp-controller="Home" asp-action="Contact" class="block text-center w-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-6 py-3 rounded-xl font-['Inter'] font-semibold transition-colors hover:bg-slate-200 dark:hover:bg-slate-700">@SharedLocalizer["GetStarted"]</a>
+                </div>
+
+                <!-- Pro Plan (Highlighted) -->
+                <div class="relative glass-card rounded-[2rem] p-8 border-2 border-[#00B2EC] shadow-[0_20px_40px_rgba(0,178,236,0.15)] transform lg:scale-105 z-30 bg-white/90 dark:bg-[#0A192F]/90 backdrop-blur-2xl" data-animate="fade-up" data-delay="2">
+                    <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white px-4 py-1 rounded-full text-xs font-bold tracking-wide uppercase shadow-md">
+                        @SharedLocalizer["MostPopular"]
+                    </div>
+                    <h3 class="font-['Poppins'] text-2xl font-bold text-slate-900 dark:text-white mb-2">@SharedLocalizer["ProPlan"]</h3>
+                    <p class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 mb-6">@SharedLocalizer["ProDesc"]</p>
+                    <div class="mb-6">
+                        <span class="text-4xl font-extrabold text-[#00B2EC]">$299</span>
+                        <span class="text-slate-500 dark:text-slate-400">/mo</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-['Inter'] text-sm">
+                            <span class="material-symbols-outlined text-[#00B2EC] text-[20px]">check_circle</span>
+                            @SharedLocalizer["Feature1"]
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-['Inter'] text-sm">
+                            <span class="material-symbols-outlined text-[#00B2EC] text-[20px]">check_circle</span>
+                            @SharedLocalizer["Feature2"]
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-['Inter'] text-sm">
+                            <span class="material-symbols-outlined text-[#00B2EC] text-[20px]">check_circle</span>
+                            @SharedLocalizer["Feature3"]
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-['Inter'] text-sm opacity-50">
+                            <span class="material-symbols-outlined text-slate-400 text-[20px]">cancel</span>
+                            @SharedLocalizer["Feature4"]
+                        </li>
+                    </ul>
+                    <a asp-controller="Home" asp-action="Contact" class="block text-center w-full bg-[#00B2EC] text-white px-6 py-4 rounded-xl font-['Inter'] font-semibold shadow-lg shadow-[#00B2EC]/30 hover:shadow-xl hover:shadow-[#00B2EC]/50 hover:-translate-y-1 transition-all">@SharedLocalizer["GetStarted"]</a>
+                </div>
+
+                <!-- Enterprise Plan -->
+                <div class="glass-card rounded-[2rem] p-8 border border-slate-200 dark:border-slate-800 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#F9A01B]/10 transition-all duration-300 bg-white/70 dark:bg-[#0A192F]/70 backdrop-blur-xl" data-animate="fade-up" data-delay="3">
+                    <h3 class="font-['Poppins'] text-2xl font-bold text-slate-900 dark:text-white mb-2">@SharedLocalizer["EnterprisePlan"]</h3>
+                    <p class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 mb-6">@SharedLocalizer["EnterpriseDesc"]</p>
+                    <div class="mb-6">
+                        <span class="text-3xl font-extrabold text-slate-900 dark:text-white">@SharedLocalizer["CustomPricing"]</span>
+                    </div>
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-['Inter'] text-sm">
+                            <span class="material-symbols-outlined text-[#F9A01B] text-[20px]">check_circle</span>
+                            @SharedLocalizer["Feature1"]
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-['Inter'] text-sm">
+                            <span class="material-symbols-outlined text-[#F9A01B] text-[20px]">check_circle</span>
+                            @SharedLocalizer["Feature2"]
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-['Inter'] text-sm">
+                            <span class="material-symbols-outlined text-[#F9A01B] text-[20px]">check_circle</span>
+                            @SharedLocalizer["Feature3"]
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-['Inter'] text-sm">
+                            <span class="material-symbols-outlined text-[#F9A01B] text-[20px]">check_circle</span>
+                            @SharedLocalizer["Feature4"]
+                        </li>
+                        <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300 font-['Inter'] text-sm">
+                            <span class="material-symbols-outlined text-[#F9A01B] text-[20px]">check_circle</span>
+                            @SharedLocalizer["Feature5"]
+                        </li>
+                    </ul>
+                    <a asp-controller="Home" asp-action="Contact" class="block text-center w-full bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white px-6 py-3 rounded-xl font-['Inter'] font-semibold transition-colors hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700">@SharedLocalizer["ContactSales"]</a>
+                </div>
+
+            </div>
+    </div>
+</section>

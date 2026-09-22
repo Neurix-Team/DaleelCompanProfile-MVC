@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Daleel.Tests" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlSanitizer" Version="9.2.995" />
+    <PackageReference Include="Mscc.GenerativeAI" Version="3.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Daleel.DAL\Daleel.DAL.csproj" />
+  </ItemGroup>
+
+  <!-- Needed for SignInManager, which the account service wraps so that controllers
+       never talk to ASP.NET Identity directly. -->
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+</Project>
