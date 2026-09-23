@@ -1,3 +1,4 @@
+using Daleel.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Net.WebSockets;
@@ -49,15 +50,6 @@ namespace Daleel.Controllers
             if (string.IsNullOrWhiteSpace(userText))
                 return BadRequest(new { error = "A user message is required." });
 
-            var baseUrl = _configuration["RagApi:BaseUrl"];
-            var chatPath = _configuration["RagApi:ChatPath"] ?? "api/v1/index/chat";
-            var configuredUserId = _configuration["RagApi:UserId"];
-            if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out var ragBaseUri) ||
-                !Guid.TryParse(configuredUserId, out var userId))
-            {
-                return StatusCode(503, new { error = "RAG service is not configured." });
-            }
-
             string? sessionId = null;
             if (!string.IsNullOrWhiteSpace(request.SessionId))
             {
@@ -65,6 +57,22 @@ namespace Daleel.Controllers
                     sessionId = parsedSessionId.ToString();
                 else
                     _logger.LogWarning("[TextChat] Ignoring invalid session id and starting a new session.");
+            }
+
+            // When the question belongs to one of our pages, the widget opens that page after answering.
+            // If the RAG service is unavailable we still send the visitor there instead of failing.
+            var target = ChatPageRouter.Resolve(userText);
+            IActionResult Fail(IActionResult error) => target == null
+                ? error
+                : Ok(new { text = RedirectOnlyText(target, userText), navigate = ToNavigateDto(target), sessionId });
+
+            var baseUrl = _configuration["RagApi:BaseUrl"];
+            var chatPath = _configuration["RagApi:ChatPath"] ?? "api/v1/index/chat";
+            var configuredUserId = _configuration["RagApi:UserId"];
+            if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out var ragBaseUri) ||
+                !Guid.TryParse(configuredUserId, out var userId))
+            {
+                return Fail(StatusCode(503, new { error = "RAG service is not configured." }));
             }
 
             var subDomainName = _configuration["RagApi:SubDomainName"];
@@ -95,7 +103,7 @@ namespace Daleel.Controllers
                 if (!response.IsSuccessStatusCode)
                 {
                     _logger.LogError("[TextChat] RAG chat API error: {Status} {Body}", response.StatusCode, body);
-                    return StatusCode(502, new { error = "RAG service returned an error." });
+                    return Fail(StatusCode(502, new { error = "RAG service returned an error." }));
                 }
 
                 using var ragResponse = JsonDocument.Parse(body);
@@ -105,7 +113,7 @@ namespace Daleel.Controllers
                     !string.Equals(signal.GetString(), "rag_answer_success", StringComparison.OrdinalIgnoreCase))
                 {
                     _logger.LogError("[TextChat] RAG API returned signal {Signal}", signal.GetString());
-                    return StatusCode(502, new { error = "RAG service could not generate an answer." });
+                    return Fail(StatusCode(502, new { error = "RAG service could not generate an answer." }));
                 }
 
                 if (!root.TryGetProperty("answer", out var answerElement) ||
@@ -114,7 +122,7 @@ namespace Daleel.Controllers
                     !Guid.TryParse(sessionElement.GetString(), out var returnedSessionId))
                 {
                     _logger.LogError("[TextChat] RAG API response did not contain an answer and valid session id.");
-                    return StatusCode(502, new { error = "RAG service returned an invalid response." });
+                    return Fail(StatusCode(502, new { error = "RAG service returned an invalid response." }));
                 }
 
                 var messageId = root.TryGetProperty("message_id", out var messageElement)
@@ -125,23 +133,24 @@ namespace Daleel.Controllers
                 {
                     text = answerElement.GetString(),
                     sessionId = returnedSessionId.ToString(),
-                    messageId
+                    messageId,
+                    navigate = ToNavigateDto(target)
                 });
             }
             catch (HttpRequestException ex)
             {
                 _logger.LogError(ex, "[TextChat] Could not connect to the RAG chat API");
-                return StatusCode(503, new { error = "RAG service is unavailable." });
+                return Fail(StatusCode(503, new { error = "RAG service is unavailable." }));
             }
             catch (TaskCanceledException ex)
             {
                 _logger.LogError(ex, "[TextChat] RAG chat API request timed out");
-                return StatusCode(504, new { error = "RAG service timed out." });
+                return Fail(StatusCode(504, new { error = "RAG service timed out." }));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "[TextChat] Error");
-                return StatusCode(500, new { error = "An unexpected error occurred." });
+                return Fail(StatusCode(500, new { error = "An unexpected error occurred." }));
             }
         }
 
@@ -298,6 +307,26 @@ namespace Daleel.Controllers
             }
         }
 #endif
+
+        // PAGE ROUTING: used by the voice flow, which gets the visitor's words as a transcript.
+        [HttpPost("api/dalily-chat/route")]
+        public IActionResult RoutePage([FromBody] RouteChatRequest request)
+        {
+            var target = ChatPageRouter.Resolve(request?.Text);
+            return Ok(new { navigate = ToNavigateDto(target) });
+        }
+
+        private static object? ToNavigateDto(ChatPageTarget? target) => target == null
+            ? null
+            : new { key = target.Key, url = target.Url, titleAr = target.TitleAr, titleEn = target.TitleEn };
+
+        private static string RedirectOnlyText(ChatPageTarget target, string question)
+        {
+            var isArabic = question.Any(c => c >= '\u0600' && c <= '\u06FF');
+            return isArabic
+                ? $"ستجد كل التفاصيل في صفحة **{target.TitleAr}** — سأنقلك إليها الآن."
+                : $"You'll find everything about this on the **{target.TitleEn}** page — taking you there now.";
+        }
 
 #if false
         // LEGACY GEMINI TEXT FLOW — intentionally preserved and disabled.
@@ -578,6 +607,10 @@ namespace Daleel.Controllers
         [JsonPropertyName("history")] public List<ChatMessage> History { get; set; } = new();
         [JsonPropertyName("pageContext")] public string? PageContext { get; set; }
         [JsonPropertyName("sessionId")] public string? SessionId { get; set; }
+    }
+    public class RouteChatRequest
+    {
+        [JsonPropertyName("text")] public string? Text { get; set; }
     }
     public class ChatMessage { [JsonPropertyName("role")] public string Role { get; set; } = "user"; [JsonPropertyName("text")] public string Text { get; set; } = ""; }
 }
