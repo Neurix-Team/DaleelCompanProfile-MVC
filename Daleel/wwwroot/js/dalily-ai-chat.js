@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const fab          = document.getElementById('dalily-ai-toggle-btn');
     const chatWindow   = document.getElementById('dalily-ai-chat-window');
     const closeBtn     = document.getElementById('dalily-ai-close-btn');
+    const newChatBtn   = document.getElementById('dalily-ai-new-chat-btn');
     const reconnectBtn = document.getElementById('dalily-ai-reconnect');
     const inputField   = document.getElementById('dalily-ai-input');
     const sendBtn      = document.getElementById('dalily-ai-send-btn');
@@ -19,6 +20,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const connBanner   = document.getElementById('dalily-connection-banner');
 
     if (!fab || !chatWindow || !messagesArea) return;
+
+    const sessionStorageKey = 'daleel_chat_session_id';
+    const welcomeMarkup = messagesArea.innerHTML;
+    const isUuid = value => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(value || '');
+
+    let sessionId = null;
+    const readStoredSessionId = () => {
+        try {
+            const value = sessionStorage.getItem(sessionStorageKey);
+            return isUuid(value) ? value : null;
+        } catch (error) {
+            console.warn('[DalilyAI] Session storage is unavailable:', error);
+            return null;
+        }
+    };
+    const storeSessionId = value => {
+        if (!isUuid(value)) return false;
+        sessionId = value;
+        try { sessionStorage.setItem(sessionStorageKey, value); }
+        catch (error) { console.warn('[DalilyAI] Could not persist the chat session:', error); }
+        return true;
+    };
+    const removeStoredSessionId = () => {
+        sessionId = null;
+        try { sessionStorage.removeItem(sessionStorageKey); }
+        catch (error) { console.warn('[DalilyAI] Could not clear the chat session:', error); }
+    };
+
+    sessionId = readStoredSessionId();
 
     // ── State ──
     let isOpen = false;
@@ -135,6 +165,57 @@ document.addEventListener('DOMContentLoaded', () => {
     fab.addEventListener('click', toggleChat);
     if (closeBtn) closeBtn.addEventListener('click', toggleChat);
 
+    const startNewChat = () => {
+        removeStoredSessionId();
+        chatHistory = [];
+        removeThinking();
+        messagesArea.innerHTML = welcomeMarkup;
+        setState('idle');
+        if (inputField) inputField.focus();
+    };
+    if (newChatBtn) newChatBtn.addEventListener('click', startNewChat);
+
+    const restoreSession = async () => {
+        if (!sessionId) return;
+
+        const sessionBeingRestored = sessionId;
+        setState('connecting');
+        try {
+            const response = await fetch(`/api/dalily-chat/session/${encodeURIComponent(sessionBeingRestored)}`);
+            if (sessionId !== sessionBeingRestored) return;
+            if (response.status === 400 || response.status === 404) {
+                startNewChat();
+                return;
+            }
+            if (!response.ok) throw new Error(`Server error (${response.status})`);
+
+            const data = await response.json();
+            if (!storeSessionId(data.sessionId) || !Array.isArray(data.messages)) {
+                throw new Error('The server returned an invalid chat session.');
+            }
+
+            const messages = data.messages.filter(message =>
+                (message.role === 'user' || message.role === 'assistant') &&
+                typeof message.content === 'string' &&
+                message.content.trim().length > 0);
+
+            if (messages.length > 0) {
+                messagesArea.innerHTML = '';
+                chatHistory = [];
+                messages.forEach(message => {
+                    const isUser = message.role === 'user';
+                    appendMessage(isUser ? 'User' : 'AI', message.content);
+                    chatHistory.push({ role: isUser ? 'user' : 'model', text: message.content });
+                });
+            }
+            setState('idle');
+        } catch (error) {
+            console.error('[DalilyAI] Could not restore the chat session:', error);
+            setState('error', 'Could not restore the previous chat. You can retry or start a new chat.');
+        }
+    };
+    if (reconnectBtn) reconnectBtn.addEventListener('click', restoreSession);
+
     // ═══════════════════════════════════════════════
     //  TEXT FLOW — fetch() POST /api/dalily-chat/text
     // ═══════════════════════════════════════════════
@@ -153,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const resp = await fetch('/api/dalily-chat/text', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ history: chatHistory, pageContext: getPageContext() })
+                body: JSON.stringify({ history: chatHistory, pageContext: getPageContext(), sessionId })
             });
             removeThinking();
 
@@ -168,6 +249,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const data = await resp.json();
             const aiText = data.text || '';
+            if (!storeSessionId(data.sessionId)) {
+                console.error('[DalilyAI] Text API returned an invalid session ID:', data.sessionId);
+                sysMsg('The server returned an invalid chat session.', 'error');
+                setState('error', 'Invalid chat session');
+                isTextLoading = false;
+                return;
+            }
             appendMessage('AI', aiText);
             chatHistory.push({ role: 'model', text: aiText });
             setState('idle');
@@ -501,4 +589,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const esc = s => { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
+
+    restoreSession();
 });

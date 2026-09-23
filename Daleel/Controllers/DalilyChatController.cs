@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 using System.Net.WebSockets;
 using System.Text;
 using System.Text.Json;
@@ -34,9 +35,194 @@ namespace Daleel.Controllers
 
         // OLD TEXT FLOW: HTTP POST -> Gemini REST API (preserved below as disabled legacy code).
 
-        // TEXT FLOW: HTTP POST -> FastAPI RAG
+        // TEXT FLOW: HTTP POST -> session-aware FastAPI RAG
         [HttpPost("api/dalily-chat/text")]
         public async Task<IActionResult> TextChat([FromBody] TextChatRequest request)
+        {
+            if (request?.History == null || request.History.Count == 0)
+                return BadRequest(new { error = "Conversation history is required." });
+
+            var userText = request.History
+                .LastOrDefault(message => message.Role.Equals("user", StringComparison.OrdinalIgnoreCase))
+                ?.Text?.Trim();
+
+            if (string.IsNullOrWhiteSpace(userText))
+                return BadRequest(new { error = "A user message is required." });
+
+            var baseUrl = _configuration["RagApi:BaseUrl"];
+            var chatPath = _configuration["RagApi:ChatPath"] ?? "api/v1/index/chat";
+            var configuredUserId = _configuration["RagApi:UserId"];
+            if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out var ragBaseUri) ||
+                !Guid.TryParse(configuredUserId, out var userId))
+            {
+                return StatusCode(503, new { error = "RAG service is not configured." });
+            }
+
+            string? sessionId = null;
+            if (!string.IsNullOrWhiteSpace(request.SessionId))
+            {
+                if (Guid.TryParse(request.SessionId, out var parsedSessionId))
+                    sessionId = parsedSessionId.ToString();
+                else
+                    _logger.LogWarning("[TextChat] Ignoring invalid session id and starting a new session.");
+            }
+
+            var subDomainName = _configuration["RagApi:SubDomainName"];
+            var limit = int.TryParse(_configuration["RagApi:Limit"], out var configuredLimit)
+                ? Math.Clamp(configuredLimit, 1, 100)
+                : 3;
+
+            var payload = new
+            {
+                text = userText,
+                domain_name = _configuration["RagApi:DomainName"] ?? "Daleel",
+                sub_domain_name = string.IsNullOrWhiteSpace(subDomainName) ? null : subDomainName,
+                user_id = userId.ToString(),
+                session_id = sessionId,
+                limit
+            };
+
+            try
+            {
+                var client = _httpClientFactory.CreateClient("RagApi");
+                var endpoint = new Uri(ragBaseUri, chatPath.TrimStart('/'));
+                var json = JsonSerializer.Serialize(payload);
+                using var response = await client.PostAsync(
+                    endpoint,
+                    new StringContent(json, Encoding.UTF8, "application/json"));
+                var body = await response.Content.ReadAsStringAsync();
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogError("[TextChat] RAG chat API error: {Status} {Body}", response.StatusCode, body);
+                    return StatusCode(502, new { error = "RAG service returned an error." });
+                }
+
+                using var ragResponse = JsonDocument.Parse(body);
+                var root = ragResponse.RootElement;
+
+                if (root.TryGetProperty("signal", out var signal) &&
+                    !string.Equals(signal.GetString(), "rag_answer_success", StringComparison.OrdinalIgnoreCase))
+                {
+                    _logger.LogError("[TextChat] RAG API returned signal {Signal}", signal.GetString());
+                    return StatusCode(502, new { error = "RAG service could not generate an answer." });
+                }
+
+                if (!root.TryGetProperty("answer", out var answerElement) ||
+                    string.IsNullOrWhiteSpace(answerElement.GetString()) ||
+                    !root.TryGetProperty("session_id", out var sessionElement) ||
+                    !Guid.TryParse(sessionElement.GetString(), out var returnedSessionId))
+                {
+                    _logger.LogError("[TextChat] RAG API response did not contain an answer and valid session id.");
+                    return StatusCode(502, new { error = "RAG service returned an invalid response." });
+                }
+
+                var messageId = root.TryGetProperty("message_id", out var messageElement)
+                    ? messageElement.GetString()
+                    : null;
+
+                return Ok(new
+                {
+                    text = answerElement.GetString(),
+                    sessionId = returnedSessionId.ToString(),
+                    messageId
+                });
+            }
+            catch (HttpRequestException ex)
+            {
+                _logger.LogError(ex, "[TextChat] Could not connect to the RAG chat API");
+                return StatusCode(503, new { error = "RAG service is unavailable." });
+            }
+            catch (TaskCanceledException ex)
+            {
+                _logger.LogError(ex, "[TextChat] RAG chat API request timed out");
+                return StatusCode(504, new { error = "RAG service timed out." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "[TextChat] Error");
+                return StatusCode(500, new { error = "An unexpected error occurred." });
+            }
+        }
+
+        [HttpGet("api/dalily-chat/session/{sessionId}")]
+        public async Task<IActionResult> GetSession(string sessionId)
+        {
+            var baseUrl = _configuration["RagApi:BaseUrl"];
+            var sessionPath = _configuration["RagApi:SessionPath"] ?? "api/v1/sessions";
+            var configuredUserId = _configuration["RagApi:UserId"];
+
+            if (!Guid.TryParse(sessionId, out var parsedSessionId))
+                return BadRequest(new { error = "Invalid session id." });
+
+            if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out var ragBaseUri) ||
+                !Guid.TryParse(configuredUserId, out var userId))
+            {
+                return StatusCode(503, new { error = "RAG service is not configured." });
+            }
+
+            try
+            {
+                var relativeUrl = $"{sessionPath.Trim('/')}/{parsedSessionId}?user_id={Uri.EscapeDataString(userId.ToString())}&page=1&page_size=50";
+                var endpoint = new Uri(ragBaseUri, relativeUrl);
+                var client = _httpClientFactory.CreateClient("RagApi");
+                using var response = await client.GetAsync(endpoint);
+                var body = await response.Content.ReadAsStringAsync();
+
+                if (response.StatusCode is HttpStatusCode.BadRequest or HttpStatusCode.NotFound)
+                    return NotFound(new { error = "Chat session was not found." });
+
+                if (!response.IsSuccessStatusCode)
+                {
+                    _logger.LogError("[GetSession] RAG API error: {Status} {Body}", response.StatusCode, body);
+                    return StatusCode(502, new { error = "RAG service returned an error." });
+                }
+
+                using var sessionResponse = JsonDocument.Parse(body);
+                var root = sessionResponse.RootElement;
+                var messages = new List<object>();
+                if (root.TryGetProperty("messages", out var messageArray) &&
+                    messageArray.ValueKind == JsonValueKind.Array)
+                {
+                    foreach (var message in messageArray.EnumerateArray())
+                    {
+                        messages.Add(new
+                        {
+                            messageId = message.TryGetProperty("message_id", out var messageId) ? messageId.GetString() : null,
+                            role = message.TryGetProperty("role", out var role) ? role.GetString() : string.Empty,
+                            content = message.TryGetProperty("content", out var content) ? content.GetString() : string.Empty
+                        });
+                    }
+                }
+
+                return Ok(new
+                {
+                    sessionId = parsedSessionId.ToString(),
+                    title = root.TryGetProperty("title", out var title) ? title.GetString() : null,
+                    messages
+                });
+            }
+            catch (HttpRequestException ex)
+            {
+                _logger.LogError(ex, "[GetSession] Could not connect to the RAG API");
+                return StatusCode(503, new { error = "RAG service is unavailable." });
+            }
+            catch (TaskCanceledException ex)
+            {
+                _logger.LogError(ex, "[GetSession] RAG API request timed out");
+                return StatusCode(504, new { error = "RAG service timed out." });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "[GetSession] Error");
+                return StatusCode(500, new { error = "An unexpected error occurred." });
+            }
+        }
+
+#if false
+        // LEGACY STATELESS RAG ANSWER FLOW — intentionally preserved and disabled.
+        [HttpPost("api/dalily-chat/text")]
+        public async Task<IActionResult> TextChatWithStatelessRagLegacy([FromBody] TextChatRequest request)
         {
             if (request?.History == null || request.History.Count == 0)
                 return BadRequest(new { error = "Conversation history is required." });
@@ -111,6 +297,7 @@ namespace Daleel.Controllers
                 return StatusCode(500, new { error = "An unexpected error occurred." });
             }
         }
+#endif
 
 #if false
         // LEGACY GEMINI TEXT FLOW — intentionally preserved and disabled.
@@ -390,6 +577,7 @@ namespace Daleel.Controllers
     {
         [JsonPropertyName("history")] public List<ChatMessage> History { get; set; } = new();
         [JsonPropertyName("pageContext")] public string? PageContext { get; set; }
+        [JsonPropertyName("sessionId")] public string? SessionId { get; set; }
     }
     public class ChatMessage { [JsonPropertyName("role")] public string Role { get; set; } = "user"; [JsonPropertyName("text")] public string Text { get; set; } = ""; }
 }
