@@ -1,6 +1,8 @@
 @model Daleel.BAL.Models.ArticleDetailDto?
 @using System.Globalization
 @{
+    // The article cover is a dark band behind the header, so use the solid header from the top.
+    ViewData["SolidHeader"] = true;
     var isAr = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
     var hasModel = Model != null;
     

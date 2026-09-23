@@ -44,6 +44,30 @@ namespace Daleel.Tests.Web
         }
 
         [Fact]
+        public async Task TextChat_RagUnavailableButQuestionMatchesPage_ReturnsNavigationTarget()
+        {
+            // Arrange
+            var config = new ConfigurationBuilder()
+                .AddInMemoryCollection(new Dictionary<string, string?> { { "RagApi:BaseUrl", null } })
+                .Build();
+            var controller = new DalilyChatController(config, _mockLogger.Object, _mockHttpClientFactory.Object);
+
+            var request = new TextChatRequest
+            {
+                History = new List<ChatMessage> { new() { Role = "user", Text = "قولي السيستم ده بيعمل اي" } }
+            };
+
+            // Act
+            var result = await controller.TextChat(request);
+
+            // Assert
+            var ok = result.Should().BeOfType<OkObjectResult>().Subject;
+            using var json = JsonDocument.Parse(JsonSerializer.Serialize(ok.Value));
+            json.RootElement.GetProperty("navigate").GetProperty("url").GetString().Should().Be("/about");
+            json.RootElement.GetProperty("text").GetString().Should().Contain("من نحن");
+        }
+
+        [Fact]
         public async Task TextChat_EmptyHistory_Returns400BadRequest()
         {
             // Arrange

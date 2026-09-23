@@ -115,65 +115,72 @@
 
     <!-- Theme & Local Tailwind CSS -->
     <script src="~/js/theme.js" asp-append-version="true"></script>
+    <script>try{if(sessionStorage.getItem('daleel-hdr'))document.documentElement.classList.add('hdr-seen');else sessionStorage.setItem('daleel-hdr','1')}catch(e){}</script>
     <link rel="stylesheet" href="~/css/tailwind.css" asp-append-version="true" />
 
     <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Cairo:wght@400;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site-public.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Daleel.styles.css" asp-append-version="true" />
 </head>
-<body class="bg-white dark:bg-[#0A192F] font-body-md text-slate-900 dark:text-white transition-colors duration-300">
-    <header
-        class="bg-white/80 dark:bg-[#0A192F]/80 backdrop-blur-md border-b border-slate-200/50 dark:border-white/10 fixed w-full top-0 z-50 shadow-[0px_10px_30px_rgba(29,49,102,0.08)] dark:shadow-[0px_10px_30px_rgba(0,0,0,0.4)] transition-all duration-300"
-        id="main-header">
-        <div class="max-w-[1440px] mx-auto px-6 sm:px-8 h-20 flex items-center justify-between">
-            <a asp-controller="Home" asp-action="Index" class="shrink-0 flex items-center gap-2">
-                <img src="@logoLight" id="header-logo"
-                    width="180" height="54"
-                    class="h-9 sm:h-[54px] w-auto transition-all duration-300 brightness-100 invert-0 dark:hidden"
-                    alt="@brandName" />
-                <img src="@logoDark" id="header-logo-dark"
-                    width="180" height="54"
-                    class="h-9 sm:h-[54px] w-auto transition-all duration-300 hidden dark:block"
-                    alt="@brandName" />
-            </a>
-            <!-- Desktop Nav -->
-            @{
-                var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
-                var currentPath = Context.Request.Path.Value?.TrimEnd('/') ?? "";
+<body class="site-public bg-white dark:bg-[#0A192F] font-body-md text-slate-900 dark:text-white transition-colors duration-300">
+    <a href="#main-content" class="skip-link">@(isRtl ? "انتقل إلى المحتوى" : "Skip to content")</a>
+    @{
+        var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
+        var currentPath = Context.Request.Path.Value?.TrimEnd('/') ?? "";
 
-                bool IsLinkActive(string url)
-                {
-                    if (string.IsNullOrWhiteSpace(url)) return false;
-                    var u = url.Trim();
-                    if (u == "/" || u.Equals("/Home", StringComparison.OrdinalIgnoreCase) || u.Equals("/Home/Index", StringComparison.OrdinalIgnoreCase))
-                    {
-                        return currentPath == "" || currentPath == "/" || currentAction.Equals("Index", StringComparison.OrdinalIgnoreCase);
-                    }
-                    var segments = u.TrimStart('/').Split('/', '?');
-                    var actionName = segments.Length > 1 ? segments[1] : segments[0];
-                    return currentAction.Equals(actionName, StringComparison.OrdinalIgnoreCase) ||
-                           currentPath.Equals(u, StringComparison.OrdinalIgnoreCase) ||
-                           currentPath.StartsWith(u + "/", StringComparison.OrdinalIgnoreCase);
-                }
-
-                string GetNavClass(bool active) => active 
-                    ? "text-[#00B2EC] dark:text-[#F9A01B] py-1 border-b-2 border-[#00B2EC] dark:border-[#F9A01B] font-bold transition-colors" 
-                    : "text-slate-900 dark:text-white hover:text-[#00B2EC] dark:hover:text-[#F9A01B] transition-colors py-1 border-b-2 border-transparent hover:border-[#00B2EC] dark:hover:border-[#F9A01B]";
-                    
-                string GetMobileNavClass(bool active) => active
-                    ? "text-[#00B2EC] dark:text-[#F9A01B] bg-slate-50 dark:bg-slate-800/50 font-bold px-4 py-3 rounded-lg transition-colors"
-                    : "text-brand-navy dark:text-white hover:text-[#00B2EC] dark:hover:text-[#F9A01B] hover:bg-slate-50 dark:hover:bg-slate-800/50 px-4 py-3 rounded-lg transition-colors";
+        bool IsLinkActive(string url)
+        {
+            if (string.IsNullOrWhiteSpace(url)) return false;
+            var u = url.Trim();
+            if (u == "/" || u.Equals("/Home", StringComparison.OrdinalIgnoreCase) || u.Equals("/Home/Index", StringComparison.OrdinalIgnoreCase))
+            {
+                return currentPath == "" || currentPath == "/" || currentAction.Equals("Index", StringComparison.OrdinalIgnoreCase);
             }
-            <nav class="hidden lg:flex items-center gap-6 font-['Inter'] font-medium text-[13px] tracking-tight">
+            var segments = u.TrimStart('/').Split('/', '?');
+            var actionName = segments.Length > 1 ? segments[1] : segments[0];
+            return currentAction.Equals(actionName, StringComparison.OrdinalIgnoreCase) ||
+                   currentPath.Equals(u, StringComparison.OrdinalIgnoreCase) ||
+                   currentPath.StartsWith(u + "/", StringComparison.OrdinalIgnoreCase);
+        }
+
+        var currentPathAndQuery = Context.Request.Path + Context.Request.QueryString;
+        var switchRoute = isRtl ? "/en" : "/ar";
+        var switchLanguageText = isRtl ? "EN" : "ع";
+        var switchLanguageLabel = isRtl ? "English" : "العربية";
+        var switchUrl = $"{switchRoute}?returnUrl={Uri.EscapeDataString(currentPathAndQuery)}";
+        var defaultLogo = Url.Content("~/assets/Logo/Daleel.png");
+        // Pages with a dark band behind the header opt into the solid capsule from the top.
+        var solidHeader = ViewData["SolidHeader"] is true;
+    }
+    <header id="main-header" class="site-header" data-scrolled="@(solidHeader ? "true" : "false")" data-solid="@(solidHeader ? "true" : null)">
+        <div class="site-header__inner">
+            <a asp-controller="Home" asp-action="Index" class="site-header__brand" aria-label="@brandName">
+                <span class="logo-shine dark:hidden" style="--logo-src:url('@logoLight')">
+                    <img src="@logoLight" id="header-logo" width="180" height="54"
+                         class="site-header__logo" alt="@brandName"
+                         onerror="this.onerror=null;this.src='@defaultLogo';this.parentNode.style.setProperty('--logo-src','url(@defaultLogo)')" />
+                </span>
+                <span class="logo-shine hidden dark:block" style="--logo-src:url('@logoDark')">
+                    <img src="@logoDark" id="header-logo-dark" width="180" height="54"
+                         class="site-header__logo" alt="@brandName"
+                         onerror="this.onerror=null;this.src='@defaultLogo';this.parentNode.style.setProperty('--logo-src','url(@defaultLogo)')" />
+                </span>
+            </a>
+
+            <!-- Desktop Nav -->
+            <nav class="site-nav" aria-label="@(isRtl ? "القائمة الرئيسية" : "Main navigation")">
+                <span class="site-nav__indicator" aria-hidden="true"></span>
                 @foreach (var link in headerNavLinks)
                 {
                     var isAct = IsLinkActive(link.Url);
                     var isPlat = link.Url.Contains("platform", StringComparison.OrdinalIgnoreCase);
-                    <a class="@GetNavClass(isAct)"
+                    <a class="site-nav__link@(isAct ? " is-active" : "")"
                        id="@(isPlat ? "platform" : null)"
                        href="@link.Url"
+                       aria-current="@(isAct ? "page" : null)"
                        target="@(link.OpenInNewTab ? "_blank" : null)"
                        rel="@(link.OpenInNewTab ? "noopener noreferrer" : null)">
                         @(isRtl ? link.LabelAr : link.LabelEn)
@@ -181,62 +188,63 @@
                 }
             </nav>
 
-            <!-- Right Actions -->
-            <div class="flex items-center gap-3">
-                <!-- Theme Toggle -->
-                <button id="theme-toggle" onclick="toggleTheme()"
-                    class="text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] p-1.5 rounded-lg border border-slate-200 dark:border-slate-700 transition-all hover:border-[#00B2EC] dark:hover:border-[#00B2EC] flex items-center justify-center">
-                    <span id="theme-icon" class="material-symbols-outlined text-[20px]">dark_mode</span>
+            <!-- Actions -->
+            <div class="site-header__actions">
+                <button id="theme-toggle" type="button" onclick="toggleTheme()" class="hdr-btn"
+                        aria-label="@(isRtl ? "تبديل الوضع الليلي" : "Toggle dark mode")">
+                    <span id="theme-icon" class="material-symbols-outlined">dark_mode</span>
                 </button>
 
-                <!-- RTL/LTR Toggle -->
-                @{
-                    var currentPathAndQuery = Context.Request.Path + Context.Request.QueryString;
-                    var switchCulture = isRtl ? "en" : "ar";
-                    var switchRoute = isRtl ? "/en" : "/ar";
-                    var switchLanguageText = isRtl ? "English" : "عربي";
-                    var switchUrl = $"{switchRoute}?returnUrl={Uri.EscapeDataString(currentPathAndQuery)}";
-                }
-                <a href="@switchUrl" id="lang-switch-btn"
-                    class="text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 text-xs font-semibold tracking-wide transition-all hover:border-[#00B2EC] dark:hover:border-[#00B2EC]">
-                    @switchLanguageText
+                <a href="@switchUrl" id="lang-switch-btn" class="hdr-btn hdr-btn--lang"
+                   hreflang="@(isRtl ? "en" : "ar")" aria-label="@switchLanguageLabel" title="@switchLanguageLabel">
+                    <span class="material-symbols-outlined">language</span>
+                    <span class="hdr-btn__text">@switchLanguageText</span>
                 </a>
 
-                <!-- CTA -->
-               <a asp-controller="Home" asp-action="Index" asp-fragment="vision" 
-   class="hidden sm:block bg-[#00B2EC] text-white px-5 py-2.5 rounded-lg font-['Inter'] font-semibold text-sm shadow-sm active:scale-95 duration-150 transition-all hover:shadow-lg hover:shadow-[#00B2EC]/20 text-center">
-    @SharedLocalizer["GetStarted"]
-</a>
-                <!-- Mobile Menu Toggle -->
-                <button id="mobile-menu-btn" onclick="document.getElementById('mobile-nav').classList.toggle('hidden')"
-                    class="lg:hidden p-2 text-brand-navy dark:text-white hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors">
-                    <span class="material-symbols-outlined text-[28px]">menu</span>
+                <a asp-controller="Home" asp-action="Index" asp-fragment="vision" class="hdr-cta">
+                    <span>@SharedLocalizer["GetStarted"]</span>
+                    <span class="material-symbols-outlined hdr-cta__arrow" aria-hidden="true">arrow_forward</span>
+                </a>
+
+                <button id="mobile-menu-btn" type="button" class="hdr-btn hdr-burger"
+                        aria-controls="mobile-nav" aria-expanded="false"
+                        aria-label="@(isRtl ? "فتح القائمة" : "Open menu")">
+                    <span class="hdr-burger__bars" aria-hidden="true"><i></i><i></i><i></i></span>
                 </button>
             </div>
+            <div class="scroll-progress" aria-hidden="true"><span id="scroll-progress-bar"></span></div>
         </div>
 
-        <!-- Mobile Nav Dropdown -->
-        <div id="mobile-nav"
-            class="hidden lg:hidden bg-white dark:bg-[#0A192F] border-t border-slate-100 dark:border-slate-800 shadow-lg">
-            <nav class="max-w-[1440px] mx-auto px-6 py-4 flex flex-col gap-1 font-['Inter'] font-medium text-sm">
+        <!-- Mobile Nav -->
+        <div id="mobile-nav" class="mobile-nav" aria-hidden="true">
+            <nav class="mobile-nav__panel" aria-label="@(isRtl ? "قائمة الجوال" : "Mobile navigation")">
+                @{ var mIdx = 0; }
                 @foreach (var link in headerNavLinks)
                 {
                     var isAct = IsLinkActive(link.Url);
-                    <a class="@GetMobileNavClass(isAct)"
+                    mIdx++;
+                    <a class="mobile-nav__link@(isAct ? " is-active" : "")"
+                       style="--i:@mIdx"
                        href="@link.Url"
+                       aria-current="@(isAct ? "page" : null)"
                        target="@(link.OpenInNewTab ? "_blank" : null)"
                        rel="@(link.OpenInNewTab ? "noopener noreferrer" : null)">
-                        @(isRtl ? link.LabelAr : link.LabelEn)
+                        <span>@(isRtl ? link.LabelAr : link.LabelEn)</span>
+                        <span class="material-symbols-outlined mobile-nav__chev" aria-hidden="true">chevron_right</span>
                     </a>
                 }
+                <a asp-controller="Home" asp-action="Index" asp-fragment="vision" class="hdr-cta hdr-cta--block" style="--i:@(mIdx + 1)">
+                    <span>@SharedLocalizer["GetStarted"]</span>
+                    <span class="material-symbols-outlined hdr-cta__arrow" aria-hidden="true">arrow_forward</span>
+                </a>
             </nav>
         </div>
     </header>
-    <main role="main" class="pb-3 w-full">
+    <main role="main" id="main-content" class="site-main w-full">
         @RenderBody()
     </main>
 
-    <footer class="relative bg-white dark:bg-[#0A192F] overflow-hidden transition-colors duration-300">
+    <footer class="site-footer relative bg-white dark:bg-[#0A192F] overflow-hidden transition-colors duration-300">
         <div class="w-full h-px bg-gradient-to-r from-transparent via-[#00B2EC]/30 to-transparent"></div>
 
         <div class="max-w-[1440px] mx-auto px-6 sm:px-8 pt-16 sm:pt-20 pb-8">
@@ -246,11 +254,11 @@
                         <img src="@logoLight"
                             width="150" height="45"
                             class="w-[150px] h-auto transition-all duration-300 dark:hidden"
-                            alt="@brandName">
+                            alt="@brandName" onerror="this.onerror=null;this.src='@defaultLogo'">
                         <img src="@logoDark"
                             width="150" height="45"
                             class="w-[150px] h-auto transition-all duration-300 hidden dark:block"
-                            alt="@brandName">
+                            alt="@brandName" onerror="this.onerror=null;this.src='@defaultLogo'">
                     </div>
                     <p class="font-['Inter'] text-sm leading-relaxed text-brand-navy/60 dark:text-white/60 max-w-xs mb-4">
                         @(isRtl ? (activeBrand?.DescriptionAr ?? SharedLocalizer["FooterDescription"].Value) : (activeBrand?.DescriptionEn ?? SharedLocalizer["FooterDescription"].Value))
@@ -423,7 +431,11 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <button type="button" id="to-top" class="to-top" aria-label="@(isRtl ? "العودة للأعلى" : "Back to top")">
+        <span class="material-symbols-outlined">arrow_upward</span>
+    </button>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/site-header.js" asp-append-version="true"></script>
     <script>
         const langSwitchBtn = document.getElementById('lang-switch-btn');
         if (langSwitchBtn) {

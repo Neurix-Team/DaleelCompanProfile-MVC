@@ -42,6 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let isSpeaking = false;
     let rafId = null;
     let markdownLoadPromise = null;
+    let voiceUserTurnText = "";
+    let pendingNav = null; // { timer, el }
 
     // Markdown rendering is only needed after the chat is opened. Loading it lazily
     // removes a third-party request from the critical path of every public page.
@@ -125,12 +127,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof lucide !== 'undefined') lucide.createIcons();
             setState('idle');
         } else {
+            cancelPendingNav();
             chatWindow.classList.remove('scale-100', 'opacity-100');
             chatWindow.classList.add('scale-95', 'opacity-0');
             setTimeout(() => chatWindow.classList.add('hidden'), 300);
             fab.classList.remove('scale-0', 'opacity-0');
         }
         if (isOpen) fab.classList.add('scale-0', 'opacity-0');
+        saveState();
     };
     fab.addEventListener('click', toggleChat);
     if (closeBtn) closeBtn.addEventListener('click', toggleChat);
@@ -142,8 +146,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const text = (inputField?.value || '').trim();
         if (!text || isTextLoading) return;
 
+        cancelPendingNav();
         appendMessage('User', text);
         chatHistory.push({ role: 'user', text });
+        saveState();
         inputField.value = '';
         isTextLoading = true;
         setState('processing');
@@ -170,7 +176,9 @@ document.addEventListener('DOMContentLoaded', () => {
             const aiText = data.text || '';
             appendMessage('AI', aiText);
             chatHistory.push({ role: 'model', text: aiText });
+            saveState();
             setState('idle');
+            if (data.navigate) scheduleNavigation(data.navigate);
         } catch (e) {
             removeThinking();
             console.error('[DalilyAI] Network error:', e);
@@ -411,6 +419,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case 'voiceTranscript':
                 if (msg.sender === 'user') {
                     appendMessage('User', msg.text);
+                    voiceUserTurnText += (voiceUserTurnText ? ' ' : '') + msg.text;
                 } else {
                     removeThinking();
                     setState('idle');
@@ -418,7 +427,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 break;
             case 'turnComplete': 
-                removeThinking(); 
+                removeThinking();
+                if (voiceUserTurnText) chatHistory.push({ role: 'user', text: voiceUserTurnText });
+                if (currentAiStreamRawText) chatHistory.push({ role: 'model', text: currentAiStreamRawText });
+                saveState();
+                routeVoiceTurn(voiceUserTurnText);
+                voiceUserTurnText = "";
                 currentAiStreamTextNode = null;
                 currentAiStreamRawText = "";
                 break;
@@ -501,4 +515,126 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const esc = s => { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; };
+
+    // ═══════════════════════════════════════════════
+    //  PAGE NAVIGATION — open the page that answers the question
+    // ═══════════════════════════════════════════════
+    const STATE_KEY = 'dalily-chat-state';
+    const NAV_DELAY_MS = 3000;
+    const isRtl = document.documentElement.dir === 'rtl';
+    const t = (ar, en) => (isRtl ? ar : en);
+
+    // Keeps the conversation (and whether the chat is open) across the page change.
+    const saveState = (overrides) => {
+        try {
+            const prev = JSON.parse(sessionStorage.getItem(STATE_KEY) || '{}');
+            sessionStorage.setItem(STATE_KEY, JSON.stringify(Object.assign({
+                open: isOpen,
+                history: chatHistory.slice(-40),
+                arrivedAt: prev.arrivedAt || null
+            }, overrides)));
+        } catch (e) { /* storage unavailable: chat still works, it just won't survive a page change */ }
+    };
+
+    // "/Home/About", "/about/" and "/home/about" are the same page.
+    const normalizePath = p => {
+        const path = (p || '/').toLowerCase().split(/[?#]/)[0].replace(/\/+$/, '').replace(/^\/home(?=\/|$)/, '');
+        return path === '' || path === '/index' ? '/' : path;
+    };
+
+    const cancelPendingNav = () => {
+        if (!pendingNav) return;
+        clearTimeout(pendingNav.timer);
+        pendingNav.el.remove();
+        pendingNav = null;
+    };
+
+    const navigateNow = (target) => {
+        cancelPendingNav();
+        if (isRecording) stopVoice();
+        saveState({ open: true, arrivedAt: target });
+        window.location.href = target.url;
+    };
+
+    const scheduleNavigation = (target, delayMs = NAV_DELAY_MS) => {
+        if (!target || !target.url) return;
+        const title = t(target.titleAr, target.titleEn);
+        cancelPendingNav();
+
+        if (normalizePath(target.url) === normalizePath(location.pathname)) {
+            sysMsg(t(`أنت بالفعل في صفحة ${title}`, `You're already on the ${title} page`), 'info');
+            return;
+        }
+
+        const el = document.createElement('div');
+        el.className = 'dalily-nav-card';
+        el.innerHTML = `
+            <div class="dalily-nav-card__row">
+                <span class="material-symbols-outlined dalily-nav-card__icon">near_me</span>
+                <div class="dalily-nav-card__text">
+                    <span class="dalily-nav-card__label">${esc(t('جاري نقلك إلى صفحة', 'Taking you to'))}</span>
+                    <strong>${esc(title)}</strong>
+                </div>
+                <button type="button" class="dalily-nav-card__go">${esc(t('انتقل الآن', 'Go now'))}</button>
+                <button type="button" class="dalily-nav-card__cancel" aria-label="${esc(t('إلغاء', 'Cancel'))}" title="${esc(t('إلغاء', 'Cancel'))}">
+                    <span class="material-symbols-outlined">close</span>
+                </button>
+            </div>
+            <div class="dalily-nav-card__bar"><span style="animation-duration:${delayMs}ms"></span></div>`;
+        messagesArea.appendChild(el);
+        scrollToBottom();
+
+        el.querySelector('.dalily-nav-card__go').addEventListener('click', () => navigateNow(target));
+        el.querySelector('.dalily-nav-card__cancel').addEventListener('click', () => {
+            cancelPendingNav();
+            sysMsg(t('تم إلغاء الانتقال', 'Navigation cancelled'), 'info');
+        });
+
+        pendingNav = { el, timer: setTimeout(() => navigateNow(target), delayMs) };
+    };
+
+    // Voice: ask the server which page the spoken question belongs to, then let the
+    // spoken answer finish playing before leaving the page.
+    const routeVoiceTurn = async (spoken) => {
+        if (!spoken || !spoken.trim()) return;
+        try {
+            const resp = await fetch('/api/dalily-chat/route', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ text: spoken })
+            });
+            if (!resp.ok) return;
+            const data = await resp.json();
+            if (!data.navigate) return;
+            const remainingAudioMs = playbackCtx
+                ? Math.max(0, (nextAudioPlayTime - playbackCtx.currentTime) * 1000)
+                : 0;
+            scheduleNavigation(data.navigate, Math.max(NAV_DELAY_MS, remainingAudioMs + 800));
+        } catch (e) {
+            console.warn('[DalilyAI] Page routing failed:', e);
+        }
+    };
+
+    // Restore the conversation after the assistant moved the visitor to another page.
+    const restoreState = async () => {
+        let state = null;
+        try { state = JSON.parse(sessionStorage.getItem(STATE_KEY) || 'null'); } catch (e) { state = null; }
+        if (!state) return;
+
+        if (Array.isArray(state.history) && state.history.length) {
+            await ensureMarkdown().catch(() => {});
+            chatHistory = state.history;
+            chatHistory.forEach(m => appendMessage(m.role === 'user' ? 'User' : 'AI', m.text));
+        }
+
+        if (state.arrivedAt) {
+            sysMsg(t(`أنت الآن في صفحة ${state.arrivedAt.titleAr}`, `You're now on the ${state.arrivedAt.titleEn} page`), 'info');
+            saveState({ open: !!state.open, arrivedAt: null });
+        }
+
+        if (state.open && !isOpen) toggleChat();
+    };
+
+    restoreState();
 });
+

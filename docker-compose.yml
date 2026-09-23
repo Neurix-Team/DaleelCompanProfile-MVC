@@ -1,0 +1,50 @@
+name: daleel
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: daleel-mvc:local
+    container_name: daleel-web
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-5080}:80"
+    # Values in .env override appsettings.json (see .env.example).
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
+    extra_hosts:
+      # Lets the app reach services on the host (e.g. the RAG API on :8080)
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - uploads:/app/wwwroot/uploads
+      - dpkeys:/root/.aspnet/DataProtection-Keys
+
+  # Optional local SQL Server. Start it with:  docker compose --profile local-db up -d
+  # and point ConnectionStrings__DefaultConnection in .env at "Server=db;...".
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: daleel-db
+    profiles: ["local-db"]
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD:-Daleel_Local#2026}
+    ports:
+      - "${DB_PORT:-1433}:1433"
+    volumes:
+      - mssql:/var/opt/mssql
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P \"$$MSSQL_SA_PASSWORD\" -C -Q 'SELECT 1' || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+volumes:
+  uploads:
+  dpkeys:
+  mssql:
