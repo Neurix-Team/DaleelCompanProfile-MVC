@@ -200,9 +200,9 @@ docker inspect daleel-web --format '{{ index .Config.Labels "neurix.proxy.domain
 curl -I http://127.0.0.1:18627/
 ```
 
-The default proxy labels are `neurix.proxy.domain=company.daleel.uk` and `neurix.proxy.port=18627`. Set `DALEEL_PROXY_DOMAIN` and `WEB_PORT` in `.env` if the real hostname or host port differs; the proxy port label follows `WEB_PORT`. The optional SQL Server container is available through `docker compose --profile local-db up -d`; leave that profile disabled when using an external database.
+The default proxy labels are `neurix.proxy.domain=dalilee.uk` and `neurix.proxy.port=18627`. Set `DALEEL_PROXY_DOMAIN` and `WEB_PORT` in `.env` if the real hostname or host port differs; the proxy port label follows `WEB_PORT`. If an existing server `.env` still sets `DALEEL_PROXY_DOMAIN=company.daleel.uk`, change it to `dalilee.uk` before recreating the container. The optional SQL Server container is available through `docker compose --profile local-db up -d`; leave that profile disabled when using an external database.
 
-For a public HTTPS address, create a DNS A record named `company` under `daleel.uk` pointing to the proxy server. Confirm `dig +short @1.1.1.1 company.daleel.uk A` returns that address before requesting a certificate. Run the server's `/root/nginx_discovery.py` as root to refresh proxy routing; then run `sudo certbot --nginx -d company.daleel.uk` if the certificate is still missing. Check `sudo certbot certificates` and `curl -I https://company.daleel.uk/`; the discovery script's success banner alone does not prove issuance.
+For public HTTPS, issue and install the certificate on the server that `dalilee.uk` resolves to. If DNS points to a separate edge server, configure that server to route `dalilee.uk` to the Daleel backend on port `18627`; running Certbot on the backend cannot validate a domain that reaches a different server. Verify the edge routing and certificate with `curl -I https://dalilee.uk/`. The Docker proxy labels identify the backend service but do not configure a separate edge server.
 
 ---
 

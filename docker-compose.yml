@@ -11,7 +11,7 @@ services:
     ports:
       - "${WEB_PORT:-18627}:80"
     labels:
-      - "neurix.proxy.domain=${DALEEL_PROXY_DOMAIN:-company.daleel.uk}"
+      - "neurix.proxy.domain=${DALEEL_PROXY_DOMAIN:-dalilee.uk}"
       - "neurix.proxy.port=${WEB_PORT:-18627}"
     # Values in .env override appsettings.json (see .env.example).
     env_file:
