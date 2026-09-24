@@ -12,9 +12,17 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
 using System.IO.Compression;
+using Daleel.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
+
+// `dotnet Daleel.dll create-user <email>` runs a one-off admin command instead of the site.
+var isCreateUserCommand = CreateUserCommand.IsInvocation(args);
+if (isCreateUserCommand)
+{
+    builder.Logging.ClearProviders();
+}
 
 // CRM database (SQL Server) — connection string lives in appsettings / environment.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
@@ -93,6 +101,14 @@ builder.Services.AddCmsBusinessLayer();
 
 
 var app = builder.Build();
+
+if (isCreateUserCommand)
+{
+    using var commandScope = app.Services.CreateScope();
+    Environment.ExitCode = await CreateUserCommand.RunAsync(
+        commandScope.ServiceProvider, args.Skip(1).ToArray(), CreateUserCommand.ReadConsoleSecret, Console.Out);
+    return;
+}
 
 // Create/migrate the CRM database and seed roles + the initial administrator.
 // Failures are logged rather than fatal so the public Company Profile site still
