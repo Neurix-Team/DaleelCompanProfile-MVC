@@ -190,17 +190,18 @@ More commands, debugging notes and single-test filters: **[docs/DEVELOPMENT.md](
 
 ## Docker usage
 
-```powershell
-docker build -t daleel-mvc:local .
-docker run -p 8080:80 `
-  -e "ConnectionStrings__DefaultConnection=<your-connection-string>" `
-  -e "Gemini__ApiKey=<your-key>" `
-  daleel-mvc:local
+Create `.env` from `.env.example` and set the production database connection and any API keys there. The public web container listens on port 80 internally; Compose publishes it on host port `WEB_PORT` (5080 by default).
+
+```bash
+docker compose config --quiet
+docker compose up -d --build web
+docker compose ps
+docker inspect daleel-web --format '{{ index .Config.Labels "neurix.proxy.domain" }}:{{ index .Config.Labels "neurix.proxy.port" }}'
 ```
 
-The image sets `ASPNETCORE_URLS=http://+:80` and `ASPNETCORE_ENVIRONMENT=Production`, exposes port 80, and starts `dotnet Daleel.dll`.
+The default proxy labels are `neurix.proxy.domain=company.daleel.uk` and `neurix.proxy.port=5080`. Set `DALEEL_PROXY_DOMAIN` and `WEB_PORT` in `.env` if the real hostname or host port differs; the proxy port label follows `WEB_PORT`. The optional SQL Server container is available through `docker compose --profile local-db up -d`; leave that profile disabled when using an external database.
 
-> There is **no `docker-compose.yml`** in this repository — the container expects an external SQL Server. Note also that the Dockerfile does not run `npm install`/`npm run build:css`, so the image ships whatever `wwwroot/css/tailwind.css` was committed.
+For a public HTTPS address, create a DNS A record for the configured hostname pointing to the proxy server, then run the server's `/root/nginx_discovery.py` as root. Check its certificate request output and verify `curl -I https://company.daleel.uk/`; a success banner alone does not prove the certificate was issued.
 
 ---
 

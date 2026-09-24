@@ -10,6 +10,9 @@ services:
     restart: unless-stopped
     ports:
       - "${WEB_PORT:-5080}:80"
+    labels:
+      - "neurix.proxy.domain=${DALEEL_PROXY_DOMAIN:-company.daleel.uk}"
+      - "neurix.proxy.port=${WEB_PORT:-5080}"
     # Values in .env override appsettings.json (see .env.example).
     env_file:
       - path: .env
