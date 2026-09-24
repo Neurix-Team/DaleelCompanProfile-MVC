@@ -1,6 +1,6 @@
 /**
  * Daleel AI Chat — Enterprise Dual-Path Architecture
- * TEXT  → fetch() POST /api/dalily-chat/text → Gemini REST API
+ * TEXT  → fetch() POST /api/dalily-chat/text → RAG API, streamed back as Server-Sent Events
  * VOICE → WebSocket /ws/dalily-chat → Gemini Live API (AUDIO only)
  */
 document.addEventListener('DOMContentLoaded', () => {
@@ -222,8 +222,40 @@ document.addEventListener('DOMContentLoaded', () => {
     if (reconnectBtn) reconnectBtn.addEventListener('click', restoreSession);
 
     // ═══════════════════════════════════════════════
-    //  TEXT FLOW — fetch() POST /api/dalily-chat/text
+    //  TEXT FLOW — fetch() POST /api/dalily-chat/text (streamed)
     // ═══════════════════════════════════════════════
+    // EventSource only does GET, so the POST response body is read and split into
+    // "event: name / data: json" blocks by hand.
+    const readEventStream = async (response, onEvent) => {
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        const flushBlocks = () => {
+            let boundary;
+            while ((boundary = buffer.indexOf('\n\n')) !== -1) {
+                const block = buffer.slice(0, boundary);
+                buffer = buffer.slice(boundary + 2);
+                let event = 'message';
+                let data = '';
+                block.split('\n').forEach(line => {
+                    if (line.startsWith('event:')) event = line.slice(6).trim();
+                    else if (line.startsWith('data:')) data += line.slice(5).trim();
+                });
+                if (data) onEvent(event, JSON.parse(data));
+            }
+        };
+
+        for (;;) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            buffer += decoder.decode(value, { stream: true }).replace(/\r\n/g, '\n');
+            flushBlocks();
+        }
+        buffer += '\n\n';
+        flushBlocks();
+    };
+
     const handleSend = async () => {
         const text = (inputField?.value || '').trim();
         if (!text || isTextLoading) return;
@@ -240,12 +272,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const resp = await fetch('/api/dalily-chat/text', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
                 body: JSON.stringify({ history: chatHistory, pageContext: getPageContext(), sessionId })
             });
-            removeThinking();
 
             if (!resp.ok) {
+                removeThinking();
                 const err = await resp.json().catch(() => ({}));
                 console.error('[DalilyAI] Text API error:', resp.status, err);
                 sysMsg(err.error || `Server error (${resp.status})`, 'error');
@@ -254,22 +286,57 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            const data = await resp.json();
-            const aiText = data.text || '';
-            // A navigation-only fallback (RAG unavailable) may carry no session yet.
-            const hasNoSession = data.sessionId == null && data.navigate;
-            if (!hasNoSession && !storeSessionId(data.sessionId)) {
-                console.error('[DalilyAI] Text API returned an invalid session ID:', data.sessionId);
-                sysMsg('The server returned an invalid chat session.', 'error');
-                setState('error', 'Invalid chat session');
-                isTextLoading = false;
-                return;
+            let aiNode = null;
+            let aiText = '';
+            let finished = false;
+            let failure = null;
+            let navigate = null;
+
+            const renderAnswer = () => {
+                if (!aiNode) {
+                    removeThinking();
+                    aiNode = appendMessage('AI', '');
+                }
+                aiNode.innerHTML = typeof marked !== 'undefined' ? marked.parse(aiText) : esc(aiText);
+                scrollToBottom();
+            };
+
+            await readEventStream(resp, (event, data) => {
+                if (event === 'session') {
+                    // arrives before the answer, so the conversation survives a failed stream
+                    storeSessionId(data.sessionId);
+                } else if (event === 'token') {
+                    aiText += data.text || '';
+                    renderAnswer();
+                } else if (event === 'done') {
+                    finished = true;
+                    navigate = data.navigate || null;
+                    // the stored answer drops a last sentence the length limit cut off mid-stream
+                    if (data.answer && data.answer !== aiText) {
+                        aiText = data.answer;
+                        renderAnswer();
+                    }
+                    // A navigation-only fallback (RAG unavailable) may carry no session yet.
+                    if (data.sessionId != null && !storeSessionId(data.sessionId))
+                        console.error('[DalilyAI] Text API returned an invalid session ID:', data.sessionId);
+                } else if (event === 'error') {
+                    failure = data.error || 'The assistant could not answer.';
+                    navigate = data.navigate || null;
+                }
+            });
+            removeThinking();
+
+            if (finished && aiText) {
+                chatHistory.push({ role: 'model', text: aiText });
+                saveState();
+                setState('idle');
+            } else {
+                failure = failure || 'The answer was interrupted.';
+                console.error('[DalilyAI] Text stream failed:', failure);
+                sysMsg(failure, 'error');
+                setState('error', failure);
             }
-            appendMessage('AI', aiText);
-            chatHistory.push({ role: 'model', text: aiText });
-            saveState();
-            setState('idle');
-            if (data.navigate) scheduleNavigation(data.navigate);
+            if (navigate) scheduleNavigation(navigate);
         } catch (e) {
             removeThinking();
             console.error('[DalilyAI] Network error:', e);
@@ -583,6 +650,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         messagesArea.appendChild(div);
         scrollToBottom();
+        return div.lastElementChild;
     };
 
     const sysMsg = (text, sev = 'info') => {

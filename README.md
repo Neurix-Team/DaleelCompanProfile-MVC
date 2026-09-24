@@ -210,7 +210,7 @@ The application is server-rendered MVC; almost every route returns HTML. Roughly
 
 | Endpoint | Type | Auth |
 | --- | --- | --- |
-| `POST /api/dalily-chat/text` | JSON | **Anonymous** |
+| `POST /api/dalily-chat/text` | Server-Sent Events (JSON on validation/RAG errors) | **Anonymous** |
 | `GET /ws/dalily-chat` | WebSocket | **Anonymous** |
 | `POST /cms/media/api/upload` | JSON | Admin |
 | `GET /cms/media/check-usage` | JSON | Admin |

@@ -1,4 +1,5 @@
 using Daleel.Services;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Net.WebSockets;
@@ -36,7 +37,9 @@ namespace Daleel.Controllers
 
         // OLD TEXT FLOW: HTTP POST -> Gemini REST API (preserved below as disabled legacy code).
 
-        // TEXT FLOW: HTTP POST -> session-aware FastAPI RAG
+        // TEXT FLOW: HTTP POST -> session-aware FastAPI RAG, streamed back as Server-Sent Events.
+        // The widget receives: session {sessionId}, token {text}, done {sessionId, messageId, answer, navigate}
+        // and error {error, navigate}. Failures before the stream starts keep plain JSON status codes.
         [HttpPost("api/dalily-chat/text")]
         public async Task<IActionResult> TextChat([FromBody] TextChatRequest request)
         {
@@ -62,17 +65,24 @@ namespace Daleel.Controllers
             // When the question belongs to one of our pages, the widget opens that page after answering.
             // If the RAG service is unavailable we still send the visitor there instead of failing.
             var target = ChatPageRouter.Resolve(userText);
-            IActionResult Fail(IActionResult error) => target == null
-                ? error
-                : Ok(new { text = RedirectOnlyText(target, userText), navigate = ToNavigateDto(target), sessionId });
+            async Task<IActionResult> Fail(IActionResult error)
+            {
+                if (target == null)
+                    return error;
+
+                StartEventStream();
+                await WriteEventAsync("token", new { text = RedirectOnlyText(target, userText) }, CancellationToken.None);
+                await WriteEventAsync("done", new { sessionId, messageId = (string?)null, navigate = ToNavigateDto(target) }, CancellationToken.None);
+                return new EmptyResult();
+            }
 
             var baseUrl = _configuration["RagApi:BaseUrl"];
-            var chatPath = _configuration["RagApi:ChatPath"] ?? "api/v1/index/chat";
+            var chatStreamPath = _configuration["RagApi:ChatStreamPath"] ?? "api/v1/index/chat/stream";
             var configuredUserId = _configuration["RagApi:UserId"];
             if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out var ragBaseUri) ||
                 !Guid.TryParse(configuredUserId, out var userId))
             {
-                return Fail(StatusCode(503, new { error = "RAG service is not configured." }));
+                return await Fail(StatusCode(503, new { error = "RAG service is not configured." }));
             }
 
             var subDomainName = _configuration["RagApi:SubDomainName"];
@@ -90,68 +100,189 @@ namespace Daleel.Controllers
                 limit
             };
 
+            // closing the widget or leaving the page cancels the answer on the RAG side too
+            var visitorAborted = HttpContext.RequestAborted;
+            HttpResponseMessage response;
+
             try
             {
                 var client = _httpClientFactory.CreateClient("RagApi");
-                var endpoint = new Uri(ragBaseUri, chatPath.TrimStart('/'));
-                var json = JsonSerializer.Serialize(payload);
-                using var response = await client.PostAsync(
-                    endpoint,
-                    new StringContent(json, Encoding.UTF8, "application/json"));
-                var body = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
+                using var ragRequest = new HttpRequestMessage(HttpMethod.Post, new Uri(ragBaseUri, chatStreamPath.TrimStart('/')))
                 {
-                    _logger.LogError("[TextChat] RAG chat API error: {Status} {Body}", response.StatusCode, body);
-                    return Fail(StatusCode(502, new { error = "RAG service returned an error." }));
-                }
+                    Content = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json")
+                };
+                ragRequest.Headers.Accept.ParseAdd("text/event-stream");
 
-                using var ragResponse = JsonDocument.Parse(body);
-                var root = ragResponse.RootElement;
-
-                if (root.TryGetProperty("signal", out var signal) &&
-                    !string.Equals(signal.GetString(), "rag_answer_success", StringComparison.OrdinalIgnoreCase))
-                {
-                    _logger.LogError("[TextChat] RAG API returned signal {Signal}", signal.GetString());
-                    return Fail(StatusCode(502, new { error = "RAG service could not generate an answer." }));
-                }
-
-                if (!root.TryGetProperty("answer", out var answerElement) ||
-                    string.IsNullOrWhiteSpace(answerElement.GetString()) ||
-                    !root.TryGetProperty("session_id", out var sessionElement) ||
-                    !Guid.TryParse(sessionElement.GetString(), out var returnedSessionId))
-                {
-                    _logger.LogError("[TextChat] RAG API response did not contain an answer and valid session id.");
-                    return Fail(StatusCode(502, new { error = "RAG service returned an invalid response." }));
-                }
-
-                var messageId = root.TryGetProperty("message_id", out var messageElement)
-                    ? messageElement.GetString()
-                    : null;
-
-                return Ok(new
-                {
-                    text = answerElement.GetString(),
-                    sessionId = returnedSessionId.ToString(),
-                    messageId,
-                    navigate = ToNavigateDto(target)
-                });
+                // headers only: the body is the answer itself and is read as it is generated
+                response = await client.SendAsync(ragRequest, HttpCompletionOption.ResponseHeadersRead, visitorAborted);
+            }
+            catch (OperationCanceledException) when (visitorAborted.IsCancellationRequested)
+            {
+                return new EmptyResult();
             }
             catch (HttpRequestException ex)
             {
                 _logger.LogError(ex, "[TextChat] Could not connect to the RAG chat API");
-                return Fail(StatusCode(503, new { error = "RAG service is unavailable." }));
+                return await Fail(StatusCode(503, new { error = "RAG service is unavailable." }));
             }
             catch (TaskCanceledException ex)
             {
                 _logger.LogError(ex, "[TextChat] RAG chat API request timed out");
-                return Fail(StatusCode(504, new { error = "RAG service timed out." }));
+                return await Fail(StatusCode(504, new { error = "RAG service timed out." }));
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "[TextChat] Error");
-                return Fail(StatusCode(500, new { error = "An unexpected error occurred." }));
+                return await Fail(StatusCode(500, new { error = "An unexpected error occurred." }));
             }
+
+            using (response)
+            {
+                if (!response.IsSuccessStatusCode)
+                {
+                    var body = await response.Content.ReadAsStringAsync(CancellationToken.None);
+                    _logger.LogError("[TextChat] RAG chat API error: {Status} {Body}", response.StatusCode, body);
+                    return await Fail(StatusCode(502, new { error = "RAG service returned an error." }));
+                }
+
+                StartEventStream();
+                await RelayRagStreamAsync(response, target, visitorAborted);
+                return new EmptyResult();
+            }
+        }
+
+        /// <summary>
+        /// Reads the RAG service's event stream and forwards each event to the widget as soon as it
+        /// arrives, keeping the RAG field names and internals (search query, signals) on the server.
+        /// </summary>
+        private async Task RelayRagStreamAsync(HttpResponseMessage response, ChatPageTarget? target, CancellationToken cancellationToken)
+        {
+            try
+            {
+                await using var body = await response.Content.ReadAsStreamAsync(cancellationToken);
+                using var reader = new StreamReader(body, Encoding.UTF8);
+
+                string? eventName = null;
+                var data = new StringBuilder();
+                string? line;
+
+                while ((line = await reader.ReadLineAsync(cancellationToken)) != null)
+                {
+                    if (line.Length > 0)
+                    {
+                        if (line.StartsWith("event:", StringComparison.Ordinal))
+                            eventName = line[6..].Trim();
+                        else if (line.StartsWith("data:", StringComparison.Ordinal))
+                            data.Append(data.Length > 0 ? "\n" : string.Empty).Append(line[5..].TrimStart());
+                        continue;
+                    }
+
+                    // a blank line closes the event
+                    if (eventName != null && data.Length > 0 &&
+                        await ForwardRagEventAsync(eventName, data.ToString(), target, cancellationToken))
+                    {
+                        return;
+                    }
+
+                    eventName = null;
+                    data.Clear();
+                }
+
+                _logger.LogError("[TextChat] RAG stream ended without a done event.");
+                await WriteEventAsync("error", new { error = "RAG service could not generate an answer.", navigate = ToNavigateDto(target) }, cancellationToken);
+            }
+            catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
+            {
+                _logger.LogInformation("[TextChat] Visitor left before the answer finished.");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "[TextChat] RAG stream failed");
+                try
+                {
+                    await WriteEventAsync("error", new { error = "RAG service could not generate an answer.", navigate = ToNavigateDto(target) }, CancellationToken.None);
+                }
+                catch (Exception writeError)
+                {
+                    _logger.LogDebug(writeError, "[TextChat] Could not tell the visitor about the failed stream.");
+                }
+            }
+        }
+
+        /// <summary>Forwards one RAG event to the widget; returns true once the answer is finished.</summary>
+        private async Task<bool> ForwardRagEventAsync(string eventName, string data, ChatPageTarget? target, CancellationToken cancellationToken)
+        {
+            using var json = JsonDocument.Parse(data);
+            var root = json.RootElement;
+
+            switch (eventName)
+            {
+                case "session":
+                    // sent before the answer, so a new conversation keeps its id even if the answer fails
+                    if (TryGetGuid(root, "session_id", out var startedSessionId))
+                        await WriteEventAsync("session", new { sessionId = startedSessionId.ToString() }, cancellationToken);
+                    return false;
+
+                case "token":
+                    var text = GetString(root, "text");
+                    if (!string.IsNullOrEmpty(text))
+                        await WriteEventAsync("token", new { text }, cancellationToken);
+                    return false;
+
+                case "done":
+                    var signal = GetString(root, "signal");
+                    if (!string.Equals(signal, "rag_answer_success", StringComparison.OrdinalIgnoreCase) ||
+                        !TryGetGuid(root, "session_id", out var sessionId))
+                    {
+                        _logger.LogError("[TextChat] RAG stream finished without a valid answer: {Signal}", signal);
+                        await WriteEventAsync("error", new { error = "RAG service returned an invalid response.", navigate = ToNavigateDto(target) }, cancellationToken);
+                        return true;
+                    }
+
+                    await WriteEventAsync("done", new
+                    {
+                        sessionId = sessionId.ToString(),
+                        messageId = GetString(root, "message_id"),
+                        // the stored answer; replaces the streamed text when the output cap cut its last sentence
+                        answer = GetString(root, "answer"),
+                        navigate = ToNavigateDto(target)
+                    }, cancellationToken);
+                    return true;
+
+                case "error":
+                    _logger.LogError("[TextChat] RAG API returned signal {Signal}", GetString(root, "signal"));
+                    await WriteEventAsync("error", new { error = "RAG service could not generate an answer.", navigate = ToNavigateDto(target) }, cancellationToken);
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
+
+        private void StartEventStream()
+        {
+            Response.StatusCode = StatusCodes.Status200OK;
+            Response.ContentType = "text/event-stream; charset=utf-8";
+            Response.Headers.CacheControl = "no-cache";
+            Response.Headers["X-Accel-Buffering"] = "no";
+            HttpContext.Features.Get<IHttpResponseBodyFeature>()?.DisableBuffering();
+        }
+
+        private async Task WriteEventAsync(string eventName, object data, CancellationToken cancellationToken)
+        {
+            await Response.WriteAsync($"event: {eventName}\ndata: {JsonSerializer.Serialize(data)}\n\n", cancellationToken);
+            await Response.Body.FlushAsync(cancellationToken);
+        }
+
+        private static string? GetString(JsonElement root, string property) =>
+            root.TryGetProperty(property, out var value) && value.ValueKind == JsonValueKind.String
+                ? value.GetString()
+                : null;
+
+        private static bool TryGetGuid(JsonElement root, string property, out Guid value)
+        {
+            value = Guid.Empty;
+            return Guid.TryParse(GetString(root, property), out value);
         }
 
         [HttpGet("api/dalily-chat/session/{sessionId}")]
@@ -227,86 +358,6 @@ namespace Daleel.Controllers
                 return StatusCode(500, new { error = "An unexpected error occurred." });
             }
         }
-
-#if false
-        // LEGACY STATELESS RAG ANSWER FLOW — intentionally preserved and disabled.
-        [HttpPost("api/dalily-chat/text")]
-        public async Task<IActionResult> TextChatWithStatelessRagLegacy([FromBody] TextChatRequest request)
-        {
-            if (request?.History == null || request.History.Count == 0)
-                return BadRequest(new { error = "Conversation history is required." });
-
-            var userText = request.History
-                .LastOrDefault(message => message.Role.Equals("user", StringComparison.OrdinalIgnoreCase))
-                ?.Text?.Trim();
-
-            if (string.IsNullOrWhiteSpace(userText))
-                return BadRequest(new { error = "A user message is required." });
-
-            var baseUrl = _configuration["RagApi:BaseUrl"];
-            var answerPath = _configuration["RagApi:AnswerPath"] ?? "api/v1/index/answer";
-            if (!Uri.TryCreate(baseUrl, UriKind.Absolute, out var ragBaseUri))
-                return StatusCode(503, new { error = "RAG service is not configured." });
-
-            try
-            {
-                using var form = new MultipartFormDataContent();
-                form.Add(new StringContent(userText), "text");
-                form.Add(new StringContent(_configuration["RagApi:DomainName"] ?? "Daleel"), "domain_name");
-                form.Add(new StringContent(_configuration["RagApi:Limit"] ?? "3"), "limit");
-                form.Add(new StringContent(_configuration["RagApi:Language"] ?? "ar"), "language");
-
-                var subDomainName = _configuration["RagApi:SubDomainName"];
-                if (!string.IsNullOrWhiteSpace(subDomainName))
-                    form.Add(new StringContent(subDomainName), "sub_domain_name");
-
-                var client = _httpClientFactory.CreateClient("RagApi");
-                var endpoint = new Uri(ragBaseUri, answerPath.TrimStart('/'));
-                var response = await client.PostAsync(endpoint, form);
-                var body = await response.Content.ReadAsStringAsync();
-
-                if (!response.IsSuccessStatusCode)
-                {
-                    _logger.LogError("[TextChat] RAG API error: {Status} {Body}", response.StatusCode, body);
-                    return StatusCode(502, new { error = "RAG service returned an error." });
-                }
-
-                using var ragResponse = JsonDocument.Parse(body);
-                var root = ragResponse.RootElement;
-
-                if (root.TryGetProperty("signal", out var signal) &&
-                    !string.Equals(signal.GetString(), "rag_answer_success", StringComparison.OrdinalIgnoreCase))
-                {
-                    _logger.LogError("[TextChat] RAG API returned signal {Signal}", signal.GetString());
-                    return StatusCode(502, new { error = "RAG service could not generate an answer." });
-                }
-
-                if (!root.TryGetProperty("answer", out var answerElement) ||
-                    string.IsNullOrWhiteSpace(answerElement.GetString()))
-                {
-                    _logger.LogError("[TextChat] RAG API response did not contain an answer.");
-                    return StatusCode(502, new { error = "RAG service returned an empty answer." });
-                }
-
-                return Ok(new { text = answerElement.GetString() });
-            }
-            catch (HttpRequestException ex)
-            {
-                _logger.LogError(ex, "[TextChat] Could not connect to the RAG API");
-                return StatusCode(503, new { error = "RAG service is unavailable." });
-            }
-            catch (TaskCanceledException ex)
-            {
-                _logger.LogError(ex, "[TextChat] RAG API request timed out");
-                return StatusCode(504, new { error = "RAG service timed out." });
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "[TextChat] Error");
-                return StatusCode(500, new { error = "An unexpected error occurred." });
-            }
-        }
-#endif
 
         // PAGE ROUTING: used by the voice flow, which gets the visitor's words as a transcript.
         [HttpPost("api/dalily-chat/route")]
