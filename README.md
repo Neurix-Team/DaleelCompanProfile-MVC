@@ -190,18 +190,19 @@ More commands, debugging notes and single-test filters: **[docs/DEVELOPMENT.md](
 
 ## Docker usage
 
-Create `.env` from `.env.example` and set the production database connection and any API keys there. The public web container listens on port 80 internally; Compose publishes it on host port `WEB_PORT` (5080 by default).
+Create `.env` from `.env.example` and set the production database connection and any API keys there. The public web container listens on port 80 internally; Compose publishes it on host port `WEB_PORT` (18627 by default). If an existing server `.env` still sets `WEB_PORT=5080`, change that value to `18627` before recreating the container.
 
 ```bash
 docker compose config --quiet
 docker compose up -d --build web
 docker compose ps
 docker inspect daleel-web --format '{{ index .Config.Labels "neurix.proxy.domain" }}:{{ index .Config.Labels "neurix.proxy.port" }}'
+curl -I http://127.0.0.1:18627/
 ```
 
-The default proxy labels are `neurix.proxy.domain=company.daleel.uk` and `neurix.proxy.port=5080`. Set `DALEEL_PROXY_DOMAIN` and `WEB_PORT` in `.env` if the real hostname or host port differs; the proxy port label follows `WEB_PORT`. The optional SQL Server container is available through `docker compose --profile local-db up -d`; leave that profile disabled when using an external database.
+The default proxy labels are `neurix.proxy.domain=company.daleel.uk` and `neurix.proxy.port=18627`. Set `DALEEL_PROXY_DOMAIN` and `WEB_PORT` in `.env` if the real hostname or host port differs; the proxy port label follows `WEB_PORT`. The optional SQL Server container is available through `docker compose --profile local-db up -d`; leave that profile disabled when using an external database.
 
-For a public HTTPS address, create a DNS A record for the configured hostname pointing to the proxy server, then run the server's `/root/nginx_discovery.py` as root. Check its certificate request output and verify `curl -I https://company.daleel.uk/`; a success banner alone does not prove the certificate was issued.
+For a public HTTPS address, create a DNS A record named `company` under `daleel.uk` pointing to the proxy server. Confirm `dig +short @1.1.1.1 company.daleel.uk A` returns that address before requesting a certificate. Run the server's `/root/nginx_discovery.py` as root to refresh proxy routing; then run `sudo certbot --nginx -d company.daleel.uk` if the certificate is still missing. Check `sudo certbot certificates` and `curl -I https://company.daleel.uk/`; the discovery script's success banner alone does not prove issuance.
 
 ---
 
