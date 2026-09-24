@@ -73,12 +73,26 @@ module.exports = {
         'inverse-primary': '#77d1ff',
         'on-error': '#ffffff',
         // Daleel Brand Colors
-        'daleel-navy': '#1D3166',
-        'brand-navy': '#1D3166',
-        'daleel-sky': '#00B2EC',
+        'daleel-navy': 'rgb(var(--th-navy) / <alpha-value>)',
+        'brand-navy': 'rgb(var(--th-navy) / <alpha-value>)',
+        'daleel-sky': 'rgb(var(--th-sky) / <alpha-value>)',
         'daleel-green': '#10B981',
         'daleel-orange': '#F9A01B',
-        'daleel-offwhite': '#F8F9FA'
+        'daleel-offwhite': '#F8F9FA',
+        // Site theme tokens. Values are "R G B" channels set in Styles/tailwind.css and
+        // overridden by the CMS Theme page (Views/Shared/_ThemeStyles.cshtml).
+        'th-sky': 'rgb(var(--th-sky) / <alpha-value>)',
+        'th-sky-strong': 'rgb(var(--th-sky-strong) / <alpha-value>)',
+        'th-sky-deep': 'rgb(var(--th-sky-deep) / <alpha-value>)',
+        'th-navy': 'rgb(var(--th-navy) / <alpha-value>)',
+        'th-bg': 'rgb(var(--th-bg) / <alpha-value>)',
+        'th-card': 'rgb(var(--th-card) / <alpha-value>)',
+        'th-d-bg': 'rgb(var(--th-d-bg) / <alpha-value>)',
+        'th-d-card': 'rgb(var(--th-d-card) / <alpha-value>)',
+        'th-d-raised': 'rgb(var(--th-d-raised) / <alpha-value>)',
+        'th-d-high': 'rgb(var(--th-d-high) / <alpha-value>)',
+        'th-d-deep': 'rgb(var(--th-d-deep) / <alpha-value>)',
+        'th-d-sunk': 'rgb(var(--th-d-sunk) / <alpha-value>)'
       },
       borderRadius: {
         'DEFAULT': '0.25rem',

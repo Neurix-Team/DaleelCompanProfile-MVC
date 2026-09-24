@@ -20,7 +20,7 @@
             </p>
         </div>
         <a asp-controller="CmsArticle" asp-action="Create"
-           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02] self-start sm:self-auto">
+           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-th-sky to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-th-sky/20 hover:opacity-95 hover:scale-[1.02] self-start sm:self-auto">
             <span class="material-symbols-outlined text-[20px]">add</span>
             <span>@SharedLocalizer["CmsNewArticle"]</span>
         </a>
@@ -28,19 +28,19 @@
 
     <!-- Filters & Search Bar -->
     <form method="get" asp-controller="CmsArticle" asp-action="Index"
-          class="bg-white dark:bg-[#0B1728] p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col md:flex-row items-center gap-3">
+          class="bg-th-card dark:bg-th-d-card p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col md:flex-row items-center gap-3">
         
         <!-- Search Input -->
         <div class="relative flex-1 w-full">
             <span class="material-symbols-outlined absolute start-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
             <input type="text" name="q" value="@currentQ" placeholder="@SharedLocalizer["CmsSearchArticles"]"
-                   class="w-full ps-10 pe-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                   class="w-full ps-10 pe-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
         </div>
 
         <!-- Status Filter -->
         <div class="w-full md:w-48">
             <select name="isPublished"
-                    class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                    class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky">
                 <option value="">@SharedLocalizer["CmsAllStatuses"]</option>
                 <option value="true" selected="@(currentIsPublished == true ? "selected" : null)">@SharedLocalizer["CmsPublishedOnly"]</option>
                 <option value="false" selected="@(currentIsPublished == false ? "selected" : null)">@SharedLocalizer["CmsDraftsOnly"]</option>
@@ -64,7 +64,7 @@
     </form>
 
     <!-- Articles Table Card -->
-    <div class="bg-white dark:bg-[#0B1728] border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-sm overflow-hidden">
+    <div class="bg-th-card dark:bg-th-d-card border border-slate-200/80 dark:border-white/10 rounded-2xl shadow-sm overflow-hidden">
         @if (Model.Items.Count == 0)
         {
             <div class="p-12 text-center">
@@ -74,7 +74,7 @@
                 <h4 class="font-poppins font-semibold text-base text-slate-800 dark:text-slate-200">@SharedLocalizer["CmsNoArticlesMatch"]</h4>
                 <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">@SharedLocalizer["CmsNoArticlesMatchDesc"]</p>
                 <a asp-controller="CmsArticle" asp-action="Create"
-                   class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-xl bg-[#00B2EC] text-white font-medium text-sm">
+                   class="inline-flex items-center gap-2 mt-4 px-4 py-2 rounded-xl bg-th-sky text-white font-medium text-sm">
                     <span class="material-symbols-outlined text-[18px]">add</span>
                     <span>@SharedLocalizer["CmsCreateArticle"]</span>
                 </a>
@@ -112,7 +112,7 @@
                                         }
                                         <div class="min-w-0 max-w-md">
                                             <a asp-controller="CmsArticle" asp-action="Edit" asp-route-id="@article.Id"
-                                               class="font-semibold text-slate-900 dark:text-white hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors line-clamp-1 block text-base">
+                                               class="font-semibold text-slate-900 dark:text-white hover:text-th-sky dark:hover:text-th-sky transition-colors line-clamp-1 block text-base">
                                                 @article.TitleEn
                                             </a>
                                             <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-1 font-cairo" dir="rtl">@article.TitleAr</p>
@@ -187,7 +187,7 @@
                                 <td class="px-6 py-4 text-end">
                                     <div class="flex items-center justify-end gap-1.5">
                                         <a asp-controller="Home" asp-action="Article" asp-route-slug="@article.Slug" target="_blank"
-                                           class="p-2 rounded-xl text-slate-400 hover:text-[#00B2EC] hover:bg-[#00B2EC]/10 transition-colors" title="@SharedLocalizer["CmsViewLive"]">
+                                           class="p-2 rounded-xl text-slate-400 hover:text-th-sky hover:bg-th-sky/10 transition-colors" title="@SharedLocalizer["CmsViewLive"]">
                                             <span class="material-symbols-outlined text-[18px]">visibility</span>
                                         </a>
                                         <a asp-controller="CmsArticle" asp-action="Edit" asp-route-id="@article.Id"

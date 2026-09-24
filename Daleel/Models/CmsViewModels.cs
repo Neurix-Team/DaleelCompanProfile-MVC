@@ -23,4 +23,14 @@ namespace Daleel.Models
 
         public string? SearchTerm { get; set; }
     }
+
+    /// <summary>Preset keys chosen on the CMS Theme page (see Daleel.Common.SiteTheme).</summary>
+    public class CmsThemeViewModel
+    {
+        public string Palette { get; set; } = string.Empty;
+
+        public string Light { get; set; } = string.Empty;
+
+        public string Dark { get; set; } = string.Empty;
+    }
 }

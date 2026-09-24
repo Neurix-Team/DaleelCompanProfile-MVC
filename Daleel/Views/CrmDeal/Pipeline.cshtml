@@ -41,7 +41,7 @@
     <div class="flex items-center gap-2">
         <form asp-action="Pipeline" method="get" class="flex items-center gap-2">
             <select name="assignedToId" onchange="this.form.submit()"
-                    class="rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-3 py-2.5 text-sm focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition">
+                    class="rounded-lg border border-slate-300 dark:border-white/15 bg-th-card dark:bg-th-d-bg px-3 py-2.5 text-sm focus:border-th-sky focus:ring-2 focus:ring-th-sky/30 outline-none transition">
                 <option value="">@SharedLocalizer["CrmAllOwners"]</option>
                 @foreach (var u in userOptions)
                 {
@@ -59,7 +59,7 @@
             @SharedLocalizer["CrmListView"]
         </a>
         <a asp-action="Create"
-           class="inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+           class="inline-flex items-center gap-2 rounded-lg bg-th-sky hover:bg-th-sky-strong text-white font-semibold text-sm px-4 py-2.5 transition-colors">
             <span class="material-symbols-outlined text-[20px]">add</span>
             @SharedLocalizer["CrmNewDeal"]
         </a>
@@ -107,9 +107,9 @@
                         <article draggable="true"
                                  data-deal-id="@card.Id"
                                  data-value="@card.Value.ToString(System.Globalization.CultureInfo.InvariantCulture)"
-                                 class="group bg-white dark:bg-[#0F2542] rounded-lg border border-slate-200 dark:border-white/10 p-3 cursor-grab active:cursor-grabbing hover:border-[#00B2EC] hover:shadow-sm transition-all">
+                                 class="group bg-th-card dark:bg-th-d-raised rounded-lg border border-slate-200 dark:border-white/10 p-3 cursor-grab active:cursor-grabbing hover:border-th-sky hover:shadow-sm transition-all">
                             <a asp-action="Details" asp-route-id="@card.Id"
-                               class="block font-medium text-sm text-brand-navy dark:text-white hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors break-words">
+                               class="block font-medium text-sm text-brand-navy dark:text-white hover:text-th-sky dark:hover:text-th-sky transition-colors break-words">
                                 @card.Name
                             </a>
 
@@ -207,7 +207,7 @@
                 if (dragged) dragged.classList.remove('opacity-40');
                 dragged = null;
                 board.querySelectorAll('[data-role="dropzone"]').forEach(function (z) {
-                    z.classList.remove('bg-[#00B2EC]/5');
+                    z.classList.remove('bg-th-sky/5');
                 });
             });
 
@@ -216,13 +216,13 @@
                 if (!zone || !dragged) return;
                 e.preventDefault();
                 e.dataTransfer.dropEffect = 'move';
-                zone.classList.add('bg-[#00B2EC]/5');
+                zone.classList.add('bg-th-sky/5');
             });
 
             board.addEventListener('dragleave', function (e) {
                 var zone = e.target.closest('[data-role="dropzone"]');
                 if (zone && !zone.contains(e.relatedTarget)) {
-                    zone.classList.remove('bg-[#00B2EC]/5');
+                    zone.classList.remove('bg-th-sky/5');
                 }
             });
 
@@ -230,7 +230,7 @@
                 var zone = e.target.closest('[data-role="dropzone"]');
                 if (!zone || !dragged) return;
                 e.preventDefault();
-                zone.classList.remove('bg-[#00B2EC]/5');
+                zone.classList.remove('bg-th-sky/5');
 
                 var card = dragged;
                 var column = zone.closest('[data-stage]');

@@ -37,6 +37,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <partial name="_ThemeStyles" />
     
     @* Quill is only needed by the article editor. Avoid a render-blocking CDN
        request on the dashboard and every other CMS screen. *@
@@ -69,7 +70,7 @@
         }
         .dark .ql-toolbar.ql-snow {
             border-color: rgba(255, 255, 255, 0.15);
-            background: rgba(15, 37, 66, 0.8);
+            background: rgb(var(--th-d-raised) / 0.8);
         }
         .dark .ql-snow .ql-stroke { stroke: #cbd5e1; }
         .dark .ql-snow .ql-fill { fill: #cbd5e1; }
@@ -85,12 +86,12 @@
         .dark .ql-container.ql-snow {
             border-color: rgba(255, 255, 255, 0.15);
             color: #e2e8f0;
-            background: rgba(15, 37, 66, 0.4);
+            background: rgb(var(--th-d-raised) / 0.4);
         }
     </style>
     @await RenderSectionAsync("Styles", required: false)
 </head>
-<body class="font-inter bg-slate-50 dark:bg-[#070E1A] text-slate-900 dark:text-white transition-colors duration-300 antialiased">
+<body class="font-inter bg-th-bg dark:bg-th-d-deep text-slate-900 dark:text-white transition-colors duration-300 antialiased">
 
     <div class="min-h-screen flex">
 
@@ -103,7 +104,7 @@
                 <a asp-controller="CmsDashboard" asp-action="Index" class="flex items-center gap-3">
                     <img src="~/assets/Logo/Daleel.png" alt="Daleel"
                          class="h-8 w-auto dark:brightness-0 dark:invert" />
-                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-[#00B2EC]/10 text-[#00B2EC] border border-[#00B2EC]/20">
+                    <span class="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wider bg-th-sky/10 text-th-sky border border-th-sky/20">
                         CMS
                     </span>
                 </a>
@@ -133,6 +134,11 @@
                 <a class="@NavClass("CmsPage")" asp-controller="CmsPage" asp-action="Index">
                     <span class="material-symbols-outlined text-[20px]">web</span>
                     <span>@SharedLocalizer["CmsPageSections"]</span>
+                </a>
+
+                <a class="@NavClass("CmsTheme")" asp-controller="CmsTheme" asp-action="Index">
+                    <span class="material-symbols-outlined text-[20px]">palette</span>
+                    <span>@SharedLocalizer["CmsThemeTitle"]</span>
                 </a>
 
                 <a class="@NavClass("CmsNavigation")" asp-controller="CmsNavigation" asp-action="Index">
@@ -251,14 +257,14 @@
 
                     <!-- User Profile & Logout -->
                     <div class="flex items-center gap-3 ps-3 sm:ps-4 border-s border-slate-200 dark:border-white/10">
-                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#00B2EC] to-[#10B981] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-[#00B2EC]/20 shrink-0">
+                        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-th-sky to-[#10B981] text-white flex items-center justify-center font-bold text-sm shadow-md shadow-th-sky/20 shrink-0">
                             @avatarInitial
                         </div>
                         <div class="hidden sm:block text-start">
                             <span class="block text-sm font-semibold text-slate-800 dark:text-slate-200 max-w-[150px] truncate leading-tight">
                                 @displayName
                             </span>
-                            <span class="block text-[11px] text-[#00B2EC] font-medium">@SharedLocalizer[roleLabelKey]</span>
+                            <span class="block text-[11px] text-th-sky font-medium">@SharedLocalizer[roleLabelKey]</span>
                         </div>
                         <form asp-controller="CrmAccount" asp-action="Logout" method="post" class="inline">
                             @Html.AntiForgeryToken()

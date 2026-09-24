@@ -198,8 +198,8 @@ function initParticleNetwork(canvas) {
         const glow2 = document.getElementById('glow-2');
         if (glow1) {
             glow1.style.background = isDark
-                ? 'radial-gradient(circle, rgba(0,178,236,0.20) 0%, transparent 70%)'
-                : 'radial-gradient(circle, rgba(0,178,236,0.10) 0%, transparent 70%)';
+                ? 'radial-gradient(circle, rgb(var(--th-sky)/0.20) 0%, transparent 70%)'
+                : 'radial-gradient(circle, rgb(var(--th-sky)/0.10) 0%, transparent 70%)';
         }
         if (glow2) {
             glow2.style.background = isDark

@@ -16,7 +16,7 @@
         </div>
     </div>
 
-    <div class="bg-white dark:bg-[#0B1728] rounded-2xl border border-slate-200/80 dark:border-white/10 p-6 sm:p-8 shadow-sm">
+    <div class="bg-th-card dark:bg-th-d-card rounded-2xl border border-slate-200/80 dark:border-white/10 p-6 sm:p-8 shadow-sm">
         <form method="post" asp-controller="CmsArticle" asp-action="Create" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
             @await Html.PartialAsync("_ArticleForm", Model)

@@ -23,7 +23,7 @@
             </p>
         </div>
         <a asp-controller="CmsService" asp-action="Create" asp-route-brandId="@currentBrandId"
-           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02] self-start sm:self-auto">
+           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-th-sky to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-th-sky/20 hover:opacity-95 hover:scale-[1.02] self-start sm:self-auto">
             <span class="material-symbols-outlined text-[20px]">add</span>
             <span>@SharedLocalizer["CmsNewService"]</span>
         </a>
@@ -39,12 +39,12 @@
 
     <!-- Filters & Search Bar -->
     <form method="get" asp-controller="CmsService" asp-action="Index"
-          class="bg-white dark:bg-[#0B1728] p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col md:flex-row items-center gap-3">
+          class="bg-th-card dark:bg-th-d-card p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col md:flex-row items-center gap-3">
 
         <!-- Brand Selector Filter -->
         <div class="w-full md:w-64">
             <select name="brandId"
-                    class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-[#0B1728] text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                    class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-th-d-card text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky">
                 <option value="">@SharedLocalizer["CmsAllBrandProfiles"]</option>
                 @foreach (var b in brands)
                 {
@@ -58,13 +58,13 @@
         <div class="relative flex-1 w-full">
             <span class="material-symbols-outlined absolute start-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
             <input type="text" name="q" value="@currentQ" placeholder="@SharedLocalizer["CmsSearchServices"]"
-                   class="w-full ps-10 pe-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                   class="w-full ps-10 pe-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
         </div>
 
         <!-- Status Filter -->
         <div class="w-full md:w-44">
             <select name="isPublished"
-                    class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-[#0B1728] text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                    class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-th-d-card text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky">
                 <option value="">@SharedLocalizer["CmsAllStatuses"]</option>
                 <option value="true" selected="@(currentIsPublished == true ? "selected" : null)">@SharedLocalizer["CmsPublishedOnly"]</option>
                 <option value="false" selected="@(currentIsPublished == false ? "selected" : null)">@SharedLocalizer["CmsDraftsOnly"]</option>
@@ -90,14 +90,14 @@
     <!-- Services Grid -->
     @if (Model.Items.Count == 0)
     {
-        <div class="bg-white dark:bg-[#0B1728] p-12 text-center rounded-2xl border border-slate-200/80 dark:border-white/10">
-            <div class="w-16 h-16 rounded-2xl bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center mx-auto mb-4">
+        <div class="bg-th-card dark:bg-th-d-card p-12 text-center rounded-2xl border border-slate-200/80 dark:border-white/10">
+            <div class="w-16 h-16 rounded-2xl bg-th-sky/10 text-th-sky flex items-center justify-center mx-auto mb-4">
                 <span class="material-symbols-outlined text-[32px]">design_services</span>
             </div>
             <h3 class="font-poppins font-bold text-lg text-slate-800 dark:text-slate-200">@SharedLocalizer["CmsNoServicesFound"]</h3>
             <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">@SharedLocalizer["CmsNoServicesDesc"]</p>
             <a asp-controller="CmsService" asp-action="Create" asp-route-brandId="@currentBrandId"
-               class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00B2EC] text-white text-sm font-semibold hover:opacity-90">
+               class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-th-sky text-white text-sm font-semibold hover:opacity-90">
                 <span class="material-symbols-outlined text-[18px]">add</span>
                 <span>@SharedLocalizer["CmsCreateService"]</span>
             </a>
@@ -113,11 +113,11 @@
                 var brandName = isRtl && !string.IsNullOrWhiteSpace(s.BrandNameAr) ? s.BrandNameAr : s.BrandNameEn;
                 var shortDesc = isRtl && !string.IsNullOrWhiteSpace(s.ShortDescAr) ? s.ShortDescAr : s.ShortDescEn;
 
-                <div class="bg-white dark:bg-[#0B1728] rounded-2xl border border-slate-200/80 dark:border-white/10 p-6 shadow-sm hover:border-[#00B2EC]/40 transition-all flex flex-col justify-between group">
+                <div class="bg-th-card dark:bg-th-d-card rounded-2xl border border-slate-200/80 dark:border-white/10 p-6 shadow-sm hover:border-th-sky/40 transition-all flex flex-col justify-between group">
                     <div>
                         <!-- Header: Icon, Brand Badge & Status -->
                         <div class="flex items-start justify-between gap-3 mb-4">
-                            <div class="w-12 h-12 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 flex items-center justify-center text-[#00B2EC] group-hover:bg-[#00B2EC] group-hover:text-white transition-all shadow-sm">
+                            <div class="w-12 h-12 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 flex items-center justify-center text-th-sky group-hover:bg-th-sky group-hover:text-white transition-all shadow-sm">
                                 <span class="material-symbols-outlined text-[24px]">@(string.IsNullOrWhiteSpace(s.IconName) ? "auto_awesome" : s.IconName)</span>
                             </div>
 
@@ -144,7 +144,7 @@
                         </div>
 
                         <!-- Name & Slug -->
-                        <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white mb-1 group-hover:text-[#00B2EC] transition-colors">
+                        <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white mb-1 group-hover:text-th-sky transition-colors">
                             @displayName
                         </h3>
                         @if (!string.IsNullOrWhiteSpace(secondaryName))
@@ -179,7 +179,7 @@
 
                             <!-- Edit -->
                             <a asp-controller="CmsService" asp-action="Edit" asp-route-id="@s.Id"
-                               class="p-1.5 rounded-lg text-slate-400 hover:text-[#00B2EC] hover:bg-[#00B2EC]/10 transition-colors" title="@SharedLocalizer["CmsEditService"]">
+                               class="p-1.5 rounded-lg text-slate-400 hover:text-th-sky hover:bg-th-sky/10 transition-colors" title="@SharedLocalizer["CmsEditService"]">
                                 <span class="material-symbols-outlined text-[18px]">edit</span>
                             </a>
 

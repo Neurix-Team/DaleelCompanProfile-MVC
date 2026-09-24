@@ -21,7 +21,7 @@ html:not(.dark) {
 .dark select,
 html.dark select {
   color-scheme: dark;
-  background-color: #0B1728;
+  background-color: rgb(var(--th-d-card));
   color: #F8FAFC;
 }
 
@@ -29,13 +29,13 @@ html.dark select {
 html.dark select option,
 .dark select optgroup,
 html.dark select optgroup {
-  background-color: #0B1728 !important;
+  background-color: rgb(var(--th-d-card)) !important;
   color: #F8FAFC !important;
 }
 
 .dark select:focus,
 html.dark select:focus {
-  background-color: #0B1728;
+  background-color: rgb(var(--th-d-card));
   color: #FFFFFF;
 }
 
@@ -97,12 +97,12 @@ body {
 }
 
 .dark .ai-border {
-  background-color: rgba(0, 178, 236, 0.03);
+  background-color: rgb(var(--th-sky) / 0.03);
 }
 
 /* ── Soft Elevation (Light) ── */
 .soft-elevation {
-  box-shadow: 0px 10px 30px rgba(29, 49, 102, 0.04);
+  box-shadow: 0px 10px 30px rgb(var(--th-navy) / 0.04);
 }
 
 .dark .soft-elevation {
@@ -115,12 +115,12 @@ body {
   0%,
   100% {
     opacity: 1;
-    box-shadow: 0 0 0 0 rgba(0, 178, 236, 0.5);
+    box-shadow: 0 0 0 0 rgb(var(--th-sky) / 0.5);
   }
 
   50% {
     opacity: 0.8;
-    box-shadow: 0 0 0 6px rgba(0, 178, 236, 0);
+    box-shadow: 0 0 0 6px rgb(var(--th-sky) / 0);
   }
 }
 
@@ -159,7 +159,7 @@ body {
 
 /* ── Text Gradient (Scrollytelling Hero) ── */
 .text-gradient {
-  background: linear-gradient(135deg, #00B2EC 0%, #F9A01B 100%);
+  background: linear-gradient(135deg, rgb(var(--th-sky)) 0%, #F9A01B 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -184,9 +184,9 @@ body {
 
 /* Light mode: subtle slate tint so the card reads on white */
 :where(html:not(.dark)) .glass-card {
-  background: rgba(29, 49, 102, 0.04);
-  border: 1px solid rgba(29, 49, 102, 0.10);
-  box-shadow: 0 4px 16px rgba(29, 49, 102, 0.08);
+  background: rgb(var(--th-navy) / 0.04);
+  border: 1px solid rgb(var(--th-navy) / 0.10);
+  box-shadow: 0 4px 16px rgb(var(--th-navy) / 0.08);
 }
 
 /* ── RTL Font Override ── */
@@ -230,7 +230,7 @@ html.dark #crm-sidebar,
 html.dark #cms-sidebar,
 .dark #crm-sidebar,
 .dark #cms-sidebar {
-  background-color: #0F2542 !important;
+  background-color: rgb(var(--th-d-raised)) !important;
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
@@ -242,7 +242,7 @@ html.dark #cms-header,
 .dark header.cms-header,
 .dark #crm-header,
 .dark #cms-header {
-  background-color: rgba(15, 37, 66, 0.92) !important;
+  background-color: rgb(var(--th-d-raised) / 0.92) !important;
   border-color: rgba(255, 255, 255, 0.08) !important;
 }
 
@@ -263,19 +263,19 @@ html.dark #cms-header,
 
 .crm-nav-link:hover, .cms-nav-link:hover {
   background-color: #F1F5F9 !important;
-  color: #00B2EC !important;
+  color: rgb(var(--th-sky)) !important;
 }
 
 .crm-nav-link.active, .cms-nav-link.active {
-  background: linear-gradient(135deg, rgba(0, 178, 236, 0.12) 0%, rgba(16, 185, 129, 0.08) 100%) !important;
-  border-color: rgba(0, 178, 236, 0.30) !important;
+  background: linear-gradient(135deg, rgb(var(--th-sky) / 0.12) 0%, rgba(16, 185, 129, 0.08) 100%) !important;
+  border-color: rgb(var(--th-sky) / 0.30) !important;
   color: #0088BA !important;
   font-weight: 600 !important;
 }
 
 .crm-nav-link.active .material-symbols-outlined,
 .cms-nav-link.active .material-symbols-outlined {
-  color: #00B2EC !important;
+  color: rgb(var(--th-sky)) !important;
 }
 
 /* ── Dark Mode Nav Links ── */
@@ -298,11 +298,11 @@ html.dark .crm-nav-link.active,
 html.dark .cms-nav-link.active,
 .dark .crm-nav-link.active,
 .dark .cms-nav-link.active {
-  background: linear-gradient(135deg, rgba(0, 178, 236, 0.22) 0%, rgba(16, 185, 129, 0.15) 100%) !important;
-  border-color: rgba(0, 178, 236, 0.40) !important;
-  color: #00B2EC !important;
+  background: linear-gradient(135deg, rgb(var(--th-sky) / 0.22) 0%, rgba(16, 185, 129, 0.15) 100%) !important;
+  border-color: rgb(var(--th-sky) / 0.40) !important;
+  color: rgb(var(--th-sky)) !important;
   font-weight: 600 !important;
-  box-shadow: 0 0 16px rgba(0, 178, 236, 0.12) !important;
+  box-shadow: 0 0 16px rgb(var(--th-sky) / 0.12) !important;
 }
 
 /* ── Sidebar Section Headers ── */
@@ -337,8 +337,8 @@ html.dark .cms-section-header,
 
 .crm-ctrl-btn:hover, .cms-ctrl-btn:hover {
   background-color: #F1F5F9 !important;
-  color: #00B2EC !important;
-  border-color: rgba(0, 178, 236, 0.3) !important;
+  color: rgb(var(--th-sky)) !important;
+  border-color: rgb(var(--th-sky) / 0.3) !important;
 }
 
 html.dark .crm-ctrl-btn,
@@ -355,7 +355,7 @@ html.dark .cms-ctrl-btn:hover,
 .dark .cms-ctrl-btn:hover {
   background-color: rgba(255, 255, 255, 0.06) !important;
   color: #FFFFFF !important;
-  border-color: rgba(0, 178, 236, 0.4) !important;
+  border-color: rgb(var(--th-sky) / 0.4) !important;
 }
 
 
@@ -475,7 +475,7 @@ html.dark .cms-ctrl-btn:hover,
   background: #334155;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #00B2EC;
+  background: rgb(var(--th-sky));
 }
 
 /* Static decorative replacement when WebGL is unsupported, blocked, or lost. */
@@ -491,12 +491,12 @@ html.dark .cms-ctrl-btn:hover,
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(circle at 28% 32%, rgba(0, 178, 236, 0.14), transparent 38%),
+    radial-gradient(circle at 28% 32%, rgb(var(--th-sky) / 0.14), transparent 38%),
     radial-gradient(circle at 72% 68%, rgba(16, 185, 129, 0.10), transparent 36%);
 }
 
 .dark .webgl-fallback-surface::before {
   background:
-    radial-gradient(circle at 28% 32%, rgba(0, 178, 236, 0.20), transparent 38%),
+    radial-gradient(circle at 28% 32%, rgb(var(--th-sky) / 0.20), transparent 38%),
     radial-gradient(circle at 72% 68%, rgba(249, 160, 27, 0.10), transparent 36%);
 }

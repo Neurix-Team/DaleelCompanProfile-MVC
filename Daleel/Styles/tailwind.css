@@ -3,6 +3,24 @@
 @tailwind utilities;
 
 @layer base {
+  /* Site theme defaults as "R G B" channels (see th-* colours in tailwind.config.js).
+     The CMS Theme page overrides these via Views/Shared/_ThemeStyles.cshtml; keep them
+     in sync with the default presets in Daleel/Common/SiteTheme.cs. */
+  :root {
+    --th-sky: 0 178 236;
+    --th-sky-strong: 0 150 199;
+    --th-sky-deep: 0 141 187;
+    --th-navy: 29 49 102;
+    --th-bg: 248 250 252;
+    --th-card: 255 255 255;
+    --th-d-bg: 10 25 47;
+    --th-d-card: 11 23 40;
+    --th-d-raised: 15 37 66;
+    --th-d-high: 17 34 64;
+    --th-d-deep: 6 13 26;
+    --th-d-sunk: 11 18 32;
+  }
+
   html.dark {
     color-scheme: dark;
   }
@@ -14,7 +32,7 @@
   .dark select,
   html.dark select {
     color-scheme: dark;
-    background-color: #0B1728;
+    background-color: rgb(var(--th-d-card));
     color: #F8FAFC;
   }
 
@@ -22,13 +40,13 @@
   html.dark select option,
   .dark select optgroup,
   html.dark select optgroup {
-    background-color: #0B1728 !important;
+    background-color: rgb(var(--th-d-card)) !important;
     color: #F8FAFC !important;
   }
 
   .dark select:focus,
   html.dark select:focus {
-    background-color: #0B1728;
+    background-color: rgb(var(--th-d-card));
     color: #FFFFFF;
   }
 

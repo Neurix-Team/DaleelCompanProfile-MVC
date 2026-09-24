@@ -1,0 +1,25 @@
+@using Daleel.BAL.Services.Interfaces
+@using Daleel.Common
+@inject IPageSectionService ThemeSections
+@*
+    Site theme chosen on /cms/settings/theme. Must be rendered AFTER tailwind.css and site.css
+    so these :root variables win by source order. Only preset values from SiteTheme are
+    emitted — the stored setting is a preset key, never raw CSS.
+*@
+@{
+    SiteThemeSelection theme;
+    try
+    {
+        theme = SiteTheme.FromMap(await ThemeSections.GetPageContentMapAsync(SiteTheme.PageKey));
+    }
+    catch
+    {
+        theme = SiteTheme.FromMap(null);
+    }
+
+    var themeCss = SiteTheme.BuildCss(theme);
+}
+@if (!string.IsNullOrEmpty(themeCss))
+{
+    <style id="cms-site-theme">@Html.Raw(themeCss)</style>
+}

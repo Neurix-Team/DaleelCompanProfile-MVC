@@ -41,7 +41,7 @@
     }
 }
 
-<section id="main-scrolly" class="relative bg-slate-50 dark:bg-[#0B1220] transition-colors duration-300 min-h-screen overflow-hidden group">
+<section id="main-scrolly" class="relative bg-th-bg dark:bg-th-d-sunk transition-colors duration-300 min-h-screen overflow-hidden group">
 
     <div class="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-24">
 
@@ -51,7 +51,7 @@
         <!-- Ambient Glows -->
         <div class="absolute inset-0 pointer-events-none z-[1]">
             <div id="glow-1"
-                class="absolute -top-1/4 -right-1/4 w-[800px] h-[800px] bg-[#00B2EC]/20 rounded-full blur-[120px] transition-all duration-700">
+                class="absolute -top-1/4 -right-1/4 w-[800px] h-[800px] bg-th-sky/20 rounded-full blur-[120px] transition-all duration-700">
             </div>
             <div id="glow-2"
                 class="absolute -bottom-1/4 -left-1/4 w-[600px] h-[600px] bg-[#10B981]/12 rounded-full blur-[100px] transition-all duration-700">
@@ -61,10 +61,10 @@
         <!-- Step Progress Indicator -->
         <div class="flex sm:flex-col flex-row absolute start-1/2 sm:start-8 bottom-6 sm:bottom-auto sm:top-1/2 -translate-x-1/2 sm:-translate-x-0 sm:-translate-y-1/2 gap-3 sm:gap-3 z-50">
             <div class="step-dot cursor-pointer w-8 h-1.5 sm:w-2 sm:h-8 bg-brand-navy/10 dark:bg-white/10 sm:rounded-full rounded-md overflow-hidden transition-all hover:bg-brand-navy/30 dark:hover:bg-white/30" data-slide="0">
-                <div class="step-fill sm:w-full sm:h-0 w-0 h-full bg-[#00B2EC] transition-all duration-500"></div>
+                <div class="step-fill sm:w-full sm:h-0 w-0 h-full bg-th-sky transition-all duration-500"></div>
             </div>
             <div class="step-dot cursor-pointer w-8 h-1.5 sm:w-2 sm:h-8 bg-brand-navy/10 dark:bg-white/10 sm:rounded-full rounded-md overflow-hidden transition-all hover:bg-brand-navy/30 dark:hover:bg-white/30" data-slide="1">
-                <div class="step-fill sm:w-full sm:h-0 w-0 h-full bg-[#00B2EC] transition-all duration-500"></div>
+                <div class="step-fill sm:w-full sm:h-0 w-0 h-full bg-th-sky transition-all duration-500"></div>
             </div>
             <div class="step-dot cursor-pointer w-8 h-1.5 sm:w-2 sm:h-8 bg-brand-navy/10 dark:bg-white/10 sm:rounded-full rounded-md overflow-hidden transition-all hover:bg-brand-navy/30 dark:hover:bg-white/30" data-slide="2">
                 <div class="step-fill sm:w-full sm:h-0 w-0 h-full bg-[#10B981] transition-all duration-500"></div>
@@ -73,16 +73,16 @@
                 <div class="step-fill sm:w-full sm:h-0 w-0 h-full bg-[#F9A01B] transition-all duration-500"></div>
             </div>
             <div class="step-dot cursor-pointer w-8 h-1.5 sm:w-2 sm:h-8 bg-brand-navy/10 dark:bg-white/10 sm:rounded-full rounded-md overflow-hidden transition-all hover:bg-brand-navy/30 dark:hover:bg-white/30" data-slide="4">
-                <div class="step-fill sm:w-full sm:h-0 w-0 h-full bg-[#00B2EC] transition-all duration-500"></div>
+                <div class="step-fill sm:w-full sm:h-0 w-0 h-full bg-th-sky transition-all duration-500"></div>
             </div>
         </div>
 
         <!-- Slider Controls (Right Side / Arrows) -->
         <div class="hidden sm:flex absolute end-4 sm:end-8 bottom-8 sm:bottom-12 z-50 flex-col gap-2 sm:gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <button id="slider-prev" class="p-2 rounded-full bg-brand-navy/5 dark:bg-white/5 backdrop-blur-md border border-brand-navy/10 dark:border-white/10 text-brand-navy dark:text-white hover:bg-[#00B2EC] hover:text-white transition-all shadow-lg focus:outline-none">
+            <button id="slider-prev" class="p-2 rounded-full bg-brand-navy/5 dark:bg-white/5 backdrop-blur-md border border-brand-navy/10 dark:border-white/10 text-brand-navy dark:text-white hover:bg-th-sky hover:text-white transition-all shadow-lg focus:outline-none">
                 <span class="material-symbols-outlined text-lg">keyboard_arrow_up</span>
             </button>
-            <button id="slider-next" class="p-2 rounded-full bg-brand-navy/5 dark:bg-white/5 backdrop-blur-md border border-brand-navy/10 dark:border-white/10 text-brand-navy dark:text-white hover:bg-[#00B2EC] hover:text-white transition-all shadow-lg focus:outline-none">
+            <button id="slider-next" class="p-2 rounded-full bg-brand-navy/5 dark:bg-white/5 backdrop-blur-md border border-brand-navy/10 dark:border-white/10 text-brand-navy dark:text-white hover:bg-th-sky hover:text-white transition-all shadow-lg focus:outline-none">
                 <span class="material-symbols-outlined text-lg">keyboard_arrow_down</span>
             </button>
         </div>
@@ -93,7 +93,7 @@
             <!-- ═══ Slide 0: Welcome ═══ -->
             <div class="story-slide opacity-0 absolute inset-0 flex flex-col items-center text-center justify-center translate-y-10 transition-all duration-700"
                 data-index="0">
-                <span class="text-[#00B2EC] font-bold tracking-[0.2em] rtl:tracking-normal text-xs uppercase mb-4">
+                <span class="text-th-sky font-bold tracking-[0.2em] rtl:tracking-normal text-xs uppercase mb-4">
                     @content.Section("hero_badge", isRtl ? $"مرحباً بكم في {brandName}" : $"Welcome to {brandName}")
                 </span>
                 <h1
@@ -111,12 +111,12 @@
                      counterpart using the same border tokens as the header controls. -->
                 <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
                     <a asp-controller="Home" asp-action="ScheduleDemo"
-                       class="w-full sm:w-auto relative group overflow-hidden bg-gradient-to-r from-[#00B2EC] to-[#008dbb] text-white px-8 py-3 rounded-2xl font-['Inter'] font-semibold text-base text-center shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-95">
+                       class="w-full sm:w-auto relative group overflow-hidden bg-gradient-to-r from-th-sky to-th-sky-deep text-white px-8 py-3 rounded-2xl font-['Inter'] font-semibold text-base text-center shadow-lg shadow-blue-500/25 transition-all hover:scale-[1.02] active:scale-95">
                         <span class="relative z-10">@content.Section("hero_cta_primary", SharedLocalizer["GetStarted"].Value)</span>
                         <div class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                     </a>
                     <a asp-controller="Home" asp-action="Platforms"
-                       class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-slate-300 dark:border-white/20 text-brand-navy dark:text-white px-8 py-3 rounded-2xl font-['Inter'] font-semibold text-base text-center transition-all hover:border-[#00B2EC] hover:text-[#00B2EC] dark:hover:text-[#00B2EC] active:scale-95">
+                       class="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-slate-300 dark:border-white/20 text-brand-navy dark:text-white px-8 py-3 rounded-2xl font-['Inter'] font-semibold text-base text-center transition-all hover:border-th-sky hover:text-th-sky dark:hover:text-th-sky active:scale-95">
                         <span class="material-symbols-outlined text-[20px]">explore</span>
                         <span>@content.Section("hero_cta_secondary", SharedLocalizer["ExploreSolutions"].Value)</span>
                     </a>
@@ -136,7 +136,7 @@
                     <!-- Start: Content -->
                     <div class="text-start">
                         <div
-                            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00B2EC]/10 text-[#00B2EC] dark:text-white/70 text-xs font-semibold tracking-wide rtl:tracking-normal mb-4 sm:mb-6">
+                            class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-th-sky/10 text-th-sky dark:text-white/70 text-xs font-semibold tracking-wide rtl:tracking-normal mb-4 sm:mb-6">
                             <span class="material-symbols-outlined text-[14px]"
                                 style="font-variation-settings: 'FILL' 1;">sensors</span>
                             @content.Section("story_slide1_badge", SharedLocalizer["DataIntelligence"].Value)
@@ -165,7 +165,7 @@
                     <div class="flex items-center justify-center mt-4 sm:mt-8 md:mt-0">
                         <div class="relative">
                             <img src="@content.Section("story_slide1_image", "/assets/images/globe_network.png")" alt="Global strategic network" decoding="async" fetchpriority="high"
-                                class="w-full max-w-[140px] sm:max-w-xs md:max-w-md rounded-2xl opacity-80 shadow-2xl shadow-[#00B2EC]/10" />
+                                class="w-full max-w-[140px] sm:max-w-xs md:max-w-md rounded-2xl opacity-80 shadow-2xl shadow-th-sky/10" />
                             <div
                                 class="absolute inset-0 rounded-2xl bg-gradient-to-t from-white/40 dark:from-brand-navy/40 to-transparent">
                             </div>
@@ -247,7 +247,7 @@
                 data-index="4">
                 <div
                     class="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl glass-card flex items-center justify-center mb-6 sm:mb-8">
-                    <span class="material-symbols-outlined text-[#00B2EC] text-3xl sm:text-4xl"
+                    <span class="material-symbols-outlined text-th-sky text-3xl sm:text-4xl"
                         style="font-variation-settings: 'FILL' 1;">rocket_launch</span>
                 </div>
                 <h2
@@ -258,7 +258,7 @@
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4">
                     <a asp-controller="Home" asp-action="Platforms"
-                        class="relative group overflow-hidden bg-gradient-to-r from-[#00B2EC] to-[#008dbb] text-white px-8 py-3 rounded-2xl font-semibold transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-blue-500/25">
+                        class="relative group overflow-hidden bg-gradient-to-r from-th-sky to-th-sky-deep text-white px-8 py-3 rounded-2xl font-semibold transition-all hover:scale-[1.02] active:scale-95 shadow-lg shadow-blue-500/25">
                         <span class="relative z-10">@content.Section("story_slide4_cta", SharedLocalizer["ExploreSolutions"].Value)</span>
                         <div
                             class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
@@ -272,9 +272,9 @@
 </section>
 
 <!-- Vision & Strategic Positioning -->
-<section id="vision" class="relative bg-[#F8F9FA] dark:bg-[#060D1A] overflow-hidden py-32 transition-colors duration-300">
+<section id="vision" class="relative bg-[#F8F9FA] dark:bg-th-d-deep overflow-hidden py-32 transition-colors duration-300">
     <div class="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-tr from-[#00B2EC]/10 to-[#10B981]/10 blur-[150px] animate-pulse-slow"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-tr from-th-sky/10 to-[#10B981]/10 blur-[150px] animate-pulse-slow"></div>
     </div>
 
     <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8">
@@ -282,13 +282,13 @@
         <!-- Center-Aligned Header -->
         <div class="text-center max-w-4xl mx-auto mb-20" data-animate="fade-up">
             <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-brand-navy dark:text-slate-300 font-['Inter'] text-xs font-semibold tracking-wide mb-8 shadow-sm">
-                <span class="material-symbols-outlined text-[14px] text-[#00B2EC]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                <span class="material-symbols-outlined text-[14px] text-th-sky" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
                 @content.Section("vision_badge", SharedLocalizer["EnterpriseGradeIntelligence"].Value)
             </div>
 
             <h2 class="font-['Poppins'] text-5xl md:text-7xl font-extrabold text-brand-navy dark:text-white leading-[1.1] tracking-tight mb-8">
                 @content.Section("vision_title", SharedLocalizer["PrecisionStrategy"].Value)<br />
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00B2EC] via-[#10B981] to-[#F9A01B]">
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-th-sky via-[#10B981] to-[#F9A01B]">
                     @content.Section("vision_title_highlight", SharedLocalizer["ForTheGlobalMarket"].Value)
                 </span>
             </h2>
@@ -299,7 +299,7 @@
             
             <div class="flex flex-wrap justify-center gap-6 mt-10">
                 <a asp-controller="Home" asp-action="Platforms"
-                    class="bg-gradient-to-r from-[#00B2EC] to-[#008dbb] text-white px-10 py-4 rounded-xl font-['Inter'] font-semibold text-lg shadow-[0_0_20px_rgba(0,178,236,0.3)] hover:shadow-[0_0_30px_rgba(0,178,236,0.5)] active:scale-95 transition-all duration-300 text-center flex items-center gap-3">
+                    class="bg-gradient-to-r from-th-sky to-th-sky-deep text-white px-10 py-4 rounded-xl font-['Inter'] font-semibold text-lg shadow-[0_0_20px_rgb(var(--th-sky)/0.3)] hover:shadow-[0_0_30px_rgb(var(--th-sky)/0.5)] active:scale-95 transition-all duration-300 text-center flex items-center gap-3">
                     <span class="material-symbols-outlined">explore</span>
                     @content.Section("vision_cta", SharedLocalizer["ExploreSolutions"].Value)
                 </a>
@@ -318,16 +318,16 @@
 
             <!-- Left Stats/Cards -->
             <div class="lg:col-span-4 space-y-6 z-10" data-animate="slide-start">
-                <div class="bg-white/70 dark:bg-[#0A192F]/70 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-3xl p-8 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#00B2EC]/10 transition-all duration-500">
-                    <div class="w-14 h-14 rounded-2xl bg-[#00B2EC]/10 flex items-center justify-center mb-6 border border-[#00B2EC]/20">
-                        <span class="material-symbols-outlined text-[#00B2EC] text-[28px]">verified</span>
+                <div class="bg-white/70 dark:bg-th-d-bg/70 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-3xl p-8 hover:-translate-y-2 hover:shadow-xl hover:shadow-th-sky/10 transition-all duration-500">
+                    <div class="w-14 h-14 rounded-2xl bg-th-sky/10 flex items-center justify-center mb-6 border border-th-sky/20">
+                        <span class="material-symbols-outlined text-th-sky text-[28px]">verified</span>
                     </div>
-                    <p class="font-['Poppins'] text-4xl font-bold text-[#00B2EC] mb-2" dir="auto">@ToLocalNumerals(content.Section("vision_card1_title", SharedLocalizer["StrategyCard1Title"].Value))</p>
+                    <p class="font-['Poppins'] text-4xl font-bold text-th-sky mb-2" dir="auto">@ToLocalNumerals(content.Section("vision_card1_title", SharedLocalizer["StrategyCard1Title"].Value))</p>
                     <p class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 font-medium tracking-wide uppercase">@content.Section("vision_card1_subtitle", SharedLocalizer["StrategyCard1Subtitle"].Value)</p>
                     <p class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 mt-4 leading-relaxed">@content.Section("vision_card1_desc", SharedLocalizer["StrategyCard1Desc"].Value)</p>
                 </div>
 
-                <div class="bg-white/70 dark:bg-[#0A192F]/70 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-3xl p-8 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#10B981]/10 transition-all duration-500">
+                <div class="bg-white/70 dark:bg-th-d-bg/70 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-3xl p-8 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#10B981]/10 transition-all duration-500">
                     <div class="w-14 h-14 rounded-2xl bg-[#10B981]/10 flex items-center justify-center mb-6 border border-[#10B981]/20">
                         <span class="material-symbols-outlined text-[#10B981] text-[28px]">public</span>
                     </div>
@@ -341,7 +341,7 @@
 
             <!-- Right Stats/Cards -->
             <div class="lg:col-span-4 space-y-6 z-10" data-animate="slide-end">
-                <div class="bg-white/70 dark:bg-[#0A192F]/70 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-3xl p-8 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#F9A01B]/10 transition-all duration-500">
+                <div class="bg-white/70 dark:bg-th-d-bg/70 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-3xl p-8 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#F9A01B]/10 transition-all duration-500">
                     <div class="w-14 h-14 rounded-2xl bg-[#F9A01B]/10 flex items-center justify-center mb-6 border border-[#F9A01B]/20">
                         <span class="material-symbols-outlined text-[#F9A01B] text-[28px]">security</span>
                     </div>
@@ -350,11 +350,11 @@
                     <p class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 mt-4 leading-relaxed">@content.Section("vision_card3_desc", SharedLocalizer["StrategyCard3Desc"].Value)</p>
                 </div>
 
-                <div class="bg-white/70 dark:bg-[#0A192F]/70 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-3xl p-8 hover:-translate-y-2 hover:shadow-xl hover:shadow-[#00B2EC]/10 transition-all duration-500">
-                    <div class="w-14 h-14 rounded-2xl bg-[#00B2EC]/10 flex items-center justify-center mb-6 border border-[#00B2EC]/20">
-                        <span class="material-symbols-outlined text-[#00B2EC] text-[28px]">troubleshoot</span>
+                <div class="bg-white/70 dark:bg-th-d-bg/70 backdrop-blur-xl border border-slate-200 dark:border-slate-800 rounded-3xl p-8 hover:-translate-y-2 hover:shadow-xl hover:shadow-th-sky/10 transition-all duration-500">
+                    <div class="w-14 h-14 rounded-2xl bg-th-sky/10 flex items-center justify-center mb-6 border border-th-sky/20">
+                        <span class="material-symbols-outlined text-th-sky text-[28px]">troubleshoot</span>
                     </div>
-                    <p class="font-['Poppins'] text-4xl font-bold text-[#00B2EC] mb-2" dir="auto">@content.Section("vision_card4_title", SharedLocalizer["StrategyCard4Title"].Value)</p>
+                    <p class="font-['Poppins'] text-4xl font-bold text-th-sky mb-2" dir="auto">@content.Section("vision_card4_title", SharedLocalizer["StrategyCard4Title"].Value)</p>
                     <p class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 font-medium tracking-wide uppercase">@content.Section("vision_card4_subtitle", SharedLocalizer["StrategyCard4Subtitle"].Value)</p>
                     <p class="font-['Inter'] text-sm text-slate-500 dark:text-slate-400 mt-4 leading-relaxed">@content.Section("vision_card4_desc", SharedLocalizer["StrategyCard4Desc"].Value)</p>
                 </div>
@@ -365,9 +365,9 @@
 </section>
 
 <!-- Dynamic CMS Services & Solutions Section -->
-<section id="services" class="relative py-24 sm:py-32 bg-white dark:bg-[#060D1A] overflow-hidden transition-colors duration-300">
+<section id="services" class="relative py-24 sm:py-32 bg-th-card dark:bg-th-d-deep overflow-hidden transition-colors duration-300">
     <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div class="absolute top-20 ltr:-left-20 rtl:-right-20 w-[500px] h-[500px] rounded-full bg-[#00B2EC]/[0.04] blur-[100px] animate-pulse-slow"></div>
+        <div class="absolute top-20 ltr:-left-20 rtl:-right-20 w-[500px] h-[500px] rounded-full bg-th-sky/[0.04] blur-[100px] animate-pulse-slow"></div>
         <div class="absolute bottom-20 ltr:-right-20 rtl:-left-20 w-[400px] h-[400px] rounded-full bg-[#F9A01B]/[0.03] blur-[80px] animate-pulse-slow" style="animation-delay: 1.5s;"></div>
     </div>
 
@@ -377,17 +377,17 @@
         <div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16 sm:mb-20">
             <div class="text-start max-w-xl" data-animate="slide-start">
                 <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-brand-navy dark:text-white font-['Inter'] text-xs font-semibold tracking-wide mb-6 shadow-sm">
-                    <span class="material-symbols-outlined text-[14px] text-[#00B2EC]" style="font-variation-settings: 'FILL' 1;">category</span>
+                    <span class="material-symbols-outlined text-[14px] text-th-sky" style="font-variation-settings: 'FILL' 1;">category</span>
                     @content.Section("services_badge", isRtl ? "الخدمات والحلول الرقمية" : "Enterprise Solutions")
                 </div>
                 <h2 class="font-['Poppins'] text-4xl sm:text-5xl md:text-6xl font-extrabold text-brand-navy dark:text-white leading-tight mb-4 tracking-tight">
-                    @content.Section("services_title", isRtl ? $"ركائز {brandName}" : $"{brandName} Enterprise") <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00B2EC] to-[#F9A01B]">@content.Section("services_title_highlight", isRtl ? "الاستراتيجية" : "Platforms")</span>
+                    @content.Section("services_title", isRtl ? $"ركائز {brandName}" : $"{brandName} Enterprise") <span class="text-transparent bg-clip-text bg-gradient-to-r from-th-sky to-[#F9A01B]">@content.Section("services_title_highlight", isRtl ? "الاستراتيجية" : "Platforms")</span>
                 </h2>
                 <p class="font-['Inter'] text-slate-500 dark:text-slate-400 text-lg sm:text-xl leading-relaxed">
                     @content.Section("services_subtitle", isRtl ? (Model.Brand?.TaglineAr ?? "منظومة متكاملة من الحلول الذكية المصممة لقيادة التحول المؤسسي.") : (Model.Brand?.TaglineEn ?? "Next-generation integrated intelligent platforms engineered for market leadership."))
                 </p>
             </div>
-            <div class="hidden md:block w-24 h-1.5 rounded-full bg-gradient-to-r from-[#00B2EC] via-[#10B981] to-[#F9A01B] shrink-0" data-animate="slide-end" data-delay="2"></div>
+            <div class="hidden md:block w-24 h-1.5 rounded-full bg-gradient-to-r from-th-sky via-[#10B981] to-[#F9A01B] shrink-0" data-animate="slide-end" data-delay="2"></div>
         </div>
 
         <!-- Dynamic Services Grid -->
@@ -403,11 +403,11 @@
                 var serviceShortDesc = isRtl ? s.ShortDescAr : s.ShortDescEn;
                 index++;
 
-                <div class="group relative rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl bg-white dark:bg-[#0A192F] border border-slate-200 dark:border-slate-800 flex flex-col justify-between" data-animate="fade-up" data-delay="@index">
+                <div class="group relative rounded-3xl overflow-hidden transition-all duration-500 hover:-translate-y-3 hover:shadow-2xl bg-th-card dark:bg-th-d-bg border border-slate-200 dark:border-slate-800 flex flex-col justify-between" data-animate="fade-up" data-delay="@index">
                     <div class="relative p-8 sm:p-10 flex flex-col flex-1">
                         <!-- Top Bar: Icon & Index -->
                         <div class="flex justify-between items-start mb-8">
-                            <div class="w-16 h-16 rounded-2xl bg-slate-50 dark:bg-[#112240] border border-slate-100 dark:border-slate-700/50 flex items-center justify-center transition-all duration-500 group-hover:scale-110" style="color: @accent;">
+                            <div class="w-16 h-16 rounded-2xl bg-th-bg dark:bg-th-d-high border border-slate-100 dark:border-slate-700/50 flex items-center justify-center transition-all duration-500 group-hover:scale-110" style="color: @accent;">
                                 <span class="material-symbols-outlined text-[28px]" style="font-variation-settings: 'FILL' 1;">
                                     @(!string.IsNullOrWhiteSpace(s.IconName) ? s.IconName : "auto_awesome")
                                 </span>
@@ -442,15 +442,15 @@
 <!-- Dynamic CMS Portfolio / Projects Section -->
 @if (Model.Projects.Count > 0)
 {
-    <section id="projects" class="relative bg-[#F8F9FA] dark:bg-[#0A192F] py-24 sm:py-32 overflow-hidden transition-colors duration-300">
+    <section id="projects" class="relative bg-[#F8F9FA] dark:bg-th-d-bg py-24 sm:py-32 overflow-hidden transition-colors duration-300">
         <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-            <div class="absolute top-0 ltr:right-0 rtl:left-0 w-[500px] h-[500px] rounded-full bg-[#00B2EC]/8 blur-[100px]"></div>
+            <div class="absolute top-0 ltr:right-0 rtl:left-0 w-[500px] h-[500px] rounded-full bg-th-sky/8 blur-[100px]"></div>
             <div class="absolute bottom-0 ltr:left-1/4 rtl:right-1/4 w-[400px] h-[400px] rounded-full bg-[#F9A01B]/5 blur-[80px]"></div>
         </div>
 
         <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-20" data-animate="fade-up">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00B2EC]/10 text-[#00B2EC] font-['Inter'] text-xs font-semibold tracking-wide mb-6">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-th-sky/10 text-th-sky font-['Inter'] text-xs font-semibold tracking-wide mb-6">
                     <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">folder_open</span>
                     @content.Section("projects_badge", isRtl ? "المشاريع والحلول المنفذة" : "Featured Enterprise Portfolio")
                 </div>
@@ -470,7 +470,7 @@
                     var projShortDesc = isRtl ? p.ShortDescAr : p.ShortDescEn;
                     var clientName = isRtl ? p.ClientNameAr : p.ClientNameEn;
 
-                    <div class="bg-white dark:bg-[#060D1A] rounded-3xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-sm hover:border-[#00B2EC]/40 hover:-translate-y-2 transition-all duration-500 flex flex-col group">
+                    <div class="bg-th-card dark:bg-th-d-deep rounded-3xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-sm hover:border-th-sky/40 hover:-translate-y-2 transition-all duration-500 flex flex-col group">
                         <!-- Cover Image -->
                         <div class="relative h-52 overflow-hidden bg-slate-100 dark:bg-white/5">
                             @if (!string.IsNullOrWhiteSpace(p.ImagePath))
@@ -479,8 +479,8 @@
                             }
                             else
                             {
-                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-[#00B2EC]/20 to-[#10B981]/20">
-                                    <span class="material-symbols-outlined text-[48px] text-[#00B2EC]">grid_view</span>
+                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-th-sky/20 to-[#10B981]/20">
+                                    <span class="material-symbols-outlined text-[48px] text-th-sky">grid_view</span>
                                 </div>
                             }
                             <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -495,7 +495,7 @@
                         <!-- Info -->
                         <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
                             <div>
-                                <h3 class="font-poppins font-bold text-xl text-brand-navy dark:text-white group-hover:text-[#00B2EC] transition-colors mb-3">
+                                <h3 class="font-poppins font-bold text-xl text-brand-navy dark:text-white group-hover:text-th-sky transition-colors mb-3">
                                     @projName
                                 </h3>
                                 <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-3">
@@ -513,9 +513,9 @@
 <!-- Dynamic CMS Testimonials Section -->
 @if (Model.Testimonials.Count > 0)
 {
-    <section id="testimonials" class="relative bg-white dark:bg-[#060D1A] py-24 sm:py-32 overflow-hidden transition-colors duration-300">
+    <section id="testimonials" class="relative bg-th-card dark:bg-th-d-deep py-24 sm:py-32 overflow-hidden transition-colors duration-300">
         <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-tr from-[#00B2EC]/5 to-[#10B981]/5 blur-[150px]"></div>
+            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gradient-to-tr from-th-sky/5 to-[#10B981]/5 blur-[150px]"></div>
         </div>
 
         <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8">
@@ -541,7 +541,7 @@
                     var roleTitle = isRtl ? t.RoleTitleAr : t.RoleTitleEn;
                     var quote = isRtl ? t.ContentAr : t.ContentEn;
 
-                    <div class="bg-white dark:bg-[#0A192F] p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-white/10 shadow-sm hover:border-[#00B2EC]/40 hover:-translate-y-2 transition-all duration-500 flex flex-col justify-between group">
+                    <div class="bg-th-card dark:bg-th-d-bg p-8 sm:p-10 rounded-3xl border border-slate-200 dark:border-white/10 shadow-sm hover:border-th-sky/40 hover:-translate-y-2 transition-all duration-500 flex flex-col justify-between group">
                         <div>
                             <!-- Star Rating -->
                             <div class="flex items-center text-amber-400 text-sm mb-6">
@@ -575,7 +575,7 @@
                             }
                             else
                             {
-                                <div class="w-12 h-12 rounded-full bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center font-bold text-base border-2 border-[#00B2EC]/20">
+                                <div class="w-12 h-12 rounded-full bg-th-sky/10 text-th-sky flex items-center justify-center font-bold text-base border-2 border-th-sky/20">
                                     @(custName.Length > 0 ? custName[0].ToString().ToUpper() : "C")
                                 </div>
                             }
@@ -599,9 +599,9 @@
 <!-- Dynamic CMS Strategic Insights / Articles Section -->
 @if (Model.RecentArticles.Count > 0)
 {
-    <section class="relative bg-[#F8F9FA] dark:bg-[#060D1A] py-24 sm:py-32 overflow-hidden transition-colors duration-300">
+    <section class="relative bg-[#F8F9FA] dark:bg-th-d-deep py-24 sm:py-32 overflow-hidden transition-colors duration-300">
         <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-            <div class="absolute -top-20 ltr:right-0 rtl:left-0 w-[500px] h-[500px] rounded-full bg-[#00B2EC]/[0.03] blur-[100px]"></div>
+            <div class="absolute -top-20 ltr:right-0 rtl:left-0 w-[500px] h-[500px] rounded-full bg-th-sky/[0.03] blur-[100px]"></div>
         </div>
 
         <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8">
@@ -615,7 +615,7 @@
                     <p class="font-['Inter'] text-slate-500 dark:text-slate-400 text-base sm:text-lg">@content.Section("articles_subtitle", SharedLocalizer["StrategicInsightsDesc"].Value)</p>
                 </div>
                 <a asp-controller="Home" asp-action="Blog"
-                    class="inline-flex items-center gap-2 text-[#00B2EC] font-['Inter'] font-semibold text-sm hover:gap-3 transition-all duration-300 shrink-0 group">
+                    class="inline-flex items-center gap-2 text-th-sky font-['Inter'] font-semibold text-sm hover:gap-3 transition-all duration-300 shrink-0 group">
                     @content.Section("articles_link_text", SharedLocalizer["ViewAllInsights"].Value)
                     <span class="material-symbols-outlined text-[18px] group-hover:translate-x-0.5 rtl:group-hover:-translate-x-0.5 rtl:rotate-180 transition-transform">arrow_forward</span>
                 </a>
@@ -629,7 +629,7 @@
                     var articleSummary = isRtl ? article.SummaryAr : article.SummaryEn;
 
                     <a asp-controller="Home" asp-action="Article" asp-route-slug="@article.Slug"
-                       class="group bg-white dark:bg-[#0A192F] rounded-3xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-sm hover:border-[#00B2EC]/40 hover:-translate-y-2 transition-all duration-500 flex flex-col">
+                       class="group bg-th-card dark:bg-th-d-bg rounded-3xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-sm hover:border-th-sky/40 hover:-translate-y-2 transition-all duration-500 flex flex-col">
                         <div class="relative h-48 overflow-hidden bg-slate-100 dark:bg-white/5">
                             @if (!string.IsNullOrWhiteSpace(article.CoverImagePath))
                             {
@@ -637,8 +637,8 @@
                             }
                             else
                             {
-                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-[#00B2EC]/20 to-[#F9A01B]/20">
-                                    <span class="material-symbols-outlined text-[40px] text-[#00B2EC]">newspaper</span>
+                                <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-th-sky/20 to-[#F9A01B]/20">
+                                    <span class="material-symbols-outlined text-[40px] text-th-sky">newspaper</span>
                                 </div>
                             }
                             <span class="absolute top-3 start-3 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider bg-black/60 backdrop-blur-md text-white">
@@ -647,7 +647,7 @@
                         </div>
                         <div class="p-6 flex-1 flex flex-col justify-between">
                             <div>
-                                <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white group-hover:text-[#00B2EC] transition-colors mb-2 line-clamp-2">
+                                <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white group-hover:text-th-sky transition-colors mb-2 line-clamp-2">
                                     @articleTitle
                                 </h3>
                                 <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 leading-relaxed mb-4">
@@ -656,7 +656,7 @@
                             </div>
                             <div class="flex items-center justify-between text-[11px] text-slate-400 pt-4 border-t border-slate-100 dark:border-white/5">
                                 <span>@article.CreatedAt.ToString("MMM dd, yyyy")</span>
-                                <span class="text-[#00B2EC] font-semibold flex items-center gap-1">
+                                <span class="text-th-sky font-semibold flex items-center gap-1">
                                     <span>@content.Section("articles_card_cta", isRtl ? "اقرأ المزيد" : "Read Article")</span>
                                     <span class="material-symbols-outlined text-[14px] rtl:rotate-180">arrow_forward</span>
                                 </span>

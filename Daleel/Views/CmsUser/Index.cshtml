@@ -17,14 +17,14 @@
             </p>
         </div>
         <a asp-controller="CmsUser" asp-action="Create"
-           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02]">
+           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-th-sky to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-th-sky/20 hover:opacity-95 hover:scale-[1.02]">
             <span class="material-symbols-outlined text-[20px]">person_add</span>
             <span>@SharedLocalizer["CmsCreateNewUser"]</span>
         </a>
     </div>
 
     <!-- Users Table Card -->
-    <div class="bg-white dark:bg-[#0B1728] rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm overflow-hidden">
+    <div class="bg-th-card dark:bg-th-d-card rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm overflow-hidden">
         @if (Model.Count == 0)
         {
             <div class="p-12 text-center text-slate-500">
@@ -50,7 +50,7 @@
                             <tr class="hover:bg-slate-50/70 dark:hover:bg-white/[0.02] transition-colors">
                                 <td class="px-6 py-4">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#00B2EC] to-[#10B981] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm">
+                                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-th-sky to-[#10B981] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm">
                                             @(string.IsNullOrWhiteSpace(user.FirstName) ? "U" : user.FirstName.Substring(0, 1).ToUpperInvariant())
                                         </div>
                                         <div class="min-w-0">
@@ -62,7 +62,7 @@
                                 <td class="px-6 py-4">
                                     @foreach (var role in user.Roles)
                                     {
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-semibold @(role == "Admin" ? "bg-[#00B2EC]/10 text-[#00B2EC]" : "bg-purple-500/10 text-purple-500")">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-lg text-xs font-semibold @(role == "Admin" ? "bg-th-sky/10 text-th-sky" : "bg-purple-500/10 text-purple-500")">
                                             @role
                                         </span>
                                     }

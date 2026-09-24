@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
             idle:        { dot: 'bg-[#10B981]',       lbl: 'Online',        cls: 'text-[#10B981] dark:text-[#10B981]' },
             connecting:  { dot: 'bg-amber-400',  lbl: 'Connecting...', cls: 'text-amber-600 dark:text-amber-400' },
             listening:   { dot: 'bg-red-500',    lbl: 'Listening...',  cls: 'text-red-500 dark:text-red-400' },
-            processing:  { dot: 'bg-[#00B2EC]',       lbl: 'Processing...', cls: 'text-[#00B2EC] dark:text-[#00B2EC]' },
+            processing:  { dot: 'bg-th-sky',       lbl: 'Processing...', cls: 'text-th-sky dark:text-th-sky' },
             error:       { dot: 'bg-red-500',    lbl: 'Error',         cls: 'text-red-500 dark:text-red-400' }
         };
         const c = cfgs[state] || cfgs.idle;
@@ -628,7 +628,7 @@ document.addEventListener('DOMContentLoaded', () => {
             currentAiStreamRawText = "";
             const div = document.createElement('div');
             div.className = 'flex gap-3 mt-4';
-            div.innerHTML = `<div class="w-8 h-8 rounded-full bg-[#00B2EC]/10 flex-shrink-0 flex items-center justify-center text-[#00B2EC] mt-1"><span class="material-symbols-outlined text-[16px]">smart_toy</span></div><div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-2xl rounded-tl-sm p-3 text-slate-800 dark:text-slate-200 shadow-sm w-full overflow-x-hidden ai-stream-text prose prose-sm dark:prose-invert prose-p:leading-relaxed prose-pre:bg-slate-900 prose-pre:text-slate-100 max-w-[85%]"></div>`;
+            div.innerHTML = `<div class="w-8 h-8 rounded-full bg-th-sky/10 flex-shrink-0 flex items-center justify-center text-th-sky mt-1"><span class="material-symbols-outlined text-[16px]">smart_toy</span></div><div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-2xl rounded-tl-sm p-3 text-slate-800 dark:text-slate-200 shadow-sm w-full overflow-x-hidden ai-stream-text prose prose-sm dark:prose-invert prose-p:leading-relaxed prose-pre:bg-slate-900 prose-pre:text-slate-100 max-w-[85%]"></div>`;
             messagesArea.appendChild(div);
             currentAiStreamTextNode = div.querySelector('.ai-stream-text');
         }
@@ -643,7 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
         div.className = 'flex gap-3 mt-4';
         if (sender === 'User') {
             div.classList.add('flex-row-reverse');
-            div.innerHTML = `<div class="bg-[#00B2EC] rounded-2xl rounded-tr-sm p-3 text-sm text-white shadow-sm leading-relaxed max-w-[85%] break-words">${esc(text)}</div>`;
+            div.innerHTML = `<div class="bg-th-sky rounded-2xl rounded-tr-sm p-3 text-sm text-white shadow-sm leading-relaxed max-w-[85%] break-words">${esc(text)}</div>`;
         } else {
             const parsedText = typeof marked !== 'undefined' ? marked.parse(text) : esc(text);
             div.innerHTML = `<div class="w-8 h-8 rounded-full bg-brand-navy/10 dark:bg-white/10 flex-shrink-0 flex items-center justify-center text-brand-navy dark:text-white mt-1"><span class="material-symbols-outlined text-[16px]">smart_toy</span></div><div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-2xl rounded-tl-sm p-3 text-slate-800 dark:text-slate-200 shadow-sm w-full overflow-x-hidden prose prose-sm dark:prose-invert prose-p:leading-relaxed prose-pre:bg-slate-900 prose-pre:text-slate-100 max-w-[85%]">${parsedText}</div>`;

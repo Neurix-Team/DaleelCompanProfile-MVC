@@ -1,5 +1,6 @@
 using Daleel.BAL.Models;
 using Daleel.BAL.Services.Interfaces;
+using Daleel.Common;
 using Daleel.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,10 @@ namespace Daleel.Controllers
         [HttpGet("")]
         public async Task<IActionResult> Index()
         {
-            var pages = await _pageSections.GetDistinctPagesAsync();
+            // The site theme lives in PageSections too but has its own page (CmsThemeController).
+            var pages = (await _pageSections.GetDistinctPagesAsync())
+                .Where(p => !IsThemePage(p))
+                .ToList();
             return View(pages);
         }
 
@@ -30,6 +34,11 @@ namespace Daleel.Controllers
             if (string.IsNullOrWhiteSpace(pageKey))
             {
                 return RedirectToAction(nameof(Index));
+            }
+
+            if (IsThemePage(pageKey))
+            {
+                return RedirectToAction("Index", "CmsTheme");
             }
 
             await _pageSections.SyncMissingSectionKeysAsync();
@@ -55,6 +64,11 @@ namespace Daleel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string pageKey, PageSectionsEditViewModel model)
         {
+            if (IsThemePage(pageKey))
+            {
+                return RedirectToAction("Index", "CmsTheme");
+            }
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -75,6 +89,11 @@ namespace Daleel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddSection(string pageKey, PageSectionInput input)
         {
+            if (IsThemePage(pageKey))
+            {
+                return RedirectToAction("Index", "CmsTheme");
+            }
+
             if (string.IsNullOrWhiteSpace(input.SectionKey))
             {
                 TempData["Error"] = "Section key is required.";
@@ -92,6 +111,11 @@ namespace Daleel.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteSection(string pageKey, string sectionKey)
         {
+            if (IsThemePage(pageKey))
+            {
+                return RedirectToAction("Index", "CmsTheme");
+            }
+
             if (string.IsNullOrWhiteSpace(sectionKey))
             {
                 TempData["Error"] = "Section key is required.";
@@ -110,5 +134,8 @@ namespace Daleel.Controllers
 
             return RedirectToAction(nameof(Edit), new { pageKey });
         }
+
+        private static bool IsThemePage(string? pageKey) =>
+            string.Equals(pageKey?.Trim(), SiteTheme.PageKey, StringComparison.OrdinalIgnoreCase);
     }
 }

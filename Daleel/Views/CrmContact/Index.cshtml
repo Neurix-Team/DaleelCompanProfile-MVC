@@ -12,7 +12,7 @@
         @Model.TotalCount @(Model.TotalCount == 1 ? SharedLocalizer["CrmEntityType_Contact"].Value : SharedLocalizer["CrmContacts"].Value)
     </p>
     <a asp-action="Create"
-       class="inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+       class="inline-flex items-center gap-2 rounded-lg bg-th-sky hover:bg-th-sky-strong text-white font-semibold text-sm px-4 py-2.5 transition-colors">
         <span class="material-symbols-outlined text-[20px]">add</span>
         @SharedLocalizer["CrmNewContact"]
     </a>
@@ -23,12 +23,12 @@
     <div class="flex-1 min-w-[220px]">
         <label for="q" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">@SharedLocalizer["CrmSearch"]</label>
         <input type="search" id="q" name="q" value="@q" placeholder="@SharedLocalizer["CrmSearchPlaceholderContact"]"
-               class="w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm placeholder:text-slate-400 focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition" />
+               class="w-full rounded-lg border border-slate-300 dark:border-white/15 bg-th-card dark:bg-th-d-bg px-4 py-2.5 text-sm placeholder:text-slate-400 focus:border-th-sky focus:ring-2 focus:ring-th-sky/30 outline-none transition" />
     </div>
     <div class="w-full sm:w-44">
         <label for="status" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">@SharedLocalizer["CrmStatus"]</label>
         <select id="status" name="status"
-                class="w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition">
+                class="w-full rounded-lg border border-slate-300 dark:border-white/15 bg-th-card dark:bg-th-d-bg px-4 py-2.5 text-sm focus:border-th-sky focus:ring-2 focus:ring-th-sky/30 outline-none transition">
             <option value="">@SharedLocalizer["CrmAllStatuses"]</option>
             @foreach (var s in Enum.GetValues<RecordStatus>())
             {
@@ -43,7 +43,7 @@
     @if (!string.IsNullOrWhiteSpace(q) || status.HasValue)
     {
         <a asp-action="Index"
-           class="rounded-lg px-4 py-2.5 text-sm text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors">
+           class="rounded-lg px-4 py-2.5 text-sm text-slate-500 dark:text-slate-400 hover:text-th-sky transition-colors">
             @SharedLocalizer["CrmClear"]
         </a>
     }
@@ -51,7 +51,7 @@
 
 @if (!Model.Items.Any())
 {
-    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-10 text-center">
+    <div class="bg-th-card dark:bg-th-d-raised rounded-xl border border-slate-200 dark:border-white/10 p-10 text-center">
         <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center">
             <span class="material-symbols-outlined text-slate-400 text-[28px]">contacts</span>
         </div>
@@ -65,7 +65,7 @@
             <h3 class="mt-5 font-poppins font-semibold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CrmNoContactsYet"]</h3>
             <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">@SharedLocalizer["CrmNoContactsYetDesc"]</p>
             <a asp-action="Create"
-               class="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+               class="mt-5 inline-flex items-center gap-2 rounded-lg bg-th-sky hover:bg-th-sky-strong text-white font-semibold text-sm px-4 py-2.5 transition-colors">
                 <span class="material-symbols-outlined text-[20px]">add</span>
                 @SharedLocalizer["CrmNewContact"]
             </a>
@@ -74,7 +74,7 @@
 }
 else
 {
-    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden">
+    <div class="bg-th-card dark:bg-th-d-raised rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead class="bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400">
@@ -95,7 +95,7 @@ else
                         <tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
                             <td class="px-5 py-3.5">
                                 <a asp-action="Details" asp-route-id="@c.Id"
-                                   class="font-medium text-brand-navy dark:text-white hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors">
+                                   class="font-medium text-brand-navy dark:text-white hover:text-th-sky dark:hover:text-th-sky transition-colors">
                                     @c.FullName
                                 </a>
                                 @if (!string.IsNullOrWhiteSpace(c.Email))
@@ -108,7 +108,7 @@ else
                                 @if (c.CompanyId.HasValue)
                                 {
                                     <a asp-controller="CrmCompany" asp-action="Details" asp-route-id="@c.CompanyId"
-                                       class="text-slate-600 dark:text-slate-300 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors">
+                                       class="text-slate-600 dark:text-slate-300 hover:text-th-sky dark:hover:text-th-sky transition-colors">
                                         @c.CompanyName
                                     </a>
                                 }
@@ -126,7 +126,7 @@ else
                             <td class="px-5 py-3.5">
                                 <div class="flex items-center justify-end gap-1">
                                     <a asp-action="Edit" asp-route-id="@c.Id" title="@SharedLocalizer["CrmEdit"]"
-                                       class="p-2 rounded-lg text-slate-500 hover:text-[#00B2EC] hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                                       class="p-2 rounded-lg text-slate-500 hover:text-th-sky hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
                                         <span class="material-symbols-outlined text-[20px]">edit</span>
                                     </a>
                                     <form asp-action="Delete" asp-route-id="@c.Id" method="post" class="inline"

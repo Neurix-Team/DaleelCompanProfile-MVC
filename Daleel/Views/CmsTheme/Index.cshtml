@@ -1,0 +1,290 @@
+@model CmsThemeViewModel
+@using System.Globalization
+@using System.Text.Json
+@using Daleel.Common
+@{
+    Layout = "_CmsLayout";
+    ViewData["Title"] = SharedLocalizer["CmsThemeTitle"].Value;
+
+    var isRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
+    string Name(string en, string ar) => isRtl ? ar : en;
+
+    // Every preset's values, for the live preview.
+    var presetJson = JsonSerializer.Serialize(new
+    {
+        palettes = SiteTheme.Palettes.ToDictionary(p => p.Key, p => new { sky = p.Sky, strong = p.SkyStrong, deep = p.SkyDeep, navy = p.Navy }),
+        light = SiteTheme.LightShades.ToDictionary(s => s.Key, s => new { bg = s.Background, card = s.Card }),
+        dark = SiteTheme.DarkShades.ToDictionary(s => s.Key, s => new { bg = s.Background, card = s.Card, raised = s.Raised }),
+        defaults = new { palette = SiteTheme.DefaultPaletteKey, light = SiteTheme.DefaultLightKey, dark = SiteTheme.DefaultDarkKey }
+    });
+
+    const string Card = "rounded-2xl bg-th-card dark:bg-th-d-card border border-slate-200/80 dark:border-white/10 shadow-sm p-6 space-y-5";
+    const string CardHeader = "pb-3 border-b border-slate-200 dark:border-white/10";
+}
+
+@section Styles {
+    <style>
+        .theme-grid { display: grid; gap: 0.75rem; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); }
+        .theme-option { position: relative; display: block; cursor: pointer; }
+        .theme-option input { position: absolute; opacity: 0; pointer-events: none; }
+        .theme-option-body {
+            display: flex; flex-direction: column; gap: 0.6rem; height: 100%;
+            padding: 0.75rem; border-radius: 1rem; border: 1.5px solid rgb(226 232 240);
+            transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+        }
+        .dark .theme-option-body { border-color: rgb(255 255 255 / 0.1); }
+        .theme-option:hover .theme-option-body { transform: translateY(-2px); border-color: rgb(var(--th-sky) / 0.5); }
+        .theme-option input:checked + .theme-option-body,
+        .dark .theme-option input:checked + .theme-option-body {
+            border-color: rgb(var(--th-sky));
+            box-shadow: 0 0 0 3px rgb(var(--th-sky) / 0.18);
+        }
+        .theme-option input:focus-visible + .theme-option-body { outline: 2px solid rgb(var(--th-sky)); outline-offset: 2px; }
+        .theme-option-check {
+            position: absolute; top: 0.55rem; inset-inline-end: 0.55rem; width: 1.3rem; height: 1.3rem;
+            display: none; align-items: center; justify-content: center; border-radius: 999px;
+            background: rgb(var(--th-sky)); color: #fff;
+        }
+        .theme-option input:checked + .theme-option-body .theme-option-check { display: flex; }
+        .theme-option-check .material-symbols-outlined { font-size: 14px; }
+        .theme-option-name { font-size: 0.8rem; font-weight: 600; display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+        .theme-option-tag { font-size: 0.62rem; font-weight: 700; padding: 0.1rem 0.4rem; border-radius: 999px; background: rgb(var(--th-sky) / 0.12); color: rgb(var(--th-sky)); }
+
+        .theme-palette-bar { height: 2.75rem; border-radius: 0.7rem; }
+        .theme-swatches { display: flex; gap: 0.3rem; }
+        .theme-swatch { width: 1.1rem; height: 1.1rem; border-radius: 999px; border: 1px solid rgb(127 127 127 / 0.25); }
+
+        .theme-shade-demo { height: 4.25rem; border-radius: 0.7rem; padding: 0.55rem; display: flex; gap: 0.45rem; border: 1px solid rgb(127 127 127 / 0.2); }
+        .theme-shade-card { flex: 1; border-radius: 0.45rem; padding: 0.4rem; display: flex; flex-direction: column; gap: 0.3rem; border: 1px solid rgb(127 127 127 / 0.2); }
+        .theme-shade-line { height: 0.3rem; border-radius: 999px; }
+        .theme-shade-dot { width: 1rem; height: 1rem; border-radius: 999px; flex: none; align-self: flex-end; background: rgb(var(--th-sky)); }
+
+        /* Live preview: every colour comes from the variables the script sets on .tp-root */
+        .tp-grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+        .tp-root { border-radius: 1.1rem; overflow: hidden; border: 1px solid var(--tp-border); background: var(--tp-bg); color: var(--tp-fg); transition: background 250ms ease, color 250ms ease; }
+        .tp-label { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.5rem 0.9rem; color: var(--tp-mfg); border-bottom: 1px solid var(--tp-border); display: flex; align-items: center; gap: 0.4rem; }
+        .tp-label .material-symbols-outlined { font-size: 16px; }
+        .tp-nav { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; margin: 0.75rem; padding: 0.45rem 0.6rem; border-radius: 0.8rem; background: var(--tp-card); border: 1px solid var(--tp-border); }
+        .tp-brand { display: flex; align-items: center; gap: 0.4rem; font-weight: 800; font-size: 0.8rem; color: var(--tp-heading); }
+        .tp-brand-dot { width: 0.9rem; height: 0.9rem; border-radius: 999px; background: linear-gradient(135deg, var(--tp-sky), var(--tp-deep)); }
+        .tp-links { display: flex; gap: 0.2rem; font-size: 0.66rem; font-weight: 600; color: var(--tp-mfg); }
+        .tp-links span { padding: 0.2rem 0.45rem; border-radius: 999px; }
+        .tp-links span:first-child { background: color-mix(in srgb, var(--tp-sky) 14%, transparent); color: var(--tp-sky); }
+        .tp-cta { font-size: 0.66rem; font-weight: 700; color: #fff; padding: 0.35rem 0.6rem; border-radius: 0.55rem; background: linear-gradient(135deg, var(--tp-sky), var(--tp-deep)); white-space: nowrap; }
+        .tp-hero { padding: 0.9rem 1rem 0.4rem; background: radial-gradient(ellipse 80% 70% at 50% 30%, color-mix(in srgb, var(--tp-sky) 14%, transparent), transparent 75%); }
+        .tp-title { font-family: 'Poppins', 'Cairo', sans-serif; font-weight: 700; font-size: 1.1rem; line-height: 1.3; margin: 0; color: var(--tp-heading); }
+        .tp-highlight { color: var(--tp-sky); }
+        .tp-text { font-size: 0.72rem; color: var(--tp-mfg); margin: 0.4rem 0 0; }
+        .tp-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.6rem; padding: 0.75rem 1rem 1rem; }
+        .tp-card { border-radius: 0.8rem; padding: 0.65rem; background: var(--tp-card); border: 1px solid var(--tp-border); }
+        .tp-card-icon { width: 1.5rem; height: 1.5rem; border-radius: 0.45rem; margin-bottom: 0.4rem; background: color-mix(in srgb, var(--tp-sky) 14%, transparent); display: flex; align-items: center; justify-content: center; }
+        .tp-card-icon::after { content: ''; width: 0.5rem; height: 0.5rem; border-radius: 999px; background: var(--tp-sky); }
+        .tp-card-title { font-size: 0.72rem; font-weight: 700; color: var(--tp-heading); }
+        .tp-card-text { font-size: 0.64rem; color: var(--tp-mfg); margin-top: 0.15rem; }
+        .tp-card:last-child { border-color: color-mix(in srgb, var(--tp-sky) 55%, transparent); box-shadow: 0 0 18px color-mix(in srgb, var(--tp-sky) 22%, transparent); }
+    </style>
+}
+
+<form asp-action="Index" method="post" id="theme-form" class="space-y-6">
+    @Html.AntiForgeryToken()
+
+    @* Header *@
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+            <h2 class="font-poppins text-2xl font-bold text-brand-navy dark:text-white">@SharedLocalizer["CmsThemeTitle"]</h2>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">@SharedLocalizer["CmsThemeIntro"]</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+            <button type="button" id="theme-reset"
+                    class="inline-flex items-center gap-2 rounded-xl bg-th-card dark:bg-th-d-raised border border-slate-200 dark:border-white/10 hover:border-th-sky/50 px-4 py-2.5 text-sm font-semibold text-slate-700 dark:text-slate-200 transition-all">
+                <span class="material-symbols-outlined text-[18px]">restart_alt</span>
+                @SharedLocalizer["CmsThemeRestoreDefaults"]
+            </button>
+            <button type="submit"
+                    class="inline-flex items-center gap-2 rounded-xl bg-th-sky hover:bg-th-sky-strong px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-th-sky/25 transition-all">
+                <span class="material-symbols-outlined text-[18px]">save</span>
+                @SharedLocalizer["CmsThemeSave"]
+            </button>
+        </div>
+    </div>
+
+    @* Live preview *@
+    <div class="@Card">
+        <div class="@CardHeader flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-th-sky">visibility</span>
+            <h3 class="font-poppins text-lg font-semibold text-slate-900 dark:text-white">@SharedLocalizer["CmsThemeLivePreview"]</h3>
+        </div>
+        <div class="tp-grid">
+            @foreach (var mode in new[] { "light", "dark" })
+            {
+                <div class="tp-root" data-preview="@mode">
+                    <div class="tp-label">
+                        <span class="material-symbols-outlined">@(mode == "light" ? "light_mode" : "dark_mode")</span>
+                        @(mode == "light" ? SharedLocalizer["CmsThemeLightMode"] : SharedLocalizer["CmsThemeDarkMode"])
+                    </div>
+                    <div class="tp-nav">
+                        <span class="tp-brand"><span class="tp-brand-dot"></span>@(isRtl ? "دليل" : "Daleel")</span>
+                        <span class="tp-links"><span>@SharedLocalizer["CmsThemePreviewHome"]</span><span>@SharedLocalizer["CmsThemePreviewServices"]</span><span>@SharedLocalizer["CmsThemePreviewContact"]</span></span>
+                        <span class="tp-cta">@SharedLocalizer["CmsThemePreviewCta"]</span>
+                    </div>
+                    <div class="tp-hero">
+                        <p class="tp-title">@SharedLocalizer["CmsThemePreviewHeadline"] <span class="tp-highlight">@SharedLocalizer["CmsThemePreviewHighlight"]</span></p>
+                        <p class="tp-text">@SharedLocalizer["CmsThemePreviewText"]</p>
+                    </div>
+                    <div class="tp-cards">
+                        <div class="tp-card">
+                            <div class="tp-card-icon"></div>
+                            <div class="tp-card-title">@SharedLocalizer["CmsThemePreviewCardTitle"]</div>
+                            <div class="tp-card-text">@SharedLocalizer["CmsThemePreviewCardText"]</div>
+                        </div>
+                        <div class="tp-card">
+                            <div class="tp-card-icon"></div>
+                            <div class="tp-card-title">@SharedLocalizer["CmsThemePreviewCardTitle"]</div>
+                            <div class="tp-card-text">@SharedLocalizer["CmsThemePreviewCardHover"]</div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        <p class="text-xs text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsThemeAppliesNote"]</p>
+    </div>
+
+    @* Brand palette *@
+    <div class="@Card">
+        <div class="@CardHeader">
+            <div class="flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-th-sky">palette</span>
+                <h3 class="font-poppins text-lg font-semibold text-slate-900 dark:text-white">@SharedLocalizer["CmsThemePalette"]</h3>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">@SharedLocalizer["CmsThemePaletteHint"]</p>
+        </div>
+        <div class="theme-grid">
+            @foreach (var p in SiteTheme.Palettes)
+            {
+                <label class="theme-option">
+                    <input type="radio" name="Palette" value="@p.Key" checked="@(Model.Palette == p.Key)" />
+                    <span class="theme-option-body">
+                        <span class="theme-option-check"><span class="material-symbols-outlined">check</span></span>
+                        <span class="theme-palette-bar" style="background: linear-gradient(110deg, @p.SkyDeep, @p.Sky 55%, @p.SkyStrong);"></span>
+                        <span class="theme-swatches">
+                            <span class="theme-swatch" style="background: @p.Navy"></span>
+                            <span class="theme-swatch" style="background: @p.SkyDeep"></span>
+                            <span class="theme-swatch" style="background: @p.SkyStrong"></span>
+                            <span class="theme-swatch" style="background: @p.Sky"></span>
+                        </span>
+                        <span class="theme-option-name text-slate-800 dark:text-slate-100">
+                            @Name(p.NameEn, p.NameAr)
+                            @if (p.Key == SiteTheme.DefaultPaletteKey)
+                            {
+                                <span class="theme-option-tag">@SharedLocalizer["CmsThemeDefault"]</span>
+                            }
+                        </span>
+                    </span>
+                </label>
+            }
+        </div>
+    </div>
+
+    @* Light mode shade *@
+    <div class="@Card">
+        <div class="@CardHeader">
+            <div class="flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-th-sky">light_mode</span>
+                <h3 class="font-poppins text-lg font-semibold text-slate-900 dark:text-white">@SharedLocalizer["CmsThemeLightShade"]</h3>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">@SharedLocalizer["CmsThemeLightShadeHint"]</p>
+        </div>
+        <div class="theme-grid">
+            @foreach (var s in SiteTheme.LightShades)
+            {
+                <label class="theme-option">
+                    <input type="radio" name="Light" value="@s.Key" checked="@(Model.Light == s.Key)" />
+                    <span class="theme-option-body">
+                        <span class="theme-option-check"><span class="material-symbols-outlined">check</span></span>
+                        <span class="theme-shade-demo" style="background: @s.Background">
+                            <span class="theme-shade-card" style="background: @s.Card">
+                                <span class="theme-shade-line" style="background: #1D3166; width: 70%"></span>
+                                <span class="theme-shade-line" style="background: #64748B; width: 90%; opacity: .6"></span>
+                                <span class="theme-shade-line" style="background: #64748B; width: 55%; opacity: .6"></span>
+                            </span>
+                            <span class="theme-shade-dot"></span>
+                        </span>
+                        <span class="theme-option-name text-slate-800 dark:text-slate-100">@Name(s.NameEn, s.NameAr)</span>
+                    </span>
+                </label>
+            }
+        </div>
+    </div>
+
+    @* Dark mode shade *@
+    <div class="@Card">
+        <div class="@CardHeader">
+            <div class="flex items-center gap-2.5">
+                <span class="material-symbols-outlined text-th-sky">dark_mode</span>
+                <h3 class="font-poppins text-lg font-semibold text-slate-900 dark:text-white">@SharedLocalizer["CmsThemeDarkShade"]</h3>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">@SharedLocalizer["CmsThemeDarkShadeHint"]</p>
+        </div>
+        <div class="theme-grid">
+            @foreach (var s in SiteTheme.DarkShades)
+            {
+                <label class="theme-option">
+                    <input type="radio" name="Dark" value="@s.Key" checked="@(Model.Dark == s.Key)" />
+                    <span class="theme-option-body">
+                        <span class="theme-option-check"><span class="material-symbols-outlined">check</span></span>
+                        <span class="theme-shade-demo" style="background: @s.Background">
+                            <span class="theme-shade-card" style="background: @s.Raised">
+                                <span class="theme-shade-line" style="background: #FFFFFF; width: 70%"></span>
+                                <span class="theme-shade-line" style="background: #94A3B8; width: 90%; opacity: .7"></span>
+                                <span class="theme-shade-line" style="background: #94A3B8; width: 55%; opacity: .7"></span>
+                            </span>
+                            <span class="theme-shade-dot"></span>
+                        </span>
+                        <span class="theme-option-name text-slate-800 dark:text-slate-100">@Name(s.NameEn, s.NameAr)</span>
+                    </span>
+                </label>
+            }
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        (function () {
+            const presets = @Html.Raw(presetJson);
+            const form = document.getElementById('theme-form');
+            const selected = name => (form.querySelector('input[name="' + name + '"]:checked') || {}).value;
+
+            function paint(root, vars) {
+                Object.keys(vars).forEach(k => root.style.setProperty(k, vars[k]));
+            }
+
+            function update() {
+                const palette = presets.palettes[selected('Palette')] || presets.palettes[presets.defaults.palette];
+                const light = presets.light[selected('Light')] || presets.light[presets.defaults.light];
+                const dark = presets.dark[selected('Dark')] || presets.dark[presets.defaults.dark];
+                const accent = { '--tp-sky': palette.sky, '--tp-deep': palette.deep };
+
+                paint(document.querySelector('[data-preview="light"]'), Object.assign({
+                    '--tp-bg': light.bg, '--tp-card': light.card, '--tp-fg': '#0F172A', '--tp-heading': palette.navy,
+                    '--tp-mfg': '#64748B', '--tp-border': '#E2E8F0'
+                }, accent));
+                paint(document.querySelector('[data-preview="dark"]'), Object.assign({
+                    '--tp-bg': dark.bg, '--tp-card': dark.raised, '--tp-fg': '#FFFFFF', '--tp-heading': '#FFFFFF',
+                    '--tp-mfg': '#94A3B8', '--tp-border': 'rgba(255, 255, 255, 0.1)'
+                }, accent));
+            }
+
+            form.addEventListener('change', update);
+            document.getElementById('theme-reset').addEventListener('click', function () {
+                ['Palette', 'Light', 'Dark'].forEach(function (name) {
+                    const key = presets.defaults[name.toLowerCase()];
+                    const input = form.querySelector('input[name="' + name + '"][value="' + key + '"]');
+                    if (input) input.checked = true;
+                });
+                update();
+            });
+            update();
+        })();
+    </script>
+}

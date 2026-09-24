@@ -12,7 +12,7 @@
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
             <h2 class="font-poppins text-2xl font-bold text-brand-navy dark:text-white flex items-center gap-2">
-                <span class="material-symbols-outlined text-[#00B2EC] text-[28px]">menu_book</span>
+                <span class="material-symbols-outlined text-th-sky text-[28px]">menu_book</span>
                 <span>@(SharedLocalizer["CmsNavigationTitle"]?.Value ?? "Navigation & Menu Links")</span>
             </h2>
             <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
@@ -21,7 +21,7 @@
         </div>
         <div class="flex items-center gap-3">
             <a asp-controller="CmsNavigation" asp-action="Create" asp-route-location="@(activeTab == "header" ? NavigationLocation.Header : NavigationLocation.Footer)" asp-route-section="@(activeTab == "company" ? FooterSection.Company : (activeTab == "stayinformed" ? FooterSection.StayInformed : (activeTab == "platform" ? FooterSection.Platform : (FooterSection?)null)))"
-               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02]">
+               class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-th-sky to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-th-sky/20 hover:opacity-95 hover:scale-[1.02]">
                 <span class="material-symbols-outlined text-[20px]">add</span>
                 <span>@(SharedLocalizer["CmsAddLink"]?.Value ?? "Add Link")</span>
             </a>
@@ -39,28 +39,28 @@
     <!-- Tabs Navigation -->
     <div class="border-b border-slate-200 dark:border-white/10 flex flex-wrap gap-2 text-sm font-semibold">
         <a href="?tab=header"
-           class="px-5 py-3 border-b-2 transition-all flex items-center gap-2 @(activeTab == "header" ? "border-[#00B2EC] text-[#00B2EC] bg-[#00B2EC]/5 rounded-t-xl" : "border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white")">
+           class="px-5 py-3 border-b-2 transition-all flex items-center gap-2 @(activeTab == "header" ? "border-th-sky text-th-sky bg-th-sky/5 rounded-t-xl" : "border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white")">
             <span class="material-symbols-outlined text-[18px]">web</span>
             <span>@(SharedLocalizer["CmsHeaderNav"]?.Value ?? "Header Navigation")</span>
             <span class="ms-1 px-2 py-0.5 text-xs rounded-full bg-slate-100 dark:bg-white/10 font-bold">@Model.Navigation.HeaderLinks.Count</span>
         </a>
 
         <a href="?tab=platform"
-           class="px-5 py-3 border-b-2 transition-all flex items-center gap-2 @(activeTab == "platform" ? "border-[#00B2EC] text-[#00B2EC] bg-[#00B2EC]/5 rounded-t-xl" : "border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white")">
+           class="px-5 py-3 border-b-2 transition-all flex items-center gap-2 @(activeTab == "platform" ? "border-th-sky text-th-sky bg-th-sky/5 rounded-t-xl" : "border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white")">
             <span class="material-symbols-outlined text-[18px]">view_column</span>
             <span>@(SharedLocalizer["CmsFooterPlatform"]?.Value ?? "Footer: Platform")</span>
             <span class="ms-1 px-2 py-0.5 text-xs rounded-full bg-slate-100 dark:bg-white/10 font-bold">@Model.Navigation.FooterPlatformLinks.Count</span>
         </a>
 
         <a href="?tab=company"
-           class="px-5 py-3 border-b-2 transition-all flex items-center gap-2 @(activeTab == "company" ? "border-[#00B2EC] text-[#00B2EC] bg-[#00B2EC]/5 rounded-t-xl" : "border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white")">
+           class="px-5 py-3 border-b-2 transition-all flex items-center gap-2 @(activeTab == "company" ? "border-th-sky text-th-sky bg-th-sky/5 rounded-t-xl" : "border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white")">
             <span class="material-symbols-outlined text-[18px]">corporate_fare</span>
             <span>@(SharedLocalizer["CmsFooterCompany"]?.Value ?? "Footer: Company")</span>
             <span class="ms-1 px-2 py-0.5 text-xs rounded-full bg-slate-100 dark:bg-white/10 font-bold">@Model.Navigation.FooterCompanyLinks.Count</span>
         </a>
 
         <a href="?tab=stayinformed"
-           class="px-5 py-3 border-b-2 transition-all flex items-center gap-2 @(activeTab == "stayinformed" ? "border-[#00B2EC] text-[#00B2EC] bg-[#00B2EC]/5 rounded-t-xl" : "border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white")">
+           class="px-5 py-3 border-b-2 transition-all flex items-center gap-2 @(activeTab == "stayinformed" ? "border-th-sky text-th-sky bg-th-sky/5 rounded-t-xl" : "border-transparent text-slate-500 hover:text-slate-900 dark:hover:text-white")">
             <span class="material-symbols-outlined text-[18px]">mark_email_read</span>
             <span>@(SharedLocalizer["CmsFooterStayInformed"]?.Value ?? "Footer: Stay Informed")</span>
             <span class="ms-1 px-2 py-0.5 text-xs rounded-full bg-slate-100 dark:bg-white/10 font-bold">@Model.Navigation.FooterStayInformedLinks.Count</span>
@@ -78,11 +78,11 @@
         };
     }
 
-    <div class="bg-white dark:bg-[#0B1728] rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm overflow-hidden">
+    <div class="bg-th-card dark:bg-th-d-card rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm overflow-hidden">
         @if (currentLinks.Count == 0)
         {
             <div class="p-12 text-center">
-                <div class="w-16 h-16 rounded-2xl bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center mx-auto mb-4">
+                <div class="w-16 h-16 rounded-2xl bg-th-sky/10 text-th-sky flex items-center justify-center mx-auto mb-4">
                     <span class="material-symbols-outlined text-[32px]">link_off</span>
                 </div>
                 <h3 class="font-poppins font-bold text-lg text-slate-800 dark:text-slate-200">
@@ -129,7 +129,7 @@
                                 <td class="py-3.5 px-4 text-slate-700 dark:text-slate-300 font-['Cairo']">
                                     @link.LabelAr
                                 </td>
-                                <td class="py-3.5 px-4 font-mono text-xs text-[#00B2EC] dark:text-[#77d1ff]">
+                                <td class="py-3.5 px-4 font-mono text-xs text-th-sky dark:text-[#77d1ff]">
                                     <a href="@link.Url" target="_blank" class="hover:underline flex items-center gap-1">
                                         <span class="material-symbols-outlined text-[14px]">link</span>
                                         <span>@link.Url</span>
@@ -152,7 +152,7 @@
                                 <td class="py-3.5 px-4 text-end">
                                     <div class="inline-flex items-center gap-1">
                                         <a asp-controller="CmsNavigation" asp-action="Edit" asp-route-id="@link.Id"
-                                           class="p-1.5 rounded-lg text-slate-500 hover:text-[#00B2EC] hover:bg-[#00B2EC]/10 transition-colors"
+                                           class="p-1.5 rounded-lg text-slate-500 hover:text-th-sky hover:bg-th-sky/10 transition-colors"
                                            title="@(SharedLocalizer["CmsEdit"]?.Value ?? "Edit")">
                                             <span class="material-symbols-outlined text-[18px]">edit</span>
                                         </a>
@@ -178,9 +178,9 @@
     </div>
 
     <!-- Quick Reference / Help Card -->
-    <div class="p-5 rounded-2xl bg-gradient-to-r from-[#00B2EC]/5 via-transparent to-[#10B981]/5 border border-slate-200/80 dark:border-white/10 text-xs text-slate-600 dark:text-slate-400">
+    <div class="p-5 rounded-2xl bg-gradient-to-r from-th-sky/5 via-transparent to-[#10B981]/5 border border-slate-200/80 dark:border-white/10 text-xs text-slate-600 dark:text-slate-400">
         <h4 class="font-bold text-slate-800 dark:text-slate-200 mb-2 flex items-center gap-1.5">
-            <span class="material-symbols-outlined text-[#00B2EC] text-[18px]">info</span>
+            <span class="material-symbols-outlined text-th-sky text-[18px]">info</span>
             <span>@(SharedLocalizer["CmsQuickRouteSuggestions"]?.Value ?? "Common Target URLs")</span>
         </h4>
         <div class="flex flex-wrap gap-2 pt-1 font-mono">

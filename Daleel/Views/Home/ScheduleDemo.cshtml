@@ -4,17 +4,17 @@
     bool isSuccess = TempData["DemoSuccess"] != null && (bool)TempData["DemoSuccess"]!;
 }
 
-<section class="relative py-32 overflow-hidden bg-white dark:bg-[#0B1220] transition-colors duration-300">
+<section class="relative py-32 overflow-hidden bg-th-card dark:bg-th-d-sunk transition-colors duration-300">
     @* Ambient background glow *@
     <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div class="absolute top-10 left-10 w-[600px] h-[600px] rounded-[100%] bg-[#00B2EC]/10 blur-[120px]"></div>
+        <div class="absolute top-10 left-10 w-[600px] h-[600px] rounded-[100%] bg-th-sky/10 blur-[120px]"></div>
     </div>
 
     <div class="relative z-10 max-w-[1440px] mx-auto px-6 sm:px-8">
 
         @* ── Page header ──────────────────────────────────────────────────── *@
         <div class="text-center max-w-3xl mx-auto mb-20" data-animate="fade-up">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#00B2EC]/10 border border-[#00B2EC]/20 text-[#00B2EC] font-['Inter'] text-xs font-semibold tracking-wide mb-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-th-sky/10 border border-th-sky/20 text-th-sky font-['Inter'] text-xs font-semibold tracking-wide mb-6">
                 <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">calendar_month</span>
                 @SharedLocalizer["DemoTitle"]
             </div>
@@ -66,7 +66,7 @@
                                    id="demo-first-name"
                                    autocomplete="given-name"
                                    placeholder="e.g. Ahmed"
-                                   class="demo-field w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" />
+                                   class="demo-field w-full bg-th-bg dark:bg-th-d-high border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-th-sky transition-all" />
                             <span asp-validation-for="FirstName"
                                   class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
                             <p id="demo-first-name-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Must be at least 3 characters and contain only letters.</p>
@@ -80,7 +80,7 @@
                                    id="demo-last-name"
                                    autocomplete="family-name"
                                    placeholder="e.g. Al-Rashid"
-                                   class="demo-field w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" />
+                                   class="demo-field w-full bg-th-bg dark:bg-th-d-high border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-th-sky transition-all" />
                             <span asp-validation-for="LastName"
                                   class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
                             <p id="demo-last-name-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Must be at least 3 characters and contain only letters.</p>
@@ -97,7 +97,7 @@
                                type="email"
                                autocomplete="email"
                                placeholder="you@company.com"
-                               class="demo-field w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" />
+                               class="demo-field w-full bg-th-bg dark:bg-th-d-high border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-th-sky transition-all" />
                         <span asp-validation-for="WorkEmail"
                               class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
                         <p id="demo-email-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Please enter a valid email address (e.g., name@domain.com).</p>
@@ -113,7 +113,7 @@
                                    id="demo-company"
                                    autocomplete="organization"
                                    placeholder="e.g. Acme Corp"
-                                   class="demo-field w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" />
+                                   class="demo-field w-full bg-th-bg dark:bg-th-d-high border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-th-sky transition-all" />
                             <span asp-validation-for="Company"
                                   class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
                             <p id="demo-company-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Company name must be between 2 and 200 characters.</p>
@@ -127,7 +127,7 @@
                                    id="demo-job-title"
                                    autocomplete="organization-title"
                                    placeholder="e.g. CTO"
-                                   class="demo-field w-full bg-slate-50 dark:bg-[#112240] border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-[#00B2EC] transition-all" />
+                                   class="demo-field w-full bg-th-bg dark:bg-th-d-high border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-th-sky transition-all" />
                             <span asp-validation-for="JobTitle"
                                   class="mt-1.5 block text-xs text-red-500 font-['Inter']"></span>
                             <p id="demo-job-title-error" class="hidden text-red-500 text-xs mt-1 font-['Inter']">Must be at least 3 characters and contain only letters.</p>
@@ -136,7 +136,7 @@
 
                     <button type="submit"
                             id="demo-submit-btn"
-                            class="w-full bg-[#00B2EC] text-white px-8 py-4 rounded-xl font-['Inter'] font-semibold text-base shadow-lg shadow-[#00B2EC]/20 hover:shadow-xl hover:shadow-[#00B2EC]/30 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
+                            class="w-full bg-th-sky text-white px-8 py-4 rounded-xl font-['Inter'] font-semibold text-base shadow-lg shadow-th-sky/20 hover:shadow-xl hover:shadow-th-sky/30 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed">
                         <span id="demo-btn-text">@SharedLocalizer["RequestDemo"]</span>
                         <span id="demo-btn-icon" class="material-symbols-outlined text-[20px] rtl:rotate-180">arrow_forward</span>
                         <span id="demo-btn-spinner" class="hidden">

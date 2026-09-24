@@ -1,11 +1,11 @@
 <div id="dalily-ai-chat-widget" class="fixed bottom-6 right-6 z-[100] flex flex-col items-end transition-all duration-300">
     <!-- Chat Window -->
-    <div id="dalily-ai-chat-window" class="hidden flex flex-col w-[350px] sm:w-[400px] h-[600px] max-h-[80vh] bg-white dark:bg-[#0A192F] rounded-2xl shadow-[0px_10px_40px_rgba(29,49,102,0.15)] dark:shadow-[0px_10px_40px_rgba(0,0,0,0.5)] border border-slate-200 dark:border-white/10 overflow-hidden transition-all duration-300 mb-4 origin-bottom-right scale-95 opacity-0">
+    <div id="dalily-ai-chat-window" class="hidden flex flex-col w-[350px] sm:w-[400px] h-[600px] max-h-[80vh] bg-th-card dark:bg-th-d-bg rounded-2xl shadow-[0px_10px_40px_rgba(29,49,102,0.15)] dark:shadow-[0px_10px_40px_rgba(0,0,0,0.5)] border border-slate-200 dark:border-white/10 overflow-hidden transition-all duration-300 mb-4 origin-bottom-right scale-95 opacity-0">
         
         <!-- Header -->
         <div class="bg-brand-navy dark:bg-slate-800 text-white px-5 py-4 flex items-center justify-between shrink-0">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-full bg-[#00B2EC] flex items-center justify-center shrink-0">
+                <div class="w-8 h-8 rounded-full bg-th-sky flex items-center justify-center shrink-0">
                     <span class="material-symbols-outlined text-white text-[20px]">smart_toy</span>
                 </div>
                 <div>
@@ -28,7 +28,7 @@
         </div>
 
         <!-- Message Area -->
-        <div id="dalily-ai-messages" class="flex-1 overflow-y-auto p-4 space-y-4 font-['Inter'] text-sm bg-slate-50 dark:bg-[#0A192F]/50 scroll-smooth">
+        <div id="dalily-ai-messages" class="flex-1 overflow-y-auto p-4 space-y-4 font-['Inter'] text-sm bg-th-bg dark:bg-th-d-bg/50 scroll-smooth">
             <!-- Welcome Message -->
             <div class="flex gap-3">
                 <div class="w-8 h-8 rounded-full bg-brand-navy/10 dark:bg-white/10 flex items-center justify-center shrink-0">
@@ -41,11 +41,11 @@
         </div>
 
         <!-- Input Area -->
-        <div class="p-4 bg-white dark:bg-[#0A192F] border-t border-slate-200 dark:border-white/10 shrink-0">
+        <div class="p-4 bg-th-card dark:bg-th-d-bg border-t border-slate-200 dark:border-white/10 shrink-0">
             <div class="flex items-center gap-2 relative">
                 <!-- Text Input -->
                 <div class="flex-1 relative">
-                    <textarea id="dalily-ai-input" rows="1" placeholder="Type your message..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#00B2EC]/40 focus:border-[#00B2EC]/40 resize-none max-h-[120px] scrollbar-thin"></textarea>
+                    <textarea id="dalily-ai-input" rows="1" placeholder="Type your message..." class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-th-sky/40 focus:border-th-sky/40 resize-none max-h-[120px] scrollbar-thin"></textarea>
                 </div>
 
                 <!-- Send Button -->
@@ -54,10 +54,10 @@
                 </button>
 
                 <!-- Microphone Button -->
-                <button id="dalily-ai-mic-btn" class="w-11 h-11 rounded-xl bg-[#00B2EC] hover:bg-[#00B2EC]/90 text-white flex items-center justify-center transition-all shadow-md hover:shadow-lg hover:shadow-[#00B2EC]/20 shrink-0 relative group">
+                <button id="dalily-ai-mic-btn" class="w-11 h-11 rounded-xl bg-th-sky hover:bg-th-sky/90 text-white flex items-center justify-center transition-all shadow-md hover:shadow-lg hover:shadow-th-sky/20 shrink-0 relative group">
                     <span class="material-symbols-outlined text-[24px]">mic</span>
                     <!-- Recording indicator (hidden by default) -->
-                    <span id="dalily-ai-mic-pulse" class="hidden absolute -inset-1 rounded-xl border-2 border-[#00B2EC] animate-ping opacity-75"></span>
+                    <span id="dalily-ai-mic-pulse" class="hidden absolute -inset-1 rounded-xl border-2 border-th-sky animate-ping opacity-75"></span>
                 </button>
             </div>
         </div>

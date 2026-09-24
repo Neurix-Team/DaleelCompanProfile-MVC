@@ -4,9 +4,9 @@
     <div asp-validation-summary="ModelOnly" class="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-sm"></div>
 
     <!-- Customer Identity & Brand -->
-    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+    <div class="bg-th-card dark:bg-th-d-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
         <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
-            <span class="material-symbols-outlined text-[#00B2EC] text-[24px]">person_pin</span>
+            <span class="material-symbols-outlined text-th-sky text-[24px]">person_pin</span>
             <div>
                 <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CmsCustomerCompanyInfo"]</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsReviewerProfileDesc"]</p>
@@ -19,7 +19,7 @@
                     @SharedLocalizer["CmsCompanyBrandProfile"] <span class="text-red-500">*</span>
                 </label>
                 <select asp-for="BrandId" asp-items="Model.BrandOptions"
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky">
                 </select>
                 <span asp-validation-for="BrandId" class="text-xs text-red-500 block"></span>
             </div>
@@ -29,7 +29,7 @@
                     @SharedLocalizer["CmsFldCustomerNameEn"] <span class="text-red-500">*</span>
                 </label>
                 <input asp-for="CustomerNameEn" placeholder="@SharedLocalizer["CmsEgCustomerName"]"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="CustomerNameEn" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -38,7 +38,7 @@
                     @SharedLocalizer["CmsFldCustomerNameAr"] <span class="text-red-500">*</span>
                 </label>
                 <input asp-for="CustomerNameAr" dir="rtl" placeholder="مثال: فهد الحسيني"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="CustomerNameAr" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -47,7 +47,7 @@
                     @SharedLocalizer["CmsFldCompanyNameEn"]
                 </label>
                 <input asp-for="CompanyNameEn" placeholder="@SharedLocalizer["CmsEgCompanyName"]"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="CompanyNameEn" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -56,7 +56,7 @@
                     @SharedLocalizer["CmsFldCompanyNameAr"]
                 </label>
                 <input asp-for="CompanyNameAr" dir="rtl" placeholder="مثال: شركة الرياض للخدمات اللوجستية"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="CompanyNameAr" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -65,7 +65,7 @@
                     @SharedLocalizer["CmsJobTitleRoleEn"]
                 </label>
                 <input asp-for="RoleTitleEn" placeholder="@SharedLocalizer["CmsEgRoleTitle"]"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="RoleTitleEn" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -74,14 +74,14 @@
                     @SharedLocalizer["CmsJobTitleRoleAr"]
                 </label>
                 <input asp-for="RoleTitleAr" dir="rtl" placeholder="مثال: نائب رئيس العمليات"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="RoleTitleAr" class="text-xs text-red-500 block"></span>
             </div>
         </div>
     </div>
 
     <!-- Review Quote & Rating -->
-    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+    <div class="bg-th-card dark:bg-th-d-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
         <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
             <span class="material-symbols-outlined text-[#F9A01B] text-[24px]">rate_review</span>
             <div>
@@ -129,7 +129,7 @@
     </div>
 
     <!-- Media & Visibility -->
-    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+    <div class="bg-th-card dark:bg-th-d-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
         <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
             <span class="material-symbols-outlined text-[#8B5CF6] text-[24px]">photo_camera</span>
             <div>
@@ -165,7 +165,7 @@
                     @SharedLocalizer["CmsCustomerPhotoOptional"]
                 </label>
                 <input type="file" asp-for="PhotoFile" accept="image/*"
-                       class="w-full text-sm text-slate-500 file:me-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#00B2EC]/10 file:text-[#00B2EC] hover:file:bg-[#00B2EC]/20 cursor-pointer" />
+                       class="w-full text-sm text-slate-500 file:me-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-th-sky/10 file:text-th-sky hover:file:bg-th-sky/20 cursor-pointer" />
                 <span asp-validation-for="PhotoFile" class="text-xs text-red-500 block"></span>
 
                 @if (!string.IsNullOrWhiteSpace(Model.ExistingPhotoPath))
@@ -193,7 +193,7 @@
             @SharedLocalizer["CmsCancel"]
         </a>
         <button type="submit"
-                class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02]">
+                class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-th-sky to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-th-sky/20 hover:opacity-95 hover:scale-[1.02]">
             @SharedLocalizer["CmsSaveTestimonial"]
         </button>
     </div>

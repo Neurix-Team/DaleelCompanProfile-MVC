@@ -4,9 +4,9 @@
     <div asp-validation-summary="ModelOnly" class="p-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-sm"></div>
 
     <!-- 1. Basic Information Card -->
-    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+    <div class="bg-th-card dark:bg-th-d-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
         <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
-            <span class="material-symbols-outlined text-[#00B2EC] text-[24px]">corporate_fare</span>
+            <span class="material-symbols-outlined text-th-sky text-[24px]">corporate_fare</span>
             <div>
                 <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CmsBrandProfileIdentity"]</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsBrandIdentityDesc"]</p>
@@ -20,7 +20,7 @@
                     @SharedLocalizer["CmsFldBrandNameEn"] <span class="text-red-500">*</span>
                 </label>
                 <input asp-for="NameEn" placeholder="@SharedLocalizer["CmsEgDaleelNeurix"]"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="NameEn" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -30,7 +30,7 @@
                     @SharedLocalizer["CmsFldBrandNameAr"] <span class="text-red-500">*</span>
                 </label>
                 <input asp-for="NameAr" dir="rtl" placeholder="مثال: دليل أو نيوريكس"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="NameAr" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -40,7 +40,7 @@
                     @SharedLocalizer["CmsUrlSlugIdentifier"]
                 </label>
                 <input asp-for="Slug" placeholder="@SharedLocalizer["CmsEgDaleelSlug"]"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="Slug" class="text-xs text-red-500 block"></span>
                 <p class="text-[11px] text-slate-400">@SharedLocalizer["CmsSlugUrlHint"]</p>
             </div>
@@ -60,7 +60,7 @@
     </div>
 
     <!-- 2. Visual Identity & Color Palette Card -->
-    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+    <div class="bg-th-card dark:bg-th-d-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
         <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
             <span class="material-symbols-outlined text-[#8B5CF6] text-[24px]">palette</span>
             <div>
@@ -118,9 +118,9 @@
     </div>
 
     <!-- 3. Logos & Favicon Card -->
-    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+    <div class="bg-th-card dark:bg-th-d-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
         <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
-            <span class="material-symbols-outlined text-[#00B2EC] text-[24px]">photo_library</span>
+            <span class="material-symbols-outlined text-th-sky text-[24px]">photo_library</span>
             <div>
                 <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CmsBrandLogosFavicon"]</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsBrandLogosDesc"]</p>
@@ -134,7 +134,7 @@
                     @SharedLocalizer["CmsPrimaryLogoLight"]
                 </label>
                 <input type="file" asp-for="LogoFile" accept="image/*"
-                       class="w-full text-sm text-slate-500 file:me-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-[#00B2EC]/10 file:text-[#00B2EC] hover:file:bg-[#00B2EC]/20 cursor-pointer" />
+                       class="w-full text-sm text-slate-500 file:me-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-th-sky/10 file:text-th-sky hover:file:bg-th-sky/20 cursor-pointer" />
                 <span asp-validation-for="LogoFile" class="text-xs text-red-500 block"></span>
 
                 @if (!string.IsNullOrWhiteSpace(Model.ExistingLogoPath))
@@ -188,7 +188,7 @@
     </div>
 
     <!-- 4. Taglines & Descriptions -->
-    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+    <div class="bg-th-card dark:bg-th-d-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
         <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
             <span class="material-symbols-outlined text-[#10B981] text-[24px]">description</span>
             <div>
@@ -241,9 +241,9 @@
     </div>
 
     <!-- 5. SEO & Web Analytics Settings -->
-    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+    <div class="bg-th-card dark:bg-th-d-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
         <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
-            <span class="material-symbols-outlined text-[#00B2EC] text-[24px]">search</span>
+            <span class="material-symbols-outlined text-th-sky text-[24px]">search</span>
             <div>
                 <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CmsSeoAnalyticsDefaults"]</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsSeoAnalyticsDesc"]</p>
@@ -257,7 +257,7 @@
                     @SharedLocalizer["CmsFldDefMetaTitleEn"]
                 </label>
                 <input asp-for="MetaTitleEn" placeholder="@SharedLocalizer["CmsEgMetaTitle"]"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="MetaTitleEn" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -267,7 +267,7 @@
                     @SharedLocalizer["CmsFldDefMetaTitleAr"]
                 </label>
                 <input asp-for="MetaTitleAr" dir="rtl" placeholder="مثال: دليل - المنظومة الرقمية الرائدة وحلول الذكاء الاصطناعي"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="MetaTitleAr" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -277,7 +277,7 @@
                     @SharedLocalizer["CmsFldDefMetaDescEn"]
                 </label>
                 <textarea asp-for="MetaDescriptionEn" rows="3" placeholder="@SharedLocalizer["CmsSeoDescEnPlaceholder"]"
-                          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]"></textarea>
+                          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky"></textarea>
                 <span asp-validation-for="MetaDescriptionEn" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -287,7 +287,7 @@
                     @SharedLocalizer["CmsFldDefMetaDescAr"]
                 </label>
                 <textarea asp-for="MetaDescriptionAr" dir="rtl" rows="3" placeholder="الوصف الافتراضي لمحركات البحث بالعربية..."
-                          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]"></textarea>
+                          class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky"></textarea>
                 <span asp-validation-for="MetaDescriptionAr" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -297,7 +297,7 @@
                     @SharedLocalizer["CmsGoogleAnalyticsTag"]
                 </label>
                 <input asp-for="GoogleAnalyticsId" placeholder="e.g. G-XXXXXXXXXX or GTM-XXXXXXX"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm font-mono text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm font-mono text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="GoogleAnalyticsId" class="text-xs text-red-500 block"></span>
                 <p class="text-[11px] text-slate-400">@SharedLocalizer["CmsAnalyticsIdHint"]</p>
             </div>
@@ -305,7 +305,7 @@
     </div>
 
     <!-- 6. Media & Public Contact Details -->
-    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+    <div class="bg-th-card dark:bg-th-d-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
         <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
             <span class="material-symbols-outlined text-[#F9A01B] text-[24px]">contact_mail</span>
             <div>
@@ -358,9 +358,9 @@
     </div>
 
     <!-- 7. Social Media Links Card -->
-    <div class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+    <div class="bg-th-card dark:bg-th-d-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
         <div class="flex items-center gap-3 pb-4 border-b border-slate-100 dark:border-white/5">
-            <span class="material-symbols-outlined text-[#00B2EC] text-[24px]">share</span>
+            <span class="material-symbols-outlined text-th-sky text-[24px]">share</span>
             <div>
                 <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CmsSocialChannels"]</h3>
                 <p class="text-xs text-slate-500 dark:text-slate-400">@SharedLocalizer["CmsSocialChannelsDesc"]</p>
@@ -374,7 +374,7 @@
                     @SharedLocalizer["CmsFldLinkedInUrl"]
                 </label>
                 <input asp-for="LinkedInUrl" placeholder="https://linkedin.com/company/daleel"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="LinkedInUrl" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -384,7 +384,7 @@
                     @SharedLocalizer["CmsFldTwitterUrl"]
                 </label>
                 <input asp-for="TwitterUrl" placeholder="https://x.com/daleel_ai"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="TwitterUrl" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -394,7 +394,7 @@
                     @SharedLocalizer["CmsFacebookUrlLabel"]
                 </label>
                 <input asp-for="FacebookUrl" placeholder="https://facebook.com/daleel"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="FacebookUrl" class="text-xs text-red-500 block"></span>
             </div>
 
@@ -404,7 +404,7 @@
                     @SharedLocalizer["CmsFldInstagramUrl"]
                 </label>
                 <input asp-for="InstagramUrl" placeholder="https://instagram.com/daleel_ai"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="InstagramUrl" class="text-xs text-red-500 block"></span>
             </div>
         </div>
@@ -417,7 +417,7 @@
             @SharedLocalizer["CmsCancel"]
         </a>
         <button type="submit"
-                class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02]">
+                class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-th-sky to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-th-sky/20 hover:opacity-95 hover:scale-[1.02]">
             @SharedLocalizer["CmsSaveBrandProfile"]
         </button>
     </div>

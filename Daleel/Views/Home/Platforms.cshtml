@@ -40,11 +40,11 @@
     }
 }
 
-<section class="relative bg-white dark:bg-[#0A192F] py-24 sm:py-32 overflow-hidden transition-colors duration-300">
+<section class="relative bg-th-card dark:bg-th-d-bg py-24 sm:py-32 overflow-hidden transition-colors duration-300">
 
     <!-- Ambient Background Glows -->
     <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div class="absolute top-1/4 ltr:-right-40 rtl:-left-40 w-[600px] h-[600px] rounded-full bg-[#00B2EC]/5 blur-[120px]"></div>
+        <div class="absolute top-1/4 ltr:-right-40 rtl:-left-40 w-[600px] h-[600px] rounded-full bg-th-sky/5 blur-[120px]"></div>
         <div class="absolute bottom-0 ltr:-left-20 rtl:-right-20 w-[500px] h-[500px] rounded-full bg-[#10B981]/5 blur-[100px]"></div>
     </div>
 
@@ -52,7 +52,7 @@
 
         <!-- Section Header -->
         <div class="text-center max-w-3xl mx-auto mb-16 sm:mb-20" data-animate="fade-up">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#00B2EC]/10 via-[#10B981]/10 to-[#fdc70c]/10 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-300 font-['Inter'] text-xs font-semibold tracking-wide mb-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-th-sky/10 via-[#10B981]/10 to-[#fdc70c]/10 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-300 font-['Inter'] text-xs font-semibold tracking-wide mb-6">
                 <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">layers</span>
                 @(isRtl ? "المنصات المؤسسية المتخصصة" : "Core Enterprise Platforms")
             </div>
@@ -78,7 +78,7 @@
                 var isEven = index % 2 == 1;
                 index++;
 
-                <div class="bg-[#F8F9FA] dark:bg-[#060D1A] rounded-3xl p-8 sm:p-12 border border-slate-200 dark:border-white/10 shadow-sm hover:border-[#00B2EC]/30 transition-all duration-500">
+                <div class="bg-[#F8F9FA] dark:bg-th-d-deep rounded-3xl p-8 sm:p-12 border border-slate-200 dark:border-white/10 shadow-sm hover:border-th-sky/30 transition-all duration-500">
                     <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                         <div class="lg:col-span-8 space-y-6 @(isEven ? "lg:order-2" : "lg:order-1") text-start">
                             <div class="flex items-center gap-4">
@@ -103,7 +103,7 @@
                         </div>
 
                         <div class="lg:col-span-4 @(isEven ? "lg:order-1" : "lg:order-2")">
-                            <div class="p-6 rounded-2xl bg-white dark:bg-[#0A192F] border border-slate-200 dark:border-white/10 space-y-4 text-start">
+                            <div class="p-6 rounded-2xl bg-th-card dark:bg-th-d-bg border border-slate-200 dark:border-white/10 space-y-4 text-start">
                                 <h3 class="font-poppins font-semibold text-sm text-brand-navy dark:text-white flex items-center gap-2">
                                     <span class="material-symbols-outlined text-[18px]" style="color: @accent;">verified</span>
                                     <span>@(isRtl ? "المواصفات المؤسسية" : "Enterprise Capabilities")</span>
@@ -157,7 +157,7 @@
                         var projShortDesc = isRtl ? p.ShortDescAr : p.ShortDescEn;
                         var clientName = isRtl ? p.ClientNameAr : p.ClientNameEn;
 
-                        <div class="bg-[#F8F9FA] dark:bg-[#060D1A] rounded-3xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-sm flex flex-col justify-between group">
+                        <div class="bg-[#F8F9FA] dark:bg-th-d-deep rounded-3xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-sm flex flex-col justify-between group">
                             <div>
                                 <div class="relative h-48 bg-slate-200 dark:bg-white/5 overflow-hidden">
                                     @if (!string.IsNullOrWhiteSpace(p.ImagePath))
@@ -166,8 +166,8 @@
                                     }
                                     else
                                     {
-                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-[#00B2EC]/20 to-[#10B981]/20">
-                                            <span class="material-symbols-outlined text-[40px] text-[#00B2EC]">grid_view</span>
+                                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-tr from-th-sky/20 to-[#10B981]/20">
+                                            <span class="material-symbols-outlined text-[40px] text-th-sky">grid_view</span>
                                         </div>
                                     }
                                     @if (!string.IsNullOrWhiteSpace(clientName))
@@ -178,7 +178,7 @@
                                     }
                                 </div>
                                 <div class="p-6">
-                                    <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white group-hover:text-[#00B2EC] transition-colors mb-2">
+                                    <h3 class="font-poppins font-bold text-lg text-brand-navy dark:text-white group-hover:text-th-sky transition-colors mb-2">
                                         @projName
                                     </h3>
                                     <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 leading-relaxed">
@@ -189,7 +189,7 @@
                             @if (!string.IsNullOrWhiteSpace(p.ProjectUrl))
                             {
                                 <div class="px-6 py-4 bg-white/50 dark:bg-white/[0.02] border-t border-slate-100 dark:border-white/5">
-                                    <a href="@p.ProjectUrl" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-[#00B2EC] hover:gap-3 transition-all">
+                                    <a href="@p.ProjectUrl" target="_blank" class="inline-flex items-center gap-2 text-xs font-bold text-th-sky hover:gap-3 transition-all">
                                         <span>@(isRtl ? "معاينة النظام" : "View Live System")</span>
                                         <span class="material-symbols-outlined text-[16px] rtl:rotate-180">open_in_new</span>
                                     </a>

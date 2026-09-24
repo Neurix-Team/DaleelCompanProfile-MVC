@@ -7,12 +7,12 @@
     var tasks = ViewData["Tasks"] as IReadOnlyList<TaskListItem> ?? Array.Empty<TaskListItem>();
     var returnUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString;
 
-    var inputClass = "w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition";
+    var inputClass = "w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-th-d-bg px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-th-sky focus:ring-2 focus:ring-th-sky/30 outline-none transition";
 
     var openCount = tasks.Count(t => t.Status != CrmTaskStatus.Done);
 }
 
-<div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6">
+<div class="bg-th-card dark:bg-th-d-raised rounded-xl border border-slate-200 dark:border-white/10 p-6">
     <div class="flex items-center justify-between gap-3 mb-5">
         <h3 class="font-poppins font-semibold text-base text-brand-navy dark:text-white">
             @SharedLocalizer["CrmTasksTitle"]
@@ -20,7 +20,7 @@
         </h3>
         <a asp-controller="CrmTask" asp-action="Create"
            asp-route-entityType="@Model.EntityType" asp-route-entityId="@Model.EntityId"
-           class="text-sm text-[#00B2EC] hover:underline">
+           class="text-sm text-th-sky hover:underline">
             @SharedLocalizer["CrmFullForm"]
         </a>
     </div>
@@ -36,7 +36,7 @@
         <input asp-for="DueDate" type="date" class="@inputClass w-auto" />
 
         <button type="submit"
-                class="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-white/5 hover:border-[#00B2EC] transition-colors">
+                class="inline-flex items-center gap-2 rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2.5 hover:bg-slate-100 dark:hover:bg-white/5 hover:border-th-sky transition-colors">
             <span class="material-symbols-outlined text-[20px]">add_task</span>
             @SharedLocalizer["CrmAdd"]
         </button>
@@ -87,7 +87,7 @@
                     </div>
 
                     <a asp-controller="CrmTask" asp-action="Edit" asp-route-id="@task.Id" title="@SharedLocalizer["CrmEditTask"]"
-                       class="shrink-0 p-1.5 rounded-lg text-slate-400 hover:text-[#00B2EC] hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                       class="shrink-0 p-1.5 rounded-lg text-slate-400 hover:text-th-sky hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
                         <span class="material-symbols-outlined text-[18px]">edit</span>
                     </a>
                 </li>

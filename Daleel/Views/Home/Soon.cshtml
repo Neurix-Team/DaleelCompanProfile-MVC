@@ -5,10 +5,10 @@
     ViewData["Title"] = content.Section("soon_title", SharedLocalizer["ComingSoon"].Value);
 }
 
-<section class="relative bg-white dark:bg-[#0B1220] py-32 sm:py-48 min-h-[80vh] flex items-center justify-center overflow-hidden transition-colors duration-300">
+<section class="relative bg-th-card dark:bg-th-d-sunk py-32 sm:py-48 min-h-[80vh] flex items-center justify-center overflow-hidden transition-colors duration-300">
     <!-- Ambient Background Glows -->
     <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div class="absolute top-1/4 ltr:-right-40 rtl:-left-40 w-[600px] h-[600px] rounded-full bg-[#00B2EC]/10 blur-[120px]"></div>
+        <div class="absolute top-1/4 ltr:-right-40 rtl:-left-40 w-[600px] h-[600px] rounded-full bg-th-sky/10 blur-[120px]"></div>
         <div class="absolute bottom-0 ltr:-left-20 rtl:-right-20 w-[500px] h-[500px] rounded-full bg-[#10B981]/10 blur-[100px]"></div>
     </div>
 
@@ -16,7 +16,7 @@
     <canvas id="soon-canvas" class="absolute inset-0 w-full h-full z-0 opacity-60"></canvas>
 
     <div class="relative z-10 max-w-3xl mx-auto px-6 text-center" data-animate="fade-up">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-[#00B2EC]/10 via-[#10B981]/10 to-[#fdc70c]/10 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-300 font-['Inter'] text-xs font-semibold tracking-wide mb-6">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-th-sky/10 via-[#10B981]/10 to-[#fdc70c]/10 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-300 font-['Inter'] text-xs font-semibold tracking-wide mb-6">
             <span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">construction</span>
             @content.Section("soon_badge", SharedLocalizer["UnderConstruction"].Value)
         </div>
@@ -31,7 +31,7 @@
 
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a asp-controller="Home" asp-action="Index"
-                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#00B2EC] text-white px-8 py-4 rounded-xl font-['Inter'] font-semibold text-base shadow-lg shadow-[#00B2EC]/20 hover:shadow-xl hover:shadow-[#00B2EC]/30 active:scale-95 transition-all duration-300">
+                class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-th-sky text-white px-8 py-4 rounded-xl font-['Inter'] font-semibold text-base shadow-lg shadow-th-sky/20 hover:shadow-xl hover:shadow-th-sky/30 active:scale-95 transition-all duration-300">
                 <span class="material-symbols-outlined text-[20px]">arrow_back</span>
                 @content.Section("soon_cta", SharedLocalizer["ReturnHome"].Value)
             </a>

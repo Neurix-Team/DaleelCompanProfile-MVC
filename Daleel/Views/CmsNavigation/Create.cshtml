@@ -9,7 +9,7 @@
 
     <!-- Breadcrumb & Header -->
     <div class="flex items-center gap-3 text-sm text-slate-500">
-        <a asp-controller="CmsNavigation" asp-action="Index" class="hover:text-[#00B2EC] transition-colors">
+        <a asp-controller="CmsNavigation" asp-action="Index" class="hover:text-th-sky transition-colors">
             @(SharedLocalizer["CmsNavigationTitle"]?.Value ?? "Navigation Links")
         </a>
         <span class="material-symbols-outlined text-[16px]">chevron_right</span>
@@ -25,7 +25,7 @@
     </div>
 
     <form method="post" asp-controller="CmsNavigation" asp-action="Create"
-          class="bg-white dark:bg-[#0B1728] p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
+          class="bg-th-card dark:bg-th-d-card p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm space-y-6">
         @Html.AntiForgeryToken()
 
         <div asp-validation-summary="ModelOnly" class="p-4 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-600 text-sm"></div>
@@ -37,7 +37,7 @@
                     @(SharedLocalizer["CmsLocation"]?.Value ?? "Location") *
                 </label>
                 <select asp-for="Location" id="nav-location"
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky">
                     <option value="Header">@(SharedLocalizer["CmsHeaderNav"]?.Value ?? "Header Navigation")</option>
                     <option value="Footer">@(SharedLocalizer["CmsFooterNav"]?.Value ?? "Footer Column")</option>
                 </select>
@@ -49,7 +49,7 @@
                     @(SharedLocalizer["CmsFooterSection"]?.Value ?? "Footer Column / Section") *
                 </label>
                 <select asp-for="Section"
-                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                        class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky">
                     <option value="Platform">@(SharedLocalizer["CmsFooterPlatform"]?.Value ?? "Platform")</option>
                     <option value="Company">@(SharedLocalizer["CmsFooterCompany"]?.Value ?? "Company")</option>
                     <option value="StayInformed">@(SharedLocalizer["CmsFooterStayInformed"]?.Value ?? "Stay Informed")</option>
@@ -65,7 +65,7 @@
                     @(SharedLocalizer["CmsEnglishLabel"]?.Value ?? "English Label") *
                 </label>
                 <input asp-for="LabelEn" placeholder="e.g. Services"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span asp-validation-for="LabelEn" class="text-rose-500 text-xs mt-1 block"></span>
             </div>
 
@@ -74,7 +74,7 @@
                     @(SharedLocalizer["CmsArabicLabel"]?.Value ?? "Arabic Label") *
                 </label>
                 <input asp-for="LabelAr" placeholder="مثال: الخدمات" dir="rtl"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC] font-['Cairo']" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky font-['Cairo']" />
                 <span asp-validation-for="LabelAr" class="text-rose-500 text-xs mt-1 block"></span>
             </div>
         </div>
@@ -85,20 +85,20 @@
                 @(SharedLocalizer["CmsUrlPath"]?.Value ?? "Target URL / Relative Path") *
             </label>
             <input asp-for="Url" id="nav-url" placeholder="e.g. /about or https://example.com"
-                   class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                   class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white font-mono focus:outline-none focus:ring-2 focus:ring-th-sky" />
             <span asp-validation-for="Url" class="text-rose-500 text-xs mt-1 block"></span>
 
             <!-- Quick Path Buttons -->
             <div class="mt-2 flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
                 <span class="me-1">@(SharedLocalizer["CmsQuickSelect"]?.Value ?? "Quick select:"):</span>
-                <button type="button" onclick="setUrl('/')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/</button>
-                <button type="button" onclick="setUrl('/Home/Platforms')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/Platforms</button>
-                <button type="button" onclick="setUrl('/Home/Shop')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/Shop</button>
-                <button type="button" onclick="setUrl('/Home/Trust')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/Trust</button>
-                <button type="button" onclick="setUrl('/Home/About')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/About</button>
-                <button type="button" onclick="setUrl('/Home/Blog')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/Blog</button>
-                <button type="button" onclick="setUrl('/Home/Contact')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/Contact</button>
-                <button type="button" onclick="setUrl('/Home/Soon')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-[#00B2EC]/10 hover:text-[#00B2EC] font-mono transition-colors">/Home/Soon</button>
+                <button type="button" onclick="setUrl('/')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-th-sky/10 hover:text-th-sky font-mono transition-colors">/</button>
+                <button type="button" onclick="setUrl('/Home/Platforms')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-th-sky/10 hover:text-th-sky font-mono transition-colors">/Home/Platforms</button>
+                <button type="button" onclick="setUrl('/Home/Shop')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-th-sky/10 hover:text-th-sky font-mono transition-colors">/Home/Shop</button>
+                <button type="button" onclick="setUrl('/Home/Trust')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-th-sky/10 hover:text-th-sky font-mono transition-colors">/Home/Trust</button>
+                <button type="button" onclick="setUrl('/Home/About')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-th-sky/10 hover:text-th-sky font-mono transition-colors">/Home/About</button>
+                <button type="button" onclick="setUrl('/Home/Blog')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-th-sky/10 hover:text-th-sky font-mono transition-colors">/Home/Blog</button>
+                <button type="button" onclick="setUrl('/Home/Contact')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-th-sky/10 hover:text-th-sky font-mono transition-colors">/Home/Contact</button>
+                <button type="button" onclick="setUrl('/Home/Soon')" class="px-2 py-0.5 rounded bg-slate-100 dark:bg-white/5 hover:bg-th-sky/10 hover:text-th-sky font-mono transition-colors">/Home/Soon</button>
             </div>
         </div>
 
@@ -109,13 +109,13 @@
                     @(SharedLocalizer["CmsSortOrder"]?.Value ?? "Sort Order")
                 </label>
                 <input asp-for="SortOrder" type="number" min="0"
-                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                       class="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
                 <span class="text-[11px] text-slate-400 mt-1 block">0 = Auto assign next</span>
             </div>
 
             <div class="flex items-center gap-3 pt-6">
                 <input asp-for="IsActive" type="checkbox"
-                       class="w-5 h-5 rounded border-slate-300 text-[#00B2EC] focus:ring-[#00B2EC]" />
+                       class="w-5 h-5 rounded border-slate-300 text-th-sky focus:ring-th-sky" />
                 <label asp-for="IsActive" class="text-sm font-semibold text-slate-800 dark:text-slate-200 cursor-pointer">
                     @(SharedLocalizer["CmsIsActive"]?.Value ?? "Active (Visible)")
                 </label>
@@ -123,7 +123,7 @@
 
             <div class="flex items-center gap-3 pt-6">
                 <input asp-for="OpenInNewTab" type="checkbox"
-                       class="w-5 h-5 rounded border-slate-300 text-[#00B2EC] focus:ring-[#00B2EC]" />
+                       class="w-5 h-5 rounded border-slate-300 text-th-sky focus:ring-th-sky" />
                 <label asp-for="OpenInNewTab" class="text-sm font-semibold text-slate-800 dark:text-slate-200 cursor-pointer">
                     @(SharedLocalizer["CmsOpenInNewTab"]?.Value ?? "Open in New Tab")
                 </label>
@@ -137,7 +137,7 @@
                 @(SharedLocalizer["CmsCancel"]?.Value ?? "Cancel")
             </a>
             <button type="submit"
-                    class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02] transition-all">
+                    class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-th-sky to-[#10B981] text-white font-semibold text-sm shadow-lg shadow-th-sky/20 hover:opacity-95 hover:scale-[1.02] transition-all">
                 @(SharedLocalizer["CmsSave"]?.Value ?? "Save Link")
             </button>
         </div>

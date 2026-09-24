@@ -23,7 +23,7 @@
             </p>
         </div>
         <a asp-controller="Testimonial" asp-action="Create" asp-route-brandId="@currentBrandId"
-           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#00B2EC] to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-[#00B2EC]/20 hover:opacity-95 hover:scale-[1.02] self-start sm:self-auto">
+           class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-th-sky to-[#10B981] text-white font-semibold text-sm transition-all shadow-lg shadow-th-sky/20 hover:opacity-95 hover:scale-[1.02] self-start sm:self-auto">
             <span class="material-symbols-outlined text-[20px]">add_comment</span>
             <span>@SharedLocalizer["CmsNewTestimonial"]</span>
         </a>
@@ -39,12 +39,12 @@
 
     <!-- Filters & Search Bar -->
     <form method="get" asp-controller="Testimonial" asp-action="Index"
-          class="bg-white dark:bg-[#0B1728] p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col md:flex-row items-center gap-3">
+          class="bg-th-card dark:bg-th-d-card p-4 rounded-2xl border border-slate-200/80 dark:border-white/10 shadow-sm flex flex-col md:flex-row items-center gap-3">
 
         <!-- Brand Selector Filter -->
         <div class="w-full md:w-64">
             <select name="brandId"
-                    class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-[#0B1728] text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                    class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-th-d-card text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky">
                 <option value="">@SharedLocalizer["CmsAllBrands"]</option>
                 @foreach (var b in brands)
                 {
@@ -58,13 +58,13 @@
         <div class="relative flex-1 w-full">
             <span class="material-symbols-outlined absolute start-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-[20px]">search</span>
             <input type="text" name="q" value="@currentQ" placeholder="@SharedLocalizer["CmsSearchTestimonials"]"
-                   class="w-full ps-10 pe-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]" />
+                   class="w-full ps-10 pe-4 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-white/5 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky" />
         </div>
 
         <!-- Status Filter -->
         <div class="w-full md:w-44">
             <select name="isPublished"
-                    class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-[#0B1728] text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-[#00B2EC]">
+                    class="w-full px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-th-d-card text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-th-sky">
                 <option value="">@SharedLocalizer["CmsAllStatuses"]</option>
                 <option value="true" selected="@(currentIsPublished == true ? "selected" : null)">@SharedLocalizer["CmsPublishedOnly"]</option>
                 <option value="false" selected="@(currentIsPublished == false ? "selected" : null)">@SharedLocalizer["CmsDraftsOnly"]</option>
@@ -90,14 +90,14 @@
     <!-- Testimonials Grid -->
     @if (Model.Items.Count == 0)
     {
-        <div class="bg-white dark:bg-[#0B1728] p-12 text-center rounded-2xl border border-slate-200/80 dark:border-white/10">
-            <div class="w-16 h-16 rounded-2xl bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center mx-auto mb-4">
+        <div class="bg-th-card dark:bg-th-d-card p-12 text-center rounded-2xl border border-slate-200/80 dark:border-white/10">
+            <div class="w-16 h-16 rounded-2xl bg-th-sky/10 text-th-sky flex items-center justify-center mx-auto mb-4">
                 <span class="material-symbols-outlined text-[32px]">reviews</span>
             </div>
             <h3 class="font-poppins font-bold text-lg text-slate-800 dark:text-slate-200">@SharedLocalizer["CmsNoTestimonialsFound"]</h3>
             <p class="text-sm text-slate-500 dark:text-slate-400 mt-1 max-w-sm mx-auto">@SharedLocalizer["CmsNoTestimonialsDesc"]</p>
             <a asp-controller="Testimonial" asp-action="Create" asp-route-brandId="@currentBrandId"
-               class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#00B2EC] text-white text-sm font-semibold hover:opacity-90">
+               class="mt-4 inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-th-sky text-white text-sm font-semibold hover:opacity-90">
                 <span class="material-symbols-outlined text-[18px]">add_comment</span>
                 <span>@SharedLocalizer["CmsNewTestimonial"]</span>
             </a>
@@ -116,7 +116,7 @@
                 var quoteContent = isRtl && !string.IsNullOrWhiteSpace(t.ContentAr) ? t.ContentAr : t.ContentEn;
                 var secondaryQuote = isRtl ? t.ContentEn : t.ContentAr;
 
-                <div class="bg-white dark:bg-[#0B1728] rounded-2xl border border-slate-200/80 dark:border-white/10 overflow-hidden shadow-sm hover:border-[#00B2EC]/40 transition-all flex flex-col justify-between group">
+                <div class="bg-th-card dark:bg-th-d-card rounded-2xl border border-slate-200/80 dark:border-white/10 overflow-hidden shadow-sm hover:border-th-sky/40 transition-all flex flex-col justify-between group">
                     <div class="p-6">
                         <!-- Top Bar: Brand, Stars & Status -->
                         <div class="flex items-center justify-between mb-4">
@@ -177,7 +177,7 @@
                             }
                             else
                             {
-                                <div class="w-11 h-11 rounded-full bg-[#00B2EC]/10 text-[#00B2EC] flex items-center justify-center font-bold text-sm border-2 border-[#00B2EC]/20 shadow-sm">
+                                <div class="w-11 h-11 rounded-full bg-th-sky/10 text-th-sky flex items-center justify-center font-bold text-sm border-2 border-th-sky/20 shadow-sm">
                                     @(displayCustomer.Length > 0 ? displayCustomer[0].ToString().ToUpper() : "U")
                                 </div>
                             }
@@ -218,7 +218,7 @@
 
                             <!-- Edit -->
                             <a asp-controller="Testimonial" asp-action="Edit" asp-route-id="@t.Id"
-                               class="p-1.5 rounded-lg text-slate-400 hover:text-[#00B2EC] hover:bg-[#00B2EC]/10 transition-colors" title="@SharedLocalizer["CmsEditTestimonial"]">
+                               class="p-1.5 rounded-lg text-slate-400 hover:text-th-sky hover:bg-th-sky/10 transition-colors" title="@SharedLocalizer["CmsEditTestimonial"]">
                                 <span class="material-symbols-outlined text-[18px]">edit</span>
                             </a>
 

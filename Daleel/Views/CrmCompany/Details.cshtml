@@ -12,7 +12,7 @@
 <div class="max-w-5xl">
 
     <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-        <a asp-action="Index" class="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors">
+        <a asp-action="Index" class="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-th-sky transition-colors">
             <span class="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_back</span>
             @SharedLocalizer["CrmBackToCompanies"]
         </a>
@@ -36,7 +36,7 @@
     </div>
 
     <!-- Company details -->
-    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6 sm:p-8 mb-6">
+    <div class="bg-th-card dark:bg-th-d-raised rounded-xl border border-slate-200 dark:border-white/10 p-6 sm:p-8 mb-6">
         <div class="flex items-start justify-between gap-4 mb-6">
             <div class="min-w-0">
                 <h2 class="font-poppins font-semibold text-xl text-brand-navy dark:text-white break-words">@Model.Name</h2>
@@ -73,12 +73,12 @@
                         }
                         else if (f.Label == "Email")
                         {
-                            <a href="mailto:@f.Value" class="hover:text-[#00B2EC] transition-colors">@f.Value</a>
+                            <a href="mailto:@f.Value" class="hover:text-th-sky transition-colors">@f.Value</a>
                         }
                         else if (f.Label == "Website")
                         {
                             <a href="@(f.Value!.StartsWith("http") ? f.Value : "https://" + f.Value)" target="_blank" rel="noopener noreferrer"
-                               class="hover:text-[#00B2EC] transition-colors">@f.Value</a>
+                               class="hover:text-th-sky transition-colors">@f.Value</a>
                         }
                         else
                         {
@@ -104,13 +104,13 @@
     </div>
 
     <!-- Contacts at this company -->
-    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden">
+    <div class="bg-th-card dark:bg-th-d-raised rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden">
         <div class="flex items-center justify-between gap-3 px-6 py-4 border-b border-slate-200 dark:border-white/10">
             <h3 class="font-poppins font-semibold text-base text-brand-navy dark:text-white">
                 @SharedLocalizer["CrmContactsAtCompany"] <span class="text-slate-400 font-normal">(@Model.Contacts.Count)</span>
             </h3>
             <a asp-controller="CrmContact" asp-action="Create" asp-route-companyId="@Model.Id"
-               class="inline-flex items-center gap-1.5 text-sm text-[#00B2EC] hover:text-[#0096c7] font-medium transition-colors">
+               class="inline-flex items-center gap-1.5 text-sm text-th-sky hover:text-th-sky-strong font-medium transition-colors">
                 <span class="material-symbols-outlined text-[18px]">add</span>
                 @SharedLocalizer["CrmAddContact"]
             </a>
@@ -140,7 +140,7 @@
                             <tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
                                 <td class="px-6 py-3.5">
                                     <a asp-controller="CrmContact" asp-action="Details" asp-route-id="@contact.Id"
-                                       class="font-medium text-brand-navy dark:text-white hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors">
+                                       class="font-medium text-brand-navy dark:text-white hover:text-th-sky dark:hover:text-th-sky transition-colors">
                                         @contact.FullName
                                     </a>
                                 </td>

@@ -4,11 +4,11 @@
     var isRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
 }
 <div class="page-shell" data-animate="fade-up">
-    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#00B2EC]/10 text-[#00B2EC] text-xs font-semibold mb-6">
+    <span class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-th-sky/10 text-th-sky text-xs font-semibold mb-6">
         <span class="material-symbols-outlined text-[16px]">shield_lock</span>
         @(isRtl ? "الخصوصية" : "Privacy")
     </span>
-    <h1 class="font-['Poppins'] text-4xl sm:text-5xl font-bold text-[#1D3166] dark:text-white mb-6">@(isRtl ? "سياسة الخصوصية" : "Privacy Policy")</h1>
+    <h1 class="font-['Poppins'] text-4xl sm:text-5xl font-bold text-th-navy dark:text-white mb-6">@(isRtl ? "سياسة الخصوصية" : "Privacy Policy")</h1>
     <p class="text-lg leading-relaxed text-slate-600 dark:text-white/70">
         @(isRtl ? "نلتزم بحماية بياناتك واستخدامها فقط لتقديم خدماتنا وتحسينها." : "We are committed to protecting your data and using it only to deliver and improve our services.")
     </p>

@@ -20,7 +20,7 @@
 <div class="max-w-4xl">
 
     <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-        <a asp-action="Index" class="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors">
+        <a asp-action="Index" class="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-th-sky transition-colors">
             <span class="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_back</span>
             @SharedLocalizer["CrmBackToLeads"]
         </a>
@@ -29,7 +29,7 @@
             @if (Model.Status != LeadStatus.Converted && !Model.IsArchived)
             {
                 <a asp-action="Convert" asp-route-id="@Model.Id"
-                   class="inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+                   class="inline-flex items-center gap-2 rounded-lg bg-th-sky hover:bg-th-sky-strong text-white font-semibold text-sm px-4 py-2.5 transition-colors">
                     <span class="material-symbols-outlined text-[20px]">swap_horiz</span>
                     @SharedLocalizer["CrmConvert"]
                 </a>
@@ -97,11 +97,11 @@
         </div>
     }
 
-    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6 sm:p-8">
+    <div class="bg-th-card dark:bg-th-d-raised rounded-xl border border-slate-200 dark:border-white/10 p-6 sm:p-8">
 
         <div class="flex items-start justify-between gap-4 mb-6">
             <div class="flex items-center gap-4 min-w-0">
-                <div class="w-12 h-12 shrink-0 rounded-full bg-[#00B2EC] text-white flex items-center justify-center font-semibold">
+                <div class="w-12 h-12 shrink-0 rounded-full bg-th-sky text-white flex items-center justify-center font-semibold">
                     @(Model.FirstName.Length > 0 ? Model.FirstName.Substring(0, 1).ToUpperInvariant() : "?")
                 </div>
                 <div class="min-w-0">
@@ -129,7 +129,7 @@
                     }
                     else
                     {
-                        <a href="mailto:@Model.Email" class="hover:text-[#00B2EC] transition-colors">@Model.Email</a>
+                        <a href="mailto:@Model.Email" class="hover:text-th-sky transition-colors">@Model.Email</a>
                     }
                 </dd>
             </div>
@@ -143,7 +143,7 @@
                     }
                     else
                     {
-                        <a href="tel:@Model.Phone" class="hover:text-[#00B2EC] transition-colors">@Model.Phone</a>
+                        <a href="tel:@Model.Phone" class="hover:text-th-sky transition-colors">@Model.Phone</a>
                     }
                 </dd>
             </div>

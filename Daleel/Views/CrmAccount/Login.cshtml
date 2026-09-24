@@ -25,8 +25,9 @@
         .validation-summary-valid { display: none; }
         .field-validation-valid { display: none; }
     </style>
+    <partial name="_ThemeStyles" />
 </head>
-<body class="@(isRtl ? "font-cairo" : "font-inter") bg-slate-50 dark:bg-[#0A192F] text-slate-900 dark:text-white min-h-screen flex items-center justify-center px-4 py-10">
+<body class="@(isRtl ? "font-cairo" : "font-inter") bg-slate-50 dark:bg-th-d-bg text-slate-900 dark:text-white min-h-screen flex items-center justify-center px-4 py-10">
 
     <div class="w-full max-w-md">
 
@@ -35,7 +36,7 @@
             <a asp-controller="Language" asp-action="SetLanguage"
                asp-route-culture="@otherLang"
                asp-route-returnUrl="@returnUrl"
-               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] bg-white dark:bg-[#0F2542] shadow-sm transition-colors">
+               class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-white/10 text-xs font-medium text-slate-600 dark:text-slate-300 hover:text-th-sky dark:hover:text-th-sky bg-th-card dark:bg-th-d-raised shadow-sm transition-colors">
                 <span class="material-symbols-outlined text-[16px]">translate</span>
                 @otherLangLabel
             </a>
@@ -54,7 +55,7 @@
             </p>
         </div>
 
-        <div class="bg-white dark:bg-[#0F2542] rounded-2xl shadow-[0_10px_40px_rgba(29,49,102,0.10)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.45)] border border-slate-200 dark:border-white/10 p-6 sm:p-8">
+        <div class="bg-th-card dark:bg-th-d-raised rounded-2xl shadow-[0_10px_40px_rgba(29,49,102,0.10)] dark:shadow-[0_10px_40px_rgba(0,0,0,0.45)] border border-slate-200 dark:border-white/10 p-6 sm:p-8">
 
             <form asp-action="Login" method="post" novalidate>
                 @Html.AntiForgeryToken()
@@ -68,7 +69,7 @@
                     <label asp-for="Email" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"></label>
                     <input asp-for="Email" type="email" autocomplete="username" autofocus
                            placeholder="you@company.com"
-                           class="w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition" />
+                           class="w-full rounded-lg border border-slate-300 dark:border-white/15 bg-th-card dark:bg-th-d-bg px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-th-sky focus:ring-2 focus:ring-th-sky/30 outline-none transition" />
                     <span asp-validation-for="Email" class="mt-1.5 block text-xs text-red-600 dark:text-red-400"></span>
                 </div>
 
@@ -76,18 +77,18 @@
                     <label asp-for="Password" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"></label>
                     <input asp-for="Password" type="password" autocomplete="current-password"
                            placeholder="••••••••"
-                           class="w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition" />
+                           class="w-full rounded-lg border border-slate-300 dark:border-white/15 bg-th-card dark:bg-th-d-bg px-4 py-2.5 text-sm text-slate-900 dark:text-white placeholder:text-slate-400 focus:border-th-sky focus:ring-2 focus:ring-th-sky/30 outline-none transition" />
                     <span asp-validation-for="Password" class="mt-1.5 block text-xs text-red-600 dark:text-red-400"></span>
                 </div>
 
                 <div class="mb-6 flex items-center gap-2">
                     <input asp-for="RememberMe" type="checkbox"
-                           class="rounded border-slate-300 dark:border-white/20 text-[#00B2EC] focus:ring-[#00B2EC]/30" />
+                           class="rounded border-slate-300 dark:border-white/20 text-th-sky focus:ring-th-sky/30" />
                     <label asp-for="RememberMe" class="text-sm text-slate-600 dark:text-slate-300 select-none"></label>
                 </div>
 
                 <button type="submit"
-                        class="w-full rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm py-3 transition-colors focus:outline-none focus:ring-2 focus:ring-[#00B2EC]/40 focus:ring-offset-2 dark:focus:ring-offset-[#0F2542]">
+                        class="w-full rounded-lg bg-th-sky hover:bg-th-sky-strong text-white font-semibold text-sm py-3 transition-colors focus:outline-none focus:ring-2 focus:ring-th-sky/40 focus:ring-offset-2 dark:focus:ring-offset-th-d-raised">
                     @SharedLocalizer["CrmSignInButton"]
                 </button>
             </form>
@@ -95,7 +96,7 @@
 
         <p class="mt-6 text-center text-sm">
             <a asp-controller="Home" asp-action="Index"
-               class="text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors inline-flex items-center gap-1">
+               class="text-slate-500 dark:text-slate-400 hover:text-th-sky transition-colors inline-flex items-center gap-1">
                 <span class="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_back</span>
                 @SharedLocalizer["CrmBackToWebsite"]
             </a>

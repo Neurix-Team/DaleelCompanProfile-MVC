@@ -1,7 +1,9 @@
 @using System.Globalization
 @using Daleel.BAL.Services.Interfaces
 @using Daleel.DAL.Entities
+@using Daleel.Common
 @inject IBrandProfileService BrandService
+@inject IPageSectionService PageSectionService
 @inject INavigationService NavigationService
 @{
     var isRtl = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft;
@@ -12,6 +14,10 @@
     if (string.IsNullOrWhiteSpace(brandSlug)) brandSlug = "daleel";
     var activeBrand = await BrandService.GetBySlugAsync(brandSlug.Trim().ToLowerInvariant()) 
                       ?? await BrandService.GetBySlugAsync("daleel");
+
+    // A palette picked on the CMS Theme page takes over the header accent; the brand
+    // profile's primary colour only applies while the default palette is active.
+    var themeIsDefaultPalette = SiteTheme.FromMap(await PageSectionService.GetPageContentMapAsync(SiteTheme.PageKey)).IsDefaultPalette;
 
     var headerNavLinks = await NavigationService.GetActiveHeaderLinksAsync();
     var footerNavGrouped = await NavigationService.GetActiveFooterLinksGroupedAsync();
@@ -101,7 +107,7 @@
     {
         <style>
             :root {
-                @if (!string.IsNullOrWhiteSpace(activeBrand.PrimaryColor)) { <text>--brand-primary: @activeBrand.PrimaryColor; --daleel-sky: @activeBrand.PrimaryColor;</text> }
+                @if (!string.IsNullOrWhiteSpace(activeBrand.PrimaryColor)) { <text>--brand-primary: @activeBrand.PrimaryColor;</text> if (themeIsDefaultPalette) { <text>--daleel-sky: @activeBrand.PrimaryColor;</text> } }
                 @if (!string.IsNullOrWhiteSpace(activeBrand.SecondaryColor)) { <text>--brand-secondary: @activeBrand.SecondaryColor; --daleel-green: @activeBrand.SecondaryColor;</text> }
                 @if (!string.IsNullOrWhiteSpace(activeBrand.AccentColor)) { <text>--brand-accent: @activeBrand.AccentColor; --daleel-orange: @activeBrand.AccentColor;</text> }
             }
@@ -123,9 +129,10 @@
 
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/site-public.css" asp-append-version="true" />
+    <partial name="_ThemeStyles" />
     <link rel="stylesheet" href="~/Daleel.styles.css" asp-append-version="true" />
 </head>
-<body class="site-public bg-white dark:bg-[#0A192F] font-body-md text-slate-900 dark:text-white transition-colors duration-300">
+<body class="site-public bg-th-card dark:bg-th-d-bg font-body-md text-slate-900 dark:text-white transition-colors duration-300">
     <a href="#main-content" class="skip-link">@(isRtl ? "انتقل إلى المحتوى" : "Skip to content")</a>
     @{
         var currentAction = ViewContext.RouteData.Values["action"]?.ToString() ?? "";
@@ -244,8 +251,8 @@
         @RenderBody()
     </main>
 
-    <footer class="site-footer relative bg-white dark:bg-[#0A192F] overflow-hidden transition-colors duration-300">
-        <div class="w-full h-px bg-gradient-to-r from-transparent via-[#00B2EC]/30 to-transparent"></div>
+    <footer class="site-footer relative bg-th-card dark:bg-th-d-bg overflow-hidden transition-colors duration-300">
+        <div class="w-full h-px bg-gradient-to-r from-transparent via-th-sky/30 to-transparent"></div>
 
         <div class="max-w-[1440px] mx-auto px-6 sm:px-8 pt-16 sm:pt-20 pb-8">
             <div class="grid grid-cols-2 md:grid-cols-12 gap-10 sm:gap-12 mb-16 text-start">
@@ -267,7 +274,7 @@
                         @if (!string.IsNullOrWhiteSpace(activeBrand?.Address))
                         {
                             <div class="flex items-start gap-2">
-                                <span class="material-symbols-outlined text-[16px] text-[#00B2EC] shrink-0 mt-0.5">location_on</span>
+                                <span class="material-symbols-outlined text-[16px] text-th-sky shrink-0 mt-0.5">location_on</span>
                                 <div>
                                     <span>@activeBrand.Address</span>
                                 </div>
@@ -276,7 +283,7 @@
                         else
                         {
                             <div class="flex items-start gap-2">
-                                <span class="material-symbols-outlined text-[16px] text-[#00B2EC] shrink-0 mt-0.5">location_on</span>
+                                <span class="material-symbols-outlined text-[16px] text-th-sky shrink-0 mt-0.5">location_on</span>
                                 <div>
                                     <strong class="text-brand-navy/80 dark:text-white/80">@(isRtl ? "مكتب الولايات المتحدة:" : "USA Office:")</strong><br />
                                     <span>@(isRtl ? "262 طريق تشابمان، جناح 240، نيوارك، مقاطعة نيو كاسل، ديلاوير، الولايات المتحدة" : "262 Chapman Rd, Ste 240, Newark, New Castle County, Delaware, USA")</span>
@@ -286,48 +293,48 @@
                         @if (!string.IsNullOrWhiteSpace(activeBrand?.Phone))
                         {
                             <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-[16px] text-[#00B2EC] shrink-0">call</span>
+                                <span class="material-symbols-outlined text-[16px] text-th-sky shrink-0">call</span>
                                 <a href="tel:@activeBrand.Phone" class="hover:underline">@activeBrand.Phone</a>
                             </div>
                         }
                         else
                         {
                             <div class="flex items-center gap-2">
-                                <span class="material-symbols-outlined text-[16px] text-[#00B2EC] shrink-0">call</span>
+                                <span class="material-symbols-outlined text-[16px] text-th-sky shrink-0">call</span>
                                 <span>+1 (302) 602 4695</span>
                             </div>
                         }
                     </div>
                     <div class="flex flex-wrap gap-2.5">
                         <a href="mailto:@(!string.IsNullOrWhiteSpace(activeBrand?.Email) ? activeBrand.Email : "info@aidaleel.com")"
-                            class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-[#00B2EC] hover:border-[#00B2EC]/30 hover:bg-[#00B2EC]/5 dark:hover:text-[#00B2EC] transition-all duration-300" title="Email Us">
+                            class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-th-sky hover:border-th-sky/30 hover:bg-th-sky/5 dark:hover:text-th-sky transition-all duration-300" title="Email Us">
                             <span class="material-symbols-outlined text-[17px]">mail</span>
                         </a>
                         @if (!string.IsNullOrWhiteSpace(activeBrand?.LinkedInUrl))
                         {
                             <a href="@activeBrand.LinkedInUrl" target="_blank" rel="noopener noreferrer"
-                                class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-[#00B2EC] hover:border-[#00B2EC]/30 hover:bg-[#00B2EC]/5 dark:hover:text-[#00B2EC] transition-all duration-300" title="LinkedIn">
+                                class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-th-sky hover:border-th-sky/30 hover:bg-th-sky/5 dark:hover:text-th-sky transition-all duration-300" title="LinkedIn">
                                 <span class="font-bold text-xs">in</span>
                             </a>
                         }
                         @if (!string.IsNullOrWhiteSpace(activeBrand?.TwitterUrl))
                         {
                             <a href="@activeBrand.TwitterUrl" target="_blank" rel="noopener noreferrer"
-                                class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-[#00B2EC] hover:border-[#00B2EC]/30 hover:bg-[#00B2EC]/5 dark:hover:text-[#00B2EC] transition-all duration-300" title="Twitter / X">
+                                class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-th-sky hover:border-th-sky/30 hover:bg-th-sky/5 dark:hover:text-th-sky transition-all duration-300" title="Twitter / X">
                                 <span class="font-bold text-xs">𝕏</span>
                             </a>
                         }
                         @if (!string.IsNullOrWhiteSpace(activeBrand?.FacebookUrl))
                         {
                             <a href="@activeBrand.FacebookUrl" target="_blank" rel="noopener noreferrer"
-                                class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-[#00B2EC] hover:border-[#00B2EC]/30 hover:bg-[#00B2EC]/5 dark:hover:text-[#00B2EC] transition-all duration-300" title="Facebook">
+                                class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-th-sky hover:border-th-sky/30 hover:bg-th-sky/5 dark:hover:text-th-sky transition-all duration-300" title="Facebook">
                                 <span class="font-bold text-xs">f</span>
                             </a>
                         }
                         @if (!string.IsNullOrWhiteSpace(activeBrand?.InstagramUrl))
                         {
                             <a href="@activeBrand.InstagramUrl" target="_blank" rel="noopener noreferrer"
-                                class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-[#00B2EC] hover:border-[#00B2EC]/30 hover:bg-[#00B2EC]/5 dark:hover:text-[#00B2EC] transition-all duration-300" title="Instagram">
+                                class="w-9 h-9 rounded-xl bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 flex items-center justify-center text-brand-navy/60 dark:text-white/60 hover:text-th-sky hover:border-th-sky/30 hover:bg-th-sky/5 dark:hover:text-th-sky transition-all duration-300" title="Instagram">
                                 <span class="material-symbols-outlined text-[17px]">photo_camera</span>
                             </a>
                         }
@@ -347,7 +354,7 @@
                                     <a href="@link.Url"
                                        target="@(link.OpenInNewTab ? "_blank" : null)"
                                        rel="@(link.OpenInNewTab ? "noopener noreferrer" : null)"
-                                       class="text-brand-navy/60 dark:text-white/50 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors duration-200">
+                                       class="text-brand-navy/60 dark:text-white/50 hover:text-th-sky dark:hover:text-th-sky transition-colors duration-200">
                                         @(isRtl ? link.LabelAr : link.LabelEn)
                                     </a>
                                 </li>
@@ -373,7 +380,7 @@
                                 <a href="@link.Url"
                                    target="@(link.OpenInNewTab ? "_blank" : null)"
                                    rel="@(link.OpenInNewTab ? "noopener noreferrer" : null)"
-                                   class="text-brand-navy/60 dark:text-white/50 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors duration-200">
+                                   class="text-brand-navy/60 dark:text-white/50 hover:text-th-sky dark:hover:text-th-sky transition-colors duration-200">
                                     @(isRtl ? link.LabelAr : link.LabelEn)
                                 </a>
                             </li>
@@ -395,7 +402,7 @@
                                     <a href="@link.Url"
                                        target="@(link.OpenInNewTab ? "_blank" : null)"
                                        rel="@(link.OpenInNewTab ? "noopener noreferrer" : null)"
-                                       class="text-brand-navy/60 dark:text-white/50 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors duration-200">
+                                       class="text-brand-navy/60 dark:text-white/50 hover:text-th-sky dark:hover:text-th-sky transition-colors duration-200">
                                         @(isRtl ? link.LabelAr : link.LabelEn)
                                     </a>
                                 </li>
@@ -408,9 +415,9 @@
                     </div>
                     <form id="newsletter-form" class="flex gap-2">
                         <input id="newsletter-email" type="email" required placeholder="@SharedLocalizer["EnterYourEmail"]"
-                            class="flex-1 bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-brand-navy dark:text-white placeholder:text-brand-navy/50 dark:placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-[#00B2EC]/40 focus:border-[#00B2EC]/40 font-['Inter'] transition-all" />
+                            class="flex-1 bg-brand-navy/5 dark:bg-white/5 border border-brand-navy/10 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-brand-navy dark:text-white placeholder:text-brand-navy/50 dark:placeholder:text-white/30 focus:outline-none focus:ring-2 focus:ring-th-sky/40 focus:border-th-sky/40 font-['Inter'] transition-all" />
                         <button id="newsletter-button" type="submit"
-                            class="bg-[#00B2EC] text-white px-5 py-3 rounded-xl font-['Inter'] font-semibold text-sm hover:shadow-lg hover:shadow-[#00B2EC]/20 active:scale-95 transition-all duration-200 shrink-0">
+                            class="bg-th-sky text-white px-5 py-3 rounded-xl font-['Inter'] font-semibold text-sm hover:shadow-lg hover:shadow-th-sky/20 active:scale-95 transition-all duration-200 shrink-0">
                             @SharedLocalizer["Subscribe"]
                         </button>
                     </form>
@@ -500,7 +507,7 @@
             const successMsg = document.getElementById('newsletter-success');
             
             // Change button color to green
-            button.classList.remove('bg-[#00B2EC]', 'hover:shadow-[#00B2EC]/20');
+            button.classList.remove('bg-th-sky', 'hover:shadow-th-sky/20');
             button.classList.add('bg-[#10B981]', 'hover:shadow-[#10B981]/20');
             
             // Show success message
@@ -512,7 +519,7 @@
             // Revert after 5 seconds
             setTimeout(() => {
                 successMsg.classList.add('hidden');
-                button.classList.add('bg-[#00B2EC]', 'hover:shadow-[#00B2EC]/20');
+                button.classList.add('bg-th-sky', 'hover:shadow-th-sky/20');
                 button.classList.remove('bg-[#10B981]', 'hover:shadow-[#10B981]/20');
             }, 5000);
         });

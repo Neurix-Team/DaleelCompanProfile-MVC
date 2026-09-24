@@ -12,7 +12,7 @@
 <div class="max-w-4xl">
 
     <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
-        <a asp-action="Index" class="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors">
+        <a asp-action="Index" class="inline-flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400 hover:text-th-sky transition-colors">
             <span class="material-symbols-outlined text-[18px] rtl:rotate-180">arrow_back</span>
             @SharedLocalizer["CrmBackToDeals"]
         </a>
@@ -35,12 +35,12 @@
         </div>
     </div>
 
-    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6 sm:p-8 mb-6">
+    <div class="bg-th-card dark:bg-th-d-raised rounded-xl border border-slate-200 dark:border-white/10 p-6 sm:p-8 mb-6">
 
         <div class="flex flex-wrap items-start justify-between gap-4 mb-6">
             <div class="min-w-0">
                 <h2 class="font-poppins font-semibold text-xl text-brand-navy dark:text-white break-words">@Model.Name</h2>
-                <p class="mt-2 font-poppins font-semibold text-2xl text-[#00B2EC]">
+                <p class="mt-2 font-poppins font-semibold text-2xl text-th-sky">
                     @Model.Value.ToString("N2") <span class="text-base text-slate-400">@Model.Currency</span>
                 </p>
             </div>
@@ -67,7 +67,7 @@
                     @foreach (var s in openStages)
                     {
                         var reached = Array.IndexOf(openStages, s) <= currentIndex;
-                        <div class="h-1.5 flex-1 rounded-full @(reached ? "bg-[#00B2EC]" : "bg-slate-200 dark:bg-white/10")"
+                        <div class="h-1.5 flex-1 rounded-full @(reached ? "bg-th-sky" : "bg-slate-200 dark:bg-white/10")"
                              title="@s"></div>
                     }
                 }
@@ -95,7 +95,7 @@
                     else
                     {
                         <a asp-controller="CrmCompany" asp-action="Details" asp-route-id="@Model.Company.Id"
-                           class="inline-flex items-center gap-1.5 hover:text-[#00B2EC] transition-colors">
+                           class="inline-flex items-center gap-1.5 hover:text-th-sky transition-colors">
                             <span class="material-symbols-outlined text-[18px]">apartment</span>
                             @Model.Company.Name
                         </a>
@@ -113,7 +113,7 @@
                     else
                     {
                         <a asp-controller="CrmContact" asp-action="Details" asp-route-id="@Model.PrimaryContact.Id"
-                           class="inline-flex items-center gap-1.5 hover:text-[#00B2EC] transition-colors">
+                           class="inline-flex items-center gap-1.5 hover:text-th-sky transition-colors">
                             <span class="material-symbols-outlined text-[18px]">person</span>
                             @Model.PrimaryContact.FullName
                         </a>
@@ -169,7 +169,7 @@
     </div>
 
     <!-- Quick stage change -->
-    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-6">
+    <div class="bg-th-card dark:bg-th-d-raised rounded-xl border border-slate-200 dark:border-white/10 p-6">
         <h3 class="font-poppins font-semibold text-base text-brand-navy dark:text-white mb-4">@SharedLocalizer["CrmMoveToStage"]</h3>
         <div class="flex flex-wrap gap-2">
             @foreach (var s in Enum.GetValues<DealStage>())
@@ -183,7 +183,7 @@
                     <input type="hidden" name="stage" value="@s" />
                     <input type="hidden" name="returnUrl" value="@Url.Action("Details", new { id = Model.Id })" />
                     <button type="submit"
-                            class="rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/5 hover:border-[#00B2EC] transition-colors">
+                            class="rounded-lg border border-slate-300 dark:border-white/15 text-sm px-4 py-2 hover:bg-slate-100 dark:hover:bg-white/5 hover:border-th-sky transition-colors">
                         @SharedLocalizer[$"CrmDealStage_{s}"]
                     </button>
                 </form>

@@ -11,7 +11,7 @@
     var userOptions = ViewData["AssignedToOptions"] as IEnumerable<SelectListItem> ?? Enumerable.Empty<SelectListItem>();
     var returnUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString;
 
-    var inputClass = "w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-[#0A192F] px-4 py-2.5 text-sm focus:border-[#00B2EC] focus:ring-2 focus:ring-[#00B2EC]/30 outline-none transition";
+    var inputClass = "w-full rounded-lg border border-slate-300 dark:border-white/15 bg-white dark:bg-th-d-bg px-4 py-2.5 text-sm focus:border-th-sky focus:ring-2 focus:ring-th-sky/30 outline-none transition";
     var hasFilters = !string.IsNullOrWhiteSpace(q) || status.HasValue || !string.IsNullOrWhiteSpace(assignedToId) || overdueOnly;
 
     string PriorityBadge(TaskPriority p) => p switch
@@ -42,7 +42,7 @@
         @Model.TotalCount @(Model.TotalCount == 1 ? SharedLocalizer["CrmTasks"].Value : SharedLocalizer["CrmTasks"].Value)
     </p>
     <a asp-action="Create"
-       class="inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+       class="inline-flex items-center gap-2 rounded-lg bg-th-sky hover:bg-th-sky-strong text-white font-semibold text-sm px-4 py-2.5 transition-colors">
         <span class="material-symbols-outlined text-[20px]">add</span>
         @SharedLocalizer["CrmNewTask"]
     </a>
@@ -80,7 +80,7 @@
     <div class="sm:col-span-2 lg:col-span-4 flex flex-wrap items-center gap-3">
         <label class="inline-flex items-center gap-2 text-sm text-slate-600 dark:text-slate-300 select-none">
             <input type="checkbox" name="overdueOnly" value="true" checked="@overdueOnly"
-                   class="rounded border-slate-300 dark:border-white/20 text-[#00B2EC] focus:ring-[#00B2EC]/30" />
+                   class="rounded border-slate-300 dark:border-white/20 text-th-sky focus:ring-th-sky/30" />
             @SharedLocalizer["CrmOverdueOnly"]
         </label>
 
@@ -91,7 +91,7 @@
 
         @if (hasFilters)
         {
-            <a asp-action="Index" class="rounded-lg px-4 py-2.5 text-sm text-slate-500 dark:text-slate-400 hover:text-[#00B2EC] transition-colors">
+            <a asp-action="Index" class="rounded-lg px-4 py-2.5 text-sm text-slate-500 dark:text-slate-400 hover:text-th-sky transition-colors">
                 @SharedLocalizer["CrmClear"]
             </a>
         }
@@ -100,7 +100,7 @@
 
 @if (!Model.Items.Any())
 {
-    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 p-10 text-center">
+    <div class="bg-th-card dark:bg-th-d-raised rounded-xl border border-slate-200 dark:border-white/10 p-10 text-center">
         <div class="w-14 h-14 mx-auto rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center">
             <span class="material-symbols-outlined text-slate-400 text-[28px]">task_alt</span>
         </div>
@@ -114,7 +114,7 @@
             <h3 class="mt-5 font-poppins font-semibold text-lg text-brand-navy dark:text-white">@SharedLocalizer["CrmNoTasksYet"]</h3>
             <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">@SharedLocalizer["CrmNoTasksYetDesc"]</p>
             <a asp-action="Create"
-               class="mt-5 inline-flex items-center gap-2 rounded-lg bg-[#00B2EC] hover:bg-[#0096c7] text-white font-semibold text-sm px-4 py-2.5 transition-colors">
+               class="mt-5 inline-flex items-center gap-2 rounded-lg bg-th-sky hover:bg-th-sky-strong text-white font-semibold text-sm px-4 py-2.5 transition-colors">
                 <span class="material-symbols-outlined text-[20px]">add</span>
                 @SharedLocalizer["CrmNewTask"]
             </a>
@@ -123,7 +123,7 @@
 }
 else
 {
-    <div class="bg-white dark:bg-[#0F2542] rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden">
+    <div class="bg-th-card dark:bg-th-d-raised rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="w-full text-sm">
                 <thead class="bg-slate-50 dark:bg-white/5 text-slate-500 dark:text-slate-400">
@@ -146,7 +146,7 @@ else
                         <tr class="hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
                             <td class="px-5 py-3.5">
                                 <a asp-action="Edit" asp-route-id="@t.Id"
-                                   class="font-medium transition-colors @(done ? "line-through text-slate-400" : "text-brand-navy dark:text-white hover:text-[#00B2EC] dark:hover:text-[#00B2EC]")">
+                                   class="font-medium transition-colors @(done ? "line-through text-slate-400" : "text-brand-navy dark:text-white hover:text-th-sky dark:hover:text-th-sky")">
                                     @t.Title
                                 </a>
                             </td>
@@ -154,7 +154,7 @@ else
                                 @if (t.EntityType.HasValue && t.EntityId.HasValue && !string.IsNullOrWhiteSpace(t.EntityLabel))
                                 {
                                     <a asp-controller="@EntityController(t.EntityType.Value)" asp-action="Details" asp-route-id="@t.EntityId"
-                                       class="text-slate-600 dark:text-slate-300 hover:text-[#00B2EC] dark:hover:text-[#00B2EC] transition-colors">
+                                       class="text-slate-600 dark:text-slate-300 hover:text-th-sky dark:hover:text-th-sky transition-colors">
                                         @t.EntityLabel
                                     </a>
                                     <span class="block text-xs text-slate-400">@SharedLocalizer[$"CrmEntityType_{t.EntityType}"]</span>
@@ -204,7 +204,7 @@ else
                                         </button>
                                     </form>
                                     <a asp-action="Edit" asp-route-id="@t.Id" title="@SharedLocalizer["CrmEdit"]"
-                                       class="p-2 rounded-lg text-slate-500 hover:text-[#00B2EC] hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
+                                       class="p-2 rounded-lg text-slate-500 hover:text-th-sky hover:bg-slate-100 dark:hover:bg-white/5 transition-colors">
                                         <span class="material-symbols-outlined text-[20px]">edit</span>
                                     </a>
                                     <form asp-action="Delete" asp-route-id="@t.Id" method="post" class="inline"

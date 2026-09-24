@@ -4,7 +4,7 @@
    ═══════════════════════════════════════════════════════════════ */
 .site-public {
   --header-h: 64px;
-  --hdr-accent: var(--daleel-sky, #00B2EC);
+  --hdr-accent: var(--daleel-sky, rgb(var(--th-sky)));
   --hdr-accent-2: var(--daleel-green, #10B981);
   --hdr-ink: #0F1E3D;
   --hdr-muted: #52607A;
@@ -22,10 +22,10 @@
 }
 
 html.dark .site-public {
-  --hdr-accent: #33C4F2;
+  --hdr-accent: color-mix(in srgb, rgb(var(--th-sky)) 80%, white);
   --hdr-ink: #F1F5FB;
   --hdr-muted: #9AA8C1;
-  --hdr-surface: rgba(10, 25, 47, 0.8);
+  --hdr-surface: rgb(var(--th-d-bg) / 0.8);
   --hdr-surface-solid: rgba(13, 30, 56, 0.94);
   --hdr-line: rgba(255, 255, 255, 0.08);
   --hdr-chip: rgba(255, 255, 255, 0.05);
@@ -285,8 +285,8 @@ html.dark .site-nav__indicator {
   white-space: nowrap;
   color: #fff !important;
   text-decoration: none !important;
-  background: linear-gradient(135deg, #00B2EC 0%, #0A8FD1 100%);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset, 0 8px 20px -8px rgba(0, 178, 236, 0.8);
+  background: linear-gradient(135deg, rgb(var(--th-sky)) 0%, rgb(var(--th-sky-deep)) 100%);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset, 0 8px 20px -8px rgb(var(--th-sky) / 0.8);
   transition: transform 0.25s var(--ease-out), box-shadow 0.25s ease;
 }
 
@@ -306,7 +306,7 @@ html.dark .site-nav__indicator {
 
 .hdr-cta:hover {
   transform: translateY(-1px);
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset, 0 14px 28px -10px rgba(0, 178, 236, 0.9);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.25) inset, 0 14px 28px -10px rgb(var(--th-sky) / 0.9);
 }
 
 .hdr-cta:hover::before { transform: translateX(120%); }
@@ -467,7 +467,7 @@ html.dark .site-nav__indicator {
   border-radius: 2px;
   transform-origin: left;
   transform: scaleX(0);
-  background: linear-gradient(90deg, #00B2EC, #10B981, #F9A01B);
+  background: linear-gradient(90deg, rgb(var(--th-sky)), #10B981, #F9A01B);
 }
 
 [dir="rtl"] .scroll-progress span { transform-origin: right; }
@@ -519,7 +519,7 @@ html.dark .site-nav__indicator {
    MOTION & POLISH
    ═══════════════════════════════════════════════════════════════ */
 .site-public ::selection {
-  background: rgba(0, 178, 236, 0.22);
+  background: rgb(var(--th-sky) / 0.22);
 }
 
 /* Additional reveal type */
@@ -542,8 +542,8 @@ html.dark .site-nav__indicator {
     translate: 0 -4px;
   }
   .site-main .glass-card:hover {
-    box-shadow: 0 22px 44px -18px rgba(0, 178, 236, 0.3);
-    border-color: rgba(0, 178, 236, 0.3);
+    box-shadow: 0 22px 44px -18px rgb(var(--th-sky) / 0.3);
+    border-color: rgb(var(--th-sky) / 0.3);
   }
 }
 
@@ -562,7 +562,7 @@ html.dark .site-nav__indicator {
   border-radius: inherit;
   pointer-events: none;
   opacity: 0;
-  background: radial-gradient(420px circle at var(--mx) var(--my), rgba(0, 178, 236, 0.09), transparent 45%);
+  background: radial-gradient(420px circle at var(--mx) var(--my), rgb(var(--th-sky) / 0.09), transparent 45%);
   transition: opacity 0.5s ease;
 }
 
@@ -580,7 +580,7 @@ html.dark .fx-card::after {
   padding: 1px;
   pointer-events: none;
   opacity: 0;
-  background: radial-gradient(260px circle at var(--mx) var(--my), rgba(0, 178, 236, 0.55), transparent 60%);
+  background: radial-gradient(260px circle at var(--mx) var(--my), rgb(var(--th-sky) / 0.55), transparent 60%);
   -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
@@ -641,12 +641,12 @@ html.hdr-seen .logo-shine::after { animation: none; }
 }
 
 .site-header__logo {
-  filter: drop-shadow(0 0 0 rgba(0, 178, 236, 0));
+  filter: drop-shadow(0 0 0 rgb(var(--th-sky) / 0));
   transition: height 0.45s var(--ease-out), transform 0.4s var(--ease-out), filter 0.4s ease;
 }
 
 .site-header__brand:hover .site-header__logo {
-  filter: drop-shadow(0 4px 14px rgba(0, 178, 236, 0.28));
+  filter: drop-shadow(0 4px 14px rgb(var(--th-sky) / 0.28));
 }
 
 /* Footer logo: gentle float on hover */
@@ -656,7 +656,7 @@ html.hdr-seen .logo-shine::after { animation: none; }
 
 .site-footer img[width="150"]:hover {
   transform: translateY(-2px);
-  filter: drop-shadow(0 6px 16px rgba(0, 178, 236, 0.22));
+  filter: drop-shadow(0 6px 16px rgb(var(--th-sky) / 0.22));
 }
 
 /* Buttons get a tactile press */
@@ -734,7 +734,7 @@ html.hdr-seen .logo-shine::after { animation: none; }
 
 .to-top:hover {
   color: var(--hdr-accent);
-  border-color: rgba(0, 178, 236, 0.4);
+  border-color: rgb(var(--th-sky) / 0.4);
   transform: translateY(-3px);
 }
 
@@ -743,8 +743,8 @@ html.hdr-seen .logo-shine::after { animation: none; }
   margin-top: 12px;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid rgba(0, 178, 236, 0.25);
-  background: linear-gradient(135deg, rgba(0, 178, 236, 0.08), rgba(16, 185, 129, 0.06));
+  border: 1px solid rgb(var(--th-sky) / 0.25);
+  background: linear-gradient(135deg, rgb(var(--th-sky) / 0.08), rgba(16, 185, 129, 0.06));
   animation: nav-card-in 0.45s var(--ease-out) both;
 }
 
@@ -770,8 +770,8 @@ html.hdr-seen .logo-shine::after { animation: none; }
   border-radius: 10px;
   font-size: 18px !important;
   color: #fff;
-  background: linear-gradient(135deg, #00B2EC, #0A8FD1);
-  box-shadow: 0 6px 14px -6px rgba(0, 178, 236, 0.8);
+  background: linear-gradient(135deg, rgb(var(--th-sky)), rgb(var(--th-sky-deep)));
+  box-shadow: 0 6px 14px -6px rgb(var(--th-sky) / 0.8);
 }
 
 [dir="rtl"] .dalily-nav-card__icon { transform: scaleX(-1); }
@@ -796,11 +796,11 @@ html.dark .dalily-nav-card__text strong { color: #F1F5FB; }
   font-size: 12px;
   font-weight: 600;
   color: #fff;
-  background: #00B2EC;
+  background: rgb(var(--th-sky));
   transition: background-color 0.2s, transform 0.2s var(--ease-out);
 }
 
-.dalily-nav-card__go:hover { background: #0A8FD1; }
+.dalily-nav-card__go:hover { background: rgb(var(--th-sky-deep)); }
 .dalily-nav-card__go:active { transform: scale(0.95); }
 
 .dalily-nav-card__cancel {
@@ -821,14 +821,14 @@ html.dark .dalily-nav-card__cancel:hover { background: rgba(255, 255, 255, 0.08)
 
 .dalily-nav-card__bar {
   height: 3px;
-  background: rgba(0, 178, 236, 0.12);
+  background: rgb(var(--th-sky) / 0.12);
 }
 
 .dalily-nav-card__bar span {
   display: block;
   height: 100%;
   transform-origin: left;
-  background: linear-gradient(90deg, #00B2EC, #10B981);
+  background: linear-gradient(90deg, rgb(var(--th-sky)), #10B981);
   animation: nav-card-progress linear forwards;
 }
 
